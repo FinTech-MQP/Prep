@@ -5,16 +5,16 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",  // Changed from "bundler" to "node"
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Linting */
+    "baseUrl": ".",  // Set base URL
+    "paths": {
+      "*": ["node_modules/*", "../node_modules/*"]  // Adjust the paths
+    },
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
