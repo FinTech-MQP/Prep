@@ -22,7 +22,7 @@ const styles = {
     width: "1400px",
     height: "90%",
     zIndex: 3,
-    overflow: "auto",
+    overflow: "hidden",
     padding: "10px",
 
     "@media (max-width: 1400px)": {
@@ -31,6 +31,8 @@ const styles = {
   },
   inspectClose: {
     position: "absolute",
+    left: "40px",
+    top: "15px",
   },
   inspectContent: {
     width: "100%",
@@ -48,7 +50,7 @@ const styles = {
   info: {
     height: "100%",
     overflowY: "auto",
-    padding: "0 6% 0 0",
+    padding: "0 40px 0 40px",
     boxSizing: "border-box",
   },
   title: {
@@ -81,7 +83,10 @@ const styles = {
     display: "flex",
     flexWrap: "wrap",
   },
-  img: {},
+  imagesContainer: {
+    height: "100%",
+    padding: "10px 0 10px 40px",
+  },
 };
 
 interface InspectProps {
@@ -99,7 +104,9 @@ const Inspect = ({ close }: InspectProps) => {
         </WillowButton_Browse>
         <Box sx={styles.inspectContent}>
           <Box sx={styles.inspectContentContainer}>
-            <Box></Box>
+            <Box sx={styles.imagesContainer}>
+              <ImageGrid images={user.currListing && user.currListing.images} />
+            </Box>
           </Box>
           <Box sx={styles.inspectContentContainer}>
             {user.currListing && (

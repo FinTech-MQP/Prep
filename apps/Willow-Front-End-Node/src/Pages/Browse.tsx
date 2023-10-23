@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import GitHubLabel from "../components/GitHubLabel";
-import { Box, Button, ButtonProps } from "@mui/material";
+import { Box, Button, ButtonProps, CircularProgress } from "@mui/material";
 import styled from "@emotion/styled";
 import { SECONDARY_COLOR, WILLOW_COLOR } from "../utils/constants";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -13,6 +13,13 @@ import Card from "../components/Card";
 import Inspect from "../components/Inspect";
 
 const styles = {
+  loadingBox: {
+    width: "100%",
+    height: "calc(100% - 200px)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   mainContainer: {
     width: "100%",
     height: "100%",
@@ -325,6 +332,7 @@ const Browse = () => {
   const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
   const [listings, setListings] = useState<Listing[]>();
   const [appliedFilters, setAppliedFilters] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [segregatedFilters, setSegregatedFilters] = useState<
     Record<string, string[]>
   >({
@@ -336,8 +344,10 @@ const Browse = () => {
   });
 
   useEffect(() => {
+    setIsLoading(true);
     loadListings().then((result) => {
       setListings(result);
+      setIsLoading(false);
     });
   }, []);
 
@@ -439,12 +449,18 @@ const Browse = () => {
           </Box>
         </FilterBox>
         <CardBox open={filtersOpen}>
-          <Box sx={styles.cards}>
-            {filteredListings &&
-              filteredListings.map((listing, index) => (
-                <Card key={index} listing={listing} />
-              ))}
-          </Box>
+          {isLoading ? (
+            <Box sx={styles.loadingBox}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <Box sx={styles.cards}>
+              {filteredListings &&
+                filteredListings.map((listing, index) => (
+                  <Card key={index} listing={listing} />
+                ))}
+            </Box>
+          )}
         </CardBox>
       </Box>
     </Box>
