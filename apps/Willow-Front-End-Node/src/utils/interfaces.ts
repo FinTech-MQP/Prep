@@ -16,4 +16,5 @@ export interface Listing {
   address: string | null;
   parcelID: string | null;
   images: string[] | null;
+  labels: string[] | null;
 }

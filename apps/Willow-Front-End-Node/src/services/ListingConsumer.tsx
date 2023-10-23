@@ -16,6 +16,7 @@ export default class ListingConsumer {
             address: "890 Ocean Ave, Beachtown, BT 89012",
             parcelID: "PA890123",
             images: [beach1, beach2, beach3],
+            labels: ["Waterfront", "Residential", "Flat", "Clear Title"],
           },
           {
             name: "Desert Oasis",
@@ -23,6 +24,7 @@ export default class ListingConsumer {
             address: "234 Sandy Blvd, Desertia, DS 23456",
             parcelID: "PA234567",
             images: null,
+            labels: ["Desert", "Recreational", "Hilly", "Clear Title"],
           },
           {
             name: "Forest Hideaway",
@@ -30,6 +32,7 @@ export default class ListingConsumer {
             address: "123 Timber Rd, Woodland, WL 12378",
             parcelID: "PA123789",
             images: null,
+            labels: ["Wooded", "Residential", "Hilly", "Clear Title"],
           },
           {
             name: "Golden Vineyard",
@@ -37,6 +40,7 @@ export default class ListingConsumer {
             address: "567 Grape Ln, Vineland, VL 56702",
             parcelID: "PA567902",
             images: null,
+            labels: ["Fertile", "Agricultural", "Flat", "Clear Title"],
           },
           {
             name: "Green Acres",
@@ -44,6 +48,7 @@ export default class ListingConsumer {
             address: "123 Meadow Lane, Countryside, CS 12345",
             parcelID: "PA123456",
             images: null,
+            labels: ["Agricultural", "Flat", "Clear Title"],
           },
           {
             name: "Island Getaway",
@@ -51,6 +56,7 @@ export default class ListingConsumer {
             address: "101 Paradise Dr, Islandia, ID 10112",
             parcelID: "PA101112",
             images: null,
+            labels: ["Waterfront", "Recreational", "Hilly", "Permitted"],
           },
           {
             name: "Lakeside Retreat",
@@ -58,6 +64,7 @@ export default class ListingConsumer {
             address: "789 Lake Rd, Lakeville, LV 67890",
             parcelID: "PA789012",
             images: null,
+            labels: ["Waterfront", "Residential", "Flat", "Clear Title"],
           },
           {
             name: "Mountain Top",
@@ -65,6 +72,7 @@ export default class ListingConsumer {
             address: "456 Mountain Dr, Highpeak, HP 45678",
             parcelID: "PA345678",
             images: null,
+            labels: ["Mountainous", "Recreational", "Clear Title"],
           },
           {
             name: "Mystic Marsh",
@@ -72,6 +80,7 @@ export default class ListingConsumer {
             address: "345 Marsh Ln, Wetlands, WL 34567",
             parcelID: "PA345901",
             images: null,
+            labels: ["Wetlands", "Conservation", "Flat", "Easements"],
           },
           {
             name: "Null",
@@ -79,6 +88,7 @@ export default class ListingConsumer {
             address: "Null",
             parcelID: "PA901234",
             images: null,
+            labels: [], // Empty or hidden due to being undisclosed
           },
           {
             name: "Polar Retreat",
@@ -86,6 +96,7 @@ export default class ListingConsumer {
             address: "890 Iceberg Ave, Frostville, FV 89034",
             parcelID: "PA890567",
             images: null,
+            labels: ["Recreational", "Flat", "Clear Title"],
           },
           {
             name: "Riverside Ranch",
@@ -93,6 +104,7 @@ export default class ListingConsumer {
             address: "789 River Rd, Rivertown, RT 78901",
             parcelID: "PA789345",
             images: null,
+            labels: ["Waterfront", "Agricultural", "Hilly", "Clear Title"],
           },
           {
             name: "Sunny Suburb",
@@ -100,6 +112,7 @@ export default class ListingConsumer {
             address: "234 Suburb St, Pleasantville, PV 23409",
             parcelID: "PA234908",
             images: null,
+            labels: ["Residential", "Flat", "Clear Title"],
           },
           {
             name: "Urban Loft",
@@ -107,6 +120,7 @@ export default class ListingConsumer {
             address: "567 Metro St, Urbancity, UC 56789",
             parcelID: "PA567890",
             images: null,
+            labels: ["Commercial", "Flat", "Clear Title"],
           },
         ];
 

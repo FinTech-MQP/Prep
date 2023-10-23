@@ -121,9 +121,15 @@ interface GitHubLabelProps {
   title: string;
   desc: string;
   labels: LabelType[];
+  onClick?: (selectedLabels: LabelType[]) => void;
 }
 
-export default function GitHubLabel({ title, desc, labels }: GitHubLabelProps) {
+export default function GitHubLabel({
+  title,
+  desc,
+  labels,
+  onClick,
+}: GitHubLabelProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [value, setValue] = React.useState<LabelType[]>([]);
   const [pendingValue, setPendingValue] = React.useState<LabelType[]>([]);
@@ -136,6 +142,9 @@ export default function GitHubLabel({ title, desc, labels }: GitHubLabelProps) {
 
   const handleClose = () => {
     setValue(pendingValue);
+    if (onClick) {
+      onClick(pendingValue);
+    }
     if (anchorEl) {
       anchorEl.focus();
     }
@@ -291,5 +300,3 @@ export default function GitHubLabel({ title, desc, labels }: GitHubLabelProps) {
     </React.Fragment>
   );
 }
-
-// From https://github.com/abdonrd/github-labels

@@ -16,7 +16,7 @@ const styles: { [key: string]: CSSProperties } = {
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.6)",
     borderRadius: "5px",
     width: "400px",
-    height: "300px",
+    height: "340px",
     zIndex: 3,
     overflow: "auto",
     padding: "10px",
@@ -34,6 +34,22 @@ const styles: { [key: string]: CSSProperties } = {
     justifyContent: "flex-end",
     padding: "10px",
     boxSizing: "border-box",
+  },
+  label: {
+    display: "inline-block",
+    backgroundColor: "#ddd",
+    borderRadius: "5px",
+    padding: "3px 8px",
+    margin: "2px",
+    fontSize: "12px",
+  },
+  labelContainer: {
+    width: "100%",
+    overflowX: "auto",
+    overflowY: "hidden",
+    margin: "5px 0 5px 0",
+    display: "flex",
+    flexWrap: "wrap",
   },
 };
 
@@ -53,6 +69,14 @@ const Card = ({ listing }: CardProps) => {
     <Box sx={styles.card} onClick={handleOnClick}>
       <Carousel images={listing.images} onClick={handleCarouselClick} />
       <Box sx={styles.pane}>
+        <Box sx={styles.labelContainer}>
+          {listing.labels &&
+            listing.labels.map((label, index) => (
+              <Typography key={index} sx={styles.label}>
+                {label}
+              </Typography>
+            ))}
+        </Box>
         <Typography>Name: {listing.name}</Typography>
         <Typography>Parcel ID: {listing.parcelID}</Typography>
         <Typography>Address: {listing.address}</Typography>
