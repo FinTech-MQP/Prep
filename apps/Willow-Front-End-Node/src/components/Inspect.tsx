@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { userContext } from "../App";
 import { SECONDARY_COLOR } from "../utils/constants";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Divider } from "@mui/material";
 import { WillowButton_Browse } from "../Pages/Browse";
+import ImageGrid from "./ImageGrid";
 
 const styles = {
   inspectPseudo: {
@@ -44,6 +45,43 @@ const styles = {
     width: "50%",
     height: "100%",
   },
+  info: {
+    height: "100%",
+    overflowY: "auto",
+    padding: "0 6% 0 0",
+    boxSizing: "border-box",
+  },
+  title: {
+    fontSize: "42px",
+    fontWeight: 700,
+  },
+  subtitle: {
+    margin: "0 0 5px 0",
+    fontSize: "22px",
+  },
+  desc: {
+    fontSize: "22px",
+  },
+  divider: {
+    margin: "15px 0 15px 0",
+  },
+  label: {
+    display: "inline-block",
+    backgroundColor: "#ddd",
+    borderRadius: "5px",
+    padding: "3px 8px",
+    margin: "2px",
+    fontSize: "24px",
+  },
+  labelContainer: {
+    width: "100%",
+    overflowX: "auto",
+    overflowY: "hidden",
+    margin: "5px 0 5px 0",
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  img: {},
 };
 
 interface InspectProps {
@@ -60,15 +98,31 @@ const Inspect = ({ close }: InspectProps) => {
           Return to Browsing
         </WillowButton_Browse>
         <Box sx={styles.inspectContent}>
-          <Box sx={styles.inspectContentContainer}></Box>
+          <Box sx={styles.inspectContentContainer}>
+            <Box></Box>
+          </Box>
           <Box sx={styles.inspectContentContainer}>
             {user.currListing && (
-              <>
-                <Typography>Name: {user.currListing.name}</Typography>
-                <Typography>Parcel ID: {user.currListing.parcelID}</Typography>
-                <Typography>Address: {user.currListing.address}</Typography>
-                <Typography>Desc: {user.currListing.desc}</Typography>
-              </>
+              <Box sx={styles.info}>
+                <Typography sx={styles.title}>
+                  {user.currListing.name}
+                </Typography>
+                <Typography sx={styles.subtitle}>
+                  {user.currListing.parcelID} | {user.currListing.address}
+                </Typography>
+                <Box sx={styles.labelContainer}>
+                  {user.currListing.labels &&
+                    user.currListing.labels.map((label, index) => (
+                      <Typography key={index} sx={styles.label}>
+                        {label}
+                      </Typography>
+                    ))}
+                </Box>
+                <Divider sx={styles.divider} />
+                <Typography sx={styles.desc}>
+                  {user.currListing.desc}
+                </Typography>
+              </Box>
             )}
           </Box>
         </Box>
