@@ -104,7 +104,7 @@ const ImageGrid = ({ images }: ImageGridProps) => {
   return (
     <Box sx={styles.gridPseudo}>
       {showFullGrid ? (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ marginBottom: "40px" }}>
           <Grid item xs={4}>
             <WillowButton_Images onClick={() => setShowFullGrid(false)}>
               See Less
