@@ -85,7 +85,8 @@ const ImageGrid = ({ images }: ImageGridProps) => {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
 
-  if (!images || images.length === 0) return null;
+  if (!images || images.length === 0)
+    return <Typography>No Images Availiable</Typography>;
 
   const mainImage = images[0];
   const sideImages = images.slice(1, 3);
