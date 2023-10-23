@@ -109,7 +109,9 @@ const CardBox = styled(Box)<FilterBoxProps>`
   overflow-y: auto;
   padding: 40px;
   box-sizing: border-box;
-  transition: width 0.3s ease-in, transform 0.3s ease-in;
+  transition:
+    width 0.3s ease-in,
+    transform 0.3s ease-in;
   gap: 20px;
   z-index: 0;
 `;
@@ -125,96 +127,173 @@ export const WillowButton_Browse = styled(Button)({
   },
 });
 
-const labels: LabelType[] = [
+const zoningLabels: LabelType[] = [
   {
-    name: "good first issue",
+    name: "Residential",
     color: "#7057ff",
-    description: "Good for newcomers",
+    description: "Zoned for residential development",
   },
   {
-    name: "help wanted",
-    color: "#008672",
-    description: "Extra attention is needed",
+    name: "Commercial",
+    color: "#d62d20",
+    description: "Zoned for commercial businesses and retail spaces",
   },
   {
-    name: "priority: critical",
-    color: "#b60205",
-    description: "",
+    name: "Industrial",
+    color: "#ffa700",
+    description:
+      "Zoned for manufacturing, factories, and other industrial uses",
   },
   {
-    name: "priority: high",
-    color: "#d93f0b",
-    description: "",
+    name: "Agricultural",
+    color: "#008744",
+    description: "Zoned for farming and agriculture-related activities",
   },
   {
-    name: "priority: low",
-    color: "#0e8a16",
-    description: "",
+    name: "Mixed-Use",
+    color: "#0057e7",
+    description:
+      "Allows for a mix of residential, commercial, and sometimes industrial uses",
   },
   {
-    name: "priority: medium",
-    color: "#fbca04",
-    description: "",
+    name: "Recreational",
+    color: "#d6dae0",
+    description: "Zoned for parks, open spaces, and recreational activities",
   },
   {
-    name: "status: can't reproduce",
-    color: "#fec1c1",
-    description: "",
+    name: "Public Use",
+    color: "#8e44ad",
+    description: "Land reserved for public utilities, schools, hospitals, etc.",
   },
   {
-    name: "status: confirmed",
-    color: "#215cea",
-    description: "",
+    name: "Historical",
+    color: "#e67e22",
+    description:
+      "Areas with significant historical importance, may have development restrictions",
   },
   {
-    name: "status: duplicate",
-    color: "#cfd3d7",
-    description: "This issue or pull request already exists",
+    name: "Conservation",
+    color: "#16a085",
+    description:
+      "Zones meant for protecting natural environments, may restrict many types of development",
   },
   {
-    name: "status: needs information",
-    color: "#fef2c0",
-    description: "",
+    name: "Overlay",
+    color: "#c0392b",
+    description:
+      "Special provisions that are superimposed over base zones, might include additional restrictions or allowances",
+  },
+];
+
+const legalLabels: LabelType[] = [
+  {
+    name: "Clear Title",
+    color: "#4CAF50",
+    description: "Land with documented ownership and no disputes",
   },
   {
-    name: "status: wont do/fix",
-    color: "#eeeeee",
-    description: "This will not be worked on",
+    name: "Disputed",
+    color: "#F44336",
+    description: "Land with ongoing legal disputes over ownership or rights",
   },
   {
-    name: "type: bug",
-    color: "#d73a4a",
-    description: "Something isn't working",
+    name: "Permitted",
+    color: "#8BC34A",
+    description: "Land with necessary permits for certain types of development",
   },
   {
-    name: "type: discussion",
-    color: "#d4c5f9",
-    description: "",
+    name: "Restrictions",
+    color: "#FFC107",
+    description: "Land with certain development or usage restrictions in place",
   },
   {
-    name: "type: documentation",
-    color: "#006b75",
-    description: "",
+    name: "Easements",
+    color: "#FF9800",
+    description:
+      "Land with a right of way granted to another party, like utilities or access rights",
+  },
+];
+
+const developmentLabels: LabelType[] = [
+  {
+    name: "Raw Land",
+    color: "#607D8B",
+    description: "Untouched land with no improvements or infrastructure",
   },
   {
-    name: "type: enhancement",
-    color: "#84b6eb",
-    description: "",
+    name: "Partially Developed",
+    color: "#FFEB3B",
+    description: "Land with some improvements, such as roads or utilities",
   },
   {
-    name: "type: epic",
-    color: "#3e4b9e",
-    description: "A theme of work that contain sub-tasks",
+    name: "Fully Developed",
+    color: "#4CAF50",
+    description: "Land with complete infrastructure and ready for construction",
   },
   {
-    name: "type: feature request",
-    color: "#fbca04",
-    description: "New feature or request",
+    name: "Reclaimed",
+    color: "#00BCD4",
+    description:
+      "Previously developed or used land that has been restored or repurposed",
+  },
+];
+
+const topographyLabels: LabelType[] = [
+  {
+    name: "Flat",
+    color: "#8BC34A",
+    description:
+      "Land with minimal elevation change, suitable for most types of development",
   },
   {
-    name: "type: question",
-    color: "#d876e3",
-    description: "Further information is requested",
+    name: "Hilly",
+    color: "#FFEB3B",
+    description:
+      "Land with varied elevations, might require additional considerations for development",
+  },
+  {
+    name: "Mountainous",
+    color: "#FF9800",
+    description: "Rugged land with significant elevation changes",
+  },
+  {
+    name: "Waterfront",
+    color: "#03A9F4",
+    description: "Land adjacent to a body of water, like a lake, river, or sea",
+  },
+  {
+    name: "Wetlands",
+    color: "#009688",
+    description:
+      "Areas that are saturated with water, either seasonally or permanently",
+  },
+];
+
+const environmentLabels: LabelType[] = [
+  {
+    name: "Wooded",
+    color: "#4CAF50",
+    description: "Land with significant tree cover or forests",
+  },
+  {
+    name: "Desert",
+    color: "#FFC107",
+    description: "Arid land with sparse vegetation",
+  },
+  {
+    name: "Protected Area",
+    color: "#9C27B0",
+    description: "Areas designated for conservation or wildlife protection",
+  },
+  {
+    name: "Polluted",
+    color: "#F44336",
+    description: "Areas that might have contamination or environmental hazards",
+  },
+  {
+    name: "Fertile",
+    color: "#8BC34A",
+    description: "Land suitable for agriculture or gardening due to rich soil",
   },
 ];
 
@@ -225,19 +304,18 @@ interface FilterType {
 }
 
 const filters: FilterType[] = [
-  { title: "Filter Set #1", desc: "Filter Set #1 Description", labels: labels },
-  { title: "Filter Set #2", desc: "Filter Set #2 Description", labels: labels },
-  { title: "Filter Set #3", desc: "Filter Set #3 Description", labels: labels },
-  { title: "Filter Set #4", desc: "Filter Set #4 Description", labels: labels },
-  { title: "Filter Set #5", desc: "Filter Set #5 Description", labels: labels },
-  { title: "Filter Set #6", desc: "Filter Set #6 Description", labels: labels },
-  { title: "Filter Set #7", desc: "Filter Set #7 Description", labels: labels },
-  { title: "Filter Set #8", desc: "Filter Set #8 Description", labels: labels },
-  { title: "Filter Set #9", desc: "Filter Set #9 Description", labels: labels },
+  { title: "Zoning", desc: "Filter by zoning", labels: zoningLabels },
+  { title: "Legal", desc: "Filter by legal status", labels: legalLabels },
   {
-    title: "Filter Set #10",
-    desc: "Filter Set #10 Description",
-    labels: labels,
+    title: "Development",
+    desc: "Filter by development level",
+    labels: developmentLabels,
+  },
+  { title: "Topgraphy", desc: "Filter by topgraphy", labels: topographyLabels },
+  {
+    title: "Environment",
+    desc: "Filter by environmetal features",
+    labels: environmentLabels,
   },
 ];
 
@@ -246,6 +324,16 @@ const Browse = () => {
 
   const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
   const [listings, setListings] = useState<Listing[]>();
+  const [appliedFilters, setAppliedFilters] = useState<string[]>([]);
+  const [segregatedFilters, setSegregatedFilters] = useState<
+    Record<string, string[]>
+  >({
+    Zoning: [],
+    Legal: [],
+    Development: [],
+    Topgraphy: [],
+    Environment: [],
+  });
 
   useEffect(() => {
     loadListings().then((result) => {
@@ -255,6 +343,67 @@ const Browse = () => {
 
   const toggleFilter = () => setFiltersOpen(!filtersOpen);
   const inspectClose = () => user.setInsecting(false);
+
+  useEffect(() => {
+    updateSegregatedFiltersBasedOn(appliedFilters);
+  }, [appliedFilters]);
+
+  const handleLabelClick = (selectedLabels: LabelType[]) => {
+    setAppliedFilters((prevFilters) => {
+      const filtersSet = new Set(prevFilters);
+      const selectedLabelsSet = new Set(selectedLabels.map((l) => l.name));
+
+      selectedLabels.forEach((clickedLabel) => {
+        filtersSet.add(clickedLabel.name);
+      });
+
+      for (let filter of filtersSet) {
+        if (!selectedLabelsSet.has(filter)) {
+          filtersSet.delete(filter);
+        }
+      }
+
+      const updatedAppliedFilters = [...filtersSet];
+
+      return updatedAppliedFilters;
+    });
+  };
+
+  const updateSegregatedFiltersBasedOn = (updatedAppliedFilters: string[]) => {
+    const newSegregatedFilters: Record<string, string[]> = {
+      Zoning: [],
+      Legal: [],
+      Development: [],
+      Topgraphy: [],
+      Environment: [],
+    };
+
+    updatedAppliedFilters.forEach((filter) => {
+      for (let filterType of filters) {
+        if (filterType.labels.some((label) => label.name === filter)) {
+          if (!newSegregatedFilters[filterType.title].includes(filter)) {
+            newSegregatedFilters[filterType.title].push(filter);
+          }
+          break;
+        }
+      }
+    });
+
+    setSegregatedFilters(newSegregatedFilters);
+  };
+
+  const handleClearAll = () => {
+    setAppliedFilters([]);
+  };
+
+  const filteredListings = listings?.filter((listing) => {
+    return Object.keys(segregatedFilters).every((key) => {
+      if (segregatedFilters[key].length === 0) return true;
+      return segregatedFilters[key].some(
+        (filter) => listing?.labels?.includes(filter)
+      );
+    });
+  });
 
   return (
     <Box sx={styles.mainContainer}>
@@ -278,18 +427,21 @@ const Browse = () => {
                   title={filter.title}
                   desc={filter.desc}
                   labels={filter.labels}
+                  onClick={handleLabelClick}
                 />
               </Box>
             ))}
             <Box sx={styles.gitHubPseudo}>
-              <WillowButton_Browse>Clear All</WillowButton_Browse>
+              <WillowButton_Browse onClick={handleClearAll}>
+                Clear All
+              </WillowButton_Browse>
             </Box>
           </Box>
         </FilterBox>
         <CardBox open={filtersOpen}>
           <Box sx={styles.cards}>
-            {listings &&
-              listings.map((listing, index) => (
+            {filteredListings &&
+              filteredListings.map((listing, index) => (
                 <Card key={index} listing={listing} />
               ))}
           </Box>
