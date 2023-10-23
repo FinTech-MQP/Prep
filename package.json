@@ -13,5 +13,9 @@
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.6.10",
-  "name": "Prep"
+  "name": "Prep",
+  "dependencies": {
+    "@turbo/codemod": "^1.10.16",
+    "update": "^0.7.4"
+  }
 }
