@@ -3,6 +3,7 @@ import { userContext } from "../App";
 import { SECONDARY_COLOR } from "../utils/constants";
 import { Box, Typography } from "@mui/material";
 import { WillowButton_Browse } from "../Pages/Browse";
+import ImageGrid from "./ImageGrid";
 
 const styles = {
   inspectPseudo: {
@@ -60,7 +61,15 @@ const Inspect = ({ close }: InspectProps) => {
           Return to Browsing
         </WillowButton_Browse>
         <Box sx={styles.inspectContent}>
-          <Box sx={styles.inspectContentContainer}></Box>
+          <Box sx={styles.inspectContentContainer}>
+            <ImageGrid
+              images={
+                user.currListing &&
+                user.currListing.images &&
+                user.currListing.images
+              }
+            />
+          </Box>
           <Box sx={styles.inspectContentContainer}>
             {user.currListing && (
               <>
