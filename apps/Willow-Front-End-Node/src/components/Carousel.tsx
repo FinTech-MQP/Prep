@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { WILLOW_COLOR } from "../utils/constants";
+import { WILLOW_COLOR } from "@monorepo/utils";
 import styled from "@emotion/styled";
 
 const styles: { [key: string]: CSSProperties } = {

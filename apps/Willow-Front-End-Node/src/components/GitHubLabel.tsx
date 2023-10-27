@@ -12,7 +12,7 @@ import Autocomplete, {
 import ButtonBase from "@mui/material/ButtonBase";
 import InputBase from "@mui/material/InputBase";
 import { Box } from "@mui/material";
-import { WILLOW_COLOR } from "../utils/constants";
+import { WILLOW_COLOR } from "@monorepo/utils";
 import { LabelType } from "../utils/interfaces";
 
 interface PopperComponentProps {

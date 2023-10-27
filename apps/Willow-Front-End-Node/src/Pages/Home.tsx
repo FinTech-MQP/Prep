@@ -5,8 +5,8 @@ import {
   DARK_GREY_COLOR,
   SECONDARY_COLOR,
   WILLOW_COLOR,
-} from "../utils/constants";
-import { Listing } from "../utils/interfaces";
+} from "@monorepo/utils";
+import { Listing } from "@monorepo/utils";
 import { loadListings } from "../services/ListingConsumer";
 import SearchBar from "../components/SearchBar";
 

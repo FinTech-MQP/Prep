@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../App";
 import styled from "@emotion/styled";
-import { SECONDARY_COLOR, WILLOW_COLOR } from "../utils/constants";
+import { SECONDARY_COLOR, WILLOW_COLOR } from "@monorepo/utils";
 
 const styles = {
   search: {

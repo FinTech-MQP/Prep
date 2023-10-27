@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { userContext } from "../App";
-import { SECONDARY_COLOR } from "../utils/constants";
+import { SECONDARY_COLOR } from "@monorepo/utils";
 import { Box, Typography, Divider } from "@mui/material";
 import { WillowButton_Browse } from "../Pages/Browse";
 import ImageGrid from "./ImageGrid";

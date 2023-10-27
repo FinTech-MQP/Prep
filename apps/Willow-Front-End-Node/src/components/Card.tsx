@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { SECONDARY_COLOR } from "../utils/constants";
+import { SECONDARY_COLOR } from "@monorepo/utils";
 import { Listing } from "../utils/interfaces";
 import Carousel from "./Carousel";
 import { useContext } from "react";

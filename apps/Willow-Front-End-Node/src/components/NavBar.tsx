@@ -4,7 +4,7 @@ import {
   DARK_GREY_COLOR,
   SECONDARY_COLOR,
   WILLOW_COLOR,
-} from "../utils/constants";
+} from "@monorepo/utils";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 

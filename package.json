@@ -21,10 +21,20 @@
     "@mui/icons-material": "^5.14.14",
     "@mui/material": "^5.14.14",
     "@turbo/codemod": "^1.10.16",
+    "@types/express": "^4.17.20",
+    "@types/node": "^20.5.2",
     "@vitejs/plugin-react": "^4.1.0",
+    "express": "^4.18.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.17.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2",
     "update": "^0.7.4"
-  }
+  },
+  "workspaces": [
+    "apps/*",
+    "shared/*"
+  ]
+  
 }
