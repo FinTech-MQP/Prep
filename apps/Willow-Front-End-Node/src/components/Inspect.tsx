@@ -1,4 +1,11 @@
-import { useContext } from "react";
+import {
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+  useContext,
+} from "react";
 import { userContext } from "../App";
 import { SECONDARY_COLOR } from "@monorepo/utils";
 import { Box, Typography, Divider } from "@mui/material";
@@ -119,11 +126,27 @@ const Inspect = ({ close }: InspectProps) => {
                 </Typography>
                 <Box sx={styles.labelContainer}>
                   {user.currListing.labels &&
-                    user.currListing.labels.map((label, index) => (
-                      <Typography key={index} sx={styles.label}>
-                        {label}
-                      </Typography>
-                    ))}
+                    user.currListing.labels.map(
+                      (
+                        label:
+                          | string
+                          | number
+                          | boolean
+                          | ReactElement<
+                              any,
+                              string | JSXElementConstructor<any>
+                            >
+                          | Iterable<ReactNode>
+                          | ReactPortal
+                          | null
+                          | undefined,
+                        index: Key | null | undefined
+                      ) => (
+                        <Typography key={index} sx={styles.label}>
+                          {label}
+                        </Typography>
+                      )
+                    )}
                 </Box>
                 <Divider sx={styles.divider} />
                 <Typography sx={styles.desc}>

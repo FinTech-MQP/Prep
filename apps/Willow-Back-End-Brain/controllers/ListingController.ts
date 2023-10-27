@@ -1,30 +1,13 @@
 import express, { Router } from "express";
 import { Listing } from "@monorepo/utils";
 
-const beach1 = "../assets/images/beaches/beach1.jpg";
-const beach2 = "../assets/images/beaches/beach2.jpg";
-const beach3 = "../assets/images/beaches/beach3.jpg";
-
 const data: Listing[] = [
   {
     name: "Beachfront Paradise",
     desc: "Wake up to the sound of waves at this premium beachfront property.",
     address: "890 Ocean Ave, Beachtown, BT 89012",
     parcelID: "PA890123",
-    images: [
-      beach1,
-      beach2,
-      beach3,
-      beach1,
-      beach2,
-      beach3,
-      beach1,
-      beach2,
-      beach3,
-      beach1,
-      beach2,
-      beach3,
-    ],
+    images: null,
     labels: ["Waterfront", "Residential", "Flat", "Clear Title"],
   },
   {

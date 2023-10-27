@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Background from "../assets/images/Home Background.jpg";
 import { Box, Typography } from "@mui/material";
 import {
@@ -7,8 +7,8 @@ import {
   WILLOW_COLOR,
 } from "@monorepo/utils";
 import { Listing } from "@monorepo/utils";
-import { loadListings } from "../services/ListingConsumer";
 import SearchBar from "../components/SearchBar";
+import ListingConsumer from "../services/ListingConsumer";
 
 const styles = {
   mainContainer: {
@@ -114,9 +114,11 @@ const Home = () => {
   const [listings, setListings] = useState<Listing[]>();
 
   useEffect(() => {
-    loadListings().then((result) => {
-      setListings(result);
-    });
+    ListingConsumer.getListings().then(
+      (result: SetStateAction<Listing[] | undefined>) => {
+        setListings(result);
+      }
+    );
   }, []);
 
   return (

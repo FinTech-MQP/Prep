@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 import GitHubLabel from "../components/GitHubLabel";
 import { Box, Button, ButtonProps, CircularProgress } from "@mui/material";
 import styled from "@emotion/styled";
@@ -7,10 +7,10 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { userContext } from "../App";
 import { LabelType, Listing } from "@monorepo/utils";
-import { loadListings } from "../services/ListingConsumer";
 import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
 import Inspect from "../components/Inspect";
+import ListingConsumer from "../services/ListingConsumer";
 
 const styles = {
   loadingBox: {
@@ -123,7 +123,7 @@ const CardBox = styled(Box)<FilterBoxProps>`
   z-index: 0;
 `;
 
-export const WillowButton_Browse = styled(Button)({
+const WillowButton_Browse = styled(Button)({
   borderRadius: 0,
   color: WILLOW_COLOR,
   "&:hover": {
@@ -345,10 +345,12 @@ const Browse = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    loadListings().then((result) => {
-      setListings(result);
-      setIsLoading(false);
-    });
+    ListingConsumer.getListings().then(
+      (result: SetStateAction<Listing[] | undefined>) => {
+        setListings(result);
+        setIsLoading(false);
+      }
+    );
   }, []);
 
   const toggleFilter = () => setFiltersOpen(!filtersOpen);
