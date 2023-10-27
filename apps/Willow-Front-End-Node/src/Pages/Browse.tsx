@@ -123,7 +123,7 @@ const CardBox = styled(Box)<FilterBoxProps>`
   z-index: 0;
 `;
 
-const WillowButton_Browse = styled(Button)({
+export const WillowButton_Browse = styled(Button)({
   borderRadius: 0,
   color: WILLOW_COLOR,
   "&:hover": {

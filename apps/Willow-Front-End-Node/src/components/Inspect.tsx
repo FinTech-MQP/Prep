@@ -5,12 +5,19 @@ import {
   ReactNode,
   ReactPortal,
   useContext,
+  useState,
 } from "react";
 import { userContext } from "../App";
-import { SECONDARY_COLOR } from "@monorepo/utils";
-import { Box, Typography, Divider } from "@mui/material";
+import {
+  SECONDARY_COLOR,
+  WILLOW_COLOR,
+  WILLOW_COLOR_HOVER,
+} from "@monorepo/utils";
+import { Box, Typography, Divider, Button, TextField } from "@mui/material";
 import { WillowButton_Browse } from "../Pages/Browse";
 import ImageGrid from "./ImageGrid";
+import styled from "@emotion/styled";
+import InterestConsumer from "../services/InterestConsumer";
 
 const styles = {
   inspectPseudo: {
@@ -57,8 +64,11 @@ const styles = {
   info: {
     height: "100%",
     overflowY: "auto",
-    padding: "0 40px 0 40px",
+    padding: "0 40px 40px 40px",
     boxSizing: "border-box",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   title: {
     fontSize: "42px",
@@ -94,14 +104,65 @@ const styles = {
     height: "100%",
     padding: "10px 0 10px 40px",
   },
+  interestContainer: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  interestText: {
+    width: "100%",
+  },
+  emailError: {
+    color: "red",
+    margin: "0 0 6px 0",
+  },
+  emailBox: {
+    display: "flex",
+    flexDirection: "row",
+  },
 };
 
 interface InspectProps {
   close: () => void;
 }
 
+const WillowButton_Interest = styled(Button)({
+  borderRadius: 0,
+  backgroundColor: WILLOW_COLOR,
+  color: "white",
+  whiteSpace: "nowrap",
+  width: "fit-content",
+  padding: "0 25px 0 25px",
+  "&:hover": {
+    backgroundColor: WILLOW_COLOR_HOVER,
+    borderColor: WILLOW_COLOR,
+  },
+  "& .MuiTouchRipple-root": {
+    color: "white",
+  },
+});
+
 const Inspect = ({ close }: InspectProps) => {
   const user = useContext(userContext);
+  const [email, setEmail] = useState<string>("");
+  const [validEmail, setValidEmail] = useState<boolean>(true);
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  function isValidEmail(email: string) {
+    const regex = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return regex.test(email);
+  }
+
+  const handleSubmit = () => {
+    if (email.length > 0 && isValidEmail(email)) {
+      setValidEmail(true);
+      InterestConsumer.expressInterest(email, user.currListing);
+    } else {
+      setValidEmail(false);
+    }
+  };
 
   return (
     <Box sx={styles.inspectPseudo}>
@@ -118,40 +179,61 @@ const Inspect = ({ close }: InspectProps) => {
           <Box sx={styles.inspectContentContainer}>
             {user.currListing && (
               <Box sx={styles.info}>
-                <Typography sx={styles.title}>
-                  {user.currListing.name}
-                </Typography>
-                <Typography sx={styles.subtitle}>
-                  {user.currListing.parcelID} | {user.currListing.address}
-                </Typography>
-                <Box sx={styles.labelContainer}>
-                  {user.currListing.labels &&
-                    user.currListing.labels.map(
-                      (
-                        label:
-                          | string
-                          | number
-                          | boolean
-                          | ReactElement<
-                              any,
-                              string | JSXElementConstructor<any>
-                            >
-                          | Iterable<ReactNode>
-                          | ReactPortal
-                          | null
-                          | undefined,
-                        index: Key | null | undefined
-                      ) => (
-                        <Typography key={index} sx={styles.label}>
-                          {label}
-                        </Typography>
-                      )
-                    )}
+                <Box>
+                  <Typography sx={styles.title}>
+                    {user.currListing.name}
+                  </Typography>
+                  <Typography sx={styles.subtitle}>
+                    {user.currListing.parcelID} | {user.currListing.address}
+                  </Typography>
+                  <Box sx={styles.labelContainer}>
+                    {user.currListing.labels &&
+                      user.currListing.labels.map(
+                        (
+                          label:
+                            | string
+                            | number
+                            | boolean
+                            | ReactElement<
+                                any,
+                                string | JSXElementConstructor<any>
+                              >
+                            | Iterable<ReactNode>
+                            | ReactPortal
+                            | null
+                            | undefined,
+                          index: Key | null | undefined
+                        ) => (
+                          <Typography key={index} sx={styles.label}>
+                            {label}
+                          </Typography>
+                        )
+                      )}
+                  </Box>
+                  <Divider sx={styles.divider} />
+                  <Typography sx={styles.desc}>
+                    {user.currListing.desc}
+                  </Typography>
                 </Box>
-                <Divider sx={styles.divider} />
-                <Typography sx={styles.desc}>
-                  {user.currListing.desc}
-                </Typography>
+                <Box sx={styles.interestContainer}>
+                  {!validEmail && (
+                    <Typography sx={styles.emailError}>
+                      Please enter a valid email.
+                    </Typography>
+                  )}
+                  <Box sx={styles.emailBox}>
+                    <TextField
+                      variant="outlined"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={handleEmailChange}
+                      sx={styles.interestText}
+                    />
+                    <WillowButton_Interest onClick={handleSubmit}>
+                      Stay Updated
+                    </WillowButton_Interest>
+                  </Box>
+                </Box>
               </Box>
             )}
           </Box>

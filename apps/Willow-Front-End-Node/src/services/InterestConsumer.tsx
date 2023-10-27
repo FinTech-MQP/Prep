@@ -1,14 +1,17 @@
 import { Listing } from "@monorepo/utils";
 
 export default class InterestConsumer {
-  expressInterest = async (listing: Listing): Promise<string> => {
+  public static expressInterest = async (
+    email: string,
+    listing: Listing
+  ): Promise<string> => {
     try {
       const response = await fetch("http://localhost:3001/Interest", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(listing),
+        body: JSON.stringify({ email, listing }),
       });
 
       if (!response.ok) {
@@ -16,6 +19,7 @@ export default class InterestConsumer {
       }
 
       const responseData = await response.json();
+      console.log(responseData);
       return responseData.message;
     } catch (e: any) {
       console.error("There was a problem expressing interest:", e);

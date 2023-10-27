@@ -1,15 +1,20 @@
 import { Listing } from "@monorepo/utils/interfaces";
 import express, { Router, Request, Response } from "express";
 
-const app = express();
 const router: Router = express.Router();
 
-app.use(express.json());
+router.post("/", (req: Request, res: Response) => {
+  const email = req.body.email;
+  const listing: Listing = req.body.listing;
 
-router.post("/Interest", (req: Request, res: Response) => {
-  const listing: Listing = req.body;
+  if (!email || !listing) {
+    return res.status(400).json({
+      message: "Both email and listing are required.",
+    });
+  }
+
   res.json({
-    message: `Interest for Listing: ${listing} expressed successfully!`,
+    message: `Interest for Listing: ${listing.name} by ${email} expressed successfully!`,
   });
 });
 
