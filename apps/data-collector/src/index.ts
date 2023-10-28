@@ -1,148 +1,89 @@
-import { Prisma, PrismaClient } from '@prisma/client'
-import express from 'express'
+import { prisma } from "database"
+import type { Listing } from "database/generated/prisma-client";
+import { queryFeatures, IQueryFeaturesOptions, IQueryFeaturesResponse } from "@esri/arcgis-rest-feature-service";
+import express, { response } from 'express'
 
-const prisma = new PrismaClient()
 const app = express()
 
 app.use(express.json())
 
-app.post(`/signup`, async (req, res) => {
-  const { name, email, posts } = req.body
-
-  const postData = posts?.map((post: Prisma.PostCreateInput) => {
-    return { title: post?.title, content: post?.content }
-  })
-
-  const result = await prisma.user.create({
-    data: {
-      name,
-      email,
-      posts: {
-        create: postData,
-      },
-    },
-  })
-  res.json(result)
-})
-
-app.post(`/post`, async (req, res) => {
-  const { title, content, authorEmail } = req.body
-  const result = await prisma.post.create({
-    data: {
-      title,
-      content,
-      author: { connect: { email: authorEmail } },
-    },
-  })
-  res.json(result)
-})
-
-app.put('/post/:id/views', async (req, res) => {
-  const { id } = req.params
-
-  try {
-    const post = await prisma.post.update({
-      where: { id: Number(id) },
-      data: {
-        viewCount: {
-          increment: 1,
-        },
-      },
-    })
-
-    res.json(post)
-  } catch (error) {
-    res.json({ error: `Post with ID ${id} does not exist in the database` })
+async function getAddressPoint(id: string): Promise<Partial<Listing> | undefined> {
+  const options: IQueryFeaturesOptions = {
+    url: "https://gis.worcesterma.gov/worcags/rest/services/OpenData/Structures/MapServer/0",
+    where: `ADDRESS_ID=${id}`,
+    outFields: "*",
+    outSR: "4326",
+    f: "json"
   }
-})
 
-app.put('/publish/:id', async (req, res) => {
-  const { id } = req.params
+  return queryFeatures(options).then((response) => {
+    if ('features' in response) {
+      let feature = response.features[0]
+      let attributes = feature.attributes
 
-  try {
-    const postData = await prisma.post.findUnique({
-      where: { id: Number(id) },
-      select: {
-        published: true,
-      },
-    })
+      let num = attributes?.NUM as number
+      let st_name = attributes?.ST_NAME as string
+      let zip = attributes?.ZIP as string
+      let map_par_id = attributes?.MAP_PAR_ID as string
+      
+      // get geometry
+      if (feature.geometry !== undefined && 'x' in feature.geometry) {
+        // geometry is IPoint
+        feature.geometry.x
+        feature.geometry.y
+      }
 
-    const updatedPost = await prisma.post.update({
-      where: { id: Number(id) || undefined },
-      data: { published: !postData?.published },
-    })
-    res.json(updatedPost)
-  } catch (error) {
-    res.json({ error: `Post with ID ${id} does not exist in the database` })
-  }
-})
+      let listing: Partial<Listing> = {
+        name: `${num} ` + st_name,
+        desc: `Worcester Address ${id}`,
+        address: `${num} ` + st_name + ", " + zip,
+        parcelID: map_par_id,
+        images: []
+      }
 
-app.delete(`/post/:id`, async (req, res) => {
-  const { id } = req.params
-  const post = await prisma.post.delete({
-    where: {
-      id: Number(id),
-    },
+      return listing
+
+    } else {
+      // IQueryResponse
+      return undefined
+    }
   })
-  res.json(post)
+}
+
+app.get(`/gis/address/:id`, async (req, res) => {
+  const { id }: { id?: string } = req.params
+  res.json(await getAddressPoint(id))
 })
 
-app.get('/users', async (req, res) => {
-  const users = await prisma.user.findMany()
-  res.json(users)
-})
-
-app.get('/user/:id/drafts', async (req, res) => {
-  const { id } = req.params
-
-  const drafts = await prisma.user
-    .findUnique({
-      where: {
-        id: Number(id),
-      },
-    })
-    .posts({
-      where: { published: false },
-    })
-
-  res.json(drafts)
-})
-
-app.get(`/post/:id`, async (req, res) => {
+app.post(`/gis/address/:id`, async (req, res) => {
   const { id }: { id?: string } = req.params
 
-  const post = await prisma.post.findUnique({
-    where: { id: Number(id) },
-  })
-  res.json(post)
-})
+  let listing = await getAddressPoint(id);
 
-app.get('/feed', async (req, res) => {
-  const { searchString, skip, take, orderBy } = req.query
-
-  const or: Prisma.PostWhereInput = searchString
-    ? {
-        OR: [
-          { title: { contains: searchString as string } },
-          { content: { contains: searchString as string } },
-        ],
+  if (listing === undefined) {
+    res.status(500);
+    res.send({
+      error: "Address with that ID was not found"
+    });
+  } else {
+    prisma.listing.create({
+      data: {
+        ...listing
       }
-    : {}
+    }).then(() => {
+      res.status(200);
+      res.send({
+        message: "Successfully added that address to our listings."
+      });
+    }).catch((error) => {
+      res.status(500);
+      res.send({
+        error: error
+      });
+    })
+  }
 
-  const posts = await prisma.post.findMany({
-    where: {
-      published: true,
-      ...or,
-    },
-    include: { author: true },
-    take: Number(take) || undefined,
-    skip: Number(skip) || undefined,
-    orderBy: {
-      updatedAt: orderBy as Prisma.SortOrder,
-    },
-  })
-
-  res.json(posts)
+  
 })
 
 const server = app.listen(2999, () =>
