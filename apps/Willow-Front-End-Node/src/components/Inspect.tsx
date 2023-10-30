@@ -156,7 +156,7 @@ const Inspect = ({ close }: InspectProps) => {
   }
 
   const handleSubmit = () => {
-    if (email.length > 0 && isValidEmail(email)) {
+    if (email.length > 0 && isValidEmail(email) && user.currListing) {
       setValidEmail(true);
       InterestConsumer.expressInterest(email, user.currListing);
     } else {

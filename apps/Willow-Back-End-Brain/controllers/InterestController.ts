@@ -1,4 +1,4 @@
-import { Listing } from "@monorepo/utils/interfaces";
+import type { Listing } from "database/generated/prisma-client";
 import express, { Router, Request, Response } from "express";
 
 const router: Router = express.Router();

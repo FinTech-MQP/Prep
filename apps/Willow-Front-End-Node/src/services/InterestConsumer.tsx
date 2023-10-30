@@ -1,4 +1,4 @@
-import { Listing } from "@monorepo/utils";
+import type { Listing } from "database/generated/prisma-client";
 
 export default class InterestConsumer {
   public static expressInterest = async (

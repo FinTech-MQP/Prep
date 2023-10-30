@@ -11,6 +11,7 @@
       "vite": "^2.5.10"
     },
     "dependencies": {
+      "database": "*",
       "@monorepo/utils": "workspace:*"
     }    
   }

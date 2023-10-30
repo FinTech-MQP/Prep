@@ -1,4 +1,4 @@
-import { Listing } from "../utils/interfaces";
+import type { Listing } from "database/generated/prisma-client";
 import { Autocomplete, TextField } from "@mui/material";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";

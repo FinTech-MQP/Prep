@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Listing } from "../utils/interfaces";
+import type { Listing } from "database/generated/prisma-client";
 
 export default function useUserContext() {
   const [currListing, setCurrListing] = useState<Listing | null>(null);

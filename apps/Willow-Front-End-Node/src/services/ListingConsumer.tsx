@@ -1,4 +1,4 @@
-import { Listing } from "@monorepo/utils";
+import type { Listing } from "database/generated/prisma-client";
 
 export default class ListingConsumer {
   public static async getListings(): Promise<Listing[] | undefined> {

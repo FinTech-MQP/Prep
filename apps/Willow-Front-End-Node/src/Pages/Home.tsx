@@ -6,7 +6,7 @@ import {
   SECONDARY_COLOR,
   WILLOW_COLOR,
 } from "@monorepo/utils";
-import { Listing } from "@monorepo/utils";
+import type { Listing } from "database/generated/prisma-client";
 import SearchBar from "../components/SearchBar";
 import ListingConsumer from "../services/ListingConsumer";
 

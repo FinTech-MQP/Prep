@@ -13,7 +13,7 @@ import ButtonBase from "@mui/material/ButtonBase";
 import InputBase from "@mui/material/InputBase";
 import { Box } from "@mui/material";
 import { WILLOW_COLOR } from "@monorepo/utils";
-import { LabelType } from "../utils/interfaces";
+import { LabelType } from "@monorepo/utils/interfaces";
 
 interface PopperComponentProps {
   anchorEl?: any;

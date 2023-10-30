@@ -129,7 +129,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\outra\\Documents\\Github\\FinTech-MQP\\Prep\\packages\\database\\generated\\prisma-client",
+      "value": "C:\\Users\\buiph\\Documents\\GitHub\\Willow-Development\\packages\\database\\generated\\prisma-client",
       "fromEnvVar": null
     },
     "config": {
@@ -156,7 +156,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -166,8 +165,7 @@ const config = {
     }
   },
   "inlineSchema": "Ly8gVGhpcyBpcyB5b3VyIFByaXNtYSBzY2hlbWEgZmlsZSwNCi8vIGxlYXJuIG1vcmUgYWJvdXQgaXQgaW4gdGhlIGRvY3M6IGh0dHBzOi8vcHJpcy5seS9kL3ByaXNtYS1zY2hlbWENCg0KZ2VuZXJhdG9yIGNsaWVudCB7DQogIHByb3ZpZGVyID0gInByaXNtYS1jbGllbnQtanMiDQogIG91dHB1dCAgID0gIi4uL2dlbmVyYXRlZC9wcmlzbWEtY2xpZW50Ig0KfQ0KDQpkYXRhc291cmNlIGRiIHsNCiAgcHJvdmlkZXIgPSAicG9zdGdyZXNxbCINCiAgdXJsICAgICAgPSBlbnYoIkRBVEFCQVNFX1VSTCIpDQp9DQoNCm1vZGVsIExpc3Rpbmcgew0KICBpZCAgICAgICAgU3RyaW5nICAgQGlkIEBkZWZhdWx0KGN1aWQoKSkNCiAgY3JlYXRlZEF0IERhdGVUaW1lPyBAZGVmYXVsdChub3coKSkNCiAgdXBkYXRlZEF0IERhdGVUaW1lPyBAdXBkYXRlZEF0DQogIG5hbWUgICAgICBTdHJpbmc/DQogIGRlc2MgICAgICBTdHJpbmc/DQogIGFkZHJlc3MgICBTdHJpbmc/DQogIHBhcmNlbElEICBTdHJpbmc/DQogIGltYWdlcyAgICBTdHJpbmdbXQ0KICBsYWJlbHMgICAgU3RyaW5nW10NCn0NCg==",
-  "inlineSchemaHash": "2fe0563bd1e39dc5f4068d6f8d90cebc7ca518b978a826622e792535a8cbd037",
-  "noEngine": false
+  "inlineSchemaHash": "2fe0563bd1e39dc5f4068d6f8d90cebc7ca518b978a826622e792535a8cbd037"
 }
 
 const fs = require('fs')

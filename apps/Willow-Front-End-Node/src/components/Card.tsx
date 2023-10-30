@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { SECONDARY_COLOR } from "@monorepo/utils";
-import { Listing } from "../utils/interfaces";
+import type { Listing } from "database/generated/prisma-client";
 import Carousel from "./Carousel";
 import { useContext } from "react";
 import { userContext } from "../App";
