@@ -20,4 +20,5 @@ model Listing {
   address   String?
   parcelID  String?
   images    String[]
+  labels    String[]
 }

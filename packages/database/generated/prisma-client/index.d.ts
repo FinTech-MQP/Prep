@@ -8,31 +8,16 @@ import $Types = runtime.Types // general types
 import $Public = runtime.Types.Public
 import $Utils = runtime.Types.Utils
 import $Extensions = runtime.Types.Extensions
+import $Result = runtime.Types.Result
 
 export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
-
-export type ListingPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-  name: "Listing"
-  objects: {}
-  scalars: $Extensions.GetResult<{
-    id: string
-    createdAt: Date | null
-    updatedAt: Date | null
-    name: string | null
-    desc: string | null
-    address: string | null
-    parcelID: string | null
-    images: string[]
-  }, ExtArgs["result"]["listing"]>
-  composites: {}
-}
 
 /**
  * Model Listing
  * 
  */
-export type Listing = runtime.Types.DefaultSelection<ListingPayload>
+export type Listing = $Result.DefaultSelection<Prisma.$ListingPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -51,10 +36,7 @@ export type Listing = runtime.Types.DefaultSelection<ListingPayload>
 export class PrismaClient<
   T extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
   U = 'log' extends keyof T ? T['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<T['log']> : never : never,
-  GlobalReject extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined = 'rejectOnNotFound' extends keyof T
-    ? T['rejectOnNotFound']
-    : false,
-  ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs
+  ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
 
@@ -74,17 +56,17 @@ export class PrismaClient<
    */
 
   constructor(optionsArg ?: Prisma.Subset<T, Prisma.PrismaClientOptions>);
-  $on<V extends (U | 'beforeExit')>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : V extends 'beforeExit' ? () => Promise<void> : Prisma.LogEvent) => void): void;
+  $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): void;
 
   /**
    * Connect with the database
    */
-  $connect(): Promise<void>;
+  $connect(): $Utils.JsPromise<void>;
 
   /**
    * Disconnect from the database
    */
-  $disconnect(): Promise<void>;
+  $disconnect(): $Utils.JsPromise<void>;
 
   /**
    * Add a middleware
@@ -152,9 +134,9 @@ export class PrismaClient<
    * 
    * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
    */
-  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): Promise<runtime.Types.Utils.UnwrapTuple<P>>
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
-  $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => Promise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): Promise<R>
+  $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
 
 
   $extends: $Extensions.ExtendsHook<'extends', Prisma.TypeMapCb, ExtArgs>
@@ -167,7 +149,7 @@ export class PrismaClient<
     * const listings = await prisma.listing.findMany()
     * ```
     */
-  get listing(): Prisma.ListingDelegate<GlobalReject, ExtArgs>;
+  get listing(): Prisma.ListingDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -217,15 +199,15 @@ export namespace Prisma {
   /**
   * Extensions
   */
-  export type Extension = $Extensions.UserArgs
+  export import Extension = $Extensions.UserArgs
   export import getExtensionContext = runtime.Extensions.getExtensionContext
-  export type Args<T, F extends $Public.Operation> = $Public.Args<T, F>
-  export type Payload<T, F extends $Public.Operation> = $Public.Payload<T, F>
-  export type Result<T, A, F extends $Public.Operation> = $Public.Result<T, A, F>
-  export type Exact<T, W> = $Public.Exact<T, W>
+  export import Args = $Public.Args
+  export import Payload = $Public.Payload
+  export import Result = $Public.Result
+  export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 4.16.2
+   * Prisma Client JS version: 5.5.2
    * Query Engine version: aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a
    */
   export type PrismaVersion = {
@@ -282,7 +264,7 @@ export namespace Prisma {
    *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
    */
-  export type InputJsonValue = string | number | boolean | InputJsonObject | InputJsonArray
+  export type InputJsonValue = string | number | boolean | InputJsonObject | InputJsonArray | { toJSON(): unknown }
 
   /**
    * Types of the values used to represent different kinds of `null` values when working with JSON fields.
@@ -352,19 +334,6 @@ export namespace Prisma {
     select: any
     include: any
   }
-  type HasSelect = {
-    select: any
-  }
-  type HasInclude = {
-    include: any
-  }
-  type CheckSelect<T, S, U> = T extends SelectAndInclude
-    ? 'Please either choose `select` or `include`'
-    : T extends HasSelect
-    ? U
-    : T extends HasInclude
-    ? U
-    : S
 
   /**
    * Get the type of the value, that the Promise holds.
@@ -374,7 +343,7 @@ export namespace Prisma {
   /**
    * Get the return type of a function which returns a Promise.
    */
-  export type PromiseReturnType<T extends (...args: any) => Promise<any>> = PromiseType<ReturnType<T>>
+  export type PromiseReturnType<T extends (...args: any) => $Utils.JsPromise<any>> = PromiseType<ReturnType<T>>
 
   /**
    * From T, pick a set of properties whose keys are in the union K
@@ -635,9 +604,9 @@ export namespace Prisma {
   type MaybeTupleToUnion<T> = T extends any[] ? TupleToUnion<T> : T
 
   /**
-   * Like `Pick`, but with an array
+   * Like `Pick`, but additionally can also accept an array of keys
    */
-  type PickArray<T, K extends Array<keyof T>> = Prisma__Pick<T, TupleToUnion<K>>
+  type PickEnumerable<T, K extends Enumerable<keyof T> | keyof T> = Prisma__Pick<T, MaybeTupleToUnion<K>>
 
   /**
    * Exclude all keys with underscores
@@ -662,42 +631,43 @@ export namespace Prisma {
   }
 
 
-  interface TypeMapCb extends $Utils.Fn<{extArgs: $Extensions.Args}, $Utils.Record<string, any>> {
+  interface TypeMapCb extends $Utils.Fn<{extArgs: $Extensions.InternalArgs}, $Utils.Record<string, any>> {
     returns: Prisma.TypeMap<this['params']['extArgs']>
   }
 
-  export type TypeMap<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
       modelProps: 'listing'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
       Listing: {
-        payload: ListingPayload<ExtArgs>
+        payload: Prisma.$ListingPayload<ExtArgs>
+        fields: Prisma.ListingFieldRefs
         operations: {
           findUnique: {
             args: Prisma.ListingFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ListingPayload> | null
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload> | null
           }
           findUniqueOrThrow: {
             args: Prisma.ListingFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ListingPayload>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>
           }
           findFirst: {
             args: Prisma.ListingFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ListingPayload> | null
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload> | null
           }
           findFirstOrThrow: {
             args: Prisma.ListingFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ListingPayload>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>
           }
           findMany: {
             args: Prisma.ListingFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ListingPayload>[]
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>[]
           }
           create: {
             args: Prisma.ListingCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ListingPayload>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>
           }
           createMany: {
             args: Prisma.ListingCreateManyArgs<ExtArgs>,
@@ -705,11 +675,11 @@ export namespace Prisma {
           }
           delete: {
             args: Prisma.ListingDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ListingPayload>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>
           }
           update: {
             args: Prisma.ListingUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ListingPayload>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>
           }
           deleteMany: {
             args: Prisma.ListingDeleteManyArgs<ExtArgs>,
@@ -721,7 +691,7 @@ export namespace Prisma {
           }
           upsert: {
             args: Prisma.ListingUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<ListingPayload>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>
           }
           aggregate: {
             args: Prisma.ListingAggregateArgs<ExtArgs>,
@@ -763,55 +733,20 @@ export namespace Prisma {
   }
   export const defineExtension: $Extensions.ExtendsHook<'define', Prisma.TypeMapCb, $Extensions.DefaultArgs>
   export type DefaultPrismaClient = PrismaClient
-  export type RejectOnNotFound = boolean | ((error: Error) => Error)
-  export type RejectPerModel = { [P in ModelName]?: RejectOnNotFound }
-  export type RejectPerOperation =  { [P in "findUnique" | "findFirst"]?: RejectPerModel | RejectOnNotFound } 
-  type IsReject<T> = T extends true ? True : T extends (err: Error) => Error ? True : False
-  export type HasReject<
-    GlobalRejectSettings extends Prisma.PrismaClientOptions['rejectOnNotFound'],
-    LocalRejectSettings,
-    Action extends PrismaAction,
-    Model extends ModelName
-  > = LocalRejectSettings extends RejectOnNotFound
-    ? IsReject<LocalRejectSettings>
-    : GlobalRejectSettings extends RejectPerOperation
-    ? Action extends keyof GlobalRejectSettings
-      ? GlobalRejectSettings[Action] extends RejectOnNotFound
-        ? IsReject<GlobalRejectSettings[Action]>
-        : GlobalRejectSettings[Action] extends RejectPerModel
-        ? Model extends keyof GlobalRejectSettings[Action]
-          ? IsReject<GlobalRejectSettings[Action][Model]>
-          : False
-        : False
-      : False
-    : IsReject<GlobalRejectSettings>
   export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
-
   export interface PrismaClientOptions {
-    /**
-     * Configure findUnique/findFirst to throw an error if the query returns null. 
-     * @deprecated since 4.0.0. Use `findUniqueOrThrow`/`findFirstOrThrow` methods instead.
-     * @example
-     * ```
-     * // Reject on both findUnique/findFirst
-     * rejectOnNotFound: true
-     * // Reject only on findFirst with a custom error
-     * rejectOnNotFound: { findFirst: (err) => new Error("Custom Error")}
-     * // Reject on user.findUnique with a custom error
-     * rejectOnNotFound: { findUnique: {User: (err) => new Error("User not found")}}
-     * ```
-     */
-    rejectOnNotFound?: RejectOnNotFound | RejectPerOperation
     /**
      * Overwrites the datasource url from your schema.prisma file
      */
     datasources?: Datasources
-
+    /**
+     * Overwrites the datasource url from your schema.prisma file
+     */
+    datasourceUrl?: string
     /**
      * @default "colorless"
      */
     errorFormat?: ErrorFormat
-
     /**
      * @example
      * ```
@@ -820,15 +755,15 @@ export namespace Prisma {
      * 
      * // Emit as events
      * log: [
-     *  { emit: 'stdout', level: 'query' },
-     *  { emit: 'stdout', level: 'info' },
-     *  { emit: 'stdout', level: 'warn' }
-     *  { emit: 'stdout', level: 'error' }
+     *   { emit: 'stdout', level: 'query' },
+     *   { emit: 'stdout', level: 'info' },
+     *   { emit: 'stdout', level: 'warn' }
+     *   { emit: 'stdout', level: 'error' }
      * ]
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
-    log?: Array<LogLevel | LogDefinition>
+    log?: (LogLevel | LogDefinition)[]
   }
 
   /* Types for Logging */
@@ -861,8 +796,10 @@ export namespace Prisma {
 
   export type PrismaAction =
     | 'findUnique'
+    | 'findUniqueOrThrow'
     | 'findMany'
     | 'findFirst'
+    | 'findFirstOrThrow'
     | 'create'
     | 'createMany'
     | 'update'
@@ -876,6 +813,7 @@ export namespace Prisma {
     | 'count'
     | 'runCommandRaw'
     | 'findRaw'
+    | 'groupBy'
 
   /**
    * These options are being passed into the middleware as "params"
@@ -893,8 +831,8 @@ export namespace Prisma {
    */
   export type Middleware<T = any> = (
     params: MiddlewareParams,
-    next: (params: MiddlewareParams) => Promise<T>,
-  ) => Promise<T>
+    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
+  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -921,7 +859,6 @@ export namespace Prisma {
   /**
    * Model Listing
    */
-
 
   export type AggregateListing = {
     _count: ListingCountAggregateOutputType | null
@@ -958,6 +895,7 @@ export namespace Prisma {
     address: number
     parcelID: number
     images: number
+    labels: number
     _all: number
   }
 
@@ -991,10 +929,11 @@ export namespace Prisma {
     address?: true
     parcelID?: true
     images?: true
+    labels?: true
     _all?: true
   }
 
-  export type ListingAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Filter which Listing to aggregate.
      */
@@ -1004,7 +943,7 @@ export namespace Prisma {
      * 
      * Determine the order of Listings to fetch.
      */
-    orderBy?: Enumerable<ListingOrderByWithRelationInput>
+    orderBy?: ListingOrderByWithRelationInput | ListingOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -1054,10 +993,10 @@ export namespace Prisma {
 
 
 
-  export type ListingGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ListingWhereInput
-    orderBy?: Enumerable<ListingOrderByWithAggregationInput>
-    by: ListingScalarFieldEnum[]
+    orderBy?: ListingOrderByWithAggregationInput | ListingOrderByWithAggregationInput[]
+    by: ListingScalarFieldEnum[] | ListingScalarFieldEnum
     having?: ListingScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -1065,7 +1004,6 @@ export namespace Prisma {
     _min?: ListingMinAggregateInputType
     _max?: ListingMaxAggregateInputType
   }
-
 
   export type ListingGroupByOutputType = {
     id: string
@@ -1076,6 +1014,7 @@ export namespace Prisma {
     address: string | null
     parcelID: string | null
     images: string[]
+    labels: string[]
     _count: ListingCountAggregateOutputType | null
     _min: ListingMinAggregateOutputType | null
     _max: ListingMaxAggregateOutputType | null
@@ -1083,7 +1022,7 @@ export namespace Prisma {
 
   type GetListingGroupByPayload<T extends ListingGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<ListingGroupByOutputType, T['by']> &
+      PickEnumerable<ListingGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof ListingGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -1095,7 +1034,7 @@ export namespace Prisma {
     >
 
 
-  export type ListingSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ListingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1104,6 +1043,7 @@ export namespace Prisma {
     address?: boolean
     parcelID?: boolean
     images?: boolean
+    labels?: boolean
   }, ExtArgs["result"]["listing"]>
 
   export type ListingSelectScalar = {
@@ -1115,17 +1055,36 @@ export namespace Prisma {
     address?: boolean
     parcelID?: boolean
     images?: boolean
+    labels?: boolean
   }
 
 
-  type ListingGetPayload<S extends boolean | null | undefined | ListingArgs> = $Types.GetResult<ListingPayload, S>
+  export type $ListingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Listing"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date | null
+      updatedAt: Date | null
+      name: string | null
+      desc: string | null
+      address: string | null
+      parcelID: string | null
+      images: string[]
+      labels: string[]
+    }, ExtArgs["result"]["listing"]>
+    composites: {}
+  }
 
-  type ListingCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
-    Omit<ListingFindManyArgs, 'select' | 'include'> & {
+
+  type ListingGetPayload<S extends boolean | null | undefined | ListingDefaultArgs> = $Result.GetResult<Prisma.$ListingPayload, S>
+
+  type ListingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ListingFindManyArgs, 'select' | 'include' | 'distinct' > & {
       select?: ListingCountAggregateInputType | true
     }
 
-  export interface ListingDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+  export interface ListingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Listing'], meta: { name: 'Listing' } }
     /**
      * Find zero or one Listing that matches the filter.
@@ -1138,9 +1097,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends ListingFindUniqueArgs<ExtArgs>, LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+    findUnique<T extends ListingFindUniqueArgs<ExtArgs>>(
       args: SelectSubset<T, ListingFindUniqueArgs<ExtArgs>>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Listing'> extends True ? Prisma__ListingClient<$Types.GetResult<ListingPayload<ExtArgs>, T, 'findUnique', never>, never, ExtArgs> : Prisma__ListingClient<$Types.GetResult<ListingPayload<ExtArgs>, T, 'findUnique', never> | null, null, ExtArgs>
+    ): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one Listing that matches the filter or throw an error  with `error.code='P2025'` 
@@ -1156,7 +1115,7 @@ export namespace Prisma {
     **/
     findUniqueOrThrow<T extends ListingFindUniqueOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, ListingFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__ListingClient<$Types.GetResult<ListingPayload<ExtArgs>, T, 'findUniqueOrThrow', never>, never, ExtArgs>
+    ): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first Listing that matches the filter.
@@ -1171,13 +1130,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends ListingFindFirstArgs<ExtArgs>, LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+    findFirst<T extends ListingFindFirstArgs<ExtArgs>>(
       args?: SelectSubset<T, ListingFindFirstArgs<ExtArgs>>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Listing'> extends True ? Prisma__ListingClient<$Types.GetResult<ListingPayload<ExtArgs>, T, 'findFirst', never>, never, ExtArgs> : Prisma__ListingClient<$Types.GetResult<ListingPayload<ExtArgs>, T, 'findFirst', never> | null, null, ExtArgs>
+    ): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first Listing that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {ListingFindFirstOrThrowArgs} args - Arguments to find a Listing
@@ -1191,7 +1150,7 @@ export namespace Prisma {
     **/
     findFirstOrThrow<T extends ListingFindFirstOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, ListingFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__ListingClient<$Types.GetResult<ListingPayload<ExtArgs>, T, 'findFirstOrThrow', never>, never, ExtArgs>
+    ): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more Listings that matches the filter.
@@ -1211,7 +1170,7 @@ export namespace Prisma {
     **/
     findMany<T extends ListingFindManyArgs<ExtArgs>>(
       args?: SelectSubset<T, ListingFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Types.GetResult<ListingPayload<ExtArgs>, T, 'findMany', never>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a Listing.
@@ -1227,7 +1186,7 @@ export namespace Prisma {
     **/
     create<T extends ListingCreateArgs<ExtArgs>>(
       args: SelectSubset<T, ListingCreateArgs<ExtArgs>>
-    ): Prisma__ListingClient<$Types.GetResult<ListingPayload<ExtArgs>, T, 'create', never>, never, ExtArgs>
+    ): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many Listings.
@@ -1259,7 +1218,7 @@ export namespace Prisma {
     **/
     delete<T extends ListingDeleteArgs<ExtArgs>>(
       args: SelectSubset<T, ListingDeleteArgs<ExtArgs>>
-    ): Prisma__ListingClient<$Types.GetResult<ListingPayload<ExtArgs>, T, 'delete', never>, never, ExtArgs>
+    ): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one Listing.
@@ -1278,7 +1237,7 @@ export namespace Prisma {
     **/
     update<T extends ListingUpdateArgs<ExtArgs>>(
       args: SelectSubset<T, ListingUpdateArgs<ExtArgs>>
-    ): Prisma__ListingClient<$Types.GetResult<ListingPayload<ExtArgs>, T, 'update', never>, never, ExtArgs>
+    ): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more Listings.
@@ -1336,7 +1295,7 @@ export namespace Prisma {
     **/
     upsert<T extends ListingUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, ListingUpsertArgs<ExtArgs>>
-    ): Prisma__ListingClient<$Types.GetResult<ListingPayload<ExtArgs>, T, 'upsert', never>, never, ExtArgs>
+    ): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of Listings.
@@ -1415,7 +1374,7 @@ export namespace Prisma {
         ? { orderBy: ListingGroupByArgs['orderBy'] }
         : { orderBy?: ListingGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -1463,7 +1422,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, ListingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetListingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the Listing model
+   */
+  readonly fields: ListingFieldRefs;
   }
 
   /**
@@ -1472,53 +1434,56 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ListingClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
-    private readonly _dmmf;
-    private readonly _queryType;
-    private readonly _rootField;
-    private readonly _clientMethod;
-    private readonly _args;
-    private readonly _dataPath;
-    private readonly _errorFormat;
-    private readonly _measurePerformance?;
-    private _isList;
-    private _callsite;
-    private _requestPromise?;
+  export interface Prisma__ListingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
-    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
 
-    private get _document();
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
 
 
+
+  /**
+   * Fields of the Listing model
+   */ 
+  interface ListingFieldRefs {
+    readonly id: FieldRef<"Listing", 'String'>
+    readonly createdAt: FieldRef<"Listing", 'DateTime'>
+    readonly updatedAt: FieldRef<"Listing", 'DateTime'>
+    readonly name: FieldRef<"Listing", 'String'>
+    readonly desc: FieldRef<"Listing", 'String'>
+    readonly address: FieldRef<"Listing", 'String'>
+    readonly parcelID: FieldRef<"Listing", 'String'>
+    readonly images: FieldRef<"Listing", 'String[]'>
+    readonly labels: FieldRef<"Listing", 'String[]'>
+  }
+    
 
   // Custom InputTypes
 
   /**
-   * Listing base type for findUnique actions
+   * Listing findUnique
    */
-  export type ListingFindUniqueArgsBase<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Listing
      */
@@ -1529,22 +1494,11 @@ export namespace Prisma {
     where: ListingWhereUniqueInput
   }
 
-  /**
-   * Listing findUnique
-   */
-  export interface ListingFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends ListingFindUniqueArgsBase<ExtArgs> {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
 
   /**
    * Listing findUniqueOrThrow
    */
-  export type ListingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Listing
      */
@@ -1557,9 +1511,9 @@ export namespace Prisma {
 
 
   /**
-   * Listing base type for findFirst actions
+   * Listing findFirst
    */
-  export type ListingFindFirstArgsBase<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Listing
      */
@@ -1573,7 +1527,7 @@ export namespace Prisma {
      * 
      * Determine the order of Listings to fetch.
      */
-    orderBy?: Enumerable<ListingOrderByWithRelationInput>
+    orderBy?: ListingOrderByWithRelationInput | ListingOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -1597,25 +1551,14 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Listings.
      */
-    distinct?: Enumerable<ListingScalarFieldEnum>
+    distinct?: ListingScalarFieldEnum | ListingScalarFieldEnum[]
   }
 
-  /**
-   * Listing findFirst
-   */
-  export interface ListingFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends ListingFindFirstArgsBase<ExtArgs> {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
 
   /**
    * Listing findFirstOrThrow
    */
-  export type ListingFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Listing
      */
@@ -1629,7 +1572,7 @@ export namespace Prisma {
      * 
      * Determine the order of Listings to fetch.
      */
-    orderBy?: Enumerable<ListingOrderByWithRelationInput>
+    orderBy?: ListingOrderByWithRelationInput | ListingOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -1653,14 +1596,14 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Listings.
      */
-    distinct?: Enumerable<ListingScalarFieldEnum>
+    distinct?: ListingScalarFieldEnum | ListingScalarFieldEnum[]
   }
 
 
   /**
    * Listing findMany
    */
-  export type ListingFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Listing
      */
@@ -1674,7 +1617,7 @@ export namespace Prisma {
      * 
      * Determine the order of Listings to fetch.
      */
-    orderBy?: Enumerable<ListingOrderByWithRelationInput>
+    orderBy?: ListingOrderByWithRelationInput | ListingOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -1693,14 +1636,14 @@ export namespace Prisma {
      * Skip the first `n` Listings.
      */
     skip?: number
-    distinct?: Enumerable<ListingScalarFieldEnum>
+    distinct?: ListingScalarFieldEnum | ListingScalarFieldEnum[]
   }
 
 
   /**
    * Listing create
    */
-  export type ListingCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Listing
      */
@@ -1715,11 +1658,11 @@ export namespace Prisma {
   /**
    * Listing createMany
    */
-  export type ListingCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many Listings.
      */
-    data: Enumerable<ListingCreateManyInput>
+    data: ListingCreateManyInput | ListingCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -1727,7 +1670,7 @@ export namespace Prisma {
   /**
    * Listing update
    */
-  export type ListingUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Listing
      */
@@ -1746,7 +1689,7 @@ export namespace Prisma {
   /**
    * Listing updateMany
    */
-  export type ListingUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The data used to update Listings.
      */
@@ -1761,7 +1704,7 @@ export namespace Prisma {
   /**
    * Listing upsert
    */
-  export type ListingUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Listing
      */
@@ -1784,7 +1727,7 @@ export namespace Prisma {
   /**
    * Listing delete
    */
-  export type ListingDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Listing
      */
@@ -1799,7 +1742,7 @@ export namespace Prisma {
   /**
    * Listing deleteMany
    */
-  export type ListingDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Filter which Listings to delete
      */
@@ -1810,7 +1753,7 @@ export namespace Prisma {
   /**
    * Listing without action
    */
-  export type ListingArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type ListingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Listing
      */
@@ -1841,7 +1784,8 @@ export namespace Prisma {
     desc: 'desc',
     address: 'address',
     parcelID: 'parcelID',
-    images: 'images'
+    images: 'images',
+    labels: 'labels'
   };
 
   export type ListingScalarFieldEnum = (typeof ListingScalarFieldEnum)[keyof typeof ListingScalarFieldEnum]
@@ -1922,9 +1866,9 @@ export namespace Prisma {
 
 
   export type ListingWhereInput = {
-    AND?: Enumerable<ListingWhereInput>
-    OR?: Enumerable<ListingWhereInput>
-    NOT?: Enumerable<ListingWhereInput>
+    AND?: ListingWhereInput | ListingWhereInput[]
+    OR?: ListingWhereInput[]
+    NOT?: ListingWhereInput | ListingWhereInput[]
     id?: StringFilter<"Listing"> | string
     createdAt?: DateTimeNullableFilter<"Listing"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"Listing"> | Date | string | null
@@ -1933,6 +1877,7 @@ export namespace Prisma {
     address?: StringNullableFilter<"Listing"> | string | null
     parcelID?: StringNullableFilter<"Listing"> | string | null
     images?: StringNullableListFilter<"Listing">
+    labels?: StringNullableListFilter<"Listing">
   }
 
   export type ListingOrderByWithRelationInput = {
@@ -1944,13 +1889,14 @@ export namespace Prisma {
     address?: SortOrderInput | SortOrder
     parcelID?: SortOrderInput | SortOrder
     images?: SortOrder
+    labels?: SortOrder
   }
 
   export type ListingWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: Enumerable<ListingWhereInput>
-    OR?: Enumerable<ListingWhereInput>
-    NOT?: Enumerable<ListingWhereInput>
+    AND?: ListingWhereInput | ListingWhereInput[]
+    OR?: ListingWhereInput[]
+    NOT?: ListingWhereInput | ListingWhereInput[]
     createdAt?: DateTimeNullableFilter<"Listing"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"Listing"> | Date | string | null
     name?: StringNullableFilter<"Listing"> | string | null
@@ -1958,6 +1904,7 @@ export namespace Prisma {
     address?: StringNullableFilter<"Listing"> | string | null
     parcelID?: StringNullableFilter<"Listing"> | string | null
     images?: StringNullableListFilter<"Listing">
+    labels?: StringNullableListFilter<"Listing">
   }, "id">
 
   export type ListingOrderByWithAggregationInput = {
@@ -1969,15 +1916,16 @@ export namespace Prisma {
     address?: SortOrderInput | SortOrder
     parcelID?: SortOrderInput | SortOrder
     images?: SortOrder
+    labels?: SortOrder
     _count?: ListingCountOrderByAggregateInput
     _max?: ListingMaxOrderByAggregateInput
     _min?: ListingMinOrderByAggregateInput
   }
 
   export type ListingScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ListingScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ListingScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ListingScalarWhereWithAggregatesInput>
+    AND?: ListingScalarWhereWithAggregatesInput | ListingScalarWhereWithAggregatesInput[]
+    OR?: ListingScalarWhereWithAggregatesInput[]
+    NOT?: ListingScalarWhereWithAggregatesInput | ListingScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Listing"> | string
     createdAt?: DateTimeNullableWithAggregatesFilter<"Listing"> | Date | string | null
     updatedAt?: DateTimeNullableWithAggregatesFilter<"Listing"> | Date | string | null
@@ -1986,6 +1934,7 @@ export namespace Prisma {
     address?: StringNullableWithAggregatesFilter<"Listing"> | string | null
     parcelID?: StringNullableWithAggregatesFilter<"Listing"> | string | null
     images?: StringNullableListFilter<"Listing">
+    labels?: StringNullableListFilter<"Listing">
   }
 
   export type ListingCreateInput = {
@@ -1996,7 +1945,8 @@ export namespace Prisma {
     desc?: string | null
     address?: string | null
     parcelID?: string | null
-    images?: ListingCreateimagesInput | Enumerable<string>
+    images?: ListingCreateimagesInput | string[]
+    labels?: ListingCreatelabelsInput | string[]
   }
 
   export type ListingUncheckedCreateInput = {
@@ -2007,7 +1957,8 @@ export namespace Prisma {
     desc?: string | null
     address?: string | null
     parcelID?: string | null
-    images?: ListingCreateimagesInput | Enumerable<string>
+    images?: ListingCreateimagesInput | string[]
+    labels?: ListingCreatelabelsInput | string[]
   }
 
   export type ListingUpdateInput = {
@@ -2018,7 +1969,8 @@ export namespace Prisma {
     desc?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     parcelID?: NullableStringFieldUpdateOperationsInput | string | null
-    images?: ListingUpdateimagesInput | Enumerable<string>
+    images?: ListingUpdateimagesInput | string[]
+    labels?: ListingUpdatelabelsInput | string[]
   }
 
   export type ListingUncheckedUpdateInput = {
@@ -2029,7 +1981,8 @@ export namespace Prisma {
     desc?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     parcelID?: NullableStringFieldUpdateOperationsInput | string | null
-    images?: ListingUpdateimagesInput | Enumerable<string>
+    images?: ListingUpdateimagesInput | string[]
+    labels?: ListingUpdatelabelsInput | string[]
   }
 
   export type ListingCreateManyInput = {
@@ -2040,7 +1993,8 @@ export namespace Prisma {
     desc?: string | null
     address?: string | null
     parcelID?: string | null
-    images?: ListingCreateimagesInput | Enumerable<string>
+    images?: ListingCreateimagesInput | string[]
+    labels?: ListingCreatelabelsInput | string[]
   }
 
   export type ListingUpdateManyMutationInput = {
@@ -2051,7 +2005,8 @@ export namespace Prisma {
     desc?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     parcelID?: NullableStringFieldUpdateOperationsInput | string | null
-    images?: ListingUpdateimagesInput | Enumerable<string>
+    images?: ListingUpdateimagesInput | string[]
+    labels?: ListingUpdatelabelsInput | string[]
   }
 
   export type ListingUncheckedUpdateManyInput = {
@@ -2062,13 +2017,14 @@ export namespace Prisma {
     desc?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     parcelID?: NullableStringFieldUpdateOperationsInput | string | null
-    images?: ListingUpdateimagesInput | Enumerable<string>
+    images?: ListingUpdateimagesInput | string[]
+    labels?: ListingUpdatelabelsInput | string[]
   }
 
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel>
-    notIn?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -2082,8 +2038,8 @@ export namespace Prisma {
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Enumerable<Date> | Enumerable<string> | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | ListDateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -2093,8 +2049,8 @@ export namespace Prisma {
 
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -2107,10 +2063,10 @@ export namespace Prisma {
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel> | null
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel>
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
     isEmpty?: boolean
   }
 
@@ -2128,6 +2084,7 @@ export namespace Prisma {
     address?: SortOrder
     parcelID?: SortOrder
     images?: SortOrder
+    labels?: SortOrder
   }
 
   export type ListingMaxOrderByAggregateInput = {
@@ -2152,8 +2109,8 @@ export namespace Prisma {
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel>
-    notIn?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -2170,8 +2127,8 @@ export namespace Prisma {
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Enumerable<Date> | Enumerable<string> | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | ListDateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -2184,8 +2141,8 @@ export namespace Prisma {
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -2201,7 +2158,11 @@ export namespace Prisma {
   }
 
   export type ListingCreateimagesInput = {
-    set: Enumerable<string>
+    set: string[]
+  }
+
+  export type ListingCreatelabelsInput = {
+    set: string[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -2217,14 +2178,19 @@ export namespace Prisma {
   }
 
   export type ListingUpdateimagesInput = {
-    set?: Enumerable<string>
-    push?: string | Enumerable<string>
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type ListingUpdatelabelsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel>
-    notIn?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -2237,8 +2203,8 @@ export namespace Prisma {
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Enumerable<Date> | Enumerable<string> | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | ListDateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -2248,8 +2214,8 @@ export namespace Prisma {
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -2262,8 +2228,8 @@ export namespace Prisma {
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel>
-    notIn?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -2279,8 +2245,8 @@ export namespace Prisma {
 
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: Enumerable<number> | ListIntFieldRefInput<$PrismaModel>
-    notIn?: Enumerable<number> | ListIntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -2290,8 +2256,8 @@ export namespace Prisma {
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Enumerable<Date> | Enumerable<string> | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | ListDateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -2304,8 +2270,8 @@ export namespace Prisma {
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: Enumerable<number> | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: Enumerable<number> | ListIntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -2315,8 +2281,8 @@ export namespace Prisma {
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: Enumerable<string> | ListStringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -2331,6 +2297,14 @@ export namespace Prisma {
   }
 
 
+
+  /**
+   * Aliases for legacy arg types
+   */
+    /**
+     * @deprecated Use ListingDefaultArgs instead
+     */
+    export type ListingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ListingDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
