@@ -5,11 +5,12 @@ import type { Listing } from "../generated/prisma-client";
 const DEFAULT_USERS = [
   // Add your own listings to pre-populate the database with
   {
+    id: "HASAN101",
     name: "Lakeside Retreat",
     desc: "A beautiful parcel overlooking a pristine lake.",
     address: "789 Lake Rd, Lakeville, LV 67890",
     parcelID: "PA789012",
-    images: []
+    images: [],
   },
 ] as Array<Partial<Listing>>;
 
