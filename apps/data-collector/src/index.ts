@@ -75,7 +75,7 @@ app.post(`/gis/address/:id`, async (req, res) => {
       res.send({
         message: "Successfully added that address to our listings."
       });
-    }).catch((error) => {
+    }).catch((error: any) => {
       res.status(500);
       res.send({
         error: error
