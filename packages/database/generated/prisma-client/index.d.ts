@@ -14,6 +14,31 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model Assessment
+ * 
+ */
+export type Assessment = $Result.DefaultSelection<Prisma.$AssessmentPayload>
+/**
+ * Model LandUse
+ * 
+ */
+export type LandUse = $Result.DefaultSelection<Prisma.$LandUsePayload>
+/**
+ * Model Zone
+ * 
+ */
+export type Zone = $Result.DefaultSelection<Prisma.$ZonePayload>
+/**
+ * Model Parcel
+ * 
+ */
+export type Parcel = $Result.DefaultSelection<Prisma.$ParcelPayload>
+/**
+ * Model Address
+ * 
+ */
+export type Address = $Result.DefaultSelection<Prisma.$AddressPayload>
+/**
  * Model Listing
  * 
  */
@@ -26,8 +51,8 @@ export type Listing = $Result.DefaultSelection<Prisma.$ListingPayload>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Listings
- * const listings = await prisma.listing.findMany()
+ * // Fetch zero or more Assessments
+ * const assessments = await prisma.assessment.findMany()
  * ```
  *
  * 
@@ -47,8 +72,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Listings
-   * const listings = await prisma.listing.findMany()
+   * // Fetch zero or more Assessments
+   * const assessments = await prisma.assessment.findMany()
    * ```
    *
    * 
@@ -142,6 +167,56 @@ export class PrismaClient<
   $extends: $Extensions.ExtendsHook<'extends', Prisma.TypeMapCb, ExtArgs>
 
       /**
+   * `prisma.assessment`: Exposes CRUD operations for the **Assessment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Assessments
+    * const assessments = await prisma.assessment.findMany()
+    * ```
+    */
+  get assessment(): Prisma.AssessmentDelegate<ExtArgs>;
+
+  /**
+   * `prisma.landUse`: Exposes CRUD operations for the **LandUse** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LandUses
+    * const landUses = await prisma.landUse.findMany()
+    * ```
+    */
+  get landUse(): Prisma.LandUseDelegate<ExtArgs>;
+
+  /**
+   * `prisma.zone`: Exposes CRUD operations for the **Zone** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Zones
+    * const zones = await prisma.zone.findMany()
+    * ```
+    */
+  get zone(): Prisma.ZoneDelegate<ExtArgs>;
+
+  /**
+   * `prisma.parcel`: Exposes CRUD operations for the **Parcel** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Parcels
+    * const parcels = await prisma.parcel.findMany()
+    * ```
+    */
+  get parcel(): Prisma.ParcelDelegate<ExtArgs>;
+
+  /**
+   * `prisma.address`: Exposes CRUD operations for the **Address** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Addresses
+    * const addresses = await prisma.address.findMany()
+    * ```
+    */
+  get address(): Prisma.AddressDelegate<ExtArgs>;
+
+  /**
    * `prisma.listing`: Exposes CRUD operations for the **Listing** model.
     * Example usage:
     * ```ts
@@ -620,6 +695,11 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    Assessment: 'Assessment',
+    LandUse: 'LandUse',
+    Zone: 'Zone',
+    Parcel: 'Parcel',
+    Address: 'Address',
     Listing: 'Listing'
   };
 
@@ -637,10 +717,340 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'listing'
+      modelProps: 'assessment' | 'landUse' | 'zone' | 'parcel' | 'address' | 'listing'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
+      Assessment: {
+        payload: Prisma.$AssessmentPayload<ExtArgs>
+        fields: Prisma.AssessmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AssessmentFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AssessmentFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          findFirst: {
+            args: Prisma.AssessmentFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AssessmentFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          findMany: {
+            args: Prisma.AssessmentFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>[]
+          }
+          create: {
+            args: Prisma.AssessmentCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          createMany: {
+            args: Prisma.AssessmentCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.AssessmentDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          update: {
+            args: Prisma.AssessmentUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.AssessmentDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AssessmentUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.AssessmentUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AssessmentPayload>
+          }
+          aggregate: {
+            args: Prisma.AssessmentAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateAssessment>
+          }
+          groupBy: {
+            args: Prisma.AssessmentGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<AssessmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AssessmentCountArgs<ExtArgs>,
+            result: $Utils.Optional<AssessmentCountAggregateOutputType> | number
+          }
+        }
+      }
+      LandUse: {
+        payload: Prisma.$LandUsePayload<ExtArgs>
+        fields: Prisma.LandUseFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LandUseFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$LandUsePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LandUseFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$LandUsePayload>
+          }
+          findFirst: {
+            args: Prisma.LandUseFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$LandUsePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LandUseFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$LandUsePayload>
+          }
+          findMany: {
+            args: Prisma.LandUseFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$LandUsePayload>[]
+          }
+          create: {
+            args: Prisma.LandUseCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$LandUsePayload>
+          }
+          createMany: {
+            args: Prisma.LandUseCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.LandUseDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$LandUsePayload>
+          }
+          update: {
+            args: Prisma.LandUseUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$LandUsePayload>
+          }
+          deleteMany: {
+            args: Prisma.LandUseDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LandUseUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.LandUseUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$LandUsePayload>
+          }
+          aggregate: {
+            args: Prisma.LandUseAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateLandUse>
+          }
+          groupBy: {
+            args: Prisma.LandUseGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<LandUseGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LandUseCountArgs<ExtArgs>,
+            result: $Utils.Optional<LandUseCountAggregateOutputType> | number
+          }
+        }
+      }
+      Zone: {
+        payload: Prisma.$ZonePayload<ExtArgs>
+        fields: Prisma.ZoneFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ZoneFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ZoneFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>
+          }
+          findFirst: {
+            args: Prisma.ZoneFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ZoneFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>
+          }
+          findMany: {
+            args: Prisma.ZoneFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>[]
+          }
+          create: {
+            args: Prisma.ZoneCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>
+          }
+          createMany: {
+            args: Prisma.ZoneCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ZoneDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>
+          }
+          update: {
+            args: Prisma.ZoneUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>
+          }
+          deleteMany: {
+            args: Prisma.ZoneDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ZoneUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ZoneUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ZonePayload>
+          }
+          aggregate: {
+            args: Prisma.ZoneAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateZone>
+          }
+          groupBy: {
+            args: Prisma.ZoneGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ZoneGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ZoneCountArgs<ExtArgs>,
+            result: $Utils.Optional<ZoneCountAggregateOutputType> | number
+          }
+        }
+      }
+      Parcel: {
+        payload: Prisma.$ParcelPayload<ExtArgs>
+        fields: Prisma.ParcelFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ParcelFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ParcelPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ParcelFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ParcelPayload>
+          }
+          findFirst: {
+            args: Prisma.ParcelFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ParcelPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ParcelFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ParcelPayload>
+          }
+          findMany: {
+            args: Prisma.ParcelFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ParcelPayload>[]
+          }
+          create: {
+            args: Prisma.ParcelCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ParcelPayload>
+          }
+          createMany: {
+            args: Prisma.ParcelCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ParcelDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ParcelPayload>
+          }
+          update: {
+            args: Prisma.ParcelUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ParcelPayload>
+          }
+          deleteMany: {
+            args: Prisma.ParcelDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ParcelUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ParcelUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ParcelPayload>
+          }
+          aggregate: {
+            args: Prisma.ParcelAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateParcel>
+          }
+          groupBy: {
+            args: Prisma.ParcelGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ParcelGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ParcelCountArgs<ExtArgs>,
+            result: $Utils.Optional<ParcelCountAggregateOutputType> | number
+          }
+        }
+      }
+      Address: {
+        payload: Prisma.$AddressPayload<ExtArgs>
+        fields: Prisma.AddressFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AddressFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AddressFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          findFirst: {
+            args: Prisma.AddressFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AddressFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          findMany: {
+            args: Prisma.AddressFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>[]
+          }
+          create: {
+            args: Prisma.AddressCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          createMany: {
+            args: Prisma.AddressCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.AddressDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          update: {
+            args: Prisma.AddressUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          deleteMany: {
+            args: Prisma.AddressDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AddressUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.AddressUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          aggregate: {
+            args: Prisma.AddressAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateAddress>
+          }
+          groupBy: {
+            args: Prisma.AddressGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<AddressGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AddressCountArgs<ExtArgs>,
+            result: $Utils.Optional<AddressCountAggregateOutputType> | number
+          }
+        }
+      }
       Listing: {
         payload: Prisma.$ListingPayload<ExtArgs>
         fields: Prisma.ListingFieldRefs
@@ -851,10 +1261,4862 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type LandUseCountOutputType
+   */
+
+  export type LandUseCountOutputType = {
+    parcels: number
+  }
+
+  export type LandUseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parcels?: boolean | LandUseCountOutputTypeCountParcelsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * LandUseCountOutputType without action
+   */
+  export type LandUseCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandUseCountOutputType
+     */
+    select?: LandUseCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * LandUseCountOutputType without action
+   */
+  export type LandUseCountOutputTypeCountParcelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ParcelWhereInput
+  }
+
+
+
+  /**
+   * Count Type ZoneCountOutputType
+   */
+
+  export type ZoneCountOutputType = {
+    parcels: number
+  }
+
+  export type ZoneCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parcels?: boolean | ZoneCountOutputTypeCountParcelsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * ZoneCountOutputType without action
+   */
+  export type ZoneCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoneCountOutputType
+     */
+    select?: ZoneCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * ZoneCountOutputType without action
+   */
+  export type ZoneCountOutputTypeCountParcelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ParcelWhereInput
+  }
+
+
+
+  /**
+   * Count Type ParcelCountOutputType
+   */
+
+  export type ParcelCountOutputType = {
+    addresses: number
+    assessments: number
+  }
+
+  export type ParcelCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    addresses?: boolean | ParcelCountOutputTypeCountAddressesArgs
+    assessments?: boolean | ParcelCountOutputTypeCountAssessmentsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * ParcelCountOutputType without action
+   */
+  export type ParcelCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParcelCountOutputType
+     */
+    select?: ParcelCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * ParcelCountOutputType without action
+   */
+  export type ParcelCountOutputTypeCountAddressesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddressWhereInput
+  }
+
+
+  /**
+   * ParcelCountOutputType without action
+   */
+  export type ParcelCountOutputTypeCountAssessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssessmentWhereInput
+  }
+
+
 
   /**
    * Models
    */
+
+  /**
+   * Model Assessment
+   */
+
+  export type AggregateAssessment = {
+    _count: AssessmentCountAggregateOutputType | null
+    _avg: AssessmentAvgAggregateOutputType | null
+    _sum: AssessmentSumAggregateOutputType | null
+    _min: AssessmentMinAggregateOutputType | null
+    _max: AssessmentMaxAggregateOutputType | null
+  }
+
+  export type AssessmentAvgAggregateOutputType = {
+    year: number | null
+    improvements: number | null
+    land: number | null
+    total: number | null
+  }
+
+  export type AssessmentSumAggregateOutputType = {
+    year: number | null
+    improvements: number | null
+    land: number | null
+    total: number | null
+  }
+
+  export type AssessmentMinAggregateOutputType = {
+    id: string | null
+    parcelId: string | null
+    year: number | null
+    improvements: number | null
+    land: number | null
+    total: number | null
+  }
+
+  export type AssessmentMaxAggregateOutputType = {
+    id: string | null
+    parcelId: string | null
+    year: number | null
+    improvements: number | null
+    land: number | null
+    total: number | null
+  }
+
+  export type AssessmentCountAggregateOutputType = {
+    id: number
+    parcelId: number
+    year: number
+    improvements: number
+    land: number
+    total: number
+    _all: number
+  }
+
+
+  export type AssessmentAvgAggregateInputType = {
+    year?: true
+    improvements?: true
+    land?: true
+    total?: true
+  }
+
+  export type AssessmentSumAggregateInputType = {
+    year?: true
+    improvements?: true
+    land?: true
+    total?: true
+  }
+
+  export type AssessmentMinAggregateInputType = {
+    id?: true
+    parcelId?: true
+    year?: true
+    improvements?: true
+    land?: true
+    total?: true
+  }
+
+  export type AssessmentMaxAggregateInputType = {
+    id?: true
+    parcelId?: true
+    year?: true
+    improvements?: true
+    land?: true
+    total?: true
+  }
+
+  export type AssessmentCountAggregateInputType = {
+    id?: true
+    parcelId?: true
+    year?: true
+    improvements?: true
+    land?: true
+    total?: true
+    _all?: true
+  }
+
+  export type AssessmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Assessment to aggregate.
+     */
+    where?: AssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Assessments to fetch.
+     */
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Assessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Assessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Assessments
+    **/
+    _count?: true | AssessmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AssessmentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AssessmentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AssessmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AssessmentMaxAggregateInputType
+  }
+
+  export type GetAssessmentAggregateType<T extends AssessmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateAssessment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAssessment[P]>
+      : GetScalarType<T[P], AggregateAssessment[P]>
+  }
+
+
+
+
+  export type AssessmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssessmentWhereInput
+    orderBy?: AssessmentOrderByWithAggregationInput | AssessmentOrderByWithAggregationInput[]
+    by: AssessmentScalarFieldEnum[] | AssessmentScalarFieldEnum
+    having?: AssessmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AssessmentCountAggregateInputType | true
+    _avg?: AssessmentAvgAggregateInputType
+    _sum?: AssessmentSumAggregateInputType
+    _min?: AssessmentMinAggregateInputType
+    _max?: AssessmentMaxAggregateInputType
+  }
+
+  export type AssessmentGroupByOutputType = {
+    id: string
+    parcelId: string
+    year: number
+    improvements: number
+    land: number
+    total: number
+    _count: AssessmentCountAggregateOutputType | null
+    _avg: AssessmentAvgAggregateOutputType | null
+    _sum: AssessmentSumAggregateOutputType | null
+    _min: AssessmentMinAggregateOutputType | null
+    _max: AssessmentMaxAggregateOutputType | null
+  }
+
+  type GetAssessmentGroupByPayload<T extends AssessmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AssessmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AssessmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AssessmentGroupByOutputType[P]>
+            : GetScalarType<T[P], AssessmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AssessmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    parcelId?: boolean
+    year?: boolean
+    improvements?: boolean
+    land?: boolean
+    total?: boolean
+    parcel?: boolean | ParcelDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["assessment"]>
+
+  export type AssessmentSelectScalar = {
+    id?: boolean
+    parcelId?: boolean
+    year?: boolean
+    improvements?: boolean
+    land?: boolean
+    total?: boolean
+  }
+
+  export type AssessmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parcel?: boolean | ParcelDefaultArgs<ExtArgs>
+  }
+
+
+  export type $AssessmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Assessment"
+    objects: {
+      parcel: Prisma.$ParcelPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      parcelId: string
+      year: number
+      improvements: number
+      land: number
+      total: number
+    }, ExtArgs["result"]["assessment"]>
+    composites: {}
+  }
+
+
+  type AssessmentGetPayload<S extends boolean | null | undefined | AssessmentDefaultArgs> = $Result.GetResult<Prisma.$AssessmentPayload, S>
+
+  type AssessmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AssessmentFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: AssessmentCountAggregateInputType | true
+    }
+
+  export interface AssessmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Assessment'], meta: { name: 'Assessment' } }
+    /**
+     * Find zero or one Assessment that matches the filter.
+     * @param {AssessmentFindUniqueArgs} args - Arguments to find a Assessment
+     * @example
+     * // Get one Assessment
+     * const assessment = await prisma.assessment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AssessmentFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, AssessmentFindUniqueArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Assessment that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {AssessmentFindUniqueOrThrowArgs} args - Arguments to find a Assessment
+     * @example
+     * // Get one Assessment
+     * const assessment = await prisma.assessment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AssessmentFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AssessmentFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Assessment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentFindFirstArgs} args - Arguments to find a Assessment
+     * @example
+     * // Get one Assessment
+     * const assessment = await prisma.assessment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AssessmentFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, AssessmentFindFirstArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Assessment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentFindFirstOrThrowArgs} args - Arguments to find a Assessment
+     * @example
+     * // Get one Assessment
+     * const assessment = await prisma.assessment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AssessmentFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AssessmentFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Assessments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Assessments
+     * const assessments = await prisma.assessment.findMany()
+     * 
+     * // Get first 10 Assessments
+     * const assessments = await prisma.assessment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const assessmentWithIdOnly = await prisma.assessment.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AssessmentFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AssessmentFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Assessment.
+     * @param {AssessmentCreateArgs} args - Arguments to create a Assessment.
+     * @example
+     * // Create one Assessment
+     * const Assessment = await prisma.assessment.create({
+     *   data: {
+     *     // ... data to create a Assessment
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AssessmentCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, AssessmentCreateArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Assessments.
+     *     @param {AssessmentCreateManyArgs} args - Arguments to create many Assessments.
+     *     @example
+     *     // Create many Assessments
+     *     const assessment = await prisma.assessment.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends AssessmentCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AssessmentCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Assessment.
+     * @param {AssessmentDeleteArgs} args - Arguments to delete one Assessment.
+     * @example
+     * // Delete one Assessment
+     * const Assessment = await prisma.assessment.delete({
+     *   where: {
+     *     // ... filter to delete one Assessment
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AssessmentDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, AssessmentDeleteArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Assessment.
+     * @param {AssessmentUpdateArgs} args - Arguments to update one Assessment.
+     * @example
+     * // Update one Assessment
+     * const assessment = await prisma.assessment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AssessmentUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, AssessmentUpdateArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Assessments.
+     * @param {AssessmentDeleteManyArgs} args - Arguments to filter Assessments to delete.
+     * @example
+     * // Delete a few Assessments
+     * const { count } = await prisma.assessment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AssessmentDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AssessmentDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Assessments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Assessments
+     * const assessment = await prisma.assessment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AssessmentUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, AssessmentUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Assessment.
+     * @param {AssessmentUpsertArgs} args - Arguments to update or create a Assessment.
+     * @example
+     * // Update or create a Assessment
+     * const assessment = await prisma.assessment.upsert({
+     *   create: {
+     *     // ... data to create a Assessment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Assessment we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AssessmentUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, AssessmentUpsertArgs<ExtArgs>>
+    ): Prisma__AssessmentClient<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Assessments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentCountArgs} args - Arguments to filter Assessments to count.
+     * @example
+     * // Count the number of Assessments
+     * const count = await prisma.assessment.count({
+     *   where: {
+     *     // ... the filter for the Assessments we want to count
+     *   }
+     * })
+    **/
+    count<T extends AssessmentCountArgs>(
+      args?: Subset<T, AssessmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AssessmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Assessment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AssessmentAggregateArgs>(args: Subset<T, AssessmentAggregateArgs>): Prisma.PrismaPromise<GetAssessmentAggregateType<T>>
+
+    /**
+     * Group by Assessment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AssessmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AssessmentGroupByArgs['orderBy'] }
+        : { orderBy?: AssessmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AssessmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAssessmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Assessment model
+   */
+  readonly fields: AssessmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Assessment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AssessmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    parcel<T extends ParcelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ParcelDefaultArgs<ExtArgs>>): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Assessment model
+   */ 
+  interface AssessmentFieldRefs {
+    readonly id: FieldRef<"Assessment", 'String'>
+    readonly parcelId: FieldRef<"Assessment", 'String'>
+    readonly year: FieldRef<"Assessment", 'Int'>
+    readonly improvements: FieldRef<"Assessment", 'Int'>
+    readonly land: FieldRef<"Assessment", 'Int'>
+    readonly total: FieldRef<"Assessment", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Assessment findUnique
+   */
+  export type AssessmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Assessment to fetch.
+     */
+    where: AssessmentWhereUniqueInput
+  }
+
+
+  /**
+   * Assessment findUniqueOrThrow
+   */
+  export type AssessmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Assessment to fetch.
+     */
+    where: AssessmentWhereUniqueInput
+  }
+
+
+  /**
+   * Assessment findFirst
+   */
+  export type AssessmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Assessment to fetch.
+     */
+    where?: AssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Assessments to fetch.
+     */
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Assessments.
+     */
+    cursor?: AssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Assessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Assessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Assessments.
+     */
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+
+  /**
+   * Assessment findFirstOrThrow
+   */
+  export type AssessmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Assessment to fetch.
+     */
+    where?: AssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Assessments to fetch.
+     */
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Assessments.
+     */
+    cursor?: AssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Assessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Assessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Assessments.
+     */
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+
+  /**
+   * Assessment findMany
+   */
+  export type AssessmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Assessments to fetch.
+     */
+    where?: AssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Assessments to fetch.
+     */
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Assessments.
+     */
+    cursor?: AssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Assessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Assessments.
+     */
+    skip?: number
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+
+  /**
+   * Assessment create
+   */
+  export type AssessmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Assessment.
+     */
+    data: XOR<AssessmentCreateInput, AssessmentUncheckedCreateInput>
+  }
+
+
+  /**
+   * Assessment createMany
+   */
+  export type AssessmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Assessments.
+     */
+    data: AssessmentCreateManyInput | AssessmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Assessment update
+   */
+  export type AssessmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Assessment.
+     */
+    data: XOR<AssessmentUpdateInput, AssessmentUncheckedUpdateInput>
+    /**
+     * Choose, which Assessment to update.
+     */
+    where: AssessmentWhereUniqueInput
+  }
+
+
+  /**
+   * Assessment updateMany
+   */
+  export type AssessmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Assessments.
+     */
+    data: XOR<AssessmentUpdateManyMutationInput, AssessmentUncheckedUpdateManyInput>
+    /**
+     * Filter which Assessments to update
+     */
+    where?: AssessmentWhereInput
+  }
+
+
+  /**
+   * Assessment upsert
+   */
+  export type AssessmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Assessment to update in case it exists.
+     */
+    where: AssessmentWhereUniqueInput
+    /**
+     * In case the Assessment found by the `where` argument doesn't exist, create a new Assessment with this data.
+     */
+    create: XOR<AssessmentCreateInput, AssessmentUncheckedCreateInput>
+    /**
+     * In case the Assessment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AssessmentUpdateInput, AssessmentUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Assessment delete
+   */
+  export type AssessmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    /**
+     * Filter which Assessment to delete.
+     */
+    where: AssessmentWhereUniqueInput
+  }
+
+
+  /**
+   * Assessment deleteMany
+   */
+  export type AssessmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Assessments to delete
+     */
+    where?: AssessmentWhereInput
+  }
+
+
+  /**
+   * Assessment without action
+   */
+  export type AssessmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model LandUse
+   */
+
+  export type AggregateLandUse = {
+    _count: LandUseCountAggregateOutputType | null
+    _min: LandUseMinAggregateOutputType | null
+    _max: LandUseMaxAggregateOutputType | null
+  }
+
+  export type LandUseMinAggregateOutputType = {
+    id: string | null
+    landUseDesc: string | null
+  }
+
+  export type LandUseMaxAggregateOutputType = {
+    id: string | null
+    landUseDesc: string | null
+  }
+
+  export type LandUseCountAggregateOutputType = {
+    id: number
+    landUseDesc: number
+    _all: number
+  }
+
+
+  export type LandUseMinAggregateInputType = {
+    id?: true
+    landUseDesc?: true
+  }
+
+  export type LandUseMaxAggregateInputType = {
+    id?: true
+    landUseDesc?: true
+  }
+
+  export type LandUseCountAggregateInputType = {
+    id?: true
+    landUseDesc?: true
+    _all?: true
+  }
+
+  export type LandUseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LandUse to aggregate.
+     */
+    where?: LandUseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LandUses to fetch.
+     */
+    orderBy?: LandUseOrderByWithRelationInput | LandUseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LandUseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LandUses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LandUses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LandUses
+    **/
+    _count?: true | LandUseCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LandUseMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LandUseMaxAggregateInputType
+  }
+
+  export type GetLandUseAggregateType<T extends LandUseAggregateArgs> = {
+        [P in keyof T & keyof AggregateLandUse]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLandUse[P]>
+      : GetScalarType<T[P], AggregateLandUse[P]>
+  }
+
+
+
+
+  export type LandUseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LandUseWhereInput
+    orderBy?: LandUseOrderByWithAggregationInput | LandUseOrderByWithAggregationInput[]
+    by: LandUseScalarFieldEnum[] | LandUseScalarFieldEnum
+    having?: LandUseScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LandUseCountAggregateInputType | true
+    _min?: LandUseMinAggregateInputType
+    _max?: LandUseMaxAggregateInputType
+  }
+
+  export type LandUseGroupByOutputType = {
+    id: string
+    landUseDesc: string
+    _count: LandUseCountAggregateOutputType | null
+    _min: LandUseMinAggregateOutputType | null
+    _max: LandUseMaxAggregateOutputType | null
+  }
+
+  type GetLandUseGroupByPayload<T extends LandUseGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LandUseGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LandUseGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LandUseGroupByOutputType[P]>
+            : GetScalarType<T[P], LandUseGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LandUseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    landUseDesc?: boolean
+    parcels?: boolean | LandUse$parcelsArgs<ExtArgs>
+    _count?: boolean | LandUseCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["landUse"]>
+
+  export type LandUseSelectScalar = {
+    id?: boolean
+    landUseDesc?: boolean
+  }
+
+  export type LandUseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parcels?: boolean | LandUse$parcelsArgs<ExtArgs>
+    _count?: boolean | LandUseCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $LandUsePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LandUse"
+    objects: {
+      parcels: Prisma.$ParcelPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      landUseDesc: string
+    }, ExtArgs["result"]["landUse"]>
+    composites: {}
+  }
+
+
+  type LandUseGetPayload<S extends boolean | null | undefined | LandUseDefaultArgs> = $Result.GetResult<Prisma.$LandUsePayload, S>
+
+  type LandUseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<LandUseFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: LandUseCountAggregateInputType | true
+    }
+
+  export interface LandUseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LandUse'], meta: { name: 'LandUse' } }
+    /**
+     * Find zero or one LandUse that matches the filter.
+     * @param {LandUseFindUniqueArgs} args - Arguments to find a LandUse
+     * @example
+     * // Get one LandUse
+     * const landUse = await prisma.landUse.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends LandUseFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, LandUseFindUniqueArgs<ExtArgs>>
+    ): Prisma__LandUseClient<$Result.GetResult<Prisma.$LandUsePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one LandUse that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {LandUseFindUniqueOrThrowArgs} args - Arguments to find a LandUse
+     * @example
+     * // Get one LandUse
+     * const landUse = await prisma.landUse.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends LandUseFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, LandUseFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__LandUseClient<$Result.GetResult<Prisma.$LandUsePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first LandUse that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandUseFindFirstArgs} args - Arguments to find a LandUse
+     * @example
+     * // Get one LandUse
+     * const landUse = await prisma.landUse.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends LandUseFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, LandUseFindFirstArgs<ExtArgs>>
+    ): Prisma__LandUseClient<$Result.GetResult<Prisma.$LandUsePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first LandUse that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandUseFindFirstOrThrowArgs} args - Arguments to find a LandUse
+     * @example
+     * // Get one LandUse
+     * const landUse = await prisma.landUse.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends LandUseFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, LandUseFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__LandUseClient<$Result.GetResult<Prisma.$LandUsePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more LandUses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandUseFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LandUses
+     * const landUses = await prisma.landUse.findMany()
+     * 
+     * // Get first 10 LandUses
+     * const landUses = await prisma.landUse.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const landUseWithIdOnly = await prisma.landUse.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends LandUseFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, LandUseFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LandUsePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a LandUse.
+     * @param {LandUseCreateArgs} args - Arguments to create a LandUse.
+     * @example
+     * // Create one LandUse
+     * const LandUse = await prisma.landUse.create({
+     *   data: {
+     *     // ... data to create a LandUse
+     *   }
+     * })
+     * 
+    **/
+    create<T extends LandUseCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, LandUseCreateArgs<ExtArgs>>
+    ): Prisma__LandUseClient<$Result.GetResult<Prisma.$LandUsePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many LandUses.
+     *     @param {LandUseCreateManyArgs} args - Arguments to create many LandUses.
+     *     @example
+     *     // Create many LandUses
+     *     const landUse = await prisma.landUse.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends LandUseCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, LandUseCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a LandUse.
+     * @param {LandUseDeleteArgs} args - Arguments to delete one LandUse.
+     * @example
+     * // Delete one LandUse
+     * const LandUse = await prisma.landUse.delete({
+     *   where: {
+     *     // ... filter to delete one LandUse
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends LandUseDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, LandUseDeleteArgs<ExtArgs>>
+    ): Prisma__LandUseClient<$Result.GetResult<Prisma.$LandUsePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one LandUse.
+     * @param {LandUseUpdateArgs} args - Arguments to update one LandUse.
+     * @example
+     * // Update one LandUse
+     * const landUse = await prisma.landUse.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends LandUseUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, LandUseUpdateArgs<ExtArgs>>
+    ): Prisma__LandUseClient<$Result.GetResult<Prisma.$LandUsePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more LandUses.
+     * @param {LandUseDeleteManyArgs} args - Arguments to filter LandUses to delete.
+     * @example
+     * // Delete a few LandUses
+     * const { count } = await prisma.landUse.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends LandUseDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, LandUseDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LandUses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandUseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LandUses
+     * const landUse = await prisma.landUse.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends LandUseUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, LandUseUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one LandUse.
+     * @param {LandUseUpsertArgs} args - Arguments to update or create a LandUse.
+     * @example
+     * // Update or create a LandUse
+     * const landUse = await prisma.landUse.upsert({
+     *   create: {
+     *     // ... data to create a LandUse
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LandUse we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends LandUseUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, LandUseUpsertArgs<ExtArgs>>
+    ): Prisma__LandUseClient<$Result.GetResult<Prisma.$LandUsePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of LandUses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandUseCountArgs} args - Arguments to filter LandUses to count.
+     * @example
+     * // Count the number of LandUses
+     * const count = await prisma.landUse.count({
+     *   where: {
+     *     // ... the filter for the LandUses we want to count
+     *   }
+     * })
+    **/
+    count<T extends LandUseCountArgs>(
+      args?: Subset<T, LandUseCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LandUseCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LandUse.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandUseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LandUseAggregateArgs>(args: Subset<T, LandUseAggregateArgs>): Prisma.PrismaPromise<GetLandUseAggregateType<T>>
+
+    /**
+     * Group by LandUse.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandUseGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LandUseGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LandUseGroupByArgs['orderBy'] }
+        : { orderBy?: LandUseGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LandUseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLandUseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LandUse model
+   */
+  readonly fields: LandUseFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LandUse.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LandUseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    parcels<T extends LandUse$parcelsArgs<ExtArgs> = {}>(args?: Subset<T, LandUse$parcelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the LandUse model
+   */ 
+  interface LandUseFieldRefs {
+    readonly id: FieldRef<"LandUse", 'String'>
+    readonly landUseDesc: FieldRef<"LandUse", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * LandUse findUnique
+   */
+  export type LandUseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandUse
+     */
+    select?: LandUseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LandUseInclude<ExtArgs> | null
+    /**
+     * Filter, which LandUse to fetch.
+     */
+    where: LandUseWhereUniqueInput
+  }
+
+
+  /**
+   * LandUse findUniqueOrThrow
+   */
+  export type LandUseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandUse
+     */
+    select?: LandUseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LandUseInclude<ExtArgs> | null
+    /**
+     * Filter, which LandUse to fetch.
+     */
+    where: LandUseWhereUniqueInput
+  }
+
+
+  /**
+   * LandUse findFirst
+   */
+  export type LandUseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandUse
+     */
+    select?: LandUseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LandUseInclude<ExtArgs> | null
+    /**
+     * Filter, which LandUse to fetch.
+     */
+    where?: LandUseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LandUses to fetch.
+     */
+    orderBy?: LandUseOrderByWithRelationInput | LandUseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LandUses.
+     */
+    cursor?: LandUseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LandUses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LandUses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LandUses.
+     */
+    distinct?: LandUseScalarFieldEnum | LandUseScalarFieldEnum[]
+  }
+
+
+  /**
+   * LandUse findFirstOrThrow
+   */
+  export type LandUseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandUse
+     */
+    select?: LandUseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LandUseInclude<ExtArgs> | null
+    /**
+     * Filter, which LandUse to fetch.
+     */
+    where?: LandUseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LandUses to fetch.
+     */
+    orderBy?: LandUseOrderByWithRelationInput | LandUseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LandUses.
+     */
+    cursor?: LandUseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LandUses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LandUses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LandUses.
+     */
+    distinct?: LandUseScalarFieldEnum | LandUseScalarFieldEnum[]
+  }
+
+
+  /**
+   * LandUse findMany
+   */
+  export type LandUseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandUse
+     */
+    select?: LandUseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LandUseInclude<ExtArgs> | null
+    /**
+     * Filter, which LandUses to fetch.
+     */
+    where?: LandUseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LandUses to fetch.
+     */
+    orderBy?: LandUseOrderByWithRelationInput | LandUseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LandUses.
+     */
+    cursor?: LandUseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LandUses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LandUses.
+     */
+    skip?: number
+    distinct?: LandUseScalarFieldEnum | LandUseScalarFieldEnum[]
+  }
+
+
+  /**
+   * LandUse create
+   */
+  export type LandUseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandUse
+     */
+    select?: LandUseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LandUseInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LandUse.
+     */
+    data: XOR<LandUseCreateInput, LandUseUncheckedCreateInput>
+  }
+
+
+  /**
+   * LandUse createMany
+   */
+  export type LandUseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LandUses.
+     */
+    data: LandUseCreateManyInput | LandUseCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * LandUse update
+   */
+  export type LandUseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandUse
+     */
+    select?: LandUseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LandUseInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LandUse.
+     */
+    data: XOR<LandUseUpdateInput, LandUseUncheckedUpdateInput>
+    /**
+     * Choose, which LandUse to update.
+     */
+    where: LandUseWhereUniqueInput
+  }
+
+
+  /**
+   * LandUse updateMany
+   */
+  export type LandUseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LandUses.
+     */
+    data: XOR<LandUseUpdateManyMutationInput, LandUseUncheckedUpdateManyInput>
+    /**
+     * Filter which LandUses to update
+     */
+    where?: LandUseWhereInput
+  }
+
+
+  /**
+   * LandUse upsert
+   */
+  export type LandUseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandUse
+     */
+    select?: LandUseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LandUseInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LandUse to update in case it exists.
+     */
+    where: LandUseWhereUniqueInput
+    /**
+     * In case the LandUse found by the `where` argument doesn't exist, create a new LandUse with this data.
+     */
+    create: XOR<LandUseCreateInput, LandUseUncheckedCreateInput>
+    /**
+     * In case the LandUse was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LandUseUpdateInput, LandUseUncheckedUpdateInput>
+  }
+
+
+  /**
+   * LandUse delete
+   */
+  export type LandUseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandUse
+     */
+    select?: LandUseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LandUseInclude<ExtArgs> | null
+    /**
+     * Filter which LandUse to delete.
+     */
+    where: LandUseWhereUniqueInput
+  }
+
+
+  /**
+   * LandUse deleteMany
+   */
+  export type LandUseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LandUses to delete
+     */
+    where?: LandUseWhereInput
+  }
+
+
+  /**
+   * LandUse.parcels
+   */
+  export type LandUse$parcelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+    where?: ParcelWhereInput
+    orderBy?: ParcelOrderByWithRelationInput | ParcelOrderByWithRelationInput[]
+    cursor?: ParcelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ParcelScalarFieldEnum | ParcelScalarFieldEnum[]
+  }
+
+
+  /**
+   * LandUse without action
+   */
+  export type LandUseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandUse
+     */
+    select?: LandUseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LandUseInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Zone
+   */
+
+  export type AggregateZone = {
+    _count: ZoneCountAggregateOutputType | null
+    _min: ZoneMinAggregateOutputType | null
+    _max: ZoneMaxAggregateOutputType | null
+  }
+
+  export type ZoneMinAggregateOutputType = {
+    id: string | null
+    zoneDesc: string | null
+  }
+
+  export type ZoneMaxAggregateOutputType = {
+    id: string | null
+    zoneDesc: string | null
+  }
+
+  export type ZoneCountAggregateOutputType = {
+    id: number
+    zoneDesc: number
+    _all: number
+  }
+
+
+  export type ZoneMinAggregateInputType = {
+    id?: true
+    zoneDesc?: true
+  }
+
+  export type ZoneMaxAggregateInputType = {
+    id?: true
+    zoneDesc?: true
+  }
+
+  export type ZoneCountAggregateInputType = {
+    id?: true
+    zoneDesc?: true
+    _all?: true
+  }
+
+  export type ZoneAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Zone to aggregate.
+     */
+    where?: ZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Zones to fetch.
+     */
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Zones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Zones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Zones
+    **/
+    _count?: true | ZoneCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ZoneMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ZoneMaxAggregateInputType
+  }
+
+  export type GetZoneAggregateType<T extends ZoneAggregateArgs> = {
+        [P in keyof T & keyof AggregateZone]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateZone[P]>
+      : GetScalarType<T[P], AggregateZone[P]>
+  }
+
+
+
+
+  export type ZoneGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZoneWhereInput
+    orderBy?: ZoneOrderByWithAggregationInput | ZoneOrderByWithAggregationInput[]
+    by: ZoneScalarFieldEnum[] | ZoneScalarFieldEnum
+    having?: ZoneScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ZoneCountAggregateInputType | true
+    _min?: ZoneMinAggregateInputType
+    _max?: ZoneMaxAggregateInputType
+  }
+
+  export type ZoneGroupByOutputType = {
+    id: string
+    zoneDesc: string
+    _count: ZoneCountAggregateOutputType | null
+    _min: ZoneMinAggregateOutputType | null
+    _max: ZoneMaxAggregateOutputType | null
+  }
+
+  type GetZoneGroupByPayload<T extends ZoneGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ZoneGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ZoneGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ZoneGroupByOutputType[P]>
+            : GetScalarType<T[P], ZoneGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ZoneSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    zoneDesc?: boolean
+    parcels?: boolean | Zone$parcelsArgs<ExtArgs>
+    _count?: boolean | ZoneCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["zone"]>
+
+  export type ZoneSelectScalar = {
+    id?: boolean
+    zoneDesc?: boolean
+  }
+
+  export type ZoneInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parcels?: boolean | Zone$parcelsArgs<ExtArgs>
+    _count?: boolean | ZoneCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $ZonePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Zone"
+    objects: {
+      parcels: Prisma.$ParcelPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      zoneDesc: string
+    }, ExtArgs["result"]["zone"]>
+    composites: {}
+  }
+
+
+  type ZoneGetPayload<S extends boolean | null | undefined | ZoneDefaultArgs> = $Result.GetResult<Prisma.$ZonePayload, S>
+
+  type ZoneCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ZoneFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: ZoneCountAggregateInputType | true
+    }
+
+  export interface ZoneDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Zone'], meta: { name: 'Zone' } }
+    /**
+     * Find zero or one Zone that matches the filter.
+     * @param {ZoneFindUniqueArgs} args - Arguments to find a Zone
+     * @example
+     * // Get one Zone
+     * const zone = await prisma.zone.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ZoneFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ZoneFindUniqueArgs<ExtArgs>>
+    ): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Zone that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ZoneFindUniqueOrThrowArgs} args - Arguments to find a Zone
+     * @example
+     * // Get one Zone
+     * const zone = await prisma.zone.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ZoneFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ZoneFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Zone that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoneFindFirstArgs} args - Arguments to find a Zone
+     * @example
+     * // Get one Zone
+     * const zone = await prisma.zone.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ZoneFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ZoneFindFirstArgs<ExtArgs>>
+    ): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Zone that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoneFindFirstOrThrowArgs} args - Arguments to find a Zone
+     * @example
+     * // Get one Zone
+     * const zone = await prisma.zone.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ZoneFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ZoneFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Zones that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoneFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Zones
+     * const zones = await prisma.zone.findMany()
+     * 
+     * // Get first 10 Zones
+     * const zones = await prisma.zone.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const zoneWithIdOnly = await prisma.zone.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ZoneFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ZoneFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Zone.
+     * @param {ZoneCreateArgs} args - Arguments to create a Zone.
+     * @example
+     * // Create one Zone
+     * const Zone = await prisma.zone.create({
+     *   data: {
+     *     // ... data to create a Zone
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ZoneCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ZoneCreateArgs<ExtArgs>>
+    ): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Zones.
+     *     @param {ZoneCreateManyArgs} args - Arguments to create many Zones.
+     *     @example
+     *     // Create many Zones
+     *     const zone = await prisma.zone.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ZoneCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ZoneCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Zone.
+     * @param {ZoneDeleteArgs} args - Arguments to delete one Zone.
+     * @example
+     * // Delete one Zone
+     * const Zone = await prisma.zone.delete({
+     *   where: {
+     *     // ... filter to delete one Zone
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ZoneDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ZoneDeleteArgs<ExtArgs>>
+    ): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Zone.
+     * @param {ZoneUpdateArgs} args - Arguments to update one Zone.
+     * @example
+     * // Update one Zone
+     * const zone = await prisma.zone.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ZoneUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ZoneUpdateArgs<ExtArgs>>
+    ): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Zones.
+     * @param {ZoneDeleteManyArgs} args - Arguments to filter Zones to delete.
+     * @example
+     * // Delete a few Zones
+     * const { count } = await prisma.zone.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ZoneDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ZoneDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Zones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoneUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Zones
+     * const zone = await prisma.zone.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ZoneUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ZoneUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Zone.
+     * @param {ZoneUpsertArgs} args - Arguments to update or create a Zone.
+     * @example
+     * // Update or create a Zone
+     * const zone = await prisma.zone.upsert({
+     *   create: {
+     *     // ... data to create a Zone
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Zone we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ZoneUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ZoneUpsertArgs<ExtArgs>>
+    ): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Zones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoneCountArgs} args - Arguments to filter Zones to count.
+     * @example
+     * // Count the number of Zones
+     * const count = await prisma.zone.count({
+     *   where: {
+     *     // ... the filter for the Zones we want to count
+     *   }
+     * })
+    **/
+    count<T extends ZoneCountArgs>(
+      args?: Subset<T, ZoneCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ZoneCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Zone.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoneAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ZoneAggregateArgs>(args: Subset<T, ZoneAggregateArgs>): Prisma.PrismaPromise<GetZoneAggregateType<T>>
+
+    /**
+     * Group by Zone.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoneGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ZoneGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ZoneGroupByArgs['orderBy'] }
+        : { orderBy?: ZoneGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ZoneGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetZoneGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Zone model
+   */
+  readonly fields: ZoneFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Zone.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ZoneClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    parcels<T extends Zone$parcelsArgs<ExtArgs> = {}>(args?: Subset<T, Zone$parcelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Zone model
+   */ 
+  interface ZoneFieldRefs {
+    readonly id: FieldRef<"Zone", 'String'>
+    readonly zoneDesc: FieldRef<"Zone", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Zone findUnique
+   */
+  export type ZoneFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which Zone to fetch.
+     */
+    where: ZoneWhereUniqueInput
+  }
+
+
+  /**
+   * Zone findUniqueOrThrow
+   */
+  export type ZoneFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which Zone to fetch.
+     */
+    where: ZoneWhereUniqueInput
+  }
+
+
+  /**
+   * Zone findFirst
+   */
+  export type ZoneFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which Zone to fetch.
+     */
+    where?: ZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Zones to fetch.
+     */
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Zones.
+     */
+    cursor?: ZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Zones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Zones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Zones.
+     */
+    distinct?: ZoneScalarFieldEnum | ZoneScalarFieldEnum[]
+  }
+
+
+  /**
+   * Zone findFirstOrThrow
+   */
+  export type ZoneFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which Zone to fetch.
+     */
+    where?: ZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Zones to fetch.
+     */
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Zones.
+     */
+    cursor?: ZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Zones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Zones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Zones.
+     */
+    distinct?: ZoneScalarFieldEnum | ZoneScalarFieldEnum[]
+  }
+
+
+  /**
+   * Zone findMany
+   */
+  export type ZoneFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which Zones to fetch.
+     */
+    where?: ZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Zones to fetch.
+     */
+    orderBy?: ZoneOrderByWithRelationInput | ZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Zones.
+     */
+    cursor?: ZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Zones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Zones.
+     */
+    skip?: number
+    distinct?: ZoneScalarFieldEnum | ZoneScalarFieldEnum[]
+  }
+
+
+  /**
+   * Zone create
+   */
+  export type ZoneCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ZoneInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Zone.
+     */
+    data: XOR<ZoneCreateInput, ZoneUncheckedCreateInput>
+  }
+
+
+  /**
+   * Zone createMany
+   */
+  export type ZoneCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Zones.
+     */
+    data: ZoneCreateManyInput | ZoneCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Zone update
+   */
+  export type ZoneUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ZoneInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Zone.
+     */
+    data: XOR<ZoneUpdateInput, ZoneUncheckedUpdateInput>
+    /**
+     * Choose, which Zone to update.
+     */
+    where: ZoneWhereUniqueInput
+  }
+
+
+  /**
+   * Zone updateMany
+   */
+  export type ZoneUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Zones.
+     */
+    data: XOR<ZoneUpdateManyMutationInput, ZoneUncheckedUpdateManyInput>
+    /**
+     * Filter which Zones to update
+     */
+    where?: ZoneWhereInput
+  }
+
+
+  /**
+   * Zone upsert
+   */
+  export type ZoneUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ZoneInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Zone to update in case it exists.
+     */
+    where: ZoneWhereUniqueInput
+    /**
+     * In case the Zone found by the `where` argument doesn't exist, create a new Zone with this data.
+     */
+    create: XOR<ZoneCreateInput, ZoneUncheckedCreateInput>
+    /**
+     * In case the Zone was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ZoneUpdateInput, ZoneUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Zone delete
+   */
+  export type ZoneDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ZoneInclude<ExtArgs> | null
+    /**
+     * Filter which Zone to delete.
+     */
+    where: ZoneWhereUniqueInput
+  }
+
+
+  /**
+   * Zone deleteMany
+   */
+  export type ZoneDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Zones to delete
+     */
+    where?: ZoneWhereInput
+  }
+
+
+  /**
+   * Zone.parcels
+   */
+  export type Zone$parcelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+    where?: ParcelWhereInput
+    orderBy?: ParcelOrderByWithRelationInput | ParcelOrderByWithRelationInput[]
+    cursor?: ParcelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ParcelScalarFieldEnum | ParcelScalarFieldEnum[]
+  }
+
+
+  /**
+   * Zone without action
+   */
+  export type ZoneDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zone
+     */
+    select?: ZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ZoneInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Parcel
+   */
+
+  export type AggregateParcel = {
+    _count: ParcelCountAggregateOutputType | null
+    _min: ParcelMinAggregateOutputType | null
+    _max: ParcelMaxAggregateOutputType | null
+  }
+
+  export type ParcelMinAggregateOutputType = {
+    id: string | null
+    zoneId: string | null
+    landUseId: string | null
+  }
+
+  export type ParcelMaxAggregateOutputType = {
+    id: string | null
+    zoneId: string | null
+    landUseId: string | null
+  }
+
+  export type ParcelCountAggregateOutputType = {
+    id: number
+    zoneId: number
+    landUseId: number
+    _all: number
+  }
+
+
+  export type ParcelMinAggregateInputType = {
+    id?: true
+    zoneId?: true
+    landUseId?: true
+  }
+
+  export type ParcelMaxAggregateInputType = {
+    id?: true
+    zoneId?: true
+    landUseId?: true
+  }
+
+  export type ParcelCountAggregateInputType = {
+    id?: true
+    zoneId?: true
+    landUseId?: true
+    _all?: true
+  }
+
+  export type ParcelAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Parcel to aggregate.
+     */
+    where?: ParcelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Parcels to fetch.
+     */
+    orderBy?: ParcelOrderByWithRelationInput | ParcelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ParcelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Parcels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Parcels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Parcels
+    **/
+    _count?: true | ParcelCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ParcelMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ParcelMaxAggregateInputType
+  }
+
+  export type GetParcelAggregateType<T extends ParcelAggregateArgs> = {
+        [P in keyof T & keyof AggregateParcel]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateParcel[P]>
+      : GetScalarType<T[P], AggregateParcel[P]>
+  }
+
+
+
+
+  export type ParcelGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ParcelWhereInput
+    orderBy?: ParcelOrderByWithAggregationInput | ParcelOrderByWithAggregationInput[]
+    by: ParcelScalarFieldEnum[] | ParcelScalarFieldEnum
+    having?: ParcelScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ParcelCountAggregateInputType | true
+    _min?: ParcelMinAggregateInputType
+    _max?: ParcelMaxAggregateInputType
+  }
+
+  export type ParcelGroupByOutputType = {
+    id: string
+    zoneId: string
+    landUseId: string
+    _count: ParcelCountAggregateOutputType | null
+    _min: ParcelMinAggregateOutputType | null
+    _max: ParcelMaxAggregateOutputType | null
+  }
+
+  type GetParcelGroupByPayload<T extends ParcelGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ParcelGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ParcelGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ParcelGroupByOutputType[P]>
+            : GetScalarType<T[P], ParcelGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ParcelSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    zoneId?: boolean
+    landUseId?: boolean
+    addresses?: boolean | Parcel$addressesArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+    landUse?: boolean | LandUseDefaultArgs<ExtArgs>
+    assessments?: boolean | Parcel$assessmentsArgs<ExtArgs>
+    _count?: boolean | ParcelCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["parcel"]>
+
+  export type ParcelSelectScalar = {
+    id?: boolean
+    zoneId?: boolean
+    landUseId?: boolean
+  }
+
+  export type ParcelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    addresses?: boolean | Parcel$addressesArgs<ExtArgs>
+    zone?: boolean | ZoneDefaultArgs<ExtArgs>
+    landUse?: boolean | LandUseDefaultArgs<ExtArgs>
+    assessments?: boolean | Parcel$assessmentsArgs<ExtArgs>
+    _count?: boolean | ParcelCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $ParcelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Parcel"
+    objects: {
+      addresses: Prisma.$AddressPayload<ExtArgs>[]
+      zone: Prisma.$ZonePayload<ExtArgs>
+      landUse: Prisma.$LandUsePayload<ExtArgs>
+      assessments: Prisma.$AssessmentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      zoneId: string
+      landUseId: string
+    }, ExtArgs["result"]["parcel"]>
+    composites: {}
+  }
+
+
+  type ParcelGetPayload<S extends boolean | null | undefined | ParcelDefaultArgs> = $Result.GetResult<Prisma.$ParcelPayload, S>
+
+  type ParcelCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ParcelFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: ParcelCountAggregateInputType | true
+    }
+
+  export interface ParcelDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Parcel'], meta: { name: 'Parcel' } }
+    /**
+     * Find zero or one Parcel that matches the filter.
+     * @param {ParcelFindUniqueArgs} args - Arguments to find a Parcel
+     * @example
+     * // Get one Parcel
+     * const parcel = await prisma.parcel.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ParcelFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ParcelFindUniqueArgs<ExtArgs>>
+    ): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Parcel that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ParcelFindUniqueOrThrowArgs} args - Arguments to find a Parcel
+     * @example
+     * // Get one Parcel
+     * const parcel = await prisma.parcel.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ParcelFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ParcelFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Parcel that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParcelFindFirstArgs} args - Arguments to find a Parcel
+     * @example
+     * // Get one Parcel
+     * const parcel = await prisma.parcel.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ParcelFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ParcelFindFirstArgs<ExtArgs>>
+    ): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Parcel that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParcelFindFirstOrThrowArgs} args - Arguments to find a Parcel
+     * @example
+     * // Get one Parcel
+     * const parcel = await prisma.parcel.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ParcelFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ParcelFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Parcels that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParcelFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Parcels
+     * const parcels = await prisma.parcel.findMany()
+     * 
+     * // Get first 10 Parcels
+     * const parcels = await prisma.parcel.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const parcelWithIdOnly = await prisma.parcel.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ParcelFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ParcelFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Parcel.
+     * @param {ParcelCreateArgs} args - Arguments to create a Parcel.
+     * @example
+     * // Create one Parcel
+     * const Parcel = await prisma.parcel.create({
+     *   data: {
+     *     // ... data to create a Parcel
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ParcelCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ParcelCreateArgs<ExtArgs>>
+    ): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Parcels.
+     *     @param {ParcelCreateManyArgs} args - Arguments to create many Parcels.
+     *     @example
+     *     // Create many Parcels
+     *     const parcel = await prisma.parcel.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ParcelCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ParcelCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Parcel.
+     * @param {ParcelDeleteArgs} args - Arguments to delete one Parcel.
+     * @example
+     * // Delete one Parcel
+     * const Parcel = await prisma.parcel.delete({
+     *   where: {
+     *     // ... filter to delete one Parcel
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ParcelDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ParcelDeleteArgs<ExtArgs>>
+    ): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Parcel.
+     * @param {ParcelUpdateArgs} args - Arguments to update one Parcel.
+     * @example
+     * // Update one Parcel
+     * const parcel = await prisma.parcel.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ParcelUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ParcelUpdateArgs<ExtArgs>>
+    ): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Parcels.
+     * @param {ParcelDeleteManyArgs} args - Arguments to filter Parcels to delete.
+     * @example
+     * // Delete a few Parcels
+     * const { count } = await prisma.parcel.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ParcelDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ParcelDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Parcels.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParcelUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Parcels
+     * const parcel = await prisma.parcel.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ParcelUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ParcelUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Parcel.
+     * @param {ParcelUpsertArgs} args - Arguments to update or create a Parcel.
+     * @example
+     * // Update or create a Parcel
+     * const parcel = await prisma.parcel.upsert({
+     *   create: {
+     *     // ... data to create a Parcel
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Parcel we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ParcelUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ParcelUpsertArgs<ExtArgs>>
+    ): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Parcels.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParcelCountArgs} args - Arguments to filter Parcels to count.
+     * @example
+     * // Count the number of Parcels
+     * const count = await prisma.parcel.count({
+     *   where: {
+     *     // ... the filter for the Parcels we want to count
+     *   }
+     * })
+    **/
+    count<T extends ParcelCountArgs>(
+      args?: Subset<T, ParcelCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ParcelCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Parcel.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParcelAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ParcelAggregateArgs>(args: Subset<T, ParcelAggregateArgs>): Prisma.PrismaPromise<GetParcelAggregateType<T>>
+
+    /**
+     * Group by Parcel.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParcelGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ParcelGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ParcelGroupByArgs['orderBy'] }
+        : { orderBy?: ParcelGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ParcelGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetParcelGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Parcel model
+   */
+  readonly fields: ParcelFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Parcel.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ParcelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    addresses<T extends Parcel$addressesArgs<ExtArgs> = {}>(args?: Subset<T, Parcel$addressesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    zone<T extends ZoneDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ZoneDefaultArgs<ExtArgs>>): Prisma__ZoneClient<$Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    landUse<T extends LandUseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LandUseDefaultArgs<ExtArgs>>): Prisma__LandUseClient<$Result.GetResult<Prisma.$LandUsePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    assessments<T extends Parcel$assessmentsArgs<ExtArgs> = {}>(args?: Subset<T, Parcel$assessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Parcel model
+   */ 
+  interface ParcelFieldRefs {
+    readonly id: FieldRef<"Parcel", 'String'>
+    readonly zoneId: FieldRef<"Parcel", 'String'>
+    readonly landUseId: FieldRef<"Parcel", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Parcel findUnique
+   */
+  export type ParcelFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+    /**
+     * Filter, which Parcel to fetch.
+     */
+    where: ParcelWhereUniqueInput
+  }
+
+
+  /**
+   * Parcel findUniqueOrThrow
+   */
+  export type ParcelFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+    /**
+     * Filter, which Parcel to fetch.
+     */
+    where: ParcelWhereUniqueInput
+  }
+
+
+  /**
+   * Parcel findFirst
+   */
+  export type ParcelFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+    /**
+     * Filter, which Parcel to fetch.
+     */
+    where?: ParcelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Parcels to fetch.
+     */
+    orderBy?: ParcelOrderByWithRelationInput | ParcelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Parcels.
+     */
+    cursor?: ParcelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Parcels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Parcels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Parcels.
+     */
+    distinct?: ParcelScalarFieldEnum | ParcelScalarFieldEnum[]
+  }
+
+
+  /**
+   * Parcel findFirstOrThrow
+   */
+  export type ParcelFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+    /**
+     * Filter, which Parcel to fetch.
+     */
+    where?: ParcelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Parcels to fetch.
+     */
+    orderBy?: ParcelOrderByWithRelationInput | ParcelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Parcels.
+     */
+    cursor?: ParcelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Parcels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Parcels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Parcels.
+     */
+    distinct?: ParcelScalarFieldEnum | ParcelScalarFieldEnum[]
+  }
+
+
+  /**
+   * Parcel findMany
+   */
+  export type ParcelFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+    /**
+     * Filter, which Parcels to fetch.
+     */
+    where?: ParcelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Parcels to fetch.
+     */
+    orderBy?: ParcelOrderByWithRelationInput | ParcelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Parcels.
+     */
+    cursor?: ParcelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Parcels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Parcels.
+     */
+    skip?: number
+    distinct?: ParcelScalarFieldEnum | ParcelScalarFieldEnum[]
+  }
+
+
+  /**
+   * Parcel create
+   */
+  export type ParcelCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Parcel.
+     */
+    data: XOR<ParcelCreateInput, ParcelUncheckedCreateInput>
+  }
+
+
+  /**
+   * Parcel createMany
+   */
+  export type ParcelCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Parcels.
+     */
+    data: ParcelCreateManyInput | ParcelCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Parcel update
+   */
+  export type ParcelUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Parcel.
+     */
+    data: XOR<ParcelUpdateInput, ParcelUncheckedUpdateInput>
+    /**
+     * Choose, which Parcel to update.
+     */
+    where: ParcelWhereUniqueInput
+  }
+
+
+  /**
+   * Parcel updateMany
+   */
+  export type ParcelUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Parcels.
+     */
+    data: XOR<ParcelUpdateManyMutationInput, ParcelUncheckedUpdateManyInput>
+    /**
+     * Filter which Parcels to update
+     */
+    where?: ParcelWhereInput
+  }
+
+
+  /**
+   * Parcel upsert
+   */
+  export type ParcelUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Parcel to update in case it exists.
+     */
+    where: ParcelWhereUniqueInput
+    /**
+     * In case the Parcel found by the `where` argument doesn't exist, create a new Parcel with this data.
+     */
+    create: XOR<ParcelCreateInput, ParcelUncheckedCreateInput>
+    /**
+     * In case the Parcel was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ParcelUpdateInput, ParcelUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Parcel delete
+   */
+  export type ParcelDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+    /**
+     * Filter which Parcel to delete.
+     */
+    where: ParcelWhereUniqueInput
+  }
+
+
+  /**
+   * Parcel deleteMany
+   */
+  export type ParcelDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Parcels to delete
+     */
+    where?: ParcelWhereInput
+  }
+
+
+  /**
+   * Parcel.addresses
+   */
+  export type Parcel$addressesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AddressInclude<ExtArgs> | null
+    where?: AddressWhereInput
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    cursor?: AddressWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+
+  /**
+   * Parcel.assessments
+   */
+  export type Parcel$assessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Assessment
+     */
+    select?: AssessmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AssessmentInclude<ExtArgs> | null
+    where?: AssessmentWhereInput
+    orderBy?: AssessmentOrderByWithRelationInput | AssessmentOrderByWithRelationInput[]
+    cursor?: AssessmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
+  }
+
+
+  /**
+   * Parcel without action
+   */
+  export type ParcelDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Address
+   */
+
+  export type AggregateAddress = {
+    _count: AddressCountAggregateOutputType | null
+    _avg: AddressAvgAggregateOutputType | null
+    _sum: AddressSumAggregateOutputType | null
+    _min: AddressMinAggregateOutputType | null
+    _max: AddressMaxAggregateOutputType | null
+  }
+
+  export type AddressAvgAggregateOutputType = {
+    num: number | null
+  }
+
+  export type AddressSumAggregateOutputType = {
+    num: number | null
+  }
+
+  export type AddressMinAggregateOutputType = {
+    id: string | null
+    num: number | null
+    street: string | null
+    st_suffix: string | null
+    city: string | null
+    zip: string | null
+    parcelId: string | null
+  }
+
+  export type AddressMaxAggregateOutputType = {
+    id: string | null
+    num: number | null
+    street: string | null
+    st_suffix: string | null
+    city: string | null
+    zip: string | null
+    parcelId: string | null
+  }
+
+  export type AddressCountAggregateOutputType = {
+    id: number
+    num: number
+    street: number
+    st_suffix: number
+    city: number
+    zip: number
+    parcelId: number
+    _all: number
+  }
+
+
+  export type AddressAvgAggregateInputType = {
+    num?: true
+  }
+
+  export type AddressSumAggregateInputType = {
+    num?: true
+  }
+
+  export type AddressMinAggregateInputType = {
+    id?: true
+    num?: true
+    street?: true
+    st_suffix?: true
+    city?: true
+    zip?: true
+    parcelId?: true
+  }
+
+  export type AddressMaxAggregateInputType = {
+    id?: true
+    num?: true
+    street?: true
+    st_suffix?: true
+    city?: true
+    zip?: true
+    parcelId?: true
+  }
+
+  export type AddressCountAggregateInputType = {
+    id?: true
+    num?: true
+    street?: true
+    st_suffix?: true
+    city?: true
+    zip?: true
+    parcelId?: true
+    _all?: true
+  }
+
+  export type AddressAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Address to aggregate.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Addresses
+    **/
+    _count?: true | AddressCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AddressAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AddressSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AddressMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AddressMaxAggregateInputType
+  }
+
+  export type GetAddressAggregateType<T extends AddressAggregateArgs> = {
+        [P in keyof T & keyof AggregateAddress]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAddress[P]>
+      : GetScalarType<T[P], AggregateAddress[P]>
+  }
+
+
+
+
+  export type AddressGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddressWhereInput
+    orderBy?: AddressOrderByWithAggregationInput | AddressOrderByWithAggregationInput[]
+    by: AddressScalarFieldEnum[] | AddressScalarFieldEnum
+    having?: AddressScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AddressCountAggregateInputType | true
+    _avg?: AddressAvgAggregateInputType
+    _sum?: AddressSumAggregateInputType
+    _min?: AddressMinAggregateInputType
+    _max?: AddressMaxAggregateInputType
+  }
+
+  export type AddressGroupByOutputType = {
+    id: string
+    num: number | null
+    street: string
+    st_suffix: string
+    city: string
+    zip: string
+    parcelId: string
+    _count: AddressCountAggregateOutputType | null
+    _avg: AddressAvgAggregateOutputType | null
+    _sum: AddressSumAggregateOutputType | null
+    _min: AddressMinAggregateOutputType | null
+    _max: AddressMaxAggregateOutputType | null
+  }
+
+  type GetAddressGroupByPayload<T extends AddressGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AddressGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AddressGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AddressGroupByOutputType[P]>
+            : GetScalarType<T[P], AddressGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AddressSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    num?: boolean
+    street?: boolean
+    st_suffix?: boolean
+    city?: boolean
+    zip?: boolean
+    parcelId?: boolean
+    parcel?: boolean | ParcelDefaultArgs<ExtArgs>
+    listing?: boolean | Address$listingArgs<ExtArgs>
+  }, ExtArgs["result"]["address"]>
+
+  export type AddressSelectScalar = {
+    id?: boolean
+    num?: boolean
+    street?: boolean
+    st_suffix?: boolean
+    city?: boolean
+    zip?: boolean
+    parcelId?: boolean
+  }
+
+  export type AddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parcel?: boolean | ParcelDefaultArgs<ExtArgs>
+    listing?: boolean | Address$listingArgs<ExtArgs>
+  }
+
+
+  export type $AddressPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Address"
+    objects: {
+      parcel: Prisma.$ParcelPayload<ExtArgs>
+      listing: Prisma.$ListingPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      num: number | null
+      street: string
+      st_suffix: string
+      city: string
+      zip: string
+      parcelId: string
+    }, ExtArgs["result"]["address"]>
+    composites: {}
+  }
+
+
+  type AddressGetPayload<S extends boolean | null | undefined | AddressDefaultArgs> = $Result.GetResult<Prisma.$AddressPayload, S>
+
+  type AddressCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AddressFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: AddressCountAggregateInputType | true
+    }
+
+  export interface AddressDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Address'], meta: { name: 'Address' } }
+    /**
+     * Find zero or one Address that matches the filter.
+     * @param {AddressFindUniqueArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AddressFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, AddressFindUniqueArgs<ExtArgs>>
+    ): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Address that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {AddressFindUniqueOrThrowArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AddressFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AddressFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Address that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressFindFirstArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AddressFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, AddressFindFirstArgs<ExtArgs>>
+    ): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Address that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressFindFirstOrThrowArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AddressFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AddressFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Addresses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Addresses
+     * const addresses = await prisma.address.findMany()
+     * 
+     * // Get first 10 Addresses
+     * const addresses = await prisma.address.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const addressWithIdOnly = await prisma.address.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AddressFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AddressFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Address.
+     * @param {AddressCreateArgs} args - Arguments to create a Address.
+     * @example
+     * // Create one Address
+     * const Address = await prisma.address.create({
+     *   data: {
+     *     // ... data to create a Address
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AddressCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, AddressCreateArgs<ExtArgs>>
+    ): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Addresses.
+     *     @param {AddressCreateManyArgs} args - Arguments to create many Addresses.
+     *     @example
+     *     // Create many Addresses
+     *     const address = await prisma.address.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends AddressCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AddressCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Address.
+     * @param {AddressDeleteArgs} args - Arguments to delete one Address.
+     * @example
+     * // Delete one Address
+     * const Address = await prisma.address.delete({
+     *   where: {
+     *     // ... filter to delete one Address
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AddressDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, AddressDeleteArgs<ExtArgs>>
+    ): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Address.
+     * @param {AddressUpdateArgs} args - Arguments to update one Address.
+     * @example
+     * // Update one Address
+     * const address = await prisma.address.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AddressUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, AddressUpdateArgs<ExtArgs>>
+    ): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Addresses.
+     * @param {AddressDeleteManyArgs} args - Arguments to filter Addresses to delete.
+     * @example
+     * // Delete a few Addresses
+     * const { count } = await prisma.address.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AddressDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AddressDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Addresses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Addresses
+     * const address = await prisma.address.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AddressUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, AddressUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Address.
+     * @param {AddressUpsertArgs} args - Arguments to update or create a Address.
+     * @example
+     * // Update or create a Address
+     * const address = await prisma.address.upsert({
+     *   create: {
+     *     // ... data to create a Address
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Address we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AddressUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, AddressUpsertArgs<ExtArgs>>
+    ): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Addresses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressCountArgs} args - Arguments to filter Addresses to count.
+     * @example
+     * // Count the number of Addresses
+     * const count = await prisma.address.count({
+     *   where: {
+     *     // ... the filter for the Addresses we want to count
+     *   }
+     * })
+    **/
+    count<T extends AddressCountArgs>(
+      args?: Subset<T, AddressCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AddressCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Address.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AddressAggregateArgs>(args: Subset<T, AddressAggregateArgs>): Prisma.PrismaPromise<GetAddressAggregateType<T>>
+
+    /**
+     * Group by Address.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AddressGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AddressGroupByArgs['orderBy'] }
+        : { orderBy?: AddressGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AddressGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAddressGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Address model
+   */
+  readonly fields: AddressFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Address.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AddressClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    parcel<T extends ParcelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ParcelDefaultArgs<ExtArgs>>): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    listing<T extends Address$listingArgs<ExtArgs> = {}>(args?: Subset<T, Address$listingArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Address model
+   */ 
+  interface AddressFieldRefs {
+    readonly id: FieldRef<"Address", 'String'>
+    readonly num: FieldRef<"Address", 'Int'>
+    readonly street: FieldRef<"Address", 'String'>
+    readonly st_suffix: FieldRef<"Address", 'String'>
+    readonly city: FieldRef<"Address", 'String'>
+    readonly zip: FieldRef<"Address", 'String'>
+    readonly parcelId: FieldRef<"Address", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Address findUnique
+   */
+  export type AddressFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+
+  /**
+   * Address findUniqueOrThrow
+   */
+  export type AddressFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+
+  /**
+   * Address findFirst
+   */
+  export type AddressFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Addresses.
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Addresses.
+     */
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+
+  /**
+   * Address findFirstOrThrow
+   */
+  export type AddressFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Addresses.
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Addresses.
+     */
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+
+  /**
+   * Address findMany
+   */
+  export type AddressFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Addresses to fetch.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Addresses.
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+
+  /**
+   * Address create
+   */
+  export type AddressCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Address.
+     */
+    data: XOR<AddressCreateInput, AddressUncheckedCreateInput>
+  }
+
+
+  /**
+   * Address createMany
+   */
+  export type AddressCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Addresses.
+     */
+    data: AddressCreateManyInput | AddressCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Address update
+   */
+  export type AddressUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Address.
+     */
+    data: XOR<AddressUpdateInput, AddressUncheckedUpdateInput>
+    /**
+     * Choose, which Address to update.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+
+  /**
+   * Address updateMany
+   */
+  export type AddressUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Addresses.
+     */
+    data: XOR<AddressUpdateManyMutationInput, AddressUncheckedUpdateManyInput>
+    /**
+     * Filter which Addresses to update
+     */
+    where?: AddressWhereInput
+  }
+
+
+  /**
+   * Address upsert
+   */
+  export type AddressUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Address to update in case it exists.
+     */
+    where: AddressWhereUniqueInput
+    /**
+     * In case the Address found by the `where` argument doesn't exist, create a new Address with this data.
+     */
+    create: XOR<AddressCreateInput, AddressUncheckedCreateInput>
+    /**
+     * In case the Address was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AddressUpdateInput, AddressUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Address delete
+   */
+  export type AddressDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter which Address to delete.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+
+  /**
+   * Address deleteMany
+   */
+  export type AddressDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Addresses to delete
+     */
+    where?: AddressWhereInput
+  }
+
+
+  /**
+   * Address.listing
+   */
+  export type Address$listingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ListingInclude<ExtArgs> | null
+    where?: ListingWhereInput
+  }
+
+
+  /**
+   * Address without action
+   */
+  export type AddressDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AddressInclude<ExtArgs> | null
+  }
+
+
 
   /**
    * Model Listing
@@ -872,8 +6134,8 @@ export namespace Prisma {
     updatedAt: Date | null
     name: string | null
     desc: string | null
-    address: string | null
     parcelID: string | null
+    addressId: string | null
   }
 
   export type ListingMaxAggregateOutputType = {
@@ -882,8 +6144,8 @@ export namespace Prisma {
     updatedAt: Date | null
     name: string | null
     desc: string | null
-    address: string | null
     parcelID: string | null
+    addressId: string | null
   }
 
   export type ListingCountAggregateOutputType = {
@@ -892,10 +6154,10 @@ export namespace Prisma {
     updatedAt: number
     name: number
     desc: number
-    address: number
     parcelID: number
     images: number
     labels: number
+    addressId: number
     _all: number
   }
 
@@ -906,8 +6168,8 @@ export namespace Prisma {
     updatedAt?: true
     name?: true
     desc?: true
-    address?: true
     parcelID?: true
+    addressId?: true
   }
 
   export type ListingMaxAggregateInputType = {
@@ -916,8 +6178,8 @@ export namespace Prisma {
     updatedAt?: true
     name?: true
     desc?: true
-    address?: true
     parcelID?: true
+    addressId?: true
   }
 
   export type ListingCountAggregateInputType = {
@@ -926,10 +6188,10 @@ export namespace Prisma {
     updatedAt?: true
     name?: true
     desc?: true
-    address?: true
     parcelID?: true
     images?: true
     labels?: true
+    addressId?: true
     _all?: true
   }
 
@@ -1011,10 +6273,10 @@ export namespace Prisma {
     updatedAt: Date | null
     name: string | null
     desc: string | null
-    address: string | null
     parcelID: string | null
     images: string[]
     labels: string[]
+    addressId: string
     _count: ListingCountAggregateOutputType | null
     _min: ListingMinAggregateOutputType | null
     _max: ListingMaxAggregateOutputType | null
@@ -1040,10 +6302,11 @@ export namespace Prisma {
     updatedAt?: boolean
     name?: boolean
     desc?: boolean
-    address?: boolean
     parcelID?: boolean
     images?: boolean
     labels?: boolean
+    addressId?: boolean
+    address?: boolean | AddressDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["listing"]>
 
   export type ListingSelectScalar = {
@@ -1052,26 +6315,32 @@ export namespace Prisma {
     updatedAt?: boolean
     name?: boolean
     desc?: boolean
-    address?: boolean
     parcelID?: boolean
     images?: boolean
     labels?: boolean
+    addressId?: boolean
+  }
+
+  export type ListingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    address?: boolean | AddressDefaultArgs<ExtArgs>
   }
 
 
   export type $ListingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Listing"
-    objects: {}
+    objects: {
+      address: Prisma.$AddressPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       createdAt: Date | null
       updatedAt: Date | null
       name: string | null
       desc: string | null
-      address: string | null
       parcelID: string | null
       images: string[]
       labels: string[]
+      addressId: string
     }, ExtArgs["result"]["listing"]>
     composites: {}
   }
@@ -1437,6 +6706,7 @@ export namespace Prisma {
   export interface Prisma__ListingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
+    address<T extends AddressDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddressDefaultArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1471,10 +6741,10 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"Listing", 'DateTime'>
     readonly name: FieldRef<"Listing", 'String'>
     readonly desc: FieldRef<"Listing", 'String'>
-    readonly address: FieldRef<"Listing", 'String'>
     readonly parcelID: FieldRef<"Listing", 'String'>
     readonly images: FieldRef<"Listing", 'String[]'>
     readonly labels: FieldRef<"Listing", 'String[]'>
+    readonly addressId: FieldRef<"Listing", 'String'>
   }
     
 
@@ -1488,6 +6758,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Listing
      */
     select?: ListingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ListingInclude<ExtArgs> | null
     /**
      * Filter, which Listing to fetch.
      */
@@ -1504,6 +6778,10 @@ export namespace Prisma {
      */
     select?: ListingSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ListingInclude<ExtArgs> | null
+    /**
      * Filter, which Listing to fetch.
      */
     where: ListingWhereUniqueInput
@@ -1518,6 +6796,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Listing
      */
     select?: ListingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ListingInclude<ExtArgs> | null
     /**
      * Filter, which Listing to fetch.
      */
@@ -1564,6 +6846,10 @@ export namespace Prisma {
      */
     select?: ListingSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ListingInclude<ExtArgs> | null
+    /**
      * Filter, which Listing to fetch.
      */
     where?: ListingWhereInput
@@ -1609,6 +6895,10 @@ export namespace Prisma {
      */
     select?: ListingSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ListingInclude<ExtArgs> | null
+    /**
      * Filter, which Listings to fetch.
      */
     where?: ListingWhereInput
@@ -1649,9 +6939,13 @@ export namespace Prisma {
      */
     select?: ListingSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ListingInclude<ExtArgs> | null
+    /**
      * The data needed to create a Listing.
      */
-    data?: XOR<ListingCreateInput, ListingUncheckedCreateInput>
+    data: XOR<ListingCreateInput, ListingUncheckedCreateInput>
   }
 
 
@@ -1675,6 +6969,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Listing
      */
     select?: ListingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ListingInclude<ExtArgs> | null
     /**
      * The data needed to update a Listing.
      */
@@ -1710,6 +7008,10 @@ export namespace Prisma {
      */
     select?: ListingSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ListingInclude<ExtArgs> | null
+    /**
      * The filter to search for the Listing to update in case it exists.
      */
     where: ListingWhereUniqueInput
@@ -1732,6 +7034,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Listing
      */
     select?: ListingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ListingInclude<ExtArgs> | null
     /**
      * Filter which Listing to delete.
      */
@@ -1758,6 +7064,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Listing
      */
     select?: ListingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ListingInclude<ExtArgs> | null
   }
 
 
@@ -1776,16 +7086,66 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const AssessmentScalarFieldEnum: {
+    id: 'id',
+    parcelId: 'parcelId',
+    year: 'year',
+    improvements: 'improvements',
+    land: 'land',
+    total: 'total'
+  };
+
+  export type AssessmentScalarFieldEnum = (typeof AssessmentScalarFieldEnum)[keyof typeof AssessmentScalarFieldEnum]
+
+
+  export const LandUseScalarFieldEnum: {
+    id: 'id',
+    landUseDesc: 'landUseDesc'
+  };
+
+  export type LandUseScalarFieldEnum = (typeof LandUseScalarFieldEnum)[keyof typeof LandUseScalarFieldEnum]
+
+
+  export const ZoneScalarFieldEnum: {
+    id: 'id',
+    zoneDesc: 'zoneDesc'
+  };
+
+  export type ZoneScalarFieldEnum = (typeof ZoneScalarFieldEnum)[keyof typeof ZoneScalarFieldEnum]
+
+
+  export const ParcelScalarFieldEnum: {
+    id: 'id',
+    zoneId: 'zoneId',
+    landUseId: 'landUseId'
+  };
+
+  export type ParcelScalarFieldEnum = (typeof ParcelScalarFieldEnum)[keyof typeof ParcelScalarFieldEnum]
+
+
+  export const AddressScalarFieldEnum: {
+    id: 'id',
+    num: 'num',
+    street: 'street',
+    st_suffix: 'st_suffix',
+    city: 'city',
+    zip: 'zip',
+    parcelId: 'parcelId'
+  };
+
+  export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
+
+
   export const ListingScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     name: 'name',
     desc: 'desc',
-    address: 'address',
     parcelID: 'parcelID',
     images: 'images',
-    labels: 'labels'
+    labels: 'labels',
+    addressId: 'addressId'
   };
 
   export type ListingScalarFieldEnum = (typeof ListingScalarFieldEnum)[keyof typeof ListingScalarFieldEnum]
@@ -1835,6 +7195,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1849,21 +7223,287 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Float'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'Float[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
    */
 
+
+  export type AssessmentWhereInput = {
+    AND?: AssessmentWhereInput | AssessmentWhereInput[]
+    OR?: AssessmentWhereInput[]
+    NOT?: AssessmentWhereInput | AssessmentWhereInput[]
+    id?: StringFilter<"Assessment"> | string
+    parcelId?: StringFilter<"Assessment"> | string
+    year?: IntFilter<"Assessment"> | number
+    improvements?: IntFilter<"Assessment"> | number
+    land?: IntFilter<"Assessment"> | number
+    total?: IntFilter<"Assessment"> | number
+    parcel?: XOR<ParcelRelationFilter, ParcelWhereInput>
+  }
+
+  export type AssessmentOrderByWithRelationInput = {
+    id?: SortOrder
+    parcelId?: SortOrder
+    year?: SortOrder
+    improvements?: SortOrder
+    land?: SortOrder
+    total?: SortOrder
+    parcel?: ParcelOrderByWithRelationInput
+  }
+
+  export type AssessmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AssessmentWhereInput | AssessmentWhereInput[]
+    OR?: AssessmentWhereInput[]
+    NOT?: AssessmentWhereInput | AssessmentWhereInput[]
+    parcelId?: StringFilter<"Assessment"> | string
+    year?: IntFilter<"Assessment"> | number
+    improvements?: IntFilter<"Assessment"> | number
+    land?: IntFilter<"Assessment"> | number
+    total?: IntFilter<"Assessment"> | number
+    parcel?: XOR<ParcelRelationFilter, ParcelWhereInput>
+  }, "id">
+
+  export type AssessmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    parcelId?: SortOrder
+    year?: SortOrder
+    improvements?: SortOrder
+    land?: SortOrder
+    total?: SortOrder
+    _count?: AssessmentCountOrderByAggregateInput
+    _avg?: AssessmentAvgOrderByAggregateInput
+    _max?: AssessmentMaxOrderByAggregateInput
+    _min?: AssessmentMinOrderByAggregateInput
+    _sum?: AssessmentSumOrderByAggregateInput
+  }
+
+  export type AssessmentScalarWhereWithAggregatesInput = {
+    AND?: AssessmentScalarWhereWithAggregatesInput | AssessmentScalarWhereWithAggregatesInput[]
+    OR?: AssessmentScalarWhereWithAggregatesInput[]
+    NOT?: AssessmentScalarWhereWithAggregatesInput | AssessmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Assessment"> | string
+    parcelId?: StringWithAggregatesFilter<"Assessment"> | string
+    year?: IntWithAggregatesFilter<"Assessment"> | number
+    improvements?: IntWithAggregatesFilter<"Assessment"> | number
+    land?: IntWithAggregatesFilter<"Assessment"> | number
+    total?: IntWithAggregatesFilter<"Assessment"> | number
+  }
+
+  export type LandUseWhereInput = {
+    AND?: LandUseWhereInput | LandUseWhereInput[]
+    OR?: LandUseWhereInput[]
+    NOT?: LandUseWhereInput | LandUseWhereInput[]
+    id?: StringFilter<"LandUse"> | string
+    landUseDesc?: StringFilter<"LandUse"> | string
+    parcels?: ParcelListRelationFilter
+  }
+
+  export type LandUseOrderByWithRelationInput = {
+    id?: SortOrder
+    landUseDesc?: SortOrder
+    parcels?: ParcelOrderByRelationAggregateInput
+  }
+
+  export type LandUseWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LandUseWhereInput | LandUseWhereInput[]
+    OR?: LandUseWhereInput[]
+    NOT?: LandUseWhereInput | LandUseWhereInput[]
+    landUseDesc?: StringFilter<"LandUse"> | string
+    parcels?: ParcelListRelationFilter
+  }, "id">
+
+  export type LandUseOrderByWithAggregationInput = {
+    id?: SortOrder
+    landUseDesc?: SortOrder
+    _count?: LandUseCountOrderByAggregateInput
+    _max?: LandUseMaxOrderByAggregateInput
+    _min?: LandUseMinOrderByAggregateInput
+  }
+
+  export type LandUseScalarWhereWithAggregatesInput = {
+    AND?: LandUseScalarWhereWithAggregatesInput | LandUseScalarWhereWithAggregatesInput[]
+    OR?: LandUseScalarWhereWithAggregatesInput[]
+    NOT?: LandUseScalarWhereWithAggregatesInput | LandUseScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LandUse"> | string
+    landUseDesc?: StringWithAggregatesFilter<"LandUse"> | string
+  }
+
+  export type ZoneWhereInput = {
+    AND?: ZoneWhereInput | ZoneWhereInput[]
+    OR?: ZoneWhereInput[]
+    NOT?: ZoneWhereInput | ZoneWhereInput[]
+    id?: StringFilter<"Zone"> | string
+    zoneDesc?: StringFilter<"Zone"> | string
+    parcels?: ParcelListRelationFilter
+  }
+
+  export type ZoneOrderByWithRelationInput = {
+    id?: SortOrder
+    zoneDesc?: SortOrder
+    parcels?: ParcelOrderByRelationAggregateInput
+  }
+
+  export type ZoneWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ZoneWhereInput | ZoneWhereInput[]
+    OR?: ZoneWhereInput[]
+    NOT?: ZoneWhereInput | ZoneWhereInput[]
+    zoneDesc?: StringFilter<"Zone"> | string
+    parcels?: ParcelListRelationFilter
+  }, "id">
+
+  export type ZoneOrderByWithAggregationInput = {
+    id?: SortOrder
+    zoneDesc?: SortOrder
+    _count?: ZoneCountOrderByAggregateInput
+    _max?: ZoneMaxOrderByAggregateInput
+    _min?: ZoneMinOrderByAggregateInput
+  }
+
+  export type ZoneScalarWhereWithAggregatesInput = {
+    AND?: ZoneScalarWhereWithAggregatesInput | ZoneScalarWhereWithAggregatesInput[]
+    OR?: ZoneScalarWhereWithAggregatesInput[]
+    NOT?: ZoneScalarWhereWithAggregatesInput | ZoneScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Zone"> | string
+    zoneDesc?: StringWithAggregatesFilter<"Zone"> | string
+  }
+
+  export type ParcelWhereInput = {
+    AND?: ParcelWhereInput | ParcelWhereInput[]
+    OR?: ParcelWhereInput[]
+    NOT?: ParcelWhereInput | ParcelWhereInput[]
+    id?: StringFilter<"Parcel"> | string
+    zoneId?: StringFilter<"Parcel"> | string
+    landUseId?: StringFilter<"Parcel"> | string
+    addresses?: AddressListRelationFilter
+    zone?: XOR<ZoneRelationFilter, ZoneWhereInput>
+    landUse?: XOR<LandUseRelationFilter, LandUseWhereInput>
+    assessments?: AssessmentListRelationFilter
+  }
+
+  export type ParcelOrderByWithRelationInput = {
+    id?: SortOrder
+    zoneId?: SortOrder
+    landUseId?: SortOrder
+    addresses?: AddressOrderByRelationAggregateInput
+    zone?: ZoneOrderByWithRelationInput
+    landUse?: LandUseOrderByWithRelationInput
+    assessments?: AssessmentOrderByRelationAggregateInput
+  }
+
+  export type ParcelWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ParcelWhereInput | ParcelWhereInput[]
+    OR?: ParcelWhereInput[]
+    NOT?: ParcelWhereInput | ParcelWhereInput[]
+    zoneId?: StringFilter<"Parcel"> | string
+    landUseId?: StringFilter<"Parcel"> | string
+    addresses?: AddressListRelationFilter
+    zone?: XOR<ZoneRelationFilter, ZoneWhereInput>
+    landUse?: XOR<LandUseRelationFilter, LandUseWhereInput>
+    assessments?: AssessmentListRelationFilter
+  }, "id">
+
+  export type ParcelOrderByWithAggregationInput = {
+    id?: SortOrder
+    zoneId?: SortOrder
+    landUseId?: SortOrder
+    _count?: ParcelCountOrderByAggregateInput
+    _max?: ParcelMaxOrderByAggregateInput
+    _min?: ParcelMinOrderByAggregateInput
+  }
+
+  export type ParcelScalarWhereWithAggregatesInput = {
+    AND?: ParcelScalarWhereWithAggregatesInput | ParcelScalarWhereWithAggregatesInput[]
+    OR?: ParcelScalarWhereWithAggregatesInput[]
+    NOT?: ParcelScalarWhereWithAggregatesInput | ParcelScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Parcel"> | string
+    zoneId?: StringWithAggregatesFilter<"Parcel"> | string
+    landUseId?: StringWithAggregatesFilter<"Parcel"> | string
+  }
+
+  export type AddressWhereInput = {
+    AND?: AddressWhereInput | AddressWhereInput[]
+    OR?: AddressWhereInput[]
+    NOT?: AddressWhereInput | AddressWhereInput[]
+    id?: StringFilter<"Address"> | string
+    num?: IntNullableFilter<"Address"> | number | null
+    street?: StringFilter<"Address"> | string
+    st_suffix?: StringFilter<"Address"> | string
+    city?: StringFilter<"Address"> | string
+    zip?: StringFilter<"Address"> | string
+    parcelId?: StringFilter<"Address"> | string
+    parcel?: XOR<ParcelRelationFilter, ParcelWhereInput>
+    listing?: XOR<ListingNullableRelationFilter, ListingWhereInput> | null
+  }
+
+  export type AddressOrderByWithRelationInput = {
+    id?: SortOrder
+    num?: SortOrderInput | SortOrder
+    street?: SortOrder
+    st_suffix?: SortOrder
+    city?: SortOrder
+    zip?: SortOrder
+    parcelId?: SortOrder
+    parcel?: ParcelOrderByWithRelationInput
+    listing?: ListingOrderByWithRelationInput
+  }
+
+  export type AddressWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AddressWhereInput | AddressWhereInput[]
+    OR?: AddressWhereInput[]
+    NOT?: AddressWhereInput | AddressWhereInput[]
+    num?: IntNullableFilter<"Address"> | number | null
+    street?: StringFilter<"Address"> | string
+    st_suffix?: StringFilter<"Address"> | string
+    city?: StringFilter<"Address"> | string
+    zip?: StringFilter<"Address"> | string
+    parcelId?: StringFilter<"Address"> | string
+    parcel?: XOR<ParcelRelationFilter, ParcelWhereInput>
+    listing?: XOR<ListingNullableRelationFilter, ListingWhereInput> | null
+  }, "id">
+
+  export type AddressOrderByWithAggregationInput = {
+    id?: SortOrder
+    num?: SortOrderInput | SortOrder
+    street?: SortOrder
+    st_suffix?: SortOrder
+    city?: SortOrder
+    zip?: SortOrder
+    parcelId?: SortOrder
+    _count?: AddressCountOrderByAggregateInput
+    _avg?: AddressAvgOrderByAggregateInput
+    _max?: AddressMaxOrderByAggregateInput
+    _min?: AddressMinOrderByAggregateInput
+    _sum?: AddressSumOrderByAggregateInput
+  }
+
+  export type AddressScalarWhereWithAggregatesInput = {
+    AND?: AddressScalarWhereWithAggregatesInput | AddressScalarWhereWithAggregatesInput[]
+    OR?: AddressScalarWhereWithAggregatesInput[]
+    NOT?: AddressScalarWhereWithAggregatesInput | AddressScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Address"> | string
+    num?: IntNullableWithAggregatesFilter<"Address"> | number | null
+    street?: StringWithAggregatesFilter<"Address"> | string
+    st_suffix?: StringWithAggregatesFilter<"Address"> | string
+    city?: StringWithAggregatesFilter<"Address"> | string
+    zip?: StringWithAggregatesFilter<"Address"> | string
+    parcelId?: StringWithAggregatesFilter<"Address"> | string
+  }
 
   export type ListingWhereInput = {
     AND?: ListingWhereInput | ListingWhereInput[]
@@ -1874,10 +7514,11 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableFilter<"Listing"> | Date | string | null
     name?: StringNullableFilter<"Listing"> | string | null
     desc?: StringNullableFilter<"Listing"> | string | null
-    address?: StringNullableFilter<"Listing"> | string | null
     parcelID?: StringNullableFilter<"Listing"> | string | null
     images?: StringNullableListFilter<"Listing">
     labels?: StringNullableListFilter<"Listing">
+    addressId?: StringFilter<"Listing"> | string
+    address?: XOR<AddressRelationFilter, AddressWhereInput>
   }
 
   export type ListingOrderByWithRelationInput = {
@@ -1886,14 +7527,16 @@ export namespace Prisma {
     updatedAt?: SortOrderInput | SortOrder
     name?: SortOrderInput | SortOrder
     desc?: SortOrderInput | SortOrder
-    address?: SortOrderInput | SortOrder
     parcelID?: SortOrderInput | SortOrder
     images?: SortOrder
     labels?: SortOrder
+    addressId?: SortOrder
+    address?: AddressOrderByWithRelationInput
   }
 
   export type ListingWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    addressId?: string
     AND?: ListingWhereInput | ListingWhereInput[]
     OR?: ListingWhereInput[]
     NOT?: ListingWhereInput | ListingWhereInput[]
@@ -1901,11 +7544,11 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableFilter<"Listing"> | Date | string | null
     name?: StringNullableFilter<"Listing"> | string | null
     desc?: StringNullableFilter<"Listing"> | string | null
-    address?: StringNullableFilter<"Listing"> | string | null
     parcelID?: StringNullableFilter<"Listing"> | string | null
     images?: StringNullableListFilter<"Listing">
     labels?: StringNullableListFilter<"Listing">
-  }, "id">
+    address?: XOR<AddressRelationFilter, AddressWhereInput>
+  }, "id" | "addressId">
 
   export type ListingOrderByWithAggregationInput = {
     id?: SortOrder
@@ -1913,10 +7556,10 @@ export namespace Prisma {
     updatedAt?: SortOrderInput | SortOrder
     name?: SortOrderInput | SortOrder
     desc?: SortOrderInput | SortOrder
-    address?: SortOrderInput | SortOrder
     parcelID?: SortOrderInput | SortOrder
     images?: SortOrder
     labels?: SortOrder
+    addressId?: SortOrder
     _count?: ListingCountOrderByAggregateInput
     _max?: ListingMaxOrderByAggregateInput
     _min?: ListingMinOrderByAggregateInput
@@ -1931,10 +7574,271 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableWithAggregatesFilter<"Listing"> | Date | string | null
     name?: StringNullableWithAggregatesFilter<"Listing"> | string | null
     desc?: StringNullableWithAggregatesFilter<"Listing"> | string | null
-    address?: StringNullableWithAggregatesFilter<"Listing"> | string | null
     parcelID?: StringNullableWithAggregatesFilter<"Listing"> | string | null
     images?: StringNullableListFilter<"Listing">
     labels?: StringNullableListFilter<"Listing">
+    addressId?: StringWithAggregatesFilter<"Listing"> | string
+  }
+
+  export type AssessmentCreateInput = {
+    id?: string
+    year: number
+    improvements: number
+    land: number
+    total: number
+    parcel: ParcelCreateNestedOneWithoutAssessmentsInput
+  }
+
+  export type AssessmentUncheckedCreateInput = {
+    id?: string
+    parcelId: string
+    year: number
+    improvements: number
+    land: number
+    total: number
+  }
+
+  export type AssessmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    improvements?: IntFieldUpdateOperationsInput | number
+    land?: IntFieldUpdateOperationsInput | number
+    total?: IntFieldUpdateOperationsInput | number
+    parcel?: ParcelUpdateOneRequiredWithoutAssessmentsNestedInput
+  }
+
+  export type AssessmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    parcelId?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    improvements?: IntFieldUpdateOperationsInput | number
+    land?: IntFieldUpdateOperationsInput | number
+    total?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AssessmentCreateManyInput = {
+    id?: string
+    parcelId: string
+    year: number
+    improvements: number
+    land: number
+    total: number
+  }
+
+  export type AssessmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    improvements?: IntFieldUpdateOperationsInput | number
+    land?: IntFieldUpdateOperationsInput | number
+    total?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AssessmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    parcelId?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    improvements?: IntFieldUpdateOperationsInput | number
+    land?: IntFieldUpdateOperationsInput | number
+    total?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LandUseCreateInput = {
+    id: string
+    landUseDesc: string
+    parcels?: ParcelCreateNestedManyWithoutLandUseInput
+  }
+
+  export type LandUseUncheckedCreateInput = {
+    id: string
+    landUseDesc: string
+    parcels?: ParcelUncheckedCreateNestedManyWithoutLandUseInput
+  }
+
+  export type LandUseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    landUseDesc?: StringFieldUpdateOperationsInput | string
+    parcels?: ParcelUpdateManyWithoutLandUseNestedInput
+  }
+
+  export type LandUseUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    landUseDesc?: StringFieldUpdateOperationsInput | string
+    parcels?: ParcelUncheckedUpdateManyWithoutLandUseNestedInput
+  }
+
+  export type LandUseCreateManyInput = {
+    id: string
+    landUseDesc: string
+  }
+
+  export type LandUseUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    landUseDesc?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LandUseUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    landUseDesc?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ZoneCreateInput = {
+    id: string
+    zoneDesc: string
+    parcels?: ParcelCreateNestedManyWithoutZoneInput
+  }
+
+  export type ZoneUncheckedCreateInput = {
+    id: string
+    zoneDesc: string
+    parcels?: ParcelUncheckedCreateNestedManyWithoutZoneInput
+  }
+
+  export type ZoneUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneDesc?: StringFieldUpdateOperationsInput | string
+    parcels?: ParcelUpdateManyWithoutZoneNestedInput
+  }
+
+  export type ZoneUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneDesc?: StringFieldUpdateOperationsInput | string
+    parcels?: ParcelUncheckedUpdateManyWithoutZoneNestedInput
+  }
+
+  export type ZoneCreateManyInput = {
+    id: string
+    zoneDesc: string
+  }
+
+  export type ZoneUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneDesc?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ZoneUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneDesc?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ParcelCreateInput = {
+    id: string
+    addresses?: AddressCreateNestedManyWithoutParcelInput
+    zone: ZoneCreateNestedOneWithoutParcelsInput
+    landUse: LandUseCreateNestedOneWithoutParcelsInput
+    assessments?: AssessmentCreateNestedManyWithoutParcelInput
+  }
+
+  export type ParcelUncheckedCreateInput = {
+    id: string
+    zoneId: string
+    landUseId: string
+    addresses?: AddressUncheckedCreateNestedManyWithoutParcelInput
+    assessments?: AssessmentUncheckedCreateNestedManyWithoutParcelInput
+  }
+
+  export type ParcelUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUpdateManyWithoutParcelNestedInput
+    zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
+    landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
+    assessments?: AssessmentUpdateManyWithoutParcelNestedInput
+  }
+
+  export type ParcelUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    landUseId?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
+    assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
+  }
+
+  export type ParcelCreateManyInput = {
+    id: string
+    zoneId: string
+    landUseId: string
+  }
+
+  export type ParcelUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ParcelUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    landUseId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AddressCreateInput = {
+    id: string
+    num?: number | null
+    street: string
+    st_suffix: string
+    city: string
+    zip: string
+    parcel: ParcelCreateNestedOneWithoutAddressesInput
+    listing?: ListingCreateNestedOneWithoutAddressInput
+  }
+
+  export type AddressUncheckedCreateInput = {
+    id: string
+    num?: number | null
+    street: string
+    st_suffix: string
+    city: string
+    zip: string
+    parcelId: string
+    listing?: ListingUncheckedCreateNestedOneWithoutAddressInput
+  }
+
+  export type AddressUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    num?: NullableIntFieldUpdateOperationsInput | number | null
+    street?: StringFieldUpdateOperationsInput | string
+    st_suffix?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    zip?: StringFieldUpdateOperationsInput | string
+    parcel?: ParcelUpdateOneRequiredWithoutAddressesNestedInput
+    listing?: ListingUpdateOneWithoutAddressNestedInput
+  }
+
+  export type AddressUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    num?: NullableIntFieldUpdateOperationsInput | number | null
+    street?: StringFieldUpdateOperationsInput | string
+    st_suffix?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    zip?: StringFieldUpdateOperationsInput | string
+    parcelId?: StringFieldUpdateOperationsInput | string
+    listing?: ListingUncheckedUpdateOneWithoutAddressNestedInput
+  }
+
+  export type AddressCreateManyInput = {
+    id: string
+    num?: number | null
+    street: string
+    st_suffix: string
+    city: string
+    zip: string
+    parcelId: string
+  }
+
+  export type AddressUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    num?: NullableIntFieldUpdateOperationsInput | number | null
+    street?: StringFieldUpdateOperationsInput | string
+    st_suffix?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    zip?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AddressUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    num?: NullableIntFieldUpdateOperationsInput | number | null
+    street?: StringFieldUpdateOperationsInput | string
+    st_suffix?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    zip?: StringFieldUpdateOperationsInput | string
+    parcelId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ListingCreateInput = {
@@ -1943,10 +7847,10 @@ export namespace Prisma {
     updatedAt?: Date | string | null
     name?: string | null
     desc?: string | null
-    address?: string | null
     parcelID?: string | null
     images?: ListingCreateimagesInput | string[]
     labels?: ListingCreatelabelsInput | string[]
+    address: AddressCreateNestedOneWithoutListingInput
   }
 
   export type ListingUncheckedCreateInput = {
@@ -1955,10 +7859,10 @@ export namespace Prisma {
     updatedAt?: Date | string | null
     name?: string | null
     desc?: string | null
-    address?: string | null
     parcelID?: string | null
     images?: ListingCreateimagesInput | string[]
     labels?: ListingCreatelabelsInput | string[]
+    addressId: string
   }
 
   export type ListingUpdateInput = {
@@ -1967,10 +7871,10 @@ export namespace Prisma {
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
     parcelID?: NullableStringFieldUpdateOperationsInput | string | null
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
+    address?: AddressUpdateOneRequiredWithoutListingNestedInput
   }
 
   export type ListingUncheckedUpdateInput = {
@@ -1979,10 +7883,10 @@ export namespace Prisma {
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
     parcelID?: NullableStringFieldUpdateOperationsInput | string | null
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
+    addressId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ListingCreateManyInput = {
@@ -1991,10 +7895,10 @@ export namespace Prisma {
     updatedAt?: Date | string | null
     name?: string | null
     desc?: string | null
-    address?: string | null
     parcelID?: string | null
     images?: ListingCreateimagesInput | string[]
     labels?: ListingCreatelabelsInput | string[]
+    addressId: string
   }
 
   export type ListingUpdateManyMutationInput = {
@@ -2003,7 +7907,6 @@ export namespace Prisma {
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
     parcelID?: NullableStringFieldUpdateOperationsInput | string | null
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
@@ -2015,10 +7918,10 @@ export namespace Prisma {
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     desc?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
     parcelID?: NullableStringFieldUpdateOperationsInput | string | null
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
+    addressId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2034,6 +7937,260 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type ParcelRelationFilter = {
+    is?: ParcelWhereInput
+    isNot?: ParcelWhereInput
+  }
+
+  export type AssessmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    parcelId?: SortOrder
+    year?: SortOrder
+    improvements?: SortOrder
+    land?: SortOrder
+    total?: SortOrder
+  }
+
+  export type AssessmentAvgOrderByAggregateInput = {
+    year?: SortOrder
+    improvements?: SortOrder
+    land?: SortOrder
+    total?: SortOrder
+  }
+
+  export type AssessmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    parcelId?: SortOrder
+    year?: SortOrder
+    improvements?: SortOrder
+    land?: SortOrder
+    total?: SortOrder
+  }
+
+  export type AssessmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    parcelId?: SortOrder
+    year?: SortOrder
+    improvements?: SortOrder
+    land?: SortOrder
+    total?: SortOrder
+  }
+
+  export type AssessmentSumOrderByAggregateInput = {
+    year?: SortOrder
+    improvements?: SortOrder
+    land?: SortOrder
+    total?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type ParcelListRelationFilter = {
+    every?: ParcelWhereInput
+    some?: ParcelWhereInput
+    none?: ParcelWhereInput
+  }
+
+  export type ParcelOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LandUseCountOrderByAggregateInput = {
+    id?: SortOrder
+    landUseDesc?: SortOrder
+  }
+
+  export type LandUseMaxOrderByAggregateInput = {
+    id?: SortOrder
+    landUseDesc?: SortOrder
+  }
+
+  export type LandUseMinOrderByAggregateInput = {
+    id?: SortOrder
+    landUseDesc?: SortOrder
+  }
+
+  export type ZoneCountOrderByAggregateInput = {
+    id?: SortOrder
+    zoneDesc?: SortOrder
+  }
+
+  export type ZoneMaxOrderByAggregateInput = {
+    id?: SortOrder
+    zoneDesc?: SortOrder
+  }
+
+  export type ZoneMinOrderByAggregateInput = {
+    id?: SortOrder
+    zoneDesc?: SortOrder
+  }
+
+  export type AddressListRelationFilter = {
+    every?: AddressWhereInput
+    some?: AddressWhereInput
+    none?: AddressWhereInput
+  }
+
+  export type ZoneRelationFilter = {
+    is?: ZoneWhereInput
+    isNot?: ZoneWhereInput
+  }
+
+  export type LandUseRelationFilter = {
+    is?: LandUseWhereInput
+    isNot?: LandUseWhereInput
+  }
+
+  export type AssessmentListRelationFilter = {
+    every?: AssessmentWhereInput
+    some?: AssessmentWhereInput
+    none?: AssessmentWhereInput
+  }
+
+  export type AddressOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AssessmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ParcelCountOrderByAggregateInput = {
+    id?: SortOrder
+    zoneId?: SortOrder
+    landUseId?: SortOrder
+  }
+
+  export type ParcelMaxOrderByAggregateInput = {
+    id?: SortOrder
+    zoneId?: SortOrder
+    landUseId?: SortOrder
+  }
+
+  export type ParcelMinOrderByAggregateInput = {
+    id?: SortOrder
+    zoneId?: SortOrder
+    landUseId?: SortOrder
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type ListingNullableRelationFilter = {
+    is?: ListingWhereInput | null
+    isNot?: ListingWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type AddressCountOrderByAggregateInput = {
+    id?: SortOrder
+    num?: SortOrder
+    street?: SortOrder
+    st_suffix?: SortOrder
+    city?: SortOrder
+    zip?: SortOrder
+    parcelId?: SortOrder
+  }
+
+  export type AddressAvgOrderByAggregateInput = {
+    num?: SortOrder
+  }
+
+  export type AddressMaxOrderByAggregateInput = {
+    id?: SortOrder
+    num?: SortOrder
+    street?: SortOrder
+    st_suffix?: SortOrder
+    city?: SortOrder
+    zip?: SortOrder
+    parcelId?: SortOrder
+  }
+
+  export type AddressMinOrderByAggregateInput = {
+    id?: SortOrder
+    num?: SortOrder
+    street?: SortOrder
+    st_suffix?: SortOrder
+    city?: SortOrder
+    zip?: SortOrder
+    parcelId?: SortOrder
+  }
+
+  export type AddressSumOrderByAggregateInput = {
+    num?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -2070,9 +8227,9 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
+  export type AddressRelationFilter = {
+    is?: AddressWhereInput
+    isNot?: AddressWhereInput
   }
 
   export type ListingCountOrderByAggregateInput = {
@@ -2081,10 +8238,10 @@ export namespace Prisma {
     updatedAt?: SortOrder
     name?: SortOrder
     desc?: SortOrder
-    address?: SortOrder
     parcelID?: SortOrder
     images?: SortOrder
     labels?: SortOrder
+    addressId?: SortOrder
   }
 
   export type ListingMaxOrderByAggregateInput = {
@@ -2093,8 +8250,8 @@ export namespace Prisma {
     updatedAt?: SortOrder
     name?: SortOrder
     desc?: SortOrder
-    address?: SortOrder
     parcelID?: SortOrder
+    addressId?: SortOrder
   }
 
   export type ListingMinOrderByAggregateInput = {
@@ -2103,26 +8260,8 @@ export namespace Prisma {
     updatedAt?: SortOrder
     name?: SortOrder
     desc?: SortOrder
-    address?: SortOrder
     parcelID?: SortOrder
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
+    addressId?: SortOrder
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -2157,6 +8296,282 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type ParcelCreateNestedOneWithoutAssessmentsInput = {
+    create?: XOR<ParcelCreateWithoutAssessmentsInput, ParcelUncheckedCreateWithoutAssessmentsInput>
+    connectOrCreate?: ParcelCreateOrConnectWithoutAssessmentsInput
+    connect?: ParcelWhereUniqueInput
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ParcelUpdateOneRequiredWithoutAssessmentsNestedInput = {
+    create?: XOR<ParcelCreateWithoutAssessmentsInput, ParcelUncheckedCreateWithoutAssessmentsInput>
+    connectOrCreate?: ParcelCreateOrConnectWithoutAssessmentsInput
+    upsert?: ParcelUpsertWithoutAssessmentsInput
+    connect?: ParcelWhereUniqueInput
+    update?: XOR<XOR<ParcelUpdateToOneWithWhereWithoutAssessmentsInput, ParcelUpdateWithoutAssessmentsInput>, ParcelUncheckedUpdateWithoutAssessmentsInput>
+  }
+
+  export type ParcelCreateNestedManyWithoutLandUseInput = {
+    create?: XOR<ParcelCreateWithoutLandUseInput, ParcelUncheckedCreateWithoutLandUseInput> | ParcelCreateWithoutLandUseInput[] | ParcelUncheckedCreateWithoutLandUseInput[]
+    connectOrCreate?: ParcelCreateOrConnectWithoutLandUseInput | ParcelCreateOrConnectWithoutLandUseInput[]
+    createMany?: ParcelCreateManyLandUseInputEnvelope
+    connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+  }
+
+  export type ParcelUncheckedCreateNestedManyWithoutLandUseInput = {
+    create?: XOR<ParcelCreateWithoutLandUseInput, ParcelUncheckedCreateWithoutLandUseInput> | ParcelCreateWithoutLandUseInput[] | ParcelUncheckedCreateWithoutLandUseInput[]
+    connectOrCreate?: ParcelCreateOrConnectWithoutLandUseInput | ParcelCreateOrConnectWithoutLandUseInput[]
+    createMany?: ParcelCreateManyLandUseInputEnvelope
+    connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+  }
+
+  export type ParcelUpdateManyWithoutLandUseNestedInput = {
+    create?: XOR<ParcelCreateWithoutLandUseInput, ParcelUncheckedCreateWithoutLandUseInput> | ParcelCreateWithoutLandUseInput[] | ParcelUncheckedCreateWithoutLandUseInput[]
+    connectOrCreate?: ParcelCreateOrConnectWithoutLandUseInput | ParcelCreateOrConnectWithoutLandUseInput[]
+    upsert?: ParcelUpsertWithWhereUniqueWithoutLandUseInput | ParcelUpsertWithWhereUniqueWithoutLandUseInput[]
+    createMany?: ParcelCreateManyLandUseInputEnvelope
+    set?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    disconnect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    delete?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    update?: ParcelUpdateWithWhereUniqueWithoutLandUseInput | ParcelUpdateWithWhereUniqueWithoutLandUseInput[]
+    updateMany?: ParcelUpdateManyWithWhereWithoutLandUseInput | ParcelUpdateManyWithWhereWithoutLandUseInput[]
+    deleteMany?: ParcelScalarWhereInput | ParcelScalarWhereInput[]
+  }
+
+  export type ParcelUncheckedUpdateManyWithoutLandUseNestedInput = {
+    create?: XOR<ParcelCreateWithoutLandUseInput, ParcelUncheckedCreateWithoutLandUseInput> | ParcelCreateWithoutLandUseInput[] | ParcelUncheckedCreateWithoutLandUseInput[]
+    connectOrCreate?: ParcelCreateOrConnectWithoutLandUseInput | ParcelCreateOrConnectWithoutLandUseInput[]
+    upsert?: ParcelUpsertWithWhereUniqueWithoutLandUseInput | ParcelUpsertWithWhereUniqueWithoutLandUseInput[]
+    createMany?: ParcelCreateManyLandUseInputEnvelope
+    set?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    disconnect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    delete?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    update?: ParcelUpdateWithWhereUniqueWithoutLandUseInput | ParcelUpdateWithWhereUniqueWithoutLandUseInput[]
+    updateMany?: ParcelUpdateManyWithWhereWithoutLandUseInput | ParcelUpdateManyWithWhereWithoutLandUseInput[]
+    deleteMany?: ParcelScalarWhereInput | ParcelScalarWhereInput[]
+  }
+
+  export type ParcelCreateNestedManyWithoutZoneInput = {
+    create?: XOR<ParcelCreateWithoutZoneInput, ParcelUncheckedCreateWithoutZoneInput> | ParcelCreateWithoutZoneInput[] | ParcelUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: ParcelCreateOrConnectWithoutZoneInput | ParcelCreateOrConnectWithoutZoneInput[]
+    createMany?: ParcelCreateManyZoneInputEnvelope
+    connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+  }
+
+  export type ParcelUncheckedCreateNestedManyWithoutZoneInput = {
+    create?: XOR<ParcelCreateWithoutZoneInput, ParcelUncheckedCreateWithoutZoneInput> | ParcelCreateWithoutZoneInput[] | ParcelUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: ParcelCreateOrConnectWithoutZoneInput | ParcelCreateOrConnectWithoutZoneInput[]
+    createMany?: ParcelCreateManyZoneInputEnvelope
+    connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+  }
+
+  export type ParcelUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<ParcelCreateWithoutZoneInput, ParcelUncheckedCreateWithoutZoneInput> | ParcelCreateWithoutZoneInput[] | ParcelUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: ParcelCreateOrConnectWithoutZoneInput | ParcelCreateOrConnectWithoutZoneInput[]
+    upsert?: ParcelUpsertWithWhereUniqueWithoutZoneInput | ParcelUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: ParcelCreateManyZoneInputEnvelope
+    set?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    disconnect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    delete?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    update?: ParcelUpdateWithWhereUniqueWithoutZoneInput | ParcelUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: ParcelUpdateManyWithWhereWithoutZoneInput | ParcelUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: ParcelScalarWhereInput | ParcelScalarWhereInput[]
+  }
+
+  export type ParcelUncheckedUpdateManyWithoutZoneNestedInput = {
+    create?: XOR<ParcelCreateWithoutZoneInput, ParcelUncheckedCreateWithoutZoneInput> | ParcelCreateWithoutZoneInput[] | ParcelUncheckedCreateWithoutZoneInput[]
+    connectOrCreate?: ParcelCreateOrConnectWithoutZoneInput | ParcelCreateOrConnectWithoutZoneInput[]
+    upsert?: ParcelUpsertWithWhereUniqueWithoutZoneInput | ParcelUpsertWithWhereUniqueWithoutZoneInput[]
+    createMany?: ParcelCreateManyZoneInputEnvelope
+    set?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    disconnect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    delete?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    update?: ParcelUpdateWithWhereUniqueWithoutZoneInput | ParcelUpdateWithWhereUniqueWithoutZoneInput[]
+    updateMany?: ParcelUpdateManyWithWhereWithoutZoneInput | ParcelUpdateManyWithWhereWithoutZoneInput[]
+    deleteMany?: ParcelScalarWhereInput | ParcelScalarWhereInput[]
+  }
+
+  export type AddressCreateNestedManyWithoutParcelInput = {
+    create?: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput> | AddressCreateWithoutParcelInput[] | AddressUncheckedCreateWithoutParcelInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutParcelInput | AddressCreateOrConnectWithoutParcelInput[]
+    createMany?: AddressCreateManyParcelInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
+  export type ZoneCreateNestedOneWithoutParcelsInput = {
+    create?: XOR<ZoneCreateWithoutParcelsInput, ZoneUncheckedCreateWithoutParcelsInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutParcelsInput
+    connect?: ZoneWhereUniqueInput
+  }
+
+  export type LandUseCreateNestedOneWithoutParcelsInput = {
+    create?: XOR<LandUseCreateWithoutParcelsInput, LandUseUncheckedCreateWithoutParcelsInput>
+    connectOrCreate?: LandUseCreateOrConnectWithoutParcelsInput
+    connect?: LandUseWhereUniqueInput
+  }
+
+  export type AssessmentCreateNestedManyWithoutParcelInput = {
+    create?: XOR<AssessmentCreateWithoutParcelInput, AssessmentUncheckedCreateWithoutParcelInput> | AssessmentCreateWithoutParcelInput[] | AssessmentUncheckedCreateWithoutParcelInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutParcelInput | AssessmentCreateOrConnectWithoutParcelInput[]
+    createMany?: AssessmentCreateManyParcelInputEnvelope
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+  }
+
+  export type AddressUncheckedCreateNestedManyWithoutParcelInput = {
+    create?: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput> | AddressCreateWithoutParcelInput[] | AddressUncheckedCreateWithoutParcelInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutParcelInput | AddressCreateOrConnectWithoutParcelInput[]
+    createMany?: AddressCreateManyParcelInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
+  export type AssessmentUncheckedCreateNestedManyWithoutParcelInput = {
+    create?: XOR<AssessmentCreateWithoutParcelInput, AssessmentUncheckedCreateWithoutParcelInput> | AssessmentCreateWithoutParcelInput[] | AssessmentUncheckedCreateWithoutParcelInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutParcelInput | AssessmentCreateOrConnectWithoutParcelInput[]
+    createMany?: AssessmentCreateManyParcelInputEnvelope
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+  }
+
+  export type AddressUpdateManyWithoutParcelNestedInput = {
+    create?: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput> | AddressCreateWithoutParcelInput[] | AddressUncheckedCreateWithoutParcelInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutParcelInput | AddressCreateOrConnectWithoutParcelInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutParcelInput | AddressUpsertWithWhereUniqueWithoutParcelInput[]
+    createMany?: AddressCreateManyParcelInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutParcelInput | AddressUpdateWithWhereUniqueWithoutParcelInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutParcelInput | AddressUpdateManyWithWhereWithoutParcelInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
+  export type ZoneUpdateOneRequiredWithoutParcelsNestedInput = {
+    create?: XOR<ZoneCreateWithoutParcelsInput, ZoneUncheckedCreateWithoutParcelsInput>
+    connectOrCreate?: ZoneCreateOrConnectWithoutParcelsInput
+    upsert?: ZoneUpsertWithoutParcelsInput
+    connect?: ZoneWhereUniqueInput
+    update?: XOR<XOR<ZoneUpdateToOneWithWhereWithoutParcelsInput, ZoneUpdateWithoutParcelsInput>, ZoneUncheckedUpdateWithoutParcelsInput>
+  }
+
+  export type LandUseUpdateOneRequiredWithoutParcelsNestedInput = {
+    create?: XOR<LandUseCreateWithoutParcelsInput, LandUseUncheckedCreateWithoutParcelsInput>
+    connectOrCreate?: LandUseCreateOrConnectWithoutParcelsInput
+    upsert?: LandUseUpsertWithoutParcelsInput
+    connect?: LandUseWhereUniqueInput
+    update?: XOR<XOR<LandUseUpdateToOneWithWhereWithoutParcelsInput, LandUseUpdateWithoutParcelsInput>, LandUseUncheckedUpdateWithoutParcelsInput>
+  }
+
+  export type AssessmentUpdateManyWithoutParcelNestedInput = {
+    create?: XOR<AssessmentCreateWithoutParcelInput, AssessmentUncheckedCreateWithoutParcelInput> | AssessmentCreateWithoutParcelInput[] | AssessmentUncheckedCreateWithoutParcelInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutParcelInput | AssessmentCreateOrConnectWithoutParcelInput[]
+    upsert?: AssessmentUpsertWithWhereUniqueWithoutParcelInput | AssessmentUpsertWithWhereUniqueWithoutParcelInput[]
+    createMany?: AssessmentCreateManyParcelInputEnvelope
+    set?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    disconnect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    delete?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    update?: AssessmentUpdateWithWhereUniqueWithoutParcelInput | AssessmentUpdateWithWhereUniqueWithoutParcelInput[]
+    updateMany?: AssessmentUpdateManyWithWhereWithoutParcelInput | AssessmentUpdateManyWithWhereWithoutParcelInput[]
+    deleteMany?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+  }
+
+  export type AddressUncheckedUpdateManyWithoutParcelNestedInput = {
+    create?: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput> | AddressCreateWithoutParcelInput[] | AddressUncheckedCreateWithoutParcelInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutParcelInput | AddressCreateOrConnectWithoutParcelInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutParcelInput | AddressUpsertWithWhereUniqueWithoutParcelInput[]
+    createMany?: AddressCreateManyParcelInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutParcelInput | AddressUpdateWithWhereUniqueWithoutParcelInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutParcelInput | AddressUpdateManyWithWhereWithoutParcelInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
+  export type AssessmentUncheckedUpdateManyWithoutParcelNestedInput = {
+    create?: XOR<AssessmentCreateWithoutParcelInput, AssessmentUncheckedCreateWithoutParcelInput> | AssessmentCreateWithoutParcelInput[] | AssessmentUncheckedCreateWithoutParcelInput[]
+    connectOrCreate?: AssessmentCreateOrConnectWithoutParcelInput | AssessmentCreateOrConnectWithoutParcelInput[]
+    upsert?: AssessmentUpsertWithWhereUniqueWithoutParcelInput | AssessmentUpsertWithWhereUniqueWithoutParcelInput[]
+    createMany?: AssessmentCreateManyParcelInputEnvelope
+    set?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    disconnect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    delete?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
+    update?: AssessmentUpdateWithWhereUniqueWithoutParcelInput | AssessmentUpdateWithWhereUniqueWithoutParcelInput[]
+    updateMany?: AssessmentUpdateManyWithWhereWithoutParcelInput | AssessmentUpdateManyWithWhereWithoutParcelInput[]
+    deleteMany?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+  }
+
+  export type ParcelCreateNestedOneWithoutAddressesInput = {
+    create?: XOR<ParcelCreateWithoutAddressesInput, ParcelUncheckedCreateWithoutAddressesInput>
+    connectOrCreate?: ParcelCreateOrConnectWithoutAddressesInput
+    connect?: ParcelWhereUniqueInput
+  }
+
+  export type ListingCreateNestedOneWithoutAddressInput = {
+    create?: XOR<ListingCreateWithoutAddressInput, ListingUncheckedCreateWithoutAddressInput>
+    connectOrCreate?: ListingCreateOrConnectWithoutAddressInput
+    connect?: ListingWhereUniqueInput
+  }
+
+  export type ListingUncheckedCreateNestedOneWithoutAddressInput = {
+    create?: XOR<ListingCreateWithoutAddressInput, ListingUncheckedCreateWithoutAddressInput>
+    connectOrCreate?: ListingCreateOrConnectWithoutAddressInput
+    connect?: ListingWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ParcelUpdateOneRequiredWithoutAddressesNestedInput = {
+    create?: XOR<ParcelCreateWithoutAddressesInput, ParcelUncheckedCreateWithoutAddressesInput>
+    connectOrCreate?: ParcelCreateOrConnectWithoutAddressesInput
+    upsert?: ParcelUpsertWithoutAddressesInput
+    connect?: ParcelWhereUniqueInput
+    update?: XOR<XOR<ParcelUpdateToOneWithWhereWithoutAddressesInput, ParcelUpdateWithoutAddressesInput>, ParcelUncheckedUpdateWithoutAddressesInput>
+  }
+
+  export type ListingUpdateOneWithoutAddressNestedInput = {
+    create?: XOR<ListingCreateWithoutAddressInput, ListingUncheckedCreateWithoutAddressInput>
+    connectOrCreate?: ListingCreateOrConnectWithoutAddressInput
+    upsert?: ListingUpsertWithoutAddressInput
+    disconnect?: ListingWhereInput | boolean
+    delete?: ListingWhereInput | boolean
+    connect?: ListingWhereUniqueInput
+    update?: XOR<XOR<ListingUpdateToOneWithWhereWithoutAddressInput, ListingUpdateWithoutAddressInput>, ListingUncheckedUpdateWithoutAddressInput>
+  }
+
+  export type ListingUncheckedUpdateOneWithoutAddressNestedInput = {
+    create?: XOR<ListingCreateWithoutAddressInput, ListingUncheckedCreateWithoutAddressInput>
+    connectOrCreate?: ListingCreateOrConnectWithoutAddressInput
+    upsert?: ListingUpsertWithoutAddressInput
+    disconnect?: ListingWhereInput | boolean
+    delete?: ListingWhereInput | boolean
+    connect?: ListingWhereUniqueInput
+    update?: XOR<XOR<ListingUpdateToOneWithWhereWithoutAddressInput, ListingUpdateWithoutAddressInput>, ListingUncheckedUpdateWithoutAddressInput>
+  }
+
   export type ListingCreateimagesInput = {
     set: string[]
   }
@@ -2165,8 +8580,10 @@ export namespace Prisma {
     set: string[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
+  export type AddressCreateNestedOneWithoutListingInput = {
+    create?: XOR<AddressCreateWithoutListingInput, AddressUncheckedCreateWithoutListingInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutListingInput
+    connect?: AddressWhereUniqueInput
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -2187,6 +8604,14 @@ export namespace Prisma {
     push?: string | string[]
   }
 
+  export type AddressUpdateOneRequiredWithoutListingNestedInput = {
+    create?: XOR<AddressCreateWithoutListingInput, AddressUncheckedCreateWithoutListingInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutListingInput
+    upsert?: AddressUpsertWithoutListingInput
+    connect?: AddressWhereUniqueInput
+    update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutListingInput, AddressUpdateWithoutListingInput>, AddressUncheckedUpdateWithoutListingInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -2199,6 +8624,99 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -2226,34 +8744,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -2266,17 +8756,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -2296,11 +8775,639 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type ParcelCreateWithoutAssessmentsInput = {
+    id: string
+    addresses?: AddressCreateNestedManyWithoutParcelInput
+    zone: ZoneCreateNestedOneWithoutParcelsInput
+    landUse: LandUseCreateNestedOneWithoutParcelsInput
+  }
+
+  export type ParcelUncheckedCreateWithoutAssessmentsInput = {
+    id: string
+    zoneId: string
+    landUseId: string
+    addresses?: AddressUncheckedCreateNestedManyWithoutParcelInput
+  }
+
+  export type ParcelCreateOrConnectWithoutAssessmentsInput = {
+    where: ParcelWhereUniqueInput
+    create: XOR<ParcelCreateWithoutAssessmentsInput, ParcelUncheckedCreateWithoutAssessmentsInput>
+  }
+
+  export type ParcelUpsertWithoutAssessmentsInput = {
+    update: XOR<ParcelUpdateWithoutAssessmentsInput, ParcelUncheckedUpdateWithoutAssessmentsInput>
+    create: XOR<ParcelCreateWithoutAssessmentsInput, ParcelUncheckedCreateWithoutAssessmentsInput>
+    where?: ParcelWhereInput
+  }
+
+  export type ParcelUpdateToOneWithWhereWithoutAssessmentsInput = {
+    where?: ParcelWhereInput
+    data: XOR<ParcelUpdateWithoutAssessmentsInput, ParcelUncheckedUpdateWithoutAssessmentsInput>
+  }
+
+  export type ParcelUpdateWithoutAssessmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUpdateManyWithoutParcelNestedInput
+    zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
+    landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
+  }
+
+  export type ParcelUncheckedUpdateWithoutAssessmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    landUseId?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
+  }
+
+  export type ParcelCreateWithoutLandUseInput = {
+    id: string
+    addresses?: AddressCreateNestedManyWithoutParcelInput
+    zone: ZoneCreateNestedOneWithoutParcelsInput
+    assessments?: AssessmentCreateNestedManyWithoutParcelInput
+  }
+
+  export type ParcelUncheckedCreateWithoutLandUseInput = {
+    id: string
+    zoneId: string
+    addresses?: AddressUncheckedCreateNestedManyWithoutParcelInput
+    assessments?: AssessmentUncheckedCreateNestedManyWithoutParcelInput
+  }
+
+  export type ParcelCreateOrConnectWithoutLandUseInput = {
+    where: ParcelWhereUniqueInput
+    create: XOR<ParcelCreateWithoutLandUseInput, ParcelUncheckedCreateWithoutLandUseInput>
+  }
+
+  export type ParcelCreateManyLandUseInputEnvelope = {
+    data: ParcelCreateManyLandUseInput | ParcelCreateManyLandUseInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ParcelUpsertWithWhereUniqueWithoutLandUseInput = {
+    where: ParcelWhereUniqueInput
+    update: XOR<ParcelUpdateWithoutLandUseInput, ParcelUncheckedUpdateWithoutLandUseInput>
+    create: XOR<ParcelCreateWithoutLandUseInput, ParcelUncheckedCreateWithoutLandUseInput>
+  }
+
+  export type ParcelUpdateWithWhereUniqueWithoutLandUseInput = {
+    where: ParcelWhereUniqueInput
+    data: XOR<ParcelUpdateWithoutLandUseInput, ParcelUncheckedUpdateWithoutLandUseInput>
+  }
+
+  export type ParcelUpdateManyWithWhereWithoutLandUseInput = {
+    where: ParcelScalarWhereInput
+    data: XOR<ParcelUpdateManyMutationInput, ParcelUncheckedUpdateManyWithoutLandUseInput>
+  }
+
+  export type ParcelScalarWhereInput = {
+    AND?: ParcelScalarWhereInput | ParcelScalarWhereInput[]
+    OR?: ParcelScalarWhereInput[]
+    NOT?: ParcelScalarWhereInput | ParcelScalarWhereInput[]
+    id?: StringFilter<"Parcel"> | string
+    zoneId?: StringFilter<"Parcel"> | string
+    landUseId?: StringFilter<"Parcel"> | string
+  }
+
+  export type ParcelCreateWithoutZoneInput = {
+    id: string
+    addresses?: AddressCreateNestedManyWithoutParcelInput
+    landUse: LandUseCreateNestedOneWithoutParcelsInput
+    assessments?: AssessmentCreateNestedManyWithoutParcelInput
+  }
+
+  export type ParcelUncheckedCreateWithoutZoneInput = {
+    id: string
+    landUseId: string
+    addresses?: AddressUncheckedCreateNestedManyWithoutParcelInput
+    assessments?: AssessmentUncheckedCreateNestedManyWithoutParcelInput
+  }
+
+  export type ParcelCreateOrConnectWithoutZoneInput = {
+    where: ParcelWhereUniqueInput
+    create: XOR<ParcelCreateWithoutZoneInput, ParcelUncheckedCreateWithoutZoneInput>
+  }
+
+  export type ParcelCreateManyZoneInputEnvelope = {
+    data: ParcelCreateManyZoneInput | ParcelCreateManyZoneInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ParcelUpsertWithWhereUniqueWithoutZoneInput = {
+    where: ParcelWhereUniqueInput
+    update: XOR<ParcelUpdateWithoutZoneInput, ParcelUncheckedUpdateWithoutZoneInput>
+    create: XOR<ParcelCreateWithoutZoneInput, ParcelUncheckedCreateWithoutZoneInput>
+  }
+
+  export type ParcelUpdateWithWhereUniqueWithoutZoneInput = {
+    where: ParcelWhereUniqueInput
+    data: XOR<ParcelUpdateWithoutZoneInput, ParcelUncheckedUpdateWithoutZoneInput>
+  }
+
+  export type ParcelUpdateManyWithWhereWithoutZoneInput = {
+    where: ParcelScalarWhereInput
+    data: XOR<ParcelUpdateManyMutationInput, ParcelUncheckedUpdateManyWithoutZoneInput>
+  }
+
+  export type AddressCreateWithoutParcelInput = {
+    id: string
+    num?: number | null
+    street: string
+    st_suffix: string
+    city: string
+    zip: string
+    listing?: ListingCreateNestedOneWithoutAddressInput
+  }
+
+  export type AddressUncheckedCreateWithoutParcelInput = {
+    id: string
+    num?: number | null
+    street: string
+    st_suffix: string
+    city: string
+    zip: string
+    listing?: ListingUncheckedCreateNestedOneWithoutAddressInput
+  }
+
+  export type AddressCreateOrConnectWithoutParcelInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput>
+  }
+
+  export type AddressCreateManyParcelInputEnvelope = {
+    data: AddressCreateManyParcelInput | AddressCreateManyParcelInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ZoneCreateWithoutParcelsInput = {
+    id: string
+    zoneDesc: string
+  }
+
+  export type ZoneUncheckedCreateWithoutParcelsInput = {
+    id: string
+    zoneDesc: string
+  }
+
+  export type ZoneCreateOrConnectWithoutParcelsInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutParcelsInput, ZoneUncheckedCreateWithoutParcelsInput>
+  }
+
+  export type LandUseCreateWithoutParcelsInput = {
+    id: string
+    landUseDesc: string
+  }
+
+  export type LandUseUncheckedCreateWithoutParcelsInput = {
+    id: string
+    landUseDesc: string
+  }
+
+  export type LandUseCreateOrConnectWithoutParcelsInput = {
+    where: LandUseWhereUniqueInput
+    create: XOR<LandUseCreateWithoutParcelsInput, LandUseUncheckedCreateWithoutParcelsInput>
+  }
+
+  export type AssessmentCreateWithoutParcelInput = {
+    id?: string
+    year: number
+    improvements: number
+    land: number
+    total: number
+  }
+
+  export type AssessmentUncheckedCreateWithoutParcelInput = {
+    id?: string
+    year: number
+    improvements: number
+    land: number
+    total: number
+  }
+
+  export type AssessmentCreateOrConnectWithoutParcelInput = {
+    where: AssessmentWhereUniqueInput
+    create: XOR<AssessmentCreateWithoutParcelInput, AssessmentUncheckedCreateWithoutParcelInput>
+  }
+
+  export type AssessmentCreateManyParcelInputEnvelope = {
+    data: AssessmentCreateManyParcelInput | AssessmentCreateManyParcelInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AddressUpsertWithWhereUniqueWithoutParcelInput = {
+    where: AddressWhereUniqueInput
+    update: XOR<AddressUpdateWithoutParcelInput, AddressUncheckedUpdateWithoutParcelInput>
+    create: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput>
+  }
+
+  export type AddressUpdateWithWhereUniqueWithoutParcelInput = {
+    where: AddressWhereUniqueInput
+    data: XOR<AddressUpdateWithoutParcelInput, AddressUncheckedUpdateWithoutParcelInput>
+  }
+
+  export type AddressUpdateManyWithWhereWithoutParcelInput = {
+    where: AddressScalarWhereInput
+    data: XOR<AddressUpdateManyMutationInput, AddressUncheckedUpdateManyWithoutParcelInput>
+  }
+
+  export type AddressScalarWhereInput = {
+    AND?: AddressScalarWhereInput | AddressScalarWhereInput[]
+    OR?: AddressScalarWhereInput[]
+    NOT?: AddressScalarWhereInput | AddressScalarWhereInput[]
+    id?: StringFilter<"Address"> | string
+    num?: IntNullableFilter<"Address"> | number | null
+    street?: StringFilter<"Address"> | string
+    st_suffix?: StringFilter<"Address"> | string
+    city?: StringFilter<"Address"> | string
+    zip?: StringFilter<"Address"> | string
+    parcelId?: StringFilter<"Address"> | string
+  }
+
+  export type ZoneUpsertWithoutParcelsInput = {
+    update: XOR<ZoneUpdateWithoutParcelsInput, ZoneUncheckedUpdateWithoutParcelsInput>
+    create: XOR<ZoneCreateWithoutParcelsInput, ZoneUncheckedCreateWithoutParcelsInput>
+    where?: ZoneWhereInput
+  }
+
+  export type ZoneUpdateToOneWithWhereWithoutParcelsInput = {
+    where?: ZoneWhereInput
+    data: XOR<ZoneUpdateWithoutParcelsInput, ZoneUncheckedUpdateWithoutParcelsInput>
+  }
+
+  export type ZoneUpdateWithoutParcelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneDesc?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ZoneUncheckedUpdateWithoutParcelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneDesc?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LandUseUpsertWithoutParcelsInput = {
+    update: XOR<LandUseUpdateWithoutParcelsInput, LandUseUncheckedUpdateWithoutParcelsInput>
+    create: XOR<LandUseCreateWithoutParcelsInput, LandUseUncheckedCreateWithoutParcelsInput>
+    where?: LandUseWhereInput
+  }
+
+  export type LandUseUpdateToOneWithWhereWithoutParcelsInput = {
+    where?: LandUseWhereInput
+    data: XOR<LandUseUpdateWithoutParcelsInput, LandUseUncheckedUpdateWithoutParcelsInput>
+  }
+
+  export type LandUseUpdateWithoutParcelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    landUseDesc?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LandUseUncheckedUpdateWithoutParcelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    landUseDesc?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AssessmentUpsertWithWhereUniqueWithoutParcelInput = {
+    where: AssessmentWhereUniqueInput
+    update: XOR<AssessmentUpdateWithoutParcelInput, AssessmentUncheckedUpdateWithoutParcelInput>
+    create: XOR<AssessmentCreateWithoutParcelInput, AssessmentUncheckedCreateWithoutParcelInput>
+  }
+
+  export type AssessmentUpdateWithWhereUniqueWithoutParcelInput = {
+    where: AssessmentWhereUniqueInput
+    data: XOR<AssessmentUpdateWithoutParcelInput, AssessmentUncheckedUpdateWithoutParcelInput>
+  }
+
+  export type AssessmentUpdateManyWithWhereWithoutParcelInput = {
+    where: AssessmentScalarWhereInput
+    data: XOR<AssessmentUpdateManyMutationInput, AssessmentUncheckedUpdateManyWithoutParcelInput>
+  }
+
+  export type AssessmentScalarWhereInput = {
+    AND?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+    OR?: AssessmentScalarWhereInput[]
+    NOT?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
+    id?: StringFilter<"Assessment"> | string
+    parcelId?: StringFilter<"Assessment"> | string
+    year?: IntFilter<"Assessment"> | number
+    improvements?: IntFilter<"Assessment"> | number
+    land?: IntFilter<"Assessment"> | number
+    total?: IntFilter<"Assessment"> | number
+  }
+
+  export type ParcelCreateWithoutAddressesInput = {
+    id: string
+    zone: ZoneCreateNestedOneWithoutParcelsInput
+    landUse: LandUseCreateNestedOneWithoutParcelsInput
+    assessments?: AssessmentCreateNestedManyWithoutParcelInput
+  }
+
+  export type ParcelUncheckedCreateWithoutAddressesInput = {
+    id: string
+    zoneId: string
+    landUseId: string
+    assessments?: AssessmentUncheckedCreateNestedManyWithoutParcelInput
+  }
+
+  export type ParcelCreateOrConnectWithoutAddressesInput = {
+    where: ParcelWhereUniqueInput
+    create: XOR<ParcelCreateWithoutAddressesInput, ParcelUncheckedCreateWithoutAddressesInput>
+  }
+
+  export type ListingCreateWithoutAddressInput = {
+    id?: string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    name?: string | null
+    desc?: string | null
+    parcelID?: string | null
+    images?: ListingCreateimagesInput | string[]
+    labels?: ListingCreatelabelsInput | string[]
+  }
+
+  export type ListingUncheckedCreateWithoutAddressInput = {
+    id?: string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    name?: string | null
+    desc?: string | null
+    parcelID?: string | null
+    images?: ListingCreateimagesInput | string[]
+    labels?: ListingCreatelabelsInput | string[]
+  }
+
+  export type ListingCreateOrConnectWithoutAddressInput = {
+    where: ListingWhereUniqueInput
+    create: XOR<ListingCreateWithoutAddressInput, ListingUncheckedCreateWithoutAddressInput>
+  }
+
+  export type ParcelUpsertWithoutAddressesInput = {
+    update: XOR<ParcelUpdateWithoutAddressesInput, ParcelUncheckedUpdateWithoutAddressesInput>
+    create: XOR<ParcelCreateWithoutAddressesInput, ParcelUncheckedCreateWithoutAddressesInput>
+    where?: ParcelWhereInput
+  }
+
+  export type ParcelUpdateToOneWithWhereWithoutAddressesInput = {
+    where?: ParcelWhereInput
+    data: XOR<ParcelUpdateWithoutAddressesInput, ParcelUncheckedUpdateWithoutAddressesInput>
+  }
+
+  export type ParcelUpdateWithoutAddressesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
+    landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
+    assessments?: AssessmentUpdateManyWithoutParcelNestedInput
+  }
+
+  export type ParcelUncheckedUpdateWithoutAddressesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    landUseId?: StringFieldUpdateOperationsInput | string
+    assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
+  }
+
+  export type ListingUpsertWithoutAddressInput = {
+    update: XOR<ListingUpdateWithoutAddressInput, ListingUncheckedUpdateWithoutAddressInput>
+    create: XOR<ListingCreateWithoutAddressInput, ListingUncheckedCreateWithoutAddressInput>
+    where?: ListingWhereInput
+  }
+
+  export type ListingUpdateToOneWithWhereWithoutAddressInput = {
+    where?: ListingWhereInput
+    data: XOR<ListingUpdateWithoutAddressInput, ListingUncheckedUpdateWithoutAddressInput>
+  }
+
+  export type ListingUpdateWithoutAddressInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    parcelID?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: ListingUpdateimagesInput | string[]
+    labels?: ListingUpdatelabelsInput | string[]
+  }
+
+  export type ListingUncheckedUpdateWithoutAddressInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    desc?: NullableStringFieldUpdateOperationsInput | string | null
+    parcelID?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: ListingUpdateimagesInput | string[]
+    labels?: ListingUpdatelabelsInput | string[]
+  }
+
+  export type AddressCreateWithoutListingInput = {
+    id: string
+    num?: number | null
+    street: string
+    st_suffix: string
+    city: string
+    zip: string
+    parcel: ParcelCreateNestedOneWithoutAddressesInput
+  }
+
+  export type AddressUncheckedCreateWithoutListingInput = {
+    id: string
+    num?: number | null
+    street: string
+    st_suffix: string
+    city: string
+    zip: string
+    parcelId: string
+  }
+
+  export type AddressCreateOrConnectWithoutListingInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutListingInput, AddressUncheckedCreateWithoutListingInput>
+  }
+
+  export type AddressUpsertWithoutListingInput = {
+    update: XOR<AddressUpdateWithoutListingInput, AddressUncheckedUpdateWithoutListingInput>
+    create: XOR<AddressCreateWithoutListingInput, AddressUncheckedCreateWithoutListingInput>
+    where?: AddressWhereInput
+  }
+
+  export type AddressUpdateToOneWithWhereWithoutListingInput = {
+    where?: AddressWhereInput
+    data: XOR<AddressUpdateWithoutListingInput, AddressUncheckedUpdateWithoutListingInput>
+  }
+
+  export type AddressUpdateWithoutListingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    num?: NullableIntFieldUpdateOperationsInput | number | null
+    street?: StringFieldUpdateOperationsInput | string
+    st_suffix?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    zip?: StringFieldUpdateOperationsInput | string
+    parcel?: ParcelUpdateOneRequiredWithoutAddressesNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutListingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    num?: NullableIntFieldUpdateOperationsInput | number | null
+    street?: StringFieldUpdateOperationsInput | string
+    st_suffix?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    zip?: StringFieldUpdateOperationsInput | string
+    parcelId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ParcelCreateManyLandUseInput = {
+    id: string
+    zoneId: string
+  }
+
+  export type ParcelUpdateWithoutLandUseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUpdateManyWithoutParcelNestedInput
+    zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
+    assessments?: AssessmentUpdateManyWithoutParcelNestedInput
+  }
+
+  export type ParcelUncheckedUpdateWithoutLandUseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
+    assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
+  }
+
+  export type ParcelUncheckedUpdateManyWithoutLandUseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    zoneId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ParcelCreateManyZoneInput = {
+    id: string
+    landUseId: string
+  }
+
+  export type ParcelUpdateWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUpdateManyWithoutParcelNestedInput
+    landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
+    assessments?: AssessmentUpdateManyWithoutParcelNestedInput
+  }
+
+  export type ParcelUncheckedUpdateWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    landUseId?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
+    assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
+  }
+
+  export type ParcelUncheckedUpdateManyWithoutZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    landUseId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AddressCreateManyParcelInput = {
+    id: string
+    num?: number | null
+    street: string
+    st_suffix: string
+    city: string
+    zip: string
+  }
+
+  export type AssessmentCreateManyParcelInput = {
+    id?: string
+    year: number
+    improvements: number
+    land: number
+    total: number
+  }
+
+  export type AddressUpdateWithoutParcelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    num?: NullableIntFieldUpdateOperationsInput | number | null
+    street?: StringFieldUpdateOperationsInput | string
+    st_suffix?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    zip?: StringFieldUpdateOperationsInput | string
+    listing?: ListingUpdateOneWithoutAddressNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutParcelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    num?: NullableIntFieldUpdateOperationsInput | number | null
+    street?: StringFieldUpdateOperationsInput | string
+    st_suffix?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    zip?: StringFieldUpdateOperationsInput | string
+    listing?: ListingUncheckedUpdateOneWithoutAddressNestedInput
+  }
+
+  export type AddressUncheckedUpdateManyWithoutParcelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    num?: NullableIntFieldUpdateOperationsInput | number | null
+    street?: StringFieldUpdateOperationsInput | string
+    st_suffix?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    zip?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AssessmentUpdateWithoutParcelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    improvements?: IntFieldUpdateOperationsInput | number
+    land?: IntFieldUpdateOperationsInput | number
+    total?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AssessmentUncheckedUpdateWithoutParcelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    improvements?: IntFieldUpdateOperationsInput | number
+    land?: IntFieldUpdateOperationsInput | number
+    total?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AssessmentUncheckedUpdateManyWithoutParcelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    improvements?: IntFieldUpdateOperationsInput | number
+    land?: IntFieldUpdateOperationsInput | number
+    total?: IntFieldUpdateOperationsInput | number
+  }
+
 
 
   /**
    * Aliases for legacy arg types
    */
+    /**
+     * @deprecated Use LandUseCountOutputTypeDefaultArgs instead
+     */
+    export type LandUseCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = LandUseCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ZoneCountOutputTypeDefaultArgs instead
+     */
+    export type ZoneCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ZoneCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ParcelCountOutputTypeDefaultArgs instead
+     */
+    export type ParcelCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ParcelCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AssessmentDefaultArgs instead
+     */
+    export type AssessmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AssessmentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use LandUseDefaultArgs instead
+     */
+    export type LandUseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = LandUseDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ZoneDefaultArgs instead
+     */
+    export type ZoneArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ZoneDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ParcelDefaultArgs instead
+     */
+    export type ParcelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ParcelDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AddressDefaultArgs instead
+     */
+    export type AddressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AddressDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ListingDefaultArgs instead
      */

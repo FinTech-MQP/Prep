@@ -11,14 +11,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Assessment {
+  id           String @id @default(cuid())
+  parcel       Parcel @relation(fields: [parcelId], references: [id])
+  parcelId     String
+  year         Int
+  improvements Int
+  land         Int
+  total        Int
+}
+
+model LandUse {
+  id          String   @id
+  landUseDesc String
+  parcels     Parcel[]
+}
+
+model Zone {
+  id       String   @id
+  zoneDesc String
+  parcels  Parcel[]
+}
+
+model Parcel {
+  id          String       @id
+  addresses   Address[]
+  zone        Zone         @relation(fields: [zoneId], references: [id])
+  zoneId      String
+  landUse     LandUse      @relation(fields: [landUseId], references: [id])
+  landUseId   String
+  assessments Assessment[]
+}
+
+model Address {
+  id        String   @id
+  num       Int?
+  street    String
+  st_suffix String
+  city      String
+  zip       String
+  parcel    Parcel   @relation(fields: [parcelId], references: [id])
+  parcelId  String
+  listing   Listing?
+}
+
 model Listing {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
   name      String?
   desc      String?
-  address   String?
   parcelID  String?
   images    String[]
   labels    String[]
+  address   Address   @relation(fields: [addressId], references: [id])
+  addressId String    @unique
 }
