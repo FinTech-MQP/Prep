@@ -1,7 +1,35 @@
 import { useState } from "react";
 import { programs } from "@monorepo/utils/constants";
-import { Program, ProgramCriteria } from "@monorepo/utils/interfaces";
+import { ProgramCriteria } from "@monorepo/utils/interfaces";
 import { Range } from "react-range";
+import styled from "@emotion/styled";
+
+const Container = styled.div`
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin: 10px 0;
+`;
+
+const Track = styled.div`
+  height: 6px;
+  width: 100%;
+  margin-top: 10px;
+`;
+
+const Thumb = styled.div`
+  height: 20px;
+  width: 20px;
+  background-color: #999;
+`;
+
+const ProgramContainer = styled.div`
+  margin-top: 20px;
+`;
 
 const Criteria = () => {
   // State for your criteria
@@ -9,10 +37,66 @@ const Criteria = () => {
   const [adaValues, setAdaValues] = useState<[number, number]>([0, 100]);
   const [isMixedIncome, setIsMixedIncome] = useState<boolean>(false);
   const [affordabilityTerm, setAffordabilityTerm] = useState<number>(0);
-  const [applicablePrograms, setApplicablePrograms] = useState<Program[]>([]);
   const [buildingCommencement, setBuildingCommencement] = useState<string>("");
   const [occupancyDate, setOccupancyDate] = useState<string>("");
   const today = new Date().toISOString().split("T")[0];
+
+  const ProgramInfo = styled.div<{ isApplicable: boolean }>`
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: ${(props) =>
+      props.isApplicable ? "#b8e994" : "#ff6b6b"};
+    color: black;
+  `;
+
+  const checkCriteria = (
+    programCriteria: ProgramCriteria,
+    userCriteria: ProgramCriteria
+  ) => {
+    const checks = [];
+
+    // AMI Range Check
+    if (
+      userCriteria.amiRange[0] < programCriteria.amiRange[0] ||
+      userCriteria.amiRange[1] > programCriteria.amiRange[1]
+    ) {
+      checks.push(
+        `AMI range is outside program criteria (${userCriteria.amiRange.join(
+          "-"
+        )}% vs ${programCriteria.amiRange.join("-")}%)`
+      );
+    }
+
+    // ADA Range Check
+    if (
+      userCriteria.adaRange[0] < programCriteria.adaRange[0] ||
+      userCriteria.adaRange[1] > programCriteria.adaRange[1]
+    ) {
+      checks.push(
+        `ADA range is outside program criteria (${userCriteria.adaRange.join(
+          "-"
+        )}% vs ${programCriteria.adaRange.join("-")}%)`
+      );
+    }
+
+    // Mixed Income Check
+    if (programCriteria.mixedIncome && !userCriteria.mixedIncome) {
+      checks.push(
+        "Program requires mixed income and the property is not mixed income."
+      );
+    }
+
+    // Affordability Term Check
+    if (userCriteria.affordabilityTerm < programCriteria.affordabilityTerm) {
+      checks.push(
+        `Affordability term is less than required (${userCriteria.affordabilityTerm} years vs ${programCriteria.affordabilityTerm} years minimum).`
+      );
+    }
+
+    // Additional checks can be added here similarly
+
+    return checks.join(" | ");
+  };
 
   // Function to determine if a user's criteria match a program's criteria
   // Additional checks within the criteriaMatch function
@@ -52,25 +136,9 @@ const Criteria = () => {
     );
   };
 
-  // Function to determine applicable programs based on criteria
-  const determineApplicablePrograms = () => {
-    const userCriteria: ProgramCriteria = {
-      amiRange: amiValues,
-      adaRange: adaValues,
-      mixedIncome: isMixedIncome,
-      affordabilityTerm,
-    };
-
-    const applicable = programs.filter((program: { criteria: any }) =>
-      criteriaMatch(program.criteria, userCriteria)
-    );
-
-    setApplicablePrograms(applicable);
-  };
-
   // Render the component
   return (
-    <div>
+    <Container>
       {/* AMI Range slider */}
       <label>
         AMI Range: {amiValues[0]}% - {amiValues[1]}%
@@ -85,7 +153,7 @@ const Criteria = () => {
           const percentageLeft = (amiValues[0] / 120) * 100;
           const percentageRight = (amiValues[1] / 120) * 100;
           return (
-            <div
+            <Track
               {...props}
               style={{
                 ...props.style,
@@ -95,11 +163,11 @@ const Criteria = () => {
               }}
             >
               {children}
-            </div>
+            </Track>
           );
         }}
         renderThumb={({ props }) => (
-          <div
+          <Thumb
             {...props}
             style={{
               ...props.style,
@@ -125,7 +193,7 @@ const Criteria = () => {
           const percentageLeft = (adaValues[0] / 100) * 100;
           const percentageRight = (adaValues[1] / 100) * 100;
           return (
-            <div
+            <Track
               {...props}
               style={{
                 ...props.style,
@@ -135,11 +203,11 @@ const Criteria = () => {
               }}
             >
               {children}
-            </div>
+            </Track>
           );
         }}
         renderThumb={({ props }) => (
-          <div
+          <Thumb
             {...props}
             style={{
               ...props.style,
@@ -154,7 +222,7 @@ const Criteria = () => {
       {/* Mixed Income Radio Buttons */}
       <fieldset>
         <legend>Is your property mixed income?</legend>
-        <label>
+        <Label>
           <input
             type="radio"
             name="mixedIncome"
@@ -163,8 +231,8 @@ const Criteria = () => {
             onChange={() => setIsMixedIncome(true)}
           />
           Yes
-        </label>
-        <label>
+        </Label>
+        <Label>
           <input
             type="radio"
             name="mixedIncome"
@@ -173,11 +241,11 @@ const Criteria = () => {
             onChange={() => setIsMixedIncome(false)}
           />
           No
-        </label>
+        </Label>
       </fieldset>
 
       {/* Affordability Term Slider */}
-      <label>
+      <Label>
         Term of Affordability: {affordabilityTerm} Years
         <input
           type="range"
@@ -186,10 +254,10 @@ const Criteria = () => {
           value={affordabilityTerm}
           onChange={(e) => setAffordabilityTerm(Number(e.target.value))}
         />
-      </label>
+      </Label>
 
       {/* Building Commencement Date Picker */}
-      <label>
+      <Label>
         Expected Date of Building Commencement:
         <input
           type="date"
@@ -197,10 +265,10 @@ const Criteria = () => {
           min={today}
           onChange={(e) => setBuildingCommencement(e.target.value)}
         />
-      </label>
+      </Label>
 
       {/* Occupancy Date Picker */}
-      <label>
+      <Label>
         Expected Date of Occupancy:
         <input
           type="date"
@@ -208,25 +276,36 @@ const Criteria = () => {
           min={today}
           onChange={(e) => setOccupancyDate(e.target.value)}
         />
-      </label>
+      </Label>
 
-      <button onClick={determineApplicablePrograms}>Check Eligibility</button>
+      {/* Display all programs with color coding and explanations */}
+      <ProgramContainer>
+        <h2>All Programs</h2>
+        {programs.map((program, index) => {
+          const isApplicable = criteriaMatch(program.criteria, {
+            amiRange: amiValues,
+            adaRange: adaValues,
+            mixedIncome: isMixedIncome,
+            affordabilityTerm,
+          });
+          const explanation = isApplicable
+            ? "Applicable"
+            : checkCriteria(program.criteria, {
+                amiRange: amiValues,
+                adaRange: adaValues,
+                mixedIncome: isMixedIncome,
+                affordabilityTerm,
+              });
 
-      {/* Display applicable programs */}
-      {applicablePrograms.length > 0 ? (
-        <div>
-          <h2>Applicable Programs</h2>
-          {applicablePrograms.map((program, index) => (
-            <div key={index}>
+          return (
+            <ProgramInfo key={index} isApplicable={isApplicable}>
               <strong>{program.name}</strong>
-              <p>{program.description}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No applicable programs found based on the current criteria.</p>
-      )}
-    </div>
+              <p>{explanation}</p>
+            </ProgramInfo>
+          );
+        })}
+      </ProgramContainer>
+    </Container>
   );
 };
 
