@@ -16,7 +16,6 @@ type SoloSliderProps = {
 // Slider Container
 const SliderContainer = styled.div`
   width: 100%;
-  padding: 15px 0;
 `;
 
 // Slider Track

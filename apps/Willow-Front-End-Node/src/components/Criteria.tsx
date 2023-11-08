@@ -4,22 +4,25 @@ import { ProgramCriteria } from "@monorepo/utils/interfaces";
 import { Range } from "react-range";
 import styled from "@emotion/styled";
 import SoloSlider from "./SoloSlider";
+import { Typography } from "@mui/material";
 
-const Container = styled.div``;
-
-const Label = styled.label`
-  display: block;
-  margin: 10px 0;
+const Container = styled.div`
+  width: 95%;
+  box-sizing: border-box;
+  margin: 10px 0 10px 0;
 `;
 
 const RangeContainer = styled.div`
-  margin: 20px 0 20px;
+  margin: 10px 0 20px;
+  padding: 0 10px 0 10px;
+  box-sizing: border-box;
 `;
 
 const Track = styled.div`
   height: 6px;
   width: 100%;
   margin-top: 10px;
+  box-sizing: border-box;
 `;
 
 const Thumb = styled.div`
@@ -30,6 +33,7 @@ const Thumb = styled.div`
 
 const ProgramContainer = styled.div`
   margin-top: 20px;
+  box-sizing: border-box;
 `;
 
 const Criteria = () => {
@@ -141,9 +145,9 @@ const Criteria = () => {
   return (
     <Container>
       {/* AMI Range slider */}
-      <label>
+      <Typography>
         AMI Range: {amiValues[0]}% - {amiValues[1]}%
-      </label>
+      </Typography>
       <RangeContainer>
         <Range
           step={1}
@@ -185,9 +189,9 @@ const Criteria = () => {
       </RangeContainer>
 
       {/* ADA Range slider */}
-      <label>
+      <Typography>
         ADA Range: {adaValues[0]}% - {adaValues[1]}%
-      </label>
+      </Typography>
       <RangeContainer>
         <Range
           step={1}
@@ -230,8 +234,12 @@ const Criteria = () => {
 
       {/* Mixed Income Radio Buttons */}
       <fieldset>
-        <legend>Is your property mixed income?</legend>
-        <Label>
+        <legend
+          style={{ fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif' }}
+        >
+          Is your property mixed income?
+        </legend>
+        <Typography>
           <input
             type="radio"
             name="mixedIncome"
@@ -240,8 +248,8 @@ const Criteria = () => {
             onChange={() => setIsMixedIncome(true)}
           />
           Yes
-        </Label>
-        <Label>
+        </Typography>
+        <Typography>
           <input
             type="radio"
             name="mixedIncome"
@@ -250,11 +258,11 @@ const Criteria = () => {
             onChange={() => setIsMixedIncome(false)}
           />
           No
-        </Label>
+        </Typography>
       </fieldset>
 
       {/* Affordability Term Slider */}
-      <Label>
+      <Typography sx={{ marginTop: "20px" }}>
         Term of Affordability: {affordabilityTerm} Years
         <SoloSlider
           min={0}
@@ -262,35 +270,41 @@ const Criteria = () => {
           step={1}
           initialValue={50}
           onChange={(value: any) => setAffordabilityTerm(Number(value))}
-          fillColor={WILLOW_COLOR} // The fill color for the left side of the thumb
+          fillColor={WILLOW_COLOR}
         />
-      </Label>
+      </Typography>
 
       {/* Building Commencement Date Picker */}
-      <Label>
+      <Typography sx={{ marginTop: "10px" }}>
         Expected Date of Building Commencement:
+        <br />
         <input
           type="date"
           value={buildingCommencement}
           min={today}
           onChange={(e) => setBuildingCommencement(e.target.value)}
+          style={{ marginTop: "4px" }}
         />
-      </Label>
+      </Typography>
 
       {/* Occupancy Date Picker */}
-      <Label>
+      <Typography sx={{ marginTop: "10px" }}>
         Expected Date of Occupancy:
+        <br />
         <input
           type="date"
           value={occupancyDate}
           min={today}
           onChange={(e) => setOccupancyDate(e.target.value)}
+          style={{ marginTop: "4px" }}
         />
-      </Label>
+      </Typography>
 
       {/* Display all programs with color coding and explanations */}
       <ProgramContainer>
-        <h2>All Programs</h2>
+        <Typography variant="h5" fontWeight={700}>
+          ALL PROGRAMS
+        </Typography>
         {programs.map((program, index) => {
           const isApplicable = criteriaMatch(program.criteria, {
             amiRange: amiValues,
@@ -309,8 +323,8 @@ const Criteria = () => {
 
           return (
             <ProgramInfo key={index} isApplicable={isApplicable}>
-              <strong>{program.name}</strong>
-              <p>{explanation}</p>
+              <Typography fontWeight={700}>{program.name}</Typography>
+              <Typography>{explanation}</Typography>
             </ProgramInfo>
           );
         })}

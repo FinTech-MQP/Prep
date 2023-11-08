@@ -20,6 +20,8 @@ import styled from "@emotion/styled";
 import InterestConsumer from "../services/InterestConsumer";
 import getAnswersAndExplanations from "../services/APIConsumer";
 import Criteria from "./Criteria";
+import { BookmarkButton } from "./BookmarkButton";
+import { Page } from "./Page";
 
 const styles = {
   inspectPseudo: {
@@ -65,7 +67,7 @@ const styles = {
   },
   info: {
     height: "100%",
-    overflowY: "auto",
+    overflow: "hidden",
     padding: "0 40px 40px 40px",
     boxSizing: "border-box",
     display: "flex",
@@ -121,6 +123,15 @@ const styles = {
     display: "flex",
     flexDirection: "row",
   },
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  pageContainer: {
+    position: "relative",
+    width: "100%",
+    height: "100%",
+  },
 };
 
 interface InspectProps {
@@ -147,6 +158,7 @@ const Inspect = ({ close }: InspectProps) => {
   const user = useContext(userContext);
   const [email, setEmail] = useState<string>("");
   const [validEmail, setValidEmail] = useState<boolean>(true);
+  const [activePage, setActivePage] = useState<number>(1);
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -170,6 +182,10 @@ const Inspect = ({ close }: InspectProps) => {
     //getAnswersAndExplanations(user.currListing);
   };
 
+  const handleBookmarkClick = (pageIndex: number) => {
+    setActivePage(pageIndex);
+  };
+
   return (
     <Box sx={styles.inspectPseudo}>
       <Box sx={styles.inspect}>
@@ -185,43 +201,62 @@ const Inspect = ({ close }: InspectProps) => {
           <Box sx={styles.inspectContentContainer}>
             {user.currListing && (
               <Box sx={styles.info}>
-                <Box>
-                  <Typography sx={styles.title}>
-                    {user.currListing.name}
-                  </Typography>
-                  <Typography sx={styles.subtitle}>
-                    {user.currListing.parcelID} | {user.currListing.address}
-                  </Typography>
-                  <Box sx={styles.labelContainer}>
-                    {user.currListing.labels &&
-                      user.currListing.labels.map(
-                        (
-                          label:
-                            | string
-                            | number
-                            | boolean
-                            | ReactElement<
-                                any,
-                                string | JSXElementConstructor<any>
-                              >
-                            | Iterable<ReactNode>
-                            | ReactPortal
-                            | null
-                            | undefined,
-                          index: Key | null | undefined
-                        ) => (
-                          <Typography key={index} sx={styles.label}>
-                            {label}
-                          </Typography>
-                        )
-                      )}
-                  </Box>
-                  <Divider sx={styles.divider} />
-                  <Typography sx={styles.desc}>
-                    {user.currListing.desc}
-                  </Typography>
+                <Box sx={styles.buttonContainer}>
+                  <BookmarkButton
+                    label="Info"
+                    onClick={() => handleBookmarkClick(1)}
+                    clicked={activePage === 1}
+                  />
+                  <BookmarkButton
+                    label="Program Eligibility"
+                    onClick={() => handleBookmarkClick(2)}
+                    clicked={activePage === 2}
+                  />
                 </Box>
-                <Criteria />
+                <Box sx={styles.pageContainer}>
+                  <Page isOpen={activePage === 1}>
+                    <Box>
+                      <Typography sx={styles.title}>
+                        {user.currListing.name}
+                      </Typography>
+                      <Typography sx={styles.subtitle}>
+                        {user.currListing.parcelID} | {user.currListing.address}
+                      </Typography>
+                      <Box sx={styles.labelContainer}>
+                        {user.currListing.labels &&
+                          user.currListing.labels.map(
+                            (
+                              label:
+                                | string
+                                | number
+                                | boolean
+                                | ReactElement<
+                                    any,
+                                    string | JSXElementConstructor<any>
+                                  >
+                                | Iterable<ReactNode>
+                                | ReactPortal
+                                | null
+                                | undefined,
+                              index: Key | null | undefined
+                            ) => (
+                              <Typography key={index} sx={styles.label}>
+                                {label}
+                              </Typography>
+                            )
+                          )}
+                      </Box>
+                      <Divider sx={styles.divider} />
+                      <Typography sx={styles.desc}>
+                        {user.currListing.desc}
+                      </Typography>
+                    </Box>
+                  </Page>
+                  <Page isOpen={activePage === 2}>
+                    <Criteria />
+                  </Page>
+                </Box>
+
                 <Box sx={styles.interestContainer}>
                   {!validEmail && (
                     <Typography sx={styles.emailError}>
