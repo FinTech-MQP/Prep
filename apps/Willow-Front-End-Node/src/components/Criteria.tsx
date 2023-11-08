@@ -54,91 +54,88 @@ const Criteria = () => {
     color: black;
   `;
 
-  const checkCriteria = (
+  const evaluateCriteria = (
     programCriteria: ProgramCriteria,
-    userCriteria: ProgramCriteria
+    userCriteria: {
+      amiRange: any;
+      adaRange: any;
+      mixedIncome: any;
+      affordabilityTerm: any;
+      unhoused?: any;
+      marketRate?: any;
+    }
   ) => {
-    const checks = [];
+    const explanations = [];
 
-    // AMI Range Check
+    // Check each criterion and add to explanations if there's a mismatch
     if (
       userCriteria.amiRange[0] < programCriteria.amiRange[0] ||
       userCriteria.amiRange[1] > programCriteria.amiRange[1]
     ) {
-      checks.push(
-        `AMI range is outside program criteria (${userCriteria.amiRange.join(
+      explanations.push(
+        `AMI range (${userCriteria.amiRange.join(
           "-"
-        )}% vs ${programCriteria.amiRange.join("-")}%)`
+        )}%) is outside the program criteria (${programCriteria.amiRange.join(
+          "-"
+        )}%)`
       );
     }
-
-    // ADA Range Check
     if (
       userCriteria.adaRange[0] < programCriteria.adaRange[0] ||
       userCriteria.adaRange[1] > programCriteria.adaRange[1]
     ) {
-      checks.push(
-        `ADA range is outside program criteria (${userCriteria.adaRange.join(
+      explanations.push(
+        `ADA range (${userCriteria.adaRange.join(
           "-"
-        )}% vs ${programCriteria.adaRange.join("-")}%)`
+        )}%) is outside the program criteria (${programCriteria.adaRange.join(
+          "-"
+        )}%)`
       );
     }
-
-    // Mixed Income Check
     if (programCriteria.mixedIncome && !userCriteria.mixedIncome) {
-      checks.push(
-        "Program requires mixed income and the property is not mixed income."
+      explanations.push(
+        "Program requires mixed income and the property is not mixed income"
       );
     }
-
-    // Affordability Term Check
     if (userCriteria.affordabilityTerm < programCriteria.affordabilityTerm) {
-      checks.push(
-        `Affordability term is less than required (${userCriteria.affordabilityTerm} years vs ${programCriteria.affordabilityTerm} years minimum).`
+      explanations.push(
+        `Affordability term (${userCriteria.affordabilityTerm} years) is less than required (${programCriteria.affordabilityTerm} years minimum)`
+      );
+    }
+    if (
+      programCriteria.priorityAmi &&
+      userCriteria.amiRange[1] > programCriteria.priorityAmi
+    ) {
+      explanations.push(
+        `Priority is given to those with AMI under ${programCriteria.priorityAmi}%, your upper range is ${userCriteria.amiRange[1]}%`
+      );
+    }
+    if (
+      programCriteria.unhoused !== undefined &&
+      programCriteria.unhoused !== userCriteria.unhoused
+    ) {
+      explanations.push(
+        "Program is specific to unhoused individuals, which does not match your criteria"
+      );
+    }
+    if (
+      programCriteria.marketRate !== undefined &&
+      userCriteria.marketRate !== programCriteria.marketRate
+    ) {
+      explanations.push(
+        `Program is for ${
+          programCriteria.marketRate ? "market rate" : "non-market rate"
+        } developments which does not match your criteria`
       );
     }
 
-    // Additional checks can be added here similarly
+    // Additional checks can be added similarly...
 
-    return checks.join(" | ");
-  };
-
-  // Function to determine if a user's criteria match a program's criteria
-  // Additional checks within the criteriaMatch function
-  const criteriaMatch = (
-    programCriteria: ProgramCriteria,
-    userCriteria: ProgramCriteria
-  ) => {
-    const amiMatch =
-      userCriteria.amiRange[0] >= programCriteria.amiRange[0] &&
-      userCriteria.amiRange[1] <= programCriteria.amiRange[1];
-    const adaMatch =
-      userCriteria.adaRange[0] >= programCriteria.adaRange[0] &&
-      userCriteria.adaRange[1] <= programCriteria.adaRange[1];
-    const mixedIncomeMatch =
-      programCriteria.mixedIncome === userCriteria.mixedIncome;
-    const affordabilityTermMatch =
-      userCriteria.affordabilityTerm >= programCriteria.affordabilityTerm;
-
-    let priorityAmiMatch = true;
-    if (programCriteria.priorityAmi) {
-      priorityAmiMatch =
-        userCriteria.amiRange[1] <= programCriteria.priorityAmi;
-    }
-
-    let unhousedMatch = true;
-    if (programCriteria.unhoused !== undefined) {
-      unhousedMatch = programCriteria.unhoused === userCriteria.unhoused;
-    }
-
-    return (
-      amiMatch &&
-      adaMatch &&
-      mixedIncomeMatch &&
-      affordabilityTermMatch &&
-      priorityAmiMatch &&
-      unhousedMatch
-    );
+    // Return match status and explanation
+    return {
+      match: explanations.length === 0,
+      explanation: explanations.join(". ") || "Applicable",
+    };
   };
 
   // Render the component
@@ -268,7 +265,7 @@ const Criteria = () => {
           min={0}
           max={100}
           step={1}
-          initialValue={50}
+          initialValue={0}
           onChange={(value: any) => setAffordabilityTerm(Number(value))}
           fillColor={WILLOW_COLOR}
         />
@@ -306,23 +303,16 @@ const Criteria = () => {
           ALL PROGRAMS
         </Typography>
         {programs.map((program, index) => {
-          const isApplicable = criteriaMatch(program.criteria, {
+          const { match, explanation } = evaluateCriteria(program.criteria, {
             amiRange: amiValues,
             adaRange: adaValues,
             mixedIncome: isMixedIncome,
             affordabilityTerm,
+            // Add other criteria as necessary
           });
-          const explanation = isApplicable
-            ? "Applicable"
-            : checkCriteria(program.criteria, {
-                amiRange: amiValues,
-                adaRange: adaValues,
-                mixedIncome: isMixedIncome,
-                affordabilityTerm,
-              });
 
           return (
-            <ProgramInfo key={index} isApplicable={isApplicable}>
+            <ProgramInfo key={index} isApplicable={match}>
               <Typography fontWeight={700}>{program.name}</Typography>
               <Typography>{explanation}</Typography>
             </ProgramInfo>
