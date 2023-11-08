@@ -212,6 +212,11 @@ const Inspect = ({ close }: InspectProps) => {
                     onClick={() => handleBookmarkClick(2)}
                     clicked={activePage === 2}
                   />
+                  <BookmarkButton
+                    label="Permitting"
+                    onClick={() => handleBookmarkClick(3)}
+                    clicked={activePage === 3}
+                  />
                 </Box>
                 <Box sx={styles.pageContainer}>
                   <Page isOpen={activePage === 1}>
@@ -255,6 +260,7 @@ const Inspect = ({ close }: InspectProps) => {
                   <Page isOpen={activePage === 2}>
                     <Criteria />
                   </Page>
+                  <Page isOpen={activePage === 3}></Page>
                 </Box>
 
                 <Box sx={styles.interestContainer}>
