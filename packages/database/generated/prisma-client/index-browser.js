@@ -108,7 +108,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 });
 
 exports.Prisma.AssessmentScalarFieldEnum = {
-  id: 'id',
   parcelId: 'parcelId',
   year: 'year',
   improvements: 'improvements',
@@ -128,6 +127,7 @@ exports.Prisma.ZoneScalarFieldEnum = {
 
 exports.Prisma.ParcelScalarFieldEnum = {
   id: 'id',
+  sqft: 'sqft',
   zoneId: 'zoneId',
   landUseId: 'landUseId'
 };

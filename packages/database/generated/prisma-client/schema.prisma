@@ -12,13 +12,13 @@ datasource db {
 }
 
 model Assessment {
-  id           String @id @default(cuid())
   parcel       Parcel @relation(fields: [parcelId], references: [id])
   parcelId     String
   year         Int
   improvements Int
   land         Int
   total        Int
+  @@unique([parcelId, year], name: "assessmentIdentifier")
 }
 
 model LandUse {
@@ -35,6 +35,7 @@ model Zone {
 
 model Parcel {
   id          String       @id
+  sqft        Int
   addresses   Address[]
   zone        Zone         @relation(fields: [zoneId], references: [id])
   zoneId      String
@@ -46,10 +47,10 @@ model Parcel {
 model Address {
   id        String   @id
   num       Int?
-  street    String
-  st_suffix String
-  city      String
-  zip       String
+  street    String?
+  st_suffix String?
+  city      String?
+  zip       String?
   parcel    Parcel   @relation(fields: [parcelId], references: [id])
   parcelId  String
   listing   Listing?
