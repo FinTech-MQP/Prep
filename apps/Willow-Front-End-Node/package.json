@@ -1,18 +1,17 @@
 {
-    "name": "Willow-Front-End-Node",
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-      "dev": "vite",
-      "build": "vite build",
-      "serve": "vite preview"
-    },
-    "devDependencies": {
-      "vite": "^2.5.10"
-    },
-    "dependencies": {
-      "database": "*",
-      "@monorepo/utils": "workspace:*"
-    }    
+  "name": "Willow-Front-End-Node",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.5.10"
+  },
+  "dependencies": {
+    "@monorepo/utils": "workspace:*",
+    "database": "*"
   }
-  
+}

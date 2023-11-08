@@ -18,6 +18,8 @@ import { WillowButton_Browse } from "../Pages/Browse";
 import ImageGrid from "./ImageGrid";
 import styled from "@emotion/styled";
 import InterestConsumer from "../services/InterestConsumer";
+import getAnswersAndExplanations from "../services/APIConsumer";
+import Criteria from "./Criteria";
 
 const styles = {
   inspectPseudo: {
@@ -164,6 +166,10 @@ const Inspect = ({ close }: InspectProps) => {
     }
   };
 
+  const handleAPICall = () => {
+    //getAnswersAndExplanations(user.currListing);
+  };
+
   return (
     <Box sx={styles.inspectPseudo}>
       <Box sx={styles.inspect}>
@@ -215,12 +221,14 @@ const Inspect = ({ close }: InspectProps) => {
                     {user.currListing.desc}
                   </Typography>
                 </Box>
+                <Criteria />
                 <Box sx={styles.interestContainer}>
                   {!validEmail && (
                     <Typography sx={styles.emailError}>
                       Please enter a valid email.
                     </Typography>
                   )}
+
                   <Box sx={styles.emailBox}>
                     <TextField
                       variant="outlined"

@@ -1,4 +1,4 @@
-import { OPENAI_API_KEY } from "@monorepo/utils/API_KEY"; //cannot be uploaded to github
+import { OPENAI_API_KEY } from "@monorepo/utils/API_KEY"; //cannot be uploaded to
 import { Listing } from "database/generated/prisma-client";
 import OpenAI from "openai";
 
