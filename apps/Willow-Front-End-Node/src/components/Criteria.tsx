@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { programs } from "@monorepo/utils/constants";
+import { WILLOW_COLOR, programs } from "@monorepo/utils/constants";
 import { ProgramCriteria } from "@monorepo/utils/interfaces";
 import { Range } from "react-range";
 import styled from "@emotion/styled";
+import SoloSlider from "./SoloSlider";
 
-const Container = styled.div`
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
-`;
+const Container = styled.div``;
 
 const Label = styled.label`
   display: block;
   margin: 10px 0;
+`;
+
+const RangeContainer = styled.div`
+  margin: 20px 0 20px;
 `;
 
 const Track = styled.div`
@@ -143,81 +144,89 @@ const Criteria = () => {
       <label>
         AMI Range: {amiValues[0]}% - {amiValues[1]}%
       </label>
-      <Range
-        step={1}
-        min={0}
-        max={120}
-        values={amiValues}
-        onChange={(values) => setAmiValues(values)}
-        renderTrack={({ props, children }) => {
-          const percentageLeft = (amiValues[0] / 120) * 100;
-          const percentageRight = (amiValues[1] / 120) * 100;
-          return (
-            <Track
+      <RangeContainer>
+        <Range
+          step={1}
+          min={0}
+          max={120}
+          values={amiValues}
+          onChange={(values) => setAmiValues(values)}
+          renderTrack={({ props, children }) => {
+            const percentageLeft = (amiValues[0] / 120) * 100;
+            const percentageRight = (amiValues[1] / 120) * 100;
+            return (
+              <Track
+                {...props}
+                style={{
+                  ...props.style,
+                  height: "6px",
+                  background: `linear-gradient(to right, #ccc ${percentageLeft}%, ${WILLOW_COLOR} ${percentageLeft}%, ${WILLOW_COLOR} ${percentageRight}%, #ccc ${percentageRight}%)`,
+                  width: "100%",
+                }}
+              >
+                {children}
+              </Track>
+            );
+          }}
+          renderThumb={({ props }) => (
+            <Thumb
               {...props}
               style={{
                 ...props.style,
-                height: "6px",
-                background: `linear-gradient(to right, #ccc ${percentageLeft}%, #54a0ff ${percentageLeft}%, #54a0ff ${percentageRight}%, #ccc ${percentageRight}%)`,
-                width: "100%",
+                height: "12px",
+                width: "12px",
+                borderRadius: "50%",
+                border: "2px solid black",
+                backgroundColor: "white",
               }}
-            >
-              {children}
-            </Track>
-          );
-        }}
-        renderThumb={({ props }) => (
-          <Thumb
-            {...props}
-            style={{
-              ...props.style,
-              height: "20px",
-              width: "20px",
-              backgroundColor: "#999",
-            }}
-          />
-        )}
-      />
+            />
+          )}
+        />
+      </RangeContainer>
 
       {/* ADA Range slider */}
       <label>
         ADA Range: {adaValues[0]}% - {adaValues[1]}%
       </label>
-      <Range
-        step={1}
-        min={0}
-        max={100}
-        values={adaValues}
-        onChange={(values) => setAdaValues(values)}
-        renderTrack={({ props, children }) => {
-          const percentageLeft = (adaValues[0] / 100) * 100;
-          const percentageRight = (adaValues[1] / 100) * 100;
-          return (
-            <Track
+      <RangeContainer>
+        <Range
+          step={1}
+          min={0}
+          max={100}
+          values={adaValues}
+          onChange={(values) => setAdaValues(values)}
+          renderTrack={({ props, children }) => {
+            const percentageLeft = (adaValues[0] / 100) * 100;
+            const percentageRight = (adaValues[1] / 100) * 100;
+            return (
+              <Track
+                {...props}
+                style={{
+                  ...props.style,
+                  height: "6px",
+                  background: `linear-gradient(to right, #ccc ${percentageLeft}%, ${WILLOW_COLOR} ${percentageLeft}%, ${WILLOW_COLOR} ${percentageRight}%, #ccc ${percentageRight}%)`,
+                  width: "100%",
+                }}
+              >
+                {children}
+              </Track>
+            );
+          }}
+          renderThumb={({ props }) => (
+            <Thumb
               {...props}
               style={{
                 ...props.style,
-                height: "6px",
-                background: `linear-gradient(to right, #ccc ${percentageLeft}%, #10ac84 ${percentageLeft}%, #10ac84 ${percentageRight}%, #ccc ${percentageRight}%)`,
-                width: "100%",
+                height: "12px",
+                width: "12px",
+                borderRadius: "50%",
+                border: "2px solid black",
+                backgroundColor: "white",
               }}
-            >
-              {children}
-            </Track>
-          );
-        }}
-        renderThumb={({ props }) => (
-          <Thumb
-            {...props}
-            style={{
-              ...props.style,
-              height: "20px",
-              width: "20px",
-              backgroundColor: "#999",
-            }}
-          />
-        )}
-      />
+            />
+          )}
+        />
+      </RangeContainer>
 
       {/* Mixed Income Radio Buttons */}
       <fieldset>
@@ -247,12 +256,13 @@ const Criteria = () => {
       {/* Affordability Term Slider */}
       <Label>
         Term of Affordability: {affordabilityTerm} Years
-        <input
-          type="range"
+        <SoloSlider
           min={0}
-          max={50}
-          value={affordabilityTerm}
-          onChange={(e) => setAffordabilityTerm(Number(e.target.value))}
+          max={100}
+          step={1}
+          initialValue={50}
+          onChange={(value: any) => setAffordabilityTerm(Number(value))}
+          fillColor={WILLOW_COLOR} // The fill color for the left side of the thumb
         />
       </Label>
 
