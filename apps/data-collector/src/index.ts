@@ -58,6 +58,26 @@ app.get(`/api/listing/:id`, async (req, res) => {
   );
 });
 
+app.get(`/api/listing`, async (req, res) => {
+  res.json(
+    await prisma.listing.findMany({
+      include: {
+        address: {
+          include: {
+            parcel: {
+              include: {
+                assessments: true,
+                landUse: true,
+                zone: true,
+              },
+            },
+          },
+        },
+      },
+    })
+  );
+});
+
 app.post(`/api/listing`, async (req, res) => {
   let addressId = req.body.addressId as string | undefined;
   if (addressId === undefined)
