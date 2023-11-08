@@ -34,6 +34,30 @@ TODO: All data collection logic should be
 
 */
 
+app.get(`/api/listing/:id`, async (req, res) => {
+  let { id }: { id?: string } = req.params;
+  res.json(
+    await prisma.listing.findFirst({
+      where: {
+        id: id,
+      },
+      include: {
+        address: {
+          include: {
+            parcel: {
+              include: {
+                assessments: true,
+                landUse: true,
+                zone: true,
+              },
+            },
+          },
+        },
+      },
+    })
+  );
+});
+
 app.post(`/api/listing`, async (req, res) => {
   let addressId = req.body.addressId as string | undefined;
   if (addressId === undefined)
