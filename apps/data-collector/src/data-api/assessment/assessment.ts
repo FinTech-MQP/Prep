@@ -10,6 +10,8 @@ export interface AssessmentDataSource {
 }
 
 export class AssessmentHTMLDataSource implements AssessmentDataSource {
+  cardSource: VisionCardDataSource = new VisionCardHTMLDataSource();
+
   mapDataRowToAssessment(parcelId: string, dataRow: string[]): Assessment {
     return {
       parcelId: parcelId,
@@ -21,10 +23,8 @@ export class AssessmentHTMLDataSource implements AssessmentDataSource {
   }
 
   async fetchAssessments(parcelId: string): Promise<Assessment[] | undefined> {
-    const cardSource: VisionCardDataSource = new VisionCardHTMLDataSource();
-
     // get data from card
-    return await cardSource.fetchPage(parcelId).then(($) => {
+    return await this.cardSource.fetchPage(parcelId).then(($) => {
       // if no page was found, return undefined
       if ($ === undefined) {
         return undefined;
@@ -61,7 +61,6 @@ export class AssessmentHTMLDataSource implements AssessmentDataSource {
       });
 
       const pastAssessments: Assessment[] = pastData.map((row) => {
-        console.log(row);
         return this.mapDataRowToAssessment(parcelId, row);
       });
 

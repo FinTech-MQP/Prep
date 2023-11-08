@@ -11,11 +11,11 @@ type GetDataForLegendResult = {
   CodeDescription: string;
 };
 
-const agent = new https.Agent({
-  rejectUnauthorized: false,
-});
-
 export class LandUseAPIDataSource implements LandUseDataSource {
+  agent = new https.Agent({
+    rejectUnauthorized: false,
+  });
+
   async fetchLandUse(landUseId: string): Promise<LandUse | undefined> {
     {
       return await axios({
@@ -27,7 +27,7 @@ export class LandUseAPIDataSource implements LandUseDataSource {
         data: {
           inType: "Land",
         },
-        httpsAgent: agent,
+        httpsAgent: this.agent,
       })
         .then((res) => {
           const data = res.data.d as Array<GetDataForLegendResult>;

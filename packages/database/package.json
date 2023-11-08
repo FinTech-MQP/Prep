@@ -15,7 +15,6 @@
     "db:migrate:dev": "prisma migrate dev",
     "db:push": "prisma db push",
     "db:seed": "tsx src/seed.ts",
-    
     "format": "prisma format",
     "generate": "prisma generate",
     "lint": "eslint ./src --fix",
@@ -24,7 +23,8 @@
     "studio": "prisma studio"
   },
   "dependencies": {
-    "@prisma/client": "^5.5.2"
+    "@prisma/client": "^5.5.2",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@types/node": "^20.8.9",

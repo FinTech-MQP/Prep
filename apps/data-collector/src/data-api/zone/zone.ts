@@ -14,7 +14,7 @@ export class ZoneAPIDataSource implements ZoneDataSource {
   async fetchZone(zoneId: string): Promise<Zone | undefined> {
     const options: IQueryFeaturesOptions = {
       url: "https://gis.worcesterma.gov/worcags/rest/services/OpenData/Regulatory/MapServer/0/",
-      where: `ZONE='${zoneId}'`,
+      where: `ZONE = '${zoneId}'`,
       outFields: ["ZONE", "NAME"],
       outSR: "4326",
       returnDistinctValues: true,

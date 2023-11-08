@@ -60,9 +60,8 @@ model Listing {
   id        String    @id @default(cuid())
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
-  name      String?
-  desc      String?
-  parcelID  String?
+  name      String
+  desc      String
   images    String[]
   labels    String[]
   address   Address   @relation(fields: [addressId], references: [id])

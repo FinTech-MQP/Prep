@@ -7,11 +7,11 @@ export interface VisionCardDataSource {
   fetchPage(parcelId: string): Promise<CheerioAPI | undefined>;
 }
 
-const agent = new https.Agent({
-  rejectUnauthorized: false,
-});
-
 export class VisionCardHTMLDataSource implements VisionCardDataSource {
+  agent = new https.Agent({
+    rejectUnauthorized: false,
+  });
+
   async fetchPage(parcelId: string): Promise<CheerioAPI | undefined> {
     // metadata
     const BaseURL = "https://gis.vgsi.com/worcesterma/";
@@ -21,7 +21,7 @@ export class VisionCardHTMLDataSource implements VisionCardDataSource {
     const searchParams = await axios({
       url: SearchURL,
       method: "get",
-      httpsAgent: agent,
+      httpsAgent: this.agent,
     }).then((res) => {
       const $ = cheerio.load(res.data);
       return {
@@ -43,7 +43,7 @@ export class VisionCardHTMLDataSource implements VisionCardDataSource {
     const parcelParam = await axios({
       url: SearchURL,
       method: "post",
-      httpsAgent: agent,
+      httpsAgent: this.agent,
       data: searchParams,
       headers: {
         "Content-Type": "multipart/form-data",
@@ -73,7 +73,7 @@ export class VisionCardHTMLDataSource implements VisionCardDataSource {
     return await axios({
       url: `${BaseURL}/${parcelParam}`,
       method: "get",
-      httpsAgent: agent,
+      httpsAgent: this.agent,
     }).then((res) => {
       const $ = cheerio.load(res.data);
       // verify the parcel id matches

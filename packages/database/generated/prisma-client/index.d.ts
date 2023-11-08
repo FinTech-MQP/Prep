@@ -6168,7 +6168,6 @@ export namespace Prisma {
     updatedAt: Date | null
     name: string | null
     desc: string | null
-    parcelID: string | null
     addressId: string | null
   }
 
@@ -6178,7 +6177,6 @@ export namespace Prisma {
     updatedAt: Date | null
     name: string | null
     desc: string | null
-    parcelID: string | null
     addressId: string | null
   }
 
@@ -6188,7 +6186,6 @@ export namespace Prisma {
     updatedAt: number
     name: number
     desc: number
-    parcelID: number
     images: number
     labels: number
     addressId: number
@@ -6202,7 +6199,6 @@ export namespace Prisma {
     updatedAt?: true
     name?: true
     desc?: true
-    parcelID?: true
     addressId?: true
   }
 
@@ -6212,7 +6208,6 @@ export namespace Prisma {
     updatedAt?: true
     name?: true
     desc?: true
-    parcelID?: true
     addressId?: true
   }
 
@@ -6222,7 +6217,6 @@ export namespace Prisma {
     updatedAt?: true
     name?: true
     desc?: true
-    parcelID?: true
     images?: true
     labels?: true
     addressId?: true
@@ -6305,9 +6299,8 @@ export namespace Prisma {
     id: string
     createdAt: Date | null
     updatedAt: Date | null
-    name: string | null
-    desc: string | null
-    parcelID: string | null
+    name: string
+    desc: string
     images: string[]
     labels: string[]
     addressId: string
@@ -6336,7 +6329,6 @@ export namespace Prisma {
     updatedAt?: boolean
     name?: boolean
     desc?: boolean
-    parcelID?: boolean
     images?: boolean
     labels?: boolean
     addressId?: boolean
@@ -6349,7 +6341,6 @@ export namespace Prisma {
     updatedAt?: boolean
     name?: boolean
     desc?: boolean
-    parcelID?: boolean
     images?: boolean
     labels?: boolean
     addressId?: boolean
@@ -6369,9 +6360,8 @@ export namespace Prisma {
       id: string
       createdAt: Date | null
       updatedAt: Date | null
-      name: string | null
-      desc: string | null
-      parcelID: string | null
+      name: string
+      desc: string
       images: string[]
       labels: string[]
       addressId: string
@@ -6775,7 +6765,6 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"Listing", 'DateTime'>
     readonly name: FieldRef<"Listing", 'String'>
     readonly desc: FieldRef<"Listing", 'String'>
-    readonly parcelID: FieldRef<"Listing", 'String'>
     readonly images: FieldRef<"Listing", 'String[]'>
     readonly labels: FieldRef<"Listing", 'String[]'>
     readonly addressId: FieldRef<"Listing", 'String'>
@@ -7176,7 +7165,6 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     name: 'name',
     desc: 'desc',
-    parcelID: 'parcelID',
     images: 'images',
     labels: 'labels',
     addressId: 'addressId'
@@ -7549,9 +7537,8 @@ export namespace Prisma {
     id?: StringFilter<"Listing"> | string
     createdAt?: DateTimeNullableFilter<"Listing"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"Listing"> | Date | string | null
-    name?: StringNullableFilter<"Listing"> | string | null
-    desc?: StringNullableFilter<"Listing"> | string | null
-    parcelID?: StringNullableFilter<"Listing"> | string | null
+    name?: StringFilter<"Listing"> | string
+    desc?: StringFilter<"Listing"> | string
     images?: StringNullableListFilter<"Listing">
     labels?: StringNullableListFilter<"Listing">
     addressId?: StringFilter<"Listing"> | string
@@ -7562,9 +7549,8 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrderInput | SortOrder
-    name?: SortOrderInput | SortOrder
-    desc?: SortOrderInput | SortOrder
-    parcelID?: SortOrderInput | SortOrder
+    name?: SortOrder
+    desc?: SortOrder
     images?: SortOrder
     labels?: SortOrder
     addressId?: SortOrder
@@ -7579,9 +7565,8 @@ export namespace Prisma {
     NOT?: ListingWhereInput | ListingWhereInput[]
     createdAt?: DateTimeNullableFilter<"Listing"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"Listing"> | Date | string | null
-    name?: StringNullableFilter<"Listing"> | string | null
-    desc?: StringNullableFilter<"Listing"> | string | null
-    parcelID?: StringNullableFilter<"Listing"> | string | null
+    name?: StringFilter<"Listing"> | string
+    desc?: StringFilter<"Listing"> | string
     images?: StringNullableListFilter<"Listing">
     labels?: StringNullableListFilter<"Listing">
     address?: XOR<AddressRelationFilter, AddressWhereInput>
@@ -7591,9 +7576,8 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrderInput | SortOrder
-    name?: SortOrderInput | SortOrder
-    desc?: SortOrderInput | SortOrder
-    parcelID?: SortOrderInput | SortOrder
+    name?: SortOrder
+    desc?: SortOrder
     images?: SortOrder
     labels?: SortOrder
     addressId?: SortOrder
@@ -7609,9 +7593,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Listing"> | string
     createdAt?: DateTimeNullableWithAggregatesFilter<"Listing"> | Date | string | null
     updatedAt?: DateTimeNullableWithAggregatesFilter<"Listing"> | Date | string | null
-    name?: StringNullableWithAggregatesFilter<"Listing"> | string | null
-    desc?: StringNullableWithAggregatesFilter<"Listing"> | string | null
-    parcelID?: StringNullableWithAggregatesFilter<"Listing"> | string | null
+    name?: StringWithAggregatesFilter<"Listing"> | string
+    desc?: StringWithAggregatesFilter<"Listing"> | string
     images?: StringNullableListFilter<"Listing">
     labels?: StringNullableListFilter<"Listing">
     addressId?: StringWithAggregatesFilter<"Listing"> | string
@@ -7882,9 +7865,8 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
-    name?: string | null
-    desc?: string | null
-    parcelID?: string | null
+    name: string
+    desc: string
     images?: ListingCreateimagesInput | string[]
     labels?: ListingCreatelabelsInput | string[]
     address: AddressCreateNestedOneWithoutListingInput
@@ -7894,9 +7876,8 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
-    name?: string | null
-    desc?: string | null
-    parcelID?: string | null
+    name: string
+    desc: string
     images?: ListingCreateimagesInput | string[]
     labels?: ListingCreatelabelsInput | string[]
     addressId: string
@@ -7906,9 +7887,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    desc?: NullableStringFieldUpdateOperationsInput | string | null
-    parcelID?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
     address?: AddressUpdateOneRequiredWithoutListingNestedInput
@@ -7918,9 +7898,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    desc?: NullableStringFieldUpdateOperationsInput | string | null
-    parcelID?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
     addressId?: StringFieldUpdateOperationsInput | string
@@ -7930,9 +7909,8 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
-    name?: string | null
-    desc?: string | null
-    parcelID?: string | null
+    name: string
+    desc: string
     images?: ListingCreateimagesInput | string[]
     labels?: ListingCreatelabelsInput | string[]
     addressId: string
@@ -7942,9 +7920,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    desc?: NullableStringFieldUpdateOperationsInput | string | null
-    parcelID?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
   }
@@ -7953,9 +7930,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    desc?: NullableStringFieldUpdateOperationsInput | string | null
-    parcelID?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
     addressId?: StringFieldUpdateOperationsInput | string
@@ -8306,7 +8282,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
     name?: SortOrder
     desc?: SortOrder
-    parcelID?: SortOrder
     images?: SortOrder
     labels?: SortOrder
     addressId?: SortOrder
@@ -8318,7 +8293,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
     name?: SortOrder
     desc?: SortOrder
-    parcelID?: SortOrder
     addressId?: SortOrder
   }
 
@@ -8328,7 +8302,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
     name?: SortOrder
     desc?: SortOrder
-    parcelID?: SortOrder
     addressId?: SortOrder
   }
 
@@ -9174,9 +9147,8 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
-    name?: string | null
-    desc?: string | null
-    parcelID?: string | null
+    name: string
+    desc: string
     images?: ListingCreateimagesInput | string[]
     labels?: ListingCreatelabelsInput | string[]
   }
@@ -9185,9 +9157,8 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
-    name?: string | null
-    desc?: string | null
-    parcelID?: string | null
+    name: string
+    desc: string
     images?: ListingCreateimagesInput | string[]
     labels?: ListingCreatelabelsInput | string[]
   }
@@ -9239,9 +9210,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    desc?: NullableStringFieldUpdateOperationsInput | string | null
-    parcelID?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
   }
@@ -9250,9 +9220,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    desc?: NullableStringFieldUpdateOperationsInput | string | null
-    parcelID?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
   }

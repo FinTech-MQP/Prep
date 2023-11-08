@@ -148,7 +148,6 @@ exports.Prisma.ListingScalarFieldEnum = {
   updatedAt: 'updatedAt',
   name: 'name',
   desc: 'desc',
-  parcelID: 'parcelID',
   images: 'images',
   labels: 'labels',
   addressId: 'addressId'

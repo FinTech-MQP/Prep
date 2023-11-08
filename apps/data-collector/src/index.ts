@@ -10,16 +10,83 @@ import {
 } from "./data-api/parcel/parcel";
 import express, { response } from "express";
 import { ZoneAPIDataSource, ZoneDataSource } from "./data-api/zone/zone";
-import { LandUseDataSource, LandUseAPIDataSource } from "./data-api/landUse/landUse";
-import { AssessmentDataSource, AssessmentHTMLDataSource } from "./data-api/assessment/assessment";
+import {
+  LandUseDataSource,
+  LandUseAPIDataSource,
+} from "./data-api/landUse/landUse";
+import {
+  AssessmentDataSource,
+  AssessmentHTMLDataSource,
+} from "./data-api/assessment/assessment";
 
 const app = express();
 
 app.use(express.json());
 
+/*
+
+------------------------------------------
+The below endpoints are for local testing.
+
+TODO: All data collection logic should be
+      put on periodically running tasks
+------------------------------------------
+
+*/
+
+app.post(`/api/listing`, async (req, res) => {
+  let addressId = req.body.addressId as string | undefined;
+  if (addressId === undefined)
+    return res.json({ error: "No address ID provided for the listing." });
+
+  let parcelDataSource: ParcelDataSource = new ParcelHTMLDataSource();
+
+  let address = await prisma.address.findFirst({
+    where: {
+      id: addressId,
+    },
+  });
+
+  if (address === null)
+    return res.json({
+      error: `An address with ID: ${addressId} was not found.`,
+    });
+
+  let data = {
+    name: `${address.num} ${address.street} ${address.st_suffix}`,
+    desc: `Property description for ${address.num} ${address.street} ${address.st_suffix}, ${address.city} ${address.zip}`,
+    images: await parcelDataSource.fetchImages(address.parcelId),
+    labels: [],
+    addressId: addressId,
+  };
+
+  await prisma.listing
+    .upsert({
+      where: {
+        addressId: addressId,
+      },
+      update: {
+        ...data,
+      },
+      create: {
+        ...data,
+      },
+    })
+    .then(() => {
+      console.log(`Created listing for addressId:${addressId}`);
+      return res.json({
+        message: "Successfully added/updated that address to our listings.",
+      });
+    })
+    .catch((err) => {
+      return res.json({ error: err });
+    });
+});
+
 app.get(`/gis/assessment/:id`, async (req, res) => {
   const { id }: { id?: string } = req.params;
-  const assessmentDataSource: AssessmentDataSource = new AssessmentHTMLDataSource();
+  const assessmentDataSource: AssessmentDataSource =
+    new AssessmentHTMLDataSource();
   res.json(await assessmentDataSource.fetchAssessments(id));
 });
 
@@ -57,33 +124,125 @@ app.post(`/gis/address/:id`, async (req, res) => {
   const { id }: { id?: string } = req.params;
 
   let addressDataSource: AddressDataSource = new AddressAPIDataSource();
+  let parcelDataSource: ParcelDataSource = new ParcelHTMLDataSource();
+  let zoneDataSource: ZoneDataSource = new ZoneAPIDataSource();
+  let landUseDataSource: LandUseDataSource = new LandUseAPIDataSource();
+  let assessmentDataSource: AssessmentDataSource =
+    new AssessmentHTMLDataSource();
 
-  let listing: Address | undefined = await addressDataSource.fetchAddress(id);
+  let address = await addressDataSource.fetchAddress(id);
+  if (address === undefined) {
+    return res.json({ error: `Address ID ${id} not found` });
+  }
 
-  if (listing === undefined) {
-    res.status(500);
-    res.send({
-      error: "Address with that ID was not found",
+  let parcel = await parcelDataSource.fetchParcel(address.parcelId);
+  if (parcel === undefined) {
+    return res.json({ error: `Parcel ${address.parcelId} not found` });
+  }
+
+  let zone = await zoneDataSource.fetchZone(parcel.zoneId);
+  if (zone === undefined) {
+    return res.json({ error: `Zone ${parcel.zoneId} not found` });
+  }
+
+  let landUse = await landUseDataSource.fetchLandUse(parcel.landUseId);
+  if (landUse === undefined) {
+    return res.json({ error: `LandUse ${parcel.landUseId} not found` });
+  }
+
+  let assessments = await assessmentDataSource.fetchAssessments(parcel.id);
+  if (assessments === undefined) {
+    return res.json({ error: `Assessments for ${parcel.id} not found` });
+  }
+
+  // all data is collected + errors are handled
+  console.log(
+    `Attempting to save associated address data for addressId:${address.id}...`
+  );
+  try {
+    await prisma.landUse.upsert({
+      where: {
+        id: landUse.id,
+      },
+      update: {
+        ...landUse,
+      },
+      create: {
+        ...landUse,
+      },
     });
-  } else {
-    prisma.address
-      .create({
-        data: {
-          ...listing,
+
+    await prisma.zone.upsert({
+      where: {
+        id: zone.id,
+      },
+      update: {
+        ...zone,
+      },
+      create: {
+        ...zone,
+      },
+    });
+
+    await prisma.parcel.upsert({
+      where: {
+        id: parcel.id,
+      },
+      update: {
+        ...parcel,
+      },
+      create: {
+        ...parcel,
+      },
+    });
+
+    assessments.forEach(async (assessment) => {
+      await prisma.assessment.upsert({
+        where: {
+          assessmentIdentifier: {
+            parcelId: assessment.parcelId,
+            year: assessment.year,
+          },
         },
-      })
-      .then(() => {
-        res.status(200);
-        res.send({
-          message: "Successfully added that address to our listings.",
-        });
-      })
-      .catch((error: any) => {
-        res.status(500);
-        res.send({
-          error: error,
-        });
+        update: {
+          ...assessment,
+        },
+        create: {
+          ...assessment,
+        },
       });
+    });
+
+    await prisma.address.upsert({
+      where: {
+        id: address.id,
+      },
+      update: {
+        ...address,
+      },
+      create: {
+        ...address,
+      },
+    });
+
+    const addressCollected = await prisma.address.findFirst({
+      where: {
+        id: address.id,
+      },
+      include: {
+        parcel: {
+          include: {
+            zone: true,
+            landUse: true,
+            assessments: true,
+          },
+        },
+      },
+    });
+    console.log(`All data for addressId:${address.id} saved successfully.`);
+    return res.json(addressCollected);
+  } catch (err) {
+    return res.json({ msg: "Error in updating database", err: err });
   }
 });
 
