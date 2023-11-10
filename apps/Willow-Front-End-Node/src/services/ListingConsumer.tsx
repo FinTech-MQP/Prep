@@ -9,6 +9,7 @@ export default class ListingConsumer {
         return undefined;
       }
       const listings: Listing[] = await response.json();
+      console.log(listings);
       return listings;
     } catch (error) {
       console.error("Failed to fetch listings:", error);

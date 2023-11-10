@@ -92,7 +92,7 @@ const Card = ({ listing }: CardProps) => {
           </Box>
         </Box>
         <Typography sx={styles.title}>{listing.name}</Typography>
-        <Typography sx={styles.address}>{listing.address}</Typography>
+        <Typography sx={styles.address}>{/*listing.address*/}</Typography>
       </Box>
     </Box>
   );

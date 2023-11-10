@@ -184,7 +184,7 @@ const Inspect = ({ close }: InspectProps) => {
                     {user.currListing.name}
                   </Typography>
                   <Typography sx={styles.subtitle}>
-                    {user.currListing.parcelID} | {user.currListing.address}
+                    {/*user.currListing.address.parcelID} | {user.currListing.address*/}
                   </Typography>
                   <Box sx={styles.labelContainer}>
                     {user.currListing.labels &&
