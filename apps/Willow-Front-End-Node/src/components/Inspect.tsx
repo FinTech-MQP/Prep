@@ -208,7 +208,7 @@ const Inspect = ({ close }: InspectProps) => {
                     clicked={activePage === 1}
                   />
                   <BookmarkButton
-                    label="Program Eligibility"
+                    label="Financial Program Eligibility"
                     onClick={() => handleBookmarkClick(2)}
                     clicked={activePage === 2}
                   />
@@ -225,7 +225,7 @@ const Inspect = ({ close }: InspectProps) => {
                         {user.currListing.name}
                       </Typography>
                       <Typography sx={styles.subtitle}>
-                        {/*user.currListing.parcelID} | {user.currListing.address*/}
+                        {/*user.currListing.address.parcelId} | {user.currListing.address*/}
                       </Typography>
                       <Box sx={styles.labelContainer}>
                         {user.currListing.labels &&
