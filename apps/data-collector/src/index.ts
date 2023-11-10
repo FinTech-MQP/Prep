@@ -1,5 +1,4 @@
 import { prisma } from "database";
-import type { Address } from "database/generated/prisma-client";
 import {
   AddressDataSource,
   AddressAPIDataSource,

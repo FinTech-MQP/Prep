@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma-client";
+import { Prisma, PrismaClient } from "../generated/prisma-client";
 
 declare global {
   var prisma: PrismaClient | undefined;
@@ -7,3 +7,19 @@ declare global {
 export const prisma = global.prisma || new PrismaClient();
 
 if (process.env.NODE_ENV !== "production") global.prisma = prisma;
+
+export type ListingPayload = Prisma.ListingGetPayload<{
+  include: {
+    address: {
+      include: {
+        parcel: {
+          include: {
+            zone: true;
+            assessments: true;
+            landUse: true;
+          };
+        };
+      };
+    };
+  };
+}>;
