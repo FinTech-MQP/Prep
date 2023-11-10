@@ -225,7 +225,7 @@ const Inspect = ({ close }: InspectProps) => {
                         {user.currListing.name}
                       </Typography>
                       <Typography sx={styles.subtitle}>
-                        {user.currListing.parcelID} | {user.currListing.address}
+                        {/*user.currListing.parcelID} | {user.currListing.address*/}
                       </Typography>
                       <Box sx={styles.labelContainer}>
                         {user.currListing.labels &&
@@ -260,7 +260,9 @@ const Inspect = ({ close }: InspectProps) => {
                   <Page isOpen={activePage === 2}>
                     <Criteria />
                   </Page>
-                  <Page isOpen={activePage === 3}></Page>
+                  <Page isOpen={activePage === 3}>
+                    <></>
+                  </Page>
                 </Box>
 
                 <Box sx={styles.interestContainer}>
