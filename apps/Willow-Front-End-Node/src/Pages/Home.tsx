@@ -60,7 +60,8 @@ const styles = {
     fontWeight: 400,
     fontSize: "24px",
     backgroundColor: SECONDARY_COLOR,
-    padding: "6px",
+    margin: "20px 100px -20px 100px",
+    boxSizing: "border-box",
   },
   cardHolder: {
     width: "fit-content",
@@ -70,7 +71,7 @@ const styles = {
     gap: "40px",
     boxSizing: "border-box",
     padding: "100px",
-    margin: "0 0 100px 0",
+    margin: "0 0 60px 0",
 
     "@media (max-width: 1700px)": {
       gridTemplateColumns: "1fr 1fr",
@@ -86,15 +87,16 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "left",
-    width: "400px",
+    width: "380px",
     height: "500px",
-    padding: "60px 40px 60px 40px",
+    padding: "50px",
     boxSizing: "border-box",
   },
   cardTitle: {
     color: DARK_GREY_COLOR,
     fontWeight: 700,
     fontSize: "32px",
+    marginBottom: "15px",
     height: "100px",
   },
   cardDesc: {
