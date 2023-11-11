@@ -203,7 +203,7 @@ const ProgramInfo = styled.div<ProgramTypographyProps>`
   padding: 10px;
   margin-bottom: 5px;
   background-color: ${(props) =>
-    props.applicable === "true" ? "#30cd95" : "#cd3030"};
+    props.applicable === "true" ? WILLOW_COLOR : "#ccc"};
   color: black;
   box-sizing: border-box;
   height: 120px;
@@ -215,7 +215,7 @@ interface ProgramTypographyProps extends TypographyProps {
 }
 
 const ProgramTypography = styled(Typography)<ProgramTypographyProps>`
-  color: ${(props) => (props.applicable === "true" ? "black" : "white")};
+  color: ${(props) => (props.applicable === "true" ? "white" : "black")};
   transition: color 0.3s ease;
 `;
 
