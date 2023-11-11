@@ -1,9 +1,9 @@
-import type { Listing } from "database/generated/prisma-client";
+import { ListingPayload } from "database";
 
 export default class InterestConsumer {
   public static expressInterest = async (
     email: string,
-    listing: Listing
+    listing: ListingPayload
   ): Promise<string> => {
     try {
       const response = await fetch("http://localhost:3001/Interest", {
@@ -19,7 +19,7 @@ export default class InterestConsumer {
       }
 
       const responseData = await response.json();
-      console.log(responseData);
+      //console.log(responseData);
       return responseData.message;
     } catch (e: any) {
       console.error("There was a problem expressing interest:", e);

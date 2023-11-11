@@ -1,8 +1,9 @@
 import { useState } from "react";
-import type { Listing } from "database/generated/prisma-client";
+
+import { ListingPayload } from "database";
 
 export default function useUserContext() {
-  const [currListing, setCurrListing] = useState<Listing | null>(null);
+  const [currListing, setCurrListing] = useState<ListingPayload | null>(null);
   const [inspecting, setInsecting] = useState<boolean>(false);
 
   const user = {

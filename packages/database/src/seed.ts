@@ -1,35 +1,28 @@
 import { prisma } from ".";
+import fetch from "node-fetch";
 
-import type { Listing } from "../generated/prisma-client";
-
-const DEFAULT_USERS = [
-  // Add your own listings to pre-populate the database with
-  {
-    id: "HASAN101",
-    name: "Lakeside Retreat",
-    desc: "A beautiful parcel overlooking a pristine lake.",
-    address: "789 Lake Rd, Lakeville, LV 67890",
-    parcelID: "PA789012",
-    images: [],
-  },
-] as Array<Partial<Listing>>;
+// list of address IDs
+const DEFAULT_ADDRESSES_TO_LIST = ["24", "1282"];
 
 (async () => {
   try {
     await Promise.all(
-      DEFAULT_USERS.map((listing) =>
-        prisma.listing.upsert({
-          where: {
-            id: listing.id!,
+      DEFAULT_ADDRESSES_TO_LIST.map(async (addressId) => {
+        // create/update address in db
+        await fetch(`http://localhost:2999/gis/address/${addressId}`, {
+          method: "POST",
+        });
+        // create/update listing for
+        await fetch("http://localhost:2999/api/listing", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-          update: {
-            ...listing,
-          },
-          create: {
-            ...listing,
-          },
-        })
-      )
+          body: JSON.stringify({
+            addressId: addressId,
+          }),
+        });
+      })
     );
   } catch (error) {
     console.error(error);

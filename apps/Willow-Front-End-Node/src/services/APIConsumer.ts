@@ -1,5 +1,5 @@
 import { OPENAI_API_KEY } from "@monorepo/utils/API_KEY"; //cannot be uploaded to
-import { Listing } from "database/generated/prisma-client";
+import { ListingPayload } from "database";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -19,7 +19,7 @@ interface AnswerOutput {
 }
 
 export default async function getAnswersAndExplanations(
-  dataObject: Listing,
+  dataObject: ListingPayload,
   criteriaChecklist: CriteriaChecklistItem[]
 ): Promise<AnswerOutput> {
   const results: AnswerOutput = {};
@@ -33,7 +33,7 @@ export default async function getAnswersAndExplanations(
         messages: [
           {
             role: "user",
-            content: `Given the following data: ${dataString}\n\nQuestion: ${item.question}\n\nAnswer the question and provide a reason for your answer, followed by a brief summary of the relevant data that led to this answer. Mark each section with either 'Answer:', 'Reason:', or 'Summary:'.`,
+            content: ``,
           },
         ],
       });

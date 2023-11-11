@@ -16,11 +16,14 @@ export const BookmarkButton = ({
     background-color: ${clicked ? WILLOW_COLOR_HOVER : WILLOW_COLOR};
     color: white;
     border-radies: 0;
-    border: 1px solid black;
+    border: none;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
     position: relative;
     cursor: pointer;
     font-size: 18px;
     padding: 8px 16px 8px 16px;
+    margin: 10px 0 0 0;
 
     &:hover {
       background-color: ${WILLOW_COLOR_HOVER};

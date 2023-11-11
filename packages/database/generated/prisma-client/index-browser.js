@@ -107,16 +107,50 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.AssessmentScalarFieldEnum = {
+  parcelId: 'parcelId',
+  year: 'year',
+  improvements: 'improvements',
+  land: 'land',
+  total: 'total'
+};
+
+exports.Prisma.LandUseScalarFieldEnum = {
+  id: 'id',
+  landUseDesc: 'landUseDesc'
+};
+
+exports.Prisma.ZoneScalarFieldEnum = {
+  id: 'id',
+  zoneDesc: 'zoneDesc'
+};
+
+exports.Prisma.ParcelScalarFieldEnum = {
+  id: 'id',
+  sqft: 'sqft',
+  zoneId: 'zoneId',
+  landUseId: 'landUseId'
+};
+
+exports.Prisma.AddressScalarFieldEnum = {
+  id: 'id',
+  num: 'num',
+  street: 'street',
+  st_suffix: 'st_suffix',
+  city: 'city',
+  zip: 'zip',
+  parcelId: 'parcelId'
+};
+
 exports.Prisma.ListingScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   name: 'name',
   desc: 'desc',
-  address: 'address',
-  parcelID: 'parcelID',
   images: 'images',
-  labels: 'labels'
+  labels: 'labels',
+  addressId: 'addressId'
 };
 
 exports.Prisma.SortOrder = {
@@ -136,6 +170,11 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
+  Assessment: 'Assessment',
+  LandUse: 'LandUse',
+  Zone: 'Zone',
+  Parcel: 'Parcel',
+  Address: 'Address',
   Listing: 'Listing'
 };
 

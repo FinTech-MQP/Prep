@@ -10,10 +10,12 @@ const styles = {
   },
   mainGrid: {
     width: "100%",
-    height: "fit-content",
+    height: "100%",
+    position: "relative",
   },
   mainImage: {
     width: "100%",
+    maxHeight: "calc(100% - 156px)",
     height: "auto",
     marginBottom: "10px",
     cursor: "pointer",
@@ -44,8 +46,9 @@ const styles = {
     backgroundColor: "white",
     borderRadius: "8px",
     padding: "20px",
-    maxHeight: "80vh",
-    width: "80vw",
+    height: "80vh",
+    widht: "auto",
+    maxWidth: "80vw",
     cursor: "pointer",
   },
   closeButton: {

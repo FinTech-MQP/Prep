@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import { SECONDARY_COLOR } from "@monorepo/utils";
-import type { Listing } from "database/generated/prisma-client";
+import { ListingPayload } from "database";
 import Carousel from "./Carousel";
 import { useContext } from "react";
 import { userContext } from "../App";
 
 interface CardProps {
-  listing: Listing;
+  listing: ListingPayload;
 }
 
 const styles = {
@@ -92,7 +92,7 @@ const Card = ({ listing }: CardProps) => {
           </Box>
         </Box>
         <Typography sx={styles.title}>{listing.name}</Typography>
-        <Typography sx={styles.address}>{listing.address}</Typography>
+        <Typography sx={styles.address}>{/*listing.address*/}</Typography>
       </Box>
     </Box>
   );

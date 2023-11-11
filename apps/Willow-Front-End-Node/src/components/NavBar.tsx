@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import WILLOW_LOGO from "../assets/Willow Logo.png";
+import WorcesterPermitPro from "../assets/WorcesterPermitPro_Logo.png";
 import {
   DARK_GREY_COLOR,
   SECONDARY_COLOR,
@@ -37,9 +37,8 @@ const styles = {
     width: "260px !important",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "baseline",
-    padding: "10px 20px 10px 20px",
   },
   title: {
     color: WILLOW_COLOR,
@@ -57,7 +56,7 @@ const styles = {
   },
   img: {
     width: "auto",
-    height: "40px",
+    height: "80px",
   },
 };
 
@@ -101,8 +100,7 @@ const NavBar = () => {
           onClick={homeButtomClick}
           color="primary"
         >
-          <img style={styles.img} src={WILLOW_LOGO} />
-          <Typography sx={styles.title}>Willow</Typography>
+          <img style={styles.img} src={WorcesterPermitPro} />
         </WillowButton_Nav>
       </Box>
       <Box sx={styles.side}>
