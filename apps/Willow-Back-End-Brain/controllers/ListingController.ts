@@ -1,9 +1,9 @@
 import express, { Router } from "express";
 import { prisma } from "database";
-import type { Listing } from "database/generated/prisma-client";
+import { ListingPayload } from "database";
 
 const getListings = async () => {
-  let data: Listing[] = [];
+  let data: ListingPayload[] = [];
   try {
     data = await prisma.listing.findMany({
       include: {

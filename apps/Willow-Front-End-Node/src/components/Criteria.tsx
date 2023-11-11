@@ -151,7 +151,7 @@ const Criteria = () => {
           min={0}
           max={120}
           values={amiValues}
-          onChange={(values) => setAmiValues(values)}
+          onChange={(values: number[]) => setAmiValues([values[0], values[1]])}
           renderTrack={({ props, children }) => {
             const percentageLeft = (amiValues[0] / 120) * 100;
             const percentageRight = (amiValues[1] / 120) * 100;
@@ -195,7 +195,7 @@ const Criteria = () => {
           min={0}
           max={100}
           values={adaValues}
-          onChange={(values) => setAdaValues(values)}
+          onChange={(values: number[]) => setAdaValues([values[0], values[1]])}
           renderTrack={({ props, children }) => {
             const percentageLeft = (adaValues[0] / 100) * 100;
             const percentageRight = (adaValues[1] / 100) * 100;
@@ -259,7 +259,7 @@ const Criteria = () => {
       </fieldset>
 
       {/* Affordability Term Slider */}
-      <Typography sx={{ marginTop: "20px" }}>
+      <Typography sx={{ marginTop: "20px" }} component="div">
         Term of Affordability: {affordabilityTerm} Years
         <SoloSlider
           min={0}

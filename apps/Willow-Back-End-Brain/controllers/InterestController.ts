@@ -1,11 +1,11 @@
-import type { Listing } from "database/generated/prisma-client";
+import { ListingPayload } from "database";
 import express, { Router, Request, Response } from "express";
 
 const router: Router = express.Router();
 
 router.post("/", (req: Request, res: Response) => {
   const email = req.body.email;
-  const listing: Listing = req.body.listing;
+  const listing: ListingPayload = req.body.listing;
 
   if (!email || !listing) {
     return res.status(400).json({

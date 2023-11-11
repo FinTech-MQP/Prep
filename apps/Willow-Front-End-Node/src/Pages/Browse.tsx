@@ -7,7 +7,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { userContext } from "../App";
 import { LabelType } from "@monorepo/utils";
-import type { Listing } from "database/generated/prisma-client";
+import { ListingPayload } from "database";
 import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
 import Inspect from "../components/Inspect";
@@ -331,7 +331,7 @@ const Browse = () => {
   const user = useContext(userContext);
 
   const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
-  const [listings, setListings] = useState<Listing[]>();
+  const [listings, setListings] = useState<ListingPayload[]>();
   const [appliedFilters, setAppliedFilters] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [segregatedFilters, setSegregatedFilters] = useState<
@@ -347,7 +347,7 @@ const Browse = () => {
   useEffect(() => {
     setIsLoading(true);
     ListingConsumer.getListings().then(
-      (result: SetStateAction<Listing[] | undefined>) => {
+      (result: SetStateAction<ListingPayload[] | undefined>) => {
         setListings(result);
         setIsLoading(false);
       }

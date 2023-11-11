@@ -6,7 +6,7 @@ import {
   SECONDARY_COLOR,
   WILLOW_COLOR,
 } from "@monorepo/utils";
-import type { Listing } from "database/generated/prisma-client";
+import { ListingPayload } from "database";
 import SearchBar from "../components/SearchBar";
 import ListingConsumer from "../services/ListingConsumer";
 
@@ -111,11 +111,11 @@ const cards = [
 ];
 
 const Home = () => {
-  const [listings, setListings] = useState<Listing[]>();
+  const [listings, setListings] = useState<ListingPayload[]>();
 
   useEffect(() => {
     ListingConsumer.getListings().then(
-      (result: SetStateAction<Listing[] | undefined>) => {
+      (result: SetStateAction<ListingPayload[] | undefined>) => {
         setListings(result);
       }
     );

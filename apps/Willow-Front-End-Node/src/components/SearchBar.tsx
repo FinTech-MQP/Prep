@@ -1,4 +1,4 @@
-import type { Listing } from "database/generated/prisma-client";
+import { ListingPayload } from "database";
 import { Autocomplete, TextField } from "@mui/material";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -35,7 +35,7 @@ const SearchField = styled(TextField)({
 });
 
 interface SearchBarProps {
-  listings: Listing[] | undefined;
+  listings: ListingPayload[] | undefined;
 }
 
 const SearchBar = ({ listings }: SearchBarProps) => {
