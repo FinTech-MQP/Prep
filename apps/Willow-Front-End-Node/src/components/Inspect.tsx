@@ -222,13 +222,16 @@ const Inspect = ({ close }: InspectProps) => {
                   <Page isOpen={activePage === 1}>
                     <Box>
                       <Typography sx={styles.title}>
-                        {user.currListing.name}
+                        {user.currListing.name
+                          .toLowerCase()
+                          .replace(/\b(\w)/g, (s) => s.toUpperCase())}
                       </Typography>
                       <Typography sx={styles.subtitle}>
                         {user.currListing.address.parcelId.toString()} {" | "}
                         {user.currListing.address.parcel.zoneId.toString()}
                         {" | "}
-                        {user.currListing.address.parcel.sqft.toString()} sqft
+                        {user.currListing.address.parcel.sqft.toLocaleString()}
+                        {" sqft"}
                       </Typography>
                       <Box sx={styles.labelContainer}>
                         {user.currListing.labels &&

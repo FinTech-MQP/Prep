@@ -44,8 +44,9 @@ const styles = {
     backgroundColor: "white",
     borderRadius: "8px",
     padding: "20px",
-    maxHeight: "80vh",
-    width: "80vw",
+    height: "80vh",
+    widht: "auto",
+    maxWidth: "80vw",
     cursor: "pointer",
   },
   closeButton: {
