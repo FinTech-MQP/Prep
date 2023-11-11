@@ -6,57 +6,7 @@ import styled from "@emotion/styled";
 import SoloSlider from "./SoloSlider";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 
-const Container = styled.div`
-  width: 95%;
-  box-sizing: border-box;
-  margin: 10px 0 10px 0;
-`;
-
-const RangeContainer = styled.div`
-  margin: 10px 0 20px;
-  padding: 0 10px 0 10px;
-  box-sizing: border-box;
-`;
-
-const Track = styled.div`
-  height: 6px;
-  width: 100%;
-  margin-top: 10px;
-  box-sizing: border-box;
-`;
-
-const Thumb = styled.div`
-  height: 20px;
-  width: 20px;
-  background-color: #999;
-`;
-
-const ProgramContainer = styled.div`
-  margin-top: 20px;
-  box-sizing: border-box;
-`;
-
-const ProgramInfo = styled.div<{ isApplicable: boolean }>`
-  padding: 10px;
-  margin-bottom: 5px;
-  background-color: ${(props) => (props.isApplicable ? "#30cd95" : "#cd3030")};
-  color: black;
-  box-sizing: border-box;
-  height: 120px;
-  transition: background-color 0.3s ease;
-`;
-
-interface ProgramTypographyProps extends TypographyProps {
-  isApplicable?: boolean;
-}
-
-const ProgramTypography = styled(Typography)<ProgramTypographyProps>`
-  color: ${(props) => (props.isApplicable ? "black" : "white")};
-  transition: color 0.3s ease;
-`;
-
 const Criteria = () => {
-  // State for your criteria
   const [amiValues, setAmiValues] = useState<[number, number]>([0, 120]);
   const [adaValues, setAdaValues] = useState<[number, number]>([0, 100]);
   const [isMixedIncome, setIsMixedIncome] = useState<boolean>(false);

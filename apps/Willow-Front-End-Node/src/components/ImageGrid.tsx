@@ -10,10 +10,12 @@ const styles = {
   },
   mainGrid: {
     width: "100%",
-    height: "fit-content",
+    height: "100%",
+    position: "relative",
   },
   mainImage: {
     width: "100%",
+    maxHeight: "calc(100% - 156px)",
     height: "auto",
     marginBottom: "10px",
     cursor: "pointer",
