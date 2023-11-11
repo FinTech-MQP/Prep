@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { WILLOW_COLOR, WILLOW_COLOR_HOVER } from "@monorepo/utils";
 import { Box, Button } from "@mui/material";
+import OpenAI_API from "../services/APIConsumer";
 
 const WillowButton = styled(Button)({
   borderRadius: 0,
@@ -18,7 +19,10 @@ const WillowButton = styled(Button)({
   },
 });
 
-const apiCall = () => {};
+const apiCall = () => {
+  console.log("call");
+  OpenAI_API.testAPI("Hello");
+};
 
 const Pertmitting = () => {
   return (

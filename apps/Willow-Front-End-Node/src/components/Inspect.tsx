@@ -199,10 +199,11 @@ const ProgramContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const ProgramInfo = styled.div<{ isApplicable: boolean }>`
+const ProgramInfo = styled.div<ProgramTypographyProps>`
   padding: 10px;
   margin-bottom: 5px;
-  background-color: ${(props) => (props.isApplicable ? "#30cd95" : "#cd3030")};
+  background-color: ${(props) =>
+    props.applicable === "true" ? "#30cd95" : "#cd3030"};
   color: black;
   box-sizing: border-box;
   height: 120px;
@@ -210,11 +211,11 @@ const ProgramInfo = styled.div<{ isApplicable: boolean }>`
 `;
 
 interface ProgramTypographyProps extends TypographyProps {
-  isApplicable?: boolean;
+  applicable: string;
 }
 
 const ProgramTypography = styled(Typography)<ProgramTypographyProps>`
-  color: ${(props) => (props.isApplicable ? "black" : "white")};
+  color: ${(props) => (props.applicable === "true" ? "black" : "white")};
   transition: color 0.3s ease;
 `;
 
@@ -385,14 +386,14 @@ const Inspect = ({ close }: InspectProps) => {
                       );
 
                       return (
-                        <ProgramInfo key={index} isApplicable={match}>
+                        <ProgramInfo key={index} applicable={match.toString()}>
                           <ProgramTypography
                             fontWeight={700}
-                            isApplicable={match}
+                            applicable={match.toString()}
                           >
                             {program.name}
                           </ProgramTypography>
-                          <ProgramTypography isApplicable={match}>
+                          <ProgramTypography applicable={match.toString()}>
                             {explanation}
                           </ProgramTypography>
                         </ProgramInfo>
