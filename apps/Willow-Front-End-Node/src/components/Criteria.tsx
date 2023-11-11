@@ -4,7 +4,7 @@ import { ProgramCriteria } from "@monorepo/utils/interfaces";
 import { Range } from "react-range";
 import styled from "@emotion/styled";
 import SoloSlider from "./SoloSlider";
-import { Typography } from "@mui/material";
+import Typography, { TypographyProps } from "@mui/material/Typography";
 
 const Container = styled.div`
   width: 95%;
@@ -36,6 +36,25 @@ const ProgramContainer = styled.div`
   box-sizing: border-box;
 `;
 
+const ProgramInfo = styled.div<{ isApplicable: boolean }>`
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: ${(props) => (props.isApplicable ? "#30cd95" : "#cd3030")};
+  color: black;
+  box-sizing: border-box;
+  height: 120px;
+  transition: background-color 0.3s ease;
+`;
+
+interface ProgramTypographyProps extends TypographyProps {
+  isApplicable?: boolean;
+}
+
+const ProgramTypography = styled(Typography)<ProgramTypographyProps>`
+  color: ${(props) => (props.isApplicable ? "black" : "white")};
+  transition: color 0.3s ease;
+`;
+
 const Criteria = () => {
   // State for your criteria
   const [amiValues, setAmiValues] = useState<[number, number]>([0, 120]);
@@ -45,14 +64,6 @@ const Criteria = () => {
   const [buildingCommencement, setBuildingCommencement] = useState<string>("");
   const [occupancyDate, setOccupancyDate] = useState<string>("");
   const today = new Date().toISOString().split("T")[0];
-
-  const ProgramInfo = styled.div<{ isApplicable: boolean }>`
-    padding: 10px;
-    margin-bottom: 5px;
-    background-color: ${(props) =>
-      props.isApplicable ? "#b8e994" : "#ff6b6b"};
-    color: black;
-  `;
 
   const evaluateCriteria = (
     programCriteria: ProgramCriteria,
@@ -313,8 +324,12 @@ const Criteria = () => {
 
           return (
             <ProgramInfo key={index} isApplicable={match}>
-              <Typography fontWeight={700}>{program.name}</Typography>
-              <Typography>{explanation}</Typography>
+              <ProgramTypography fontWeight={700} isApplicable={match}>
+                {program.name}
+              </ProgramTypography>
+              <ProgramTypography isApplicable={match}>
+                {explanation}
+              </ProgramTypography>
             </ProgramInfo>
           );
         })}
