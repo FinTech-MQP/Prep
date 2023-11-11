@@ -1,9 +1,9 @@
 import { Program } from "./interfaces";
 
-export const WILLOW_COLOR = "#50A";
-export const WILLOW_COLOR_HOVER = "#400080";
+export const WILLOW_COLOR = "#3068cd";
+export const WILLOW_COLOR_HOVER = "#2b5eb9";
 export const SECONDARY_COLOR = "#FFFF";
-export const DARK_GREY_COLOR = "#212121";
+export const DARK_GREY_COLOR = "#333333";
 
 // Example array of programs with their criteria
 export const programs: Program[] = [
