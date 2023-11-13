@@ -5,6 +5,8 @@ import {
 
 import type { Parcel } from "database/generated/prisma-client";
 
+const SQFT_PER_ACRE = 43560;
+
 function correctZoneAbbreviation(zoneId: string): string {
   // M-.5 -> M-0.5
   const correctedZoneId = zoneId.replace("-.", "-0.");
@@ -27,9 +29,12 @@ export class ParcelHTMLDataSource implements ParcelDataSource {
         return undefined;
       }
 
+      let sqft = +$("#MainContent_lblLndSf").text();
+
       return {
         id: parcelId,
-        sqft: +$("#MainContent_lblLndSf").text(),
+        sqft: sqft,
+        acres: sqft / SQFT_PER_ACRE,
         zoneId: correctZoneAbbreviation($("#MainContent_lblZone").text()),
         landUseId: $("#MainContent_lblUseCode").text(),
       };

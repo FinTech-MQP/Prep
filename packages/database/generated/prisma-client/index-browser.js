@@ -128,6 +128,7 @@ exports.Prisma.ZoneScalarFieldEnum = {
 exports.Prisma.ParcelScalarFieldEnum = {
   id: 'id',
   sqft: 'sqft',
+  acres: 'acres',
   zoneId: 'zoneId',
   landUseId: 'landUseId'
 };

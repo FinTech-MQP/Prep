@@ -4171,15 +4171,18 @@ export namespace Prisma {
 
   export type ParcelAvgAggregateOutputType = {
     sqft: number | null
+    acres: number | null
   }
 
   export type ParcelSumAggregateOutputType = {
     sqft: number | null
+    acres: number | null
   }
 
   export type ParcelMinAggregateOutputType = {
     id: string | null
     sqft: number | null
+    acres: number | null
     zoneId: string | null
     landUseId: string | null
   }
@@ -4187,6 +4190,7 @@ export namespace Prisma {
   export type ParcelMaxAggregateOutputType = {
     id: string | null
     sqft: number | null
+    acres: number | null
     zoneId: string | null
     landUseId: string | null
   }
@@ -4194,6 +4198,7 @@ export namespace Prisma {
   export type ParcelCountAggregateOutputType = {
     id: number
     sqft: number
+    acres: number
     zoneId: number
     landUseId: number
     _all: number
@@ -4202,15 +4207,18 @@ export namespace Prisma {
 
   export type ParcelAvgAggregateInputType = {
     sqft?: true
+    acres?: true
   }
 
   export type ParcelSumAggregateInputType = {
     sqft?: true
+    acres?: true
   }
 
   export type ParcelMinAggregateInputType = {
     id?: true
     sqft?: true
+    acres?: true
     zoneId?: true
     landUseId?: true
   }
@@ -4218,6 +4226,7 @@ export namespace Prisma {
   export type ParcelMaxAggregateInputType = {
     id?: true
     sqft?: true
+    acres?: true
     zoneId?: true
     landUseId?: true
   }
@@ -4225,6 +4234,7 @@ export namespace Prisma {
   export type ParcelCountAggregateInputType = {
     id?: true
     sqft?: true
+    acres?: true
     zoneId?: true
     landUseId?: true
     _all?: true
@@ -4319,6 +4329,7 @@ export namespace Prisma {
   export type ParcelGroupByOutputType = {
     id: string
     sqft: number
+    acres: number
     zoneId: string
     landUseId: string
     _count: ParcelCountAggregateOutputType | null
@@ -4345,6 +4356,7 @@ export namespace Prisma {
   export type ParcelSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     sqft?: boolean
+    acres?: boolean
     zoneId?: boolean
     landUseId?: boolean
     addresses?: boolean | Parcel$addressesArgs<ExtArgs>
@@ -4357,6 +4369,7 @@ export namespace Prisma {
   export type ParcelSelectScalar = {
     id?: boolean
     sqft?: boolean
+    acres?: boolean
     zoneId?: boolean
     landUseId?: boolean
   }
@@ -4381,6 +4394,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       sqft: number
+      acres: number
       zoneId: string
       landUseId: string
     }, ExtArgs["result"]["parcel"]>
@@ -4786,6 +4800,7 @@ export namespace Prisma {
   interface ParcelFieldRefs {
     readonly id: FieldRef<"Parcel", 'String'>
     readonly sqft: FieldRef<"Parcel", 'Int'>
+    readonly acres: FieldRef<"Parcel", 'Float'>
     readonly zoneId: FieldRef<"Parcel", 'String'>
     readonly landUseId: FieldRef<"Parcel", 'String'>
   }
@@ -7139,6 +7154,7 @@ export namespace Prisma {
   export const ParcelScalarFieldEnum: {
     id: 'id',
     sqft: 'sqft',
+    acres: 'acres',
     zoneId: 'zoneId',
     landUseId: 'landUseId'
   };
@@ -7231,20 +7247,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -7255,6 +7257,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
   /**
    * Deep Input Types
@@ -7405,6 +7421,7 @@ export namespace Prisma {
     NOT?: ParcelWhereInput | ParcelWhereInput[]
     id?: StringFilter<"Parcel"> | string
     sqft?: IntFilter<"Parcel"> | number
+    acres?: FloatFilter<"Parcel"> | number
     zoneId?: StringFilter<"Parcel"> | string
     landUseId?: StringFilter<"Parcel"> | string
     addresses?: AddressListRelationFilter
@@ -7416,6 +7433,7 @@ export namespace Prisma {
   export type ParcelOrderByWithRelationInput = {
     id?: SortOrder
     sqft?: SortOrder
+    acres?: SortOrder
     zoneId?: SortOrder
     landUseId?: SortOrder
     addresses?: AddressOrderByRelationAggregateInput
@@ -7430,6 +7448,7 @@ export namespace Prisma {
     OR?: ParcelWhereInput[]
     NOT?: ParcelWhereInput | ParcelWhereInput[]
     sqft?: IntFilter<"Parcel"> | number
+    acres?: FloatFilter<"Parcel"> | number
     zoneId?: StringFilter<"Parcel"> | string
     landUseId?: StringFilter<"Parcel"> | string
     addresses?: AddressListRelationFilter
@@ -7441,6 +7460,7 @@ export namespace Prisma {
   export type ParcelOrderByWithAggregationInput = {
     id?: SortOrder
     sqft?: SortOrder
+    acres?: SortOrder
     zoneId?: SortOrder
     landUseId?: SortOrder
     _count?: ParcelCountOrderByAggregateInput
@@ -7456,6 +7476,7 @@ export namespace Prisma {
     NOT?: ParcelScalarWhereWithAggregatesInput | ParcelScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Parcel"> | string
     sqft?: IntWithAggregatesFilter<"Parcel"> | number
+    acres?: FloatWithAggregatesFilter<"Parcel"> | number
     zoneId?: StringWithAggregatesFilter<"Parcel"> | string
     landUseId?: StringWithAggregatesFilter<"Parcel"> | string
   }
@@ -7736,6 +7757,7 @@ export namespace Prisma {
   export type ParcelCreateInput = {
     id: string
     sqft: number
+    acres: number
     addresses?: AddressCreateNestedManyWithoutParcelInput
     zone: ZoneCreateNestedOneWithoutParcelsInput
     landUse: LandUseCreateNestedOneWithoutParcelsInput
@@ -7745,6 +7767,7 @@ export namespace Prisma {
   export type ParcelUncheckedCreateInput = {
     id: string
     sqft: number
+    acres: number
     zoneId: string
     landUseId: string
     addresses?: AddressUncheckedCreateNestedManyWithoutParcelInput
@@ -7754,6 +7777,7 @@ export namespace Prisma {
   export type ParcelUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
@@ -7763,6 +7787,7 @@ export namespace Prisma {
   export type ParcelUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
     landUseId?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
@@ -7772,6 +7797,7 @@ export namespace Prisma {
   export type ParcelCreateManyInput = {
     id: string
     sqft: number
+    acres: number
     zoneId: string
     landUseId: string
   }
@@ -7779,11 +7805,13 @@ export namespace Prisma {
   export type ParcelUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
   }
 
   export type ParcelUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
     landUseId?: StringFieldUpdateOperationsInput | string
   }
@@ -8085,6 +8113,17 @@ export namespace Prisma {
     zoneDesc?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type AddressListRelationFilter = {
     every?: AddressWhereInput
     some?: AddressWhereInput
@@ -8118,17 +8157,20 @@ export namespace Prisma {
   export type ParcelCountOrderByAggregateInput = {
     id?: SortOrder
     sqft?: SortOrder
+    acres?: SortOrder
     zoneId?: SortOrder
     landUseId?: SortOrder
   }
 
   export type ParcelAvgOrderByAggregateInput = {
     sqft?: SortOrder
+    acres?: SortOrder
   }
 
   export type ParcelMaxOrderByAggregateInput = {
     id?: SortOrder
     sqft?: SortOrder
+    acres?: SortOrder
     zoneId?: SortOrder
     landUseId?: SortOrder
   }
@@ -8136,12 +8178,30 @@ export namespace Prisma {
   export type ParcelMinOrderByAggregateInput = {
     id?: SortOrder
     sqft?: SortOrder
+    acres?: SortOrder
     zoneId?: SortOrder
     landUseId?: SortOrder
   }
 
   export type ParcelSumOrderByAggregateInput = {
     sqft?: SortOrder
+    acres?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -8469,6 +8529,14 @@ export namespace Prisma {
     connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
   }
 
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type AddressUpdateManyWithoutParcelNestedInput = {
     create?: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput> | AddressCreateWithoutParcelInput[] | AddressUncheckedCreateWithoutParcelInput[]
     connectOrCreate?: AddressCreateOrConnectWithoutParcelInput | AddressCreateOrConnectWithoutParcelInput[]
@@ -8704,6 +8772,22 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -8801,6 +8885,7 @@ export namespace Prisma {
   export type ParcelCreateWithoutAssessmentsInput = {
     id: string
     sqft: number
+    acres: number
     addresses?: AddressCreateNestedManyWithoutParcelInput
     zone: ZoneCreateNestedOneWithoutParcelsInput
     landUse: LandUseCreateNestedOneWithoutParcelsInput
@@ -8809,6 +8894,7 @@ export namespace Prisma {
   export type ParcelUncheckedCreateWithoutAssessmentsInput = {
     id: string
     sqft: number
+    acres: number
     zoneId: string
     landUseId: string
     addresses?: AddressUncheckedCreateNestedManyWithoutParcelInput
@@ -8833,6 +8919,7 @@ export namespace Prisma {
   export type ParcelUpdateWithoutAssessmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
@@ -8841,6 +8928,7 @@ export namespace Prisma {
   export type ParcelUncheckedUpdateWithoutAssessmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
     landUseId?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
@@ -8849,6 +8937,7 @@ export namespace Prisma {
   export type ParcelCreateWithoutLandUseInput = {
     id: string
     sqft: number
+    acres: number
     addresses?: AddressCreateNestedManyWithoutParcelInput
     zone: ZoneCreateNestedOneWithoutParcelsInput
     assessments?: AssessmentCreateNestedManyWithoutParcelInput
@@ -8857,6 +8946,7 @@ export namespace Prisma {
   export type ParcelUncheckedCreateWithoutLandUseInput = {
     id: string
     sqft: number
+    acres: number
     zoneId: string
     addresses?: AddressUncheckedCreateNestedManyWithoutParcelInput
     assessments?: AssessmentUncheckedCreateNestedManyWithoutParcelInput
@@ -8894,6 +8984,7 @@ export namespace Prisma {
     NOT?: ParcelScalarWhereInput | ParcelScalarWhereInput[]
     id?: StringFilter<"Parcel"> | string
     sqft?: IntFilter<"Parcel"> | number
+    acres?: FloatFilter<"Parcel"> | number
     zoneId?: StringFilter<"Parcel"> | string
     landUseId?: StringFilter<"Parcel"> | string
   }
@@ -8901,6 +8992,7 @@ export namespace Prisma {
   export type ParcelCreateWithoutZoneInput = {
     id: string
     sqft: number
+    acres: number
     addresses?: AddressCreateNestedManyWithoutParcelInput
     landUse: LandUseCreateNestedOneWithoutParcelsInput
     assessments?: AssessmentCreateNestedManyWithoutParcelInput
@@ -8909,6 +9001,7 @@ export namespace Prisma {
   export type ParcelUncheckedCreateWithoutZoneInput = {
     id: string
     sqft: number
+    acres: number
     landUseId: string
     addresses?: AddressUncheckedCreateNestedManyWithoutParcelInput
     assessments?: AssessmentUncheckedCreateNestedManyWithoutParcelInput
@@ -9125,6 +9218,7 @@ export namespace Prisma {
   export type ParcelCreateWithoutAddressesInput = {
     id: string
     sqft: number
+    acres: number
     zone: ZoneCreateNestedOneWithoutParcelsInput
     landUse: LandUseCreateNestedOneWithoutParcelsInput
     assessments?: AssessmentCreateNestedManyWithoutParcelInput
@@ -9133,6 +9227,7 @@ export namespace Prisma {
   export type ParcelUncheckedCreateWithoutAddressesInput = {
     id: string
     sqft: number
+    acres: number
     zoneId: string
     landUseId: string
     assessments?: AssessmentUncheckedCreateNestedManyWithoutParcelInput
@@ -9182,6 +9277,7 @@ export namespace Prisma {
   export type ParcelUpdateWithoutAddressesInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
@@ -9190,6 +9286,7 @@ export namespace Prisma {
   export type ParcelUncheckedUpdateWithoutAddressesInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
     landUseId?: StringFieldUpdateOperationsInput | string
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
@@ -9285,12 +9382,14 @@ export namespace Prisma {
   export type ParcelCreateManyLandUseInput = {
     id: string
     sqft: number
+    acres: number
     zoneId: string
   }
 
   export type ParcelUpdateWithoutLandUseInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
@@ -9299,6 +9398,7 @@ export namespace Prisma {
   export type ParcelUncheckedUpdateWithoutLandUseInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
@@ -9307,18 +9407,21 @@ export namespace Prisma {
   export type ParcelUncheckedUpdateManyWithoutLandUseInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ParcelCreateManyZoneInput = {
     id: string
     sqft: number
+    acres: number
     landUseId: string
   }
 
   export type ParcelUpdateWithoutZoneInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
@@ -9327,6 +9430,7 @@ export namespace Prisma {
   export type ParcelUncheckedUpdateWithoutZoneInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     landUseId?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
@@ -9335,6 +9439,7 @@ export namespace Prisma {
   export type ParcelUncheckedUpdateManyWithoutZoneInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
     landUseId?: StringFieldUpdateOperationsInput | string
   }
 

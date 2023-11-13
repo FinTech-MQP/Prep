@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Parcel" ADD COLUMN     "acres" DOUBLE PRECISION NOT NULL DEFAULT 0;
