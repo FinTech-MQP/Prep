@@ -4,20 +4,25 @@ import styled from "@emotion/styled";
 import { WILLOW_COLOR } from "@monorepo/utils";
 
 const styles = {
-  gridPseudo: {
-    height: "100%",
-    overflowY: "auto",
-  },
   mainGrid: {
     width: "100%",
     height: "100%",
     position: "relative",
   },
-  mainImage: {
+  mainImagePseudo: {
+    backgroundColor: "#ccc",
+    display: "flex",
+    justifyContent: "center",
     width: "100%",
-    maxHeight: "calc(100% - 156px)",
-    height: "auto",
+    height: "calc(100% - 144px)",
     marginBottom: "10px",
+  },
+  mainImage: {
+    maxWidth: "100%",
+    width: "auto",
+    maxHeight: "100%",
+    height: "auto",
+
     cursor: "pointer",
   },
   secondaryGrid: {
@@ -105,7 +110,7 @@ const ImageGrid = ({ images }: ImageGridProps) => {
   };
 
   return (
-    <Box sx={styles.gridPseudo}>
+    <>
       {showFullGrid ? (
         <Grid container spacing={2} sx={{ marginBottom: "40px" }}>
           <Grid item xs={4}>
@@ -126,11 +131,13 @@ const ImageGrid = ({ images }: ImageGridProps) => {
         </Grid>
       ) : (
         <Box sx={styles.mainGrid}>
-          <img
-            src={mainImage}
-            style={styles.mainImage}
-            onClick={() => handleImageClick(mainImage)}
-          />
+          <Box sx={styles.mainImagePseudo}>
+            <img
+              src={mainImage}
+              style={styles.mainImage}
+              onClick={() => handleImageClick(mainImage)}
+            />
+          </Box>
           <Grid container spacing={2}>
             {sideImages.map((image, index) => (
               <Grid item key={index} xs={4}>
@@ -158,7 +165,7 @@ const ImageGrid = ({ images }: ImageGridProps) => {
           />
         </Box>
       </Modal>
-    </Box>
+    </>
   );
 };
 

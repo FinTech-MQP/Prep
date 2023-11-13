@@ -44,7 +44,7 @@ const SearchBar = ({ listings }: SearchBarProps) => {
 
   const handleSearchAction = (value: any) => {
     if (value && (typeof value === "string" ? value.trim() !== "" : true)) {
-      user.setCurrListing(value as Listing);
+      user.setCurrListing(value as ListingPayload);
       user.setInsecting(true);
       navigate("/browse");
     }
@@ -55,7 +55,7 @@ const SearchBar = ({ listings }: SearchBarProps) => {
       freeSolo
       sx={styles.search}
       options={listings || []}
-      getOptionLabel={(option: string | Listing) =>
+      getOptionLabel={(option: string | ListingPayload) =>
         typeof option === "string" ? option : option.name || ""
       }
       renderInput={(params) => (

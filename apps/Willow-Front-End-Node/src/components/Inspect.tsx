@@ -8,17 +8,11 @@ import {
   useState,
 } from "react";
 import { userContext } from "../App";
-import {
-  SECONDARY_COLOR,
-  WILLOW_COLOR,
-  WILLOW_COLOR_HOVER,
-  programs,
-} from "@monorepo/utils";
-import { Box, Typography, Divider, Button, TextField } from "@mui/material";
+import { SECONDARY_COLOR, WILLOW_COLOR, programs } from "@monorepo/utils";
+import { Box, Typography, Divider } from "@mui/material";
 import { WillowButton_Browse } from "../Pages/Browse";
 import ImageGrid from "./ImageGrid";
 import styled from "@emotion/styled";
-import InterestConsumer from "../services/InterestConsumer";
 import { ProgramCriteria } from "@monorepo/utils/interfaces";
 import { Range } from "react-range";
 import SoloSlider from "./SoloSlider";
@@ -118,15 +112,8 @@ const styles = {
   },
   imagesContainer: {
     height: "100%",
-    padding: "10px 0 10px 0",
+    padding: "10px 0 0 0",
     boxSizing: "border-box",
-  },
-  interestContainer: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  interestText: {
-    width: "100%",
   },
   emailError: {
     color: "red",
@@ -145,29 +132,13 @@ const styles = {
   pageContainer: {
     position: "relative",
     width: "100%",
-    height: "calc(100% - 31px)",
+    height: "calc(100% - 40px)",
   },
 };
 
 interface InspectProps {
   close: () => void;
 }
-
-const WillowButton_Interest = styled(Button)({
-  borderRadius: 0,
-  backgroundColor: WILLOW_COLOR,
-  color: "white",
-  whiteSpace: "nowrap",
-  width: "fit-content",
-  padding: "0 25px 0 25px",
-  "&:hover": {
-    backgroundColor: WILLOW_COLOR_HOVER,
-    borderColor: WILLOW_COLOR,
-  },
-  "& .MuiTouchRipple-root": {
-    color: "white",
-  },
-});
 
 const Container = styled.div`
   width: 95%;
@@ -301,8 +272,6 @@ const evaluateCriteria = (
 
 const Inspect = ({ close }: InspectProps) => {
   const user = useContext(userContext);
-  const [email, setEmail] = useState<string>("");
-  const [validEmail, setValidEmail] = useState<boolean>(true);
   const [activePage, setActivePage] = useState<number>(1);
   const [amiValues, setAmiValues] = useState<[number, number]>([0, 120]);
   const [adaValues, setAdaValues] = useState<[number, number]>([0, 100]);
@@ -311,24 +280,6 @@ const Inspect = ({ close }: InspectProps) => {
   const [buildingCommencement, setBuildingCommencement] = useState<string>("");
   const [occupancyDate, setOccupancyDate] = useState<string>("");
   const today = new Date().toISOString().split("T")[0];
-
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  function isValidEmail(email: string) {
-    const regex = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    return regex.test(email);
-  }
-
-  const handleSubmit = () => {
-    if (email.length > 0 && isValidEmail(email) && user.currListing) {
-      setValidEmail(true);
-      InterestConsumer.expressInterest(email, user.currListing);
-    } else {
-      setValidEmail(false);
-    }
-  };
 
   const handleBookmarkClick = (pageIndex: number) => {
     setActivePage(pageIndex);
@@ -631,27 +582,6 @@ const Inspect = ({ close }: InspectProps) => {
                     <Page isOpen={activePage === 3} left={false}>
                       <Pertmitting />
                     </Page>
-                  </Box>
-
-                  <Box sx={styles.interestContainer}>
-                    {!validEmail && (
-                      <Typography sx={styles.emailError}>
-                        Please enter a valid email.
-                      </Typography>
-                    )}
-
-                    <Box sx={styles.emailBox}>
-                      <TextField
-                        variant="outlined"
-                        placeholder="Enter your email"
-                        value={email}
-                        onChange={handleEmailChange}
-                        sx={styles.interestText}
-                      />
-                      <WillowButton_Interest onClick={handleSubmit}>
-                        Stay Updated
-                      </WillowButton_Interest>
-                    </Box>
                   </Box>
                 </Box>
               )}

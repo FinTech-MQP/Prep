@@ -1,7 +1,7 @@
 import { Program } from "./interfaces";
 
 export const WILLOW_COLOR = "#3068cd";
-export const WILLOW_COLOR_HOVER = "#275ab2";
+export const WILLOW_COLOR_HOVER = "#1d478f";
 export const SECONDARY_COLOR = "#FFFF";
 export const DARK_GREY_COLOR = "#333333";
 

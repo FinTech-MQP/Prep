@@ -18,12 +18,16 @@ const styles: { [key: string]: CSSProperties } = {
     borderRadius: "5px",
     cursor: "default",
   },
+  carouselImagePseudo: {
+    width: "100%",
+    height: "220px",
+    display: "flex",
+    backgroundColor: "#ccc",
+  },
   carouselImage: {
     width: "100%",
-    maxHeight: "220px",
-    position: "absolute",
-    top: "0",
-    left: "0",
+    maxHeight: "100%",
+    objectFit: "contain",
   },
   placeholder: {
     display: "flex",
@@ -87,11 +91,13 @@ const Carousel = ({ images, onClick }: CarouselProps) => {
   return (
     <Box sx={styles.carouselContainer} onClick={onClick}>
       {hasImages ? (
-        <img
-          src={images[currentIndex]}
-          alt="carousel"
-          style={styles.carouselImage}
-        />
+        <Box sx={styles.carouselImagePseudo}>
+          <img
+            src={images[currentIndex]}
+            alt="carousel"
+            style={styles.carouselImage}
+          />
+        </Box>
       ) : (
         <Box sx={styles.placeholder}>No Image Found</Box>
       )}
