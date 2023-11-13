@@ -56,7 +56,9 @@ const SearchBar = ({ listings }: SearchBarProps) => {
       sx={styles.search}
       options={listings || []}
       getOptionLabel={(option: string | ListingPayload) =>
-        typeof option === "string" ? option : option.name || ""
+        typeof option === "string"
+          ? option
+          : option.address.parcelId + " | " + option.name
       }
       renderInput={(params) => (
         <SearchField
