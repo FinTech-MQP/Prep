@@ -142,35 +142,40 @@ app.post(`/api/listing`, async (req, res) => {
       error: `An address with ID: ${addressId} was not found.`,
     });
 
-  let data = {
-    name: `${address.num} ${address.street} ${address.st_suffix}`,
-    desc: `Property description for ${address.num} ${address.street} ${address.st_suffix}, ${address.city} ${address.zip}`,
-    images: await parcelDataSource.fetchImages(address.parcelId),
-    labels: [],
-    addressId: addressId,
-  };
+  //description generator function here
+  try {
+    let data = {
+      name: `${address.num} ${address.street} ${address.st_suffix}`,
+      desc: `Property description for ${address.num} ${address.street} ${address.st_suffix}, ${address.city} ${address.zip}`,
+      images: await parcelDataSource.fetchImages(address.parcelId),
+      labels: [],
+      addressId: addressId,
+    };
 
-  await prisma.listing
-    .upsert({
-      where: {
-        addressId: addressId,
-      },
-      update: {
-        ...data,
-      },
-      create: {
-        ...data,
-      },
-    })
-    .then(() => {
-      console.log(`Created listing for addressId:${addressId}`);
-      return res.json({
-        message: "Successfully added/updated that address to our listings.",
+    await prisma.listing
+      .upsert({
+        where: {
+          addressId: addressId,
+        },
+        update: {
+          ...data,
+        },
+        create: {
+          ...data,
+        },
+      })
+      .then(() => {
+        console.log(`Created listing for addressId:${addressId}`);
+        return res.json({
+          message: "Successfully added/updated that address to our listings.",
+        });
+      })
+      .catch((err) => {
+        return res.json({ error: err });
       });
-    })
-    .catch((err) => {
-      return res.json({ error: err });
-    });
+  } catch (e: any) {
+    console.log(e);
+  }
 });
 
 app.get(`/gis/assessment/:id`, async (req, res) => {

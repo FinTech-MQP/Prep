@@ -8,17 +8,11 @@ import {
   useState,
 } from "react";
 import { userContext } from "../App";
-import {
-  SECONDARY_COLOR,
-  WILLOW_COLOR,
-  WILLOW_COLOR_HOVER,
-  programs,
-} from "@monorepo/utils";
-import { Box, Typography, Divider, Button, TextField } from "@mui/material";
+import { SECONDARY_COLOR, WILLOW_COLOR, programs } from "@monorepo/utils";
+import { Box, Typography, Divider, Tooltip } from "@mui/material";
 import { WillowButton_Browse } from "../Pages/Browse";
 import ImageGrid from "./ImageGrid";
 import styled from "@emotion/styled";
-import InterestConsumer from "../services/InterestConsumer";
 import { ProgramCriteria } from "@monorepo/utils/interfaces";
 import { Range } from "react-range";
 import SoloSlider from "./SoloSlider";
@@ -26,6 +20,7 @@ import { TypographyProps } from "@mui/material/Typography";
 import { BookmarkButton } from "./BookmarkButton";
 import { Page } from "./Page";
 import Pertmitting from "./Permitting";
+import InfoIcon from "@mui/icons-material/Info";
 
 const styles = {
   inspectPseudo: {
@@ -80,7 +75,7 @@ const styles = {
   info: {
     height: "100%",
     overflow: "hidden",
-    padding: "0 0 40px 40px",
+    padding: "0 0 0 40px",
     boxSizing: "border-box",
     display: "flex",
     flexDirection: "column",
@@ -118,15 +113,8 @@ const styles = {
   },
   imagesContainer: {
     height: "100%",
-    padding: "10px 0 10px 0",
+    padding: "10px 0 0 0",
     boxSizing: "border-box",
-  },
-  interestContainer: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  interestText: {
-    width: "100%",
   },
   emailError: {
     color: "red",
@@ -145,29 +133,18 @@ const styles = {
   pageContainer: {
     position: "relative",
     width: "100%",
-    height: "calc(100% - 31px)",
+    height: "calc(100% - 40px)",
+  },
+  tooltipContainer: {
+    display: "flex",
+    justifyContent: "center",
+    width: "fit-content",
   },
 };
 
 interface InspectProps {
   close: () => void;
 }
-
-const WillowButton_Interest = styled(Button)({
-  borderRadius: 0,
-  backgroundColor: WILLOW_COLOR,
-  color: "white",
-  whiteSpace: "nowrap",
-  width: "fit-content",
-  padding: "0 25px 0 25px",
-  "&:hover": {
-    backgroundColor: WILLOW_COLOR_HOVER,
-    borderColor: WILLOW_COLOR,
-  },
-  "& .MuiTouchRipple-root": {
-    color: "white",
-  },
-});
 
 const Container = styled.div`
   width: 95%;
@@ -203,7 +180,7 @@ const ProgramInfo = styled.div<ProgramTypographyProps>`
   padding: 10px;
   margin-bottom: 5px;
   background-color: ${(props) =>
-    props.applicable === "true" ? "#30cd95" : "#cd3030"};
+    props.applicable === "true" ? WILLOW_COLOR : "#ccc"};
   color: black;
   box-sizing: border-box;
   height: 120px;
@@ -215,7 +192,7 @@ interface ProgramTypographyProps extends TypographyProps {
 }
 
 const ProgramTypography = styled(Typography)<ProgramTypographyProps>`
-  color: ${(props) => (props.applicable === "true" ? "black" : "white")};
+  color: ${(props) => (props.applicable === "true" ? "white" : "black")};
   transition: color 0.3s ease;
 `;
 
@@ -301,8 +278,6 @@ const evaluateCriteria = (
 
 const Inspect = ({ close }: InspectProps) => {
   const user = useContext(userContext);
-  const [email, setEmail] = useState<string>("");
-  const [validEmail, setValidEmail] = useState<boolean>(true);
   const [activePage, setActivePage] = useState<number>(1);
   const [amiValues, setAmiValues] = useState<[number, number]>([0, 120]);
   const [adaValues, setAdaValues] = useState<[number, number]>([0, 100]);
@@ -311,24 +286,6 @@ const Inspect = ({ close }: InspectProps) => {
   const [buildingCommencement, setBuildingCommencement] = useState<string>("");
   const [occupancyDate, setOccupancyDate] = useState<string>("");
   const today = new Date().toISOString().split("T")[0];
-
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  function isValidEmail(email: string) {
-    const regex = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    return regex.test(email);
-  }
-
-  const handleSubmit = () => {
-    if (email.length > 0 && isValidEmail(email) && user.currListing) {
-      setValidEmail(true);
-      InterestConsumer.expressInterest(email, user.currListing);
-    } else {
-      setValidEmail(false);
-    }
-  };
 
   const handleBookmarkClick = (pageIndex: number) => {
     setActivePage(pageIndex);
@@ -402,7 +359,7 @@ const Inspect = ({ close }: InspectProps) => {
                   </ProgramContainer>
                 </Page>
                 <Page isOpen={activePage === 3} left={true}>
-                  <></>
+                  <Pertmitting />
                 </Page>
               </Box>
             </Box>
@@ -418,11 +375,12 @@ const Inspect = ({ close }: InspectProps) => {
                             .replace(/\b(\w)/g, (s) => s.toUpperCase())}
                         </Typography>
                         <Typography sx={styles.subtitle}>
-                          {user.currListing.address.parcelId.toString()} {" | "}
-                          {user.currListing.address.parcel.zoneId.toString()}
+                          {user.currListing.address.parcel.zoneId.toString()}{" "}
+                          {" | "}
+                          {user.currListing.address.parcelId.toString()}
                           {" | "}
                           {user.currListing.address.parcel.sqft.toLocaleString()}
-                          {" sqft"}
+                          {" acres"}
                         </Typography>
                         <Box sx={styles.labelContainer}>
                           {user.currListing.labels &&
@@ -457,7 +415,24 @@ const Inspect = ({ close }: InspectProps) => {
                     <Page isOpen={activePage === 2} left={false}>
                       <Container>
                         {/* AMI Range slider */}
-                        <Typography>
+
+                        <Typography
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "fit-content",
+                          }}
+                        >
+                          <Tooltip
+                            title="More information"
+                            placement="left"
+                            arrow
+                            enterDelay={500}
+                            leaveDelay={200}
+                            sx={{ marginRight: "4px" }}
+                          >
+                            <InfoIcon />
+                          </Tooltip>
                           AMI Range: {amiValues[0]}% - {amiValues[1]}%
                         </Typography>
                         <RangeContainer>
@@ -504,7 +479,23 @@ const Inspect = ({ close }: InspectProps) => {
                         </RangeContainer>
 
                         {/* ADA Range slider */}
-                        <Typography>
+                        <Typography
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "fit-content",
+                          }}
+                        >
+                          <Tooltip
+                            title="More information"
+                            placement="left"
+                            arrow
+                            enterDelay={500}
+                            leaveDelay={200}
+                            sx={{ marginRight: "4px" }}
+                          >
+                            <InfoIcon />
+                          </Tooltip>
                           ADA Range: {adaValues[0]}% - {adaValues[1]}%
                         </Typography>
                         <RangeContainer>
@@ -549,7 +540,6 @@ const Inspect = ({ close }: InspectProps) => {
                             )}
                           />
                         </RangeContainer>
-
                         {/* Mixed Income Radio Buttons */}
                         <fieldset>
                           <legend
@@ -558,7 +548,25 @@ const Inspect = ({ close }: InspectProps) => {
                                 '"Roboto", "Helvetica", "Arial", sans-serif',
                             }}
                           >
-                            Is your property mixed income?
+                            <Typography
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                width: "fit-content",
+                              }}
+                            >
+                              <Tooltip
+                                title="More information"
+                                placement="left"
+                                arrow
+                                enterDelay={500}
+                                leaveDelay={200}
+                                sx={{ marginRight: "4px" }}
+                              >
+                                <InfoIcon />
+                              </Tooltip>
+                              Is your property mixed income?
+                            </Typography>
                           </legend>
                           <Typography>
                             <input
@@ -581,47 +589,81 @@ const Inspect = ({ close }: InspectProps) => {
                             No
                           </Typography>
                         </fieldset>
-
+                        <br />
                         {/* Affordability Term Slider */}
-                        <Typography sx={{ marginTop: "20px" }} component="div">
-                          Term of Affordability: {affordabilityTerm} Years
-                          <SoloSlider
-                            min={0}
-                            max={100}
-                            step={1}
-                            initialValue={0}
-                            onChange={(value: any) =>
-                              setAffordabilityTerm(Number(value))
-                            }
-                            fillColor={WILLOW_COLOR}
-                          />
-                        </Typography>
 
+                        <Typography sx={styles.tooltipContainer}>
+                          <Tooltip
+                            title="More information"
+                            placement="left"
+                            arrow
+                            enterDelay={500}
+                            leaveDelay={200}
+                            sx={{ marginRight: "4px" }}
+                          >
+                            <InfoIcon />
+                          </Tooltip>
+                          Term of Affordability: {affordabilityTerm} Years
+                        </Typography>
+                        <SoloSlider
+                          min={0}
+                          max={100}
+                          step={1}
+                          initialValue={0}
+                          onChange={(value: any) =>
+                            setAffordabilityTerm(Number(value))
+                          }
+                          fillColor={WILLOW_COLOR}
+                        />
+
+                        <br />
                         {/* Building Commencement Date Picker */}
-                        <Typography sx={{ marginTop: "10px" }}>
-                          Expected Date of Building Commencement:
-                          <br />
+                        <Typography component="div">
+                          <Typography sx={styles.tooltipContainer}>
+                            <Tooltip
+                              title="More information"
+                              placement="left"
+                              arrow
+                              enterDelay={500}
+                              leaveDelay={200}
+                              sx={{ marginRight: "4px" }}
+                            >
+                              <InfoIcon />
+                            </Tooltip>
+                            Expected Date of Building Commencement:
+                          </Typography>
+
                           <input
+                            style={{ marginTop: "10px" }}
                             type="date"
                             value={buildingCommencement}
                             min={today}
                             onChange={(e) =>
                               setBuildingCommencement(e.target.value)
                             }
-                            style={{ marginTop: "4px" }}
                           />
                         </Typography>
-
                         {/* Occupancy Date Picker */}
-                        <Typography sx={{ marginTop: "10px" }}>
-                          Expected Date of Occupancy:
-                          <br />
+                        <Typography sx={{ marginTop: "10px" }} component="div">
+                          <Typography sx={styles.tooltipContainer}>
+                            <Tooltip
+                              title="More information"
+                              placement="left"
+                              arrow
+                              enterDelay={500}
+                              leaveDelay={200}
+                              sx={{ marginRight: "4px" }}
+                            >
+                              <InfoIcon />
+                            </Tooltip>
+                            Expected Date of Occupancy:
+                          </Typography>
                           <input
+                            style={{ marginTop: "10px" }}
                             type="date"
                             value={occupancyDate}
                             min={today}
                             onChange={(e) => setOccupancyDate(e.target.value)}
-                            style={{ marginTop: "4px" }}
                           />
                         </Typography>
 
@@ -631,27 +673,6 @@ const Inspect = ({ close }: InspectProps) => {
                     <Page isOpen={activePage === 3} left={false}>
                       <Pertmitting />
                     </Page>
-                  </Box>
-
-                  <Box sx={styles.interestContainer}>
-                    {!validEmail && (
-                      <Typography sx={styles.emailError}>
-                        Please enter a valid email.
-                      </Typography>
-                    )}
-
-                    <Box sx={styles.emailBox}>
-                      <TextField
-                        variant="outlined"
-                        placeholder="Enter your email"
-                        value={email}
-                        onChange={handleEmailChange}
-                        sx={styles.interestText}
-                      />
-                      <WillowButton_Interest onClick={handleSubmit}>
-                        Stay Updated
-                      </WillowButton_Interest>
-                    </Box>
                   </Box>
                 </Box>
               )}
