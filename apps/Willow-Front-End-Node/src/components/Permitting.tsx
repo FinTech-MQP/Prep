@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { WILLOW_COLOR, WILLOW_COLOR_HOVER } from "@monorepo/utils";
 import { Box, Button } from "@mui/material";
 import OpenAI_API from "../services/APIConsumer";
+import { useContext } from "react";
+import { userContext } from "../App";
 
 const WillowButton = styled(Button)({
   borderRadius: 0,
@@ -19,12 +21,14 @@ const WillowButton = styled(Button)({
   },
 });
 
-const apiCall = () => {
-  console.log("call");
-  OpenAI_API.testAPI("Hello");
-};
-
 const Pertmitting = () => {
+  const user = useContext(userContext);
+  const apiCall = () => {
+    if (user.currListing) {
+      OpenAI_API.testAPI(user.currListing);
+    }
+  };
+
   return (
     <Box>
       <WillowButton onClick={apiCall}>Analyze</WillowButton>
