@@ -83,12 +83,15 @@ const Card = ({ listing }: CardProps) => {
       <Box sx={styles.pane}>
         <Box sx={styles.labelPseudo}>
           <Box sx={styles.labelContainer}>
-            {listing.labels &&
-              listing.labels.map((label, index) => (
-                <Typography key={index} sx={styles.label}>
-                  {label}
-                </Typography>
-              ))}
+            <Typography sx={styles.label}>
+              {listing.address.parcel.zoneId}
+            </Typography>
+            <Typography sx={styles.label}>
+              {listing.address.parcelId}
+            </Typography>
+            <Typography sx={styles.label}>
+              {listing.address.parcel.sqft.toLocaleString() + " acres"}
+            </Typography>
           </Box>
         </Box>
         <Typography sx={styles.title}>

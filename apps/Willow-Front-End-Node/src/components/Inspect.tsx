@@ -375,11 +375,12 @@ const Inspect = ({ close }: InspectProps) => {
                             .replace(/\b(\w)/g, (s) => s.toUpperCase())}
                         </Typography>
                         <Typography sx={styles.subtitle}>
-                          {user.currListing.address.parcelId.toString()} {" | "}
-                          {user.currListing.address.parcel.zoneId.toString()}
+                          {user.currListing.address.parcel.zoneId.toString()}{" "}
+                          {" | "}
+                          {user.currListing.address.parcelId.toString()}
                           {" | "}
                           {user.currListing.address.parcel.sqft.toLocaleString()}
-                          {" sqft"}
+                          {" acres"}
                         </Typography>
                         <Box sx={styles.labelContainer}>
                           {user.currListing.labels &&
