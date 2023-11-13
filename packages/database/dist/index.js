@@ -26,7 +26,18 @@ module.exports = __toCommonJS(src_exports);
 
 // src/client.ts
 var import_prisma_client = require("../generated/prisma-client");
-var prisma = global.prisma || new import_prisma_client.PrismaClient();
+var prisma = new import_prisma_client.PrismaClient().$extends({
+  result: {
+    parcel: {
+      acres: {
+        needs: { sqft: true },
+        compute(parcel) {
+          return parcel.sqft / 43560;
+        }
+      }
+    }
+  }
+});
 if (process.env.NODE_ENV !== "production")
   global.prisma = prisma;
 // Annotate the CommonJS export names for ESM import in node:
