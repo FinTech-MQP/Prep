@@ -5,6 +5,8 @@ export const WILLOW_COLOR_HOVER = "#275ab2";
 export const SECONDARY_COLOR = "#FFFF";
 export const DARK_GREY_COLOR = "#333333";
 
+export const OPENAI_ASSISTANT_ID = "asst_LkIZXhCrOK5qaG2APJQJMFbM";
+
 // Example array of programs with their criteria
 export const programs: Program[] = [
   {

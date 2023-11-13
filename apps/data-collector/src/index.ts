@@ -19,6 +19,7 @@ import {
 } from "./data-api/assessment/assessment";
 import OpenAI from "openai";
 import { OPENAI_API_KEY } from "@monorepo/utils/API_KEY";
+import { OPENAI_ASSISTANT_ID } from "@monorepo/utils/constants";
 
 const app = express();
 
@@ -41,9 +42,7 @@ const generateDesc = async (data: any) => {
     dangerouslyAllowBrowser: true,
   });
 
-  const assistant = await openai.beta.assistants.retrieve(
-    "asst_LkIZXhCrOK5qaG2APJQJMFbM"
-  );
+  const assistant = await openai.beta.assistants.retrieve(OPENAI_ASSISTANT_ID);
 
   try {
     const thread = await openai.beta.threads.create();
