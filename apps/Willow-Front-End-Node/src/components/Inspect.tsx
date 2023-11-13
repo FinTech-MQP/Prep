@@ -9,7 +9,7 @@ import {
 } from "react";
 import { userContext } from "../App";
 import { SECONDARY_COLOR, WILLOW_COLOR, programs } from "@monorepo/utils";
-import { Box, Typography, Divider } from "@mui/material";
+import { Box, Typography, Divider, Tooltip } from "@mui/material";
 import { WillowButton_Browse } from "../Pages/Browse";
 import ImageGrid from "./ImageGrid";
 import styled from "@emotion/styled";
@@ -20,6 +20,7 @@ import { TypographyProps } from "@mui/material/Typography";
 import { BookmarkButton } from "./BookmarkButton";
 import { Page } from "./Page";
 import Pertmitting from "./Permitting";
+import InfoIcon from "@mui/icons-material/Info";
 
 const styles = {
   inspectPseudo: {
@@ -74,7 +75,7 @@ const styles = {
   info: {
     height: "100%",
     overflow: "hidden",
-    padding: "0 0 40px 40px",
+    padding: "0 0 0 40px",
     boxSizing: "border-box",
     display: "flex",
     flexDirection: "column",
@@ -133,6 +134,11 @@ const styles = {
     position: "relative",
     width: "100%",
     height: "calc(100% - 40px)",
+  },
+  tooltipContainer: {
+    display: "flex",
+    justifyContent: "center",
+    width: "fit-content",
   },
 };
 
@@ -353,7 +359,7 @@ const Inspect = ({ close }: InspectProps) => {
                   </ProgramContainer>
                 </Page>
                 <Page isOpen={activePage === 3} left={true}>
-                  <></>
+                  <Pertmitting />
                 </Page>
               </Box>
             </Box>
@@ -408,7 +414,24 @@ const Inspect = ({ close }: InspectProps) => {
                     <Page isOpen={activePage === 2} left={false}>
                       <Container>
                         {/* AMI Range slider */}
-                        <Typography>
+
+                        <Typography
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "fit-content",
+                          }}
+                        >
+                          <Tooltip
+                            title="More information"
+                            placement="left"
+                            arrow
+                            enterDelay={500}
+                            leaveDelay={200}
+                            sx={{ marginRight: "4px" }}
+                          >
+                            <InfoIcon />
+                          </Tooltip>
                           AMI Range: {amiValues[0]}% - {amiValues[1]}%
                         </Typography>
                         <RangeContainer>
@@ -455,7 +478,23 @@ const Inspect = ({ close }: InspectProps) => {
                         </RangeContainer>
 
                         {/* ADA Range slider */}
-                        <Typography>
+                        <Typography
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "fit-content",
+                          }}
+                        >
+                          <Tooltip
+                            title="More information"
+                            placement="left"
+                            arrow
+                            enterDelay={500}
+                            leaveDelay={200}
+                            sx={{ marginRight: "4px" }}
+                          >
+                            <InfoIcon />
+                          </Tooltip>
                           ADA Range: {adaValues[0]}% - {adaValues[1]}%
                         </Typography>
                         <RangeContainer>
@@ -500,7 +539,6 @@ const Inspect = ({ close }: InspectProps) => {
                             )}
                           />
                         </RangeContainer>
-
                         {/* Mixed Income Radio Buttons */}
                         <fieldset>
                           <legend
@@ -509,7 +547,25 @@ const Inspect = ({ close }: InspectProps) => {
                                 '"Roboto", "Helvetica", "Arial", sans-serif',
                             }}
                           >
-                            Is your property mixed income?
+                            <Typography
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                width: "fit-content",
+                              }}
+                            >
+                              <Tooltip
+                                title="More information"
+                                placement="left"
+                                arrow
+                                enterDelay={500}
+                                leaveDelay={200}
+                                sx={{ marginRight: "4px" }}
+                              >
+                                <InfoIcon />
+                              </Tooltip>
+                              Is your property mixed income?
+                            </Typography>
                           </legend>
                           <Typography>
                             <input
@@ -532,47 +588,81 @@ const Inspect = ({ close }: InspectProps) => {
                             No
                           </Typography>
                         </fieldset>
-
+                        <br />
                         {/* Affordability Term Slider */}
-                        <Typography sx={{ marginTop: "20px" }} component="div">
-                          Term of Affordability: {affordabilityTerm} Years
-                          <SoloSlider
-                            min={0}
-                            max={100}
-                            step={1}
-                            initialValue={0}
-                            onChange={(value: any) =>
-                              setAffordabilityTerm(Number(value))
-                            }
-                            fillColor={WILLOW_COLOR}
-                          />
-                        </Typography>
 
+                        <Typography sx={styles.tooltipContainer}>
+                          <Tooltip
+                            title="More information"
+                            placement="left"
+                            arrow
+                            enterDelay={500}
+                            leaveDelay={200}
+                            sx={{ marginRight: "4px" }}
+                          >
+                            <InfoIcon />
+                          </Tooltip>
+                          Term of Affordability: {affordabilityTerm} Years
+                        </Typography>
+                        <SoloSlider
+                          min={0}
+                          max={100}
+                          step={1}
+                          initialValue={0}
+                          onChange={(value: any) =>
+                            setAffordabilityTerm(Number(value))
+                          }
+                          fillColor={WILLOW_COLOR}
+                        />
+
+                        <br />
                         {/* Building Commencement Date Picker */}
-                        <Typography sx={{ marginTop: "10px" }}>
-                          Expected Date of Building Commencement:
-                          <br />
+                        <Typography component="div">
+                          <Typography sx={styles.tooltipContainer}>
+                            <Tooltip
+                              title="More information"
+                              placement="left"
+                              arrow
+                              enterDelay={500}
+                              leaveDelay={200}
+                              sx={{ marginRight: "4px" }}
+                            >
+                              <InfoIcon />
+                            </Tooltip>
+                            Expected Date of Building Commencement:
+                          </Typography>
+
                           <input
+                            style={{ marginTop: "10px" }}
                             type="date"
                             value={buildingCommencement}
                             min={today}
                             onChange={(e) =>
                               setBuildingCommencement(e.target.value)
                             }
-                            style={{ marginTop: "4px" }}
                           />
                         </Typography>
-
                         {/* Occupancy Date Picker */}
-                        <Typography sx={{ marginTop: "10px" }}>
-                          Expected Date of Occupancy:
-                          <br />
+                        <Typography sx={{ marginTop: "10px" }} component="div">
+                          <Typography sx={styles.tooltipContainer}>
+                            <Tooltip
+                              title="More information"
+                              placement="left"
+                              arrow
+                              enterDelay={500}
+                              leaveDelay={200}
+                              sx={{ marginRight: "4px" }}
+                            >
+                              <InfoIcon />
+                            </Tooltip>
+                            Expected Date of Occupancy:
+                          </Typography>
                           <input
+                            style={{ marginTop: "10px" }}
                             type="date"
                             value={occupancyDate}
                             min={today}
                             onChange={(e) => setOccupancyDate(e.target.value)}
-                            style={{ marginTop: "4px" }}
                           />
                         </Typography>
 

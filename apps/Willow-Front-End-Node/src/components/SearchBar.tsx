@@ -58,7 +58,9 @@ const SearchBar = ({ listings }: SearchBarProps) => {
       getOptionLabel={(option: string | ListingPayload) =>
         typeof option === "string"
           ? option
-          : option.address.parcelId + " | " + option.name
+          : option.address.parcelId +
+            " | " +
+            option.name.toLowerCase().replace(/\b(\w)/g, (s) => s.toUpperCase())
       }
       renderInput={(params) => (
         <SearchField

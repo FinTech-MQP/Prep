@@ -15,15 +15,8 @@ const styles = {
     justifyContent: "center",
     width: "100%",
     height: "calc(100% - 144px)",
+    maxHeight: "fit-content",
     marginBottom: "10px",
-  },
-  mainImage: {
-    maxWidth: "100%",
-    width: "auto",
-    maxHeight: "100%",
-    height: "auto",
-
-    cursor: "pointer",
   },
   secondaryGrid: {
     width: "100%",
@@ -134,7 +127,14 @@ const ImageGrid = ({ images }: ImageGridProps) => {
           <Box sx={styles.mainImagePseudo}>
             <img
               src={mainImage}
-              style={styles.mainImage}
+              style={{
+                maxWidth: "100%",
+                width: "auto",
+                maxHeight: "100%",
+                height: "auto",
+                objectFit: "contain",
+                cursor: "pointer",
+              }}
               onClick={() => handleImageClick(mainImage)}
             />
           </Box>

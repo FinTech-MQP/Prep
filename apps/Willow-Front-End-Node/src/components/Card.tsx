@@ -91,7 +91,11 @@ const Card = ({ listing }: CardProps) => {
               ))}
           </Box>
         </Box>
-        <Typography sx={styles.title}>{listing.name}</Typography>
+        <Typography sx={styles.title}>
+          {listing.name
+            .toLowerCase()
+            .replace(/\b(\w)/g, (s) => s.toUpperCase())}
+        </Typography>
         <Typography sx={styles.address}>{/*listing.address*/}</Typography>
       </Box>
     </Box>
