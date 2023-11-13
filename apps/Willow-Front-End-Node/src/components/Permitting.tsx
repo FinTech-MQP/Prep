@@ -25,7 +25,7 @@ const Pertmitting = () => {
   const user = useContext(userContext);
   const apiCall = () => {
     if (user.currListing) {
-      OpenAI_API.testAPI(user.currListing);
+      //OpenAI_API.testAPI(user.currListing);
     }
   };
 
