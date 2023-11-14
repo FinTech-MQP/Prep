@@ -18,6 +18,7 @@ model Assessment {
   improvements Int
   land         Int
   total        Int
+
   @@unique([parcelId, year], name: "assessmentIdentifier")
 }
 
@@ -36,6 +37,7 @@ model Zone {
 model Parcel {
   id          String       @id
   sqft        Int
+  acres       Float
   addresses   Address[]
   zone        Zone         @relation(fields: [zoneId], references: [id])
   zoneId      String
