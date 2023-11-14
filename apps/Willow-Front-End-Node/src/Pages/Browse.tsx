@@ -222,9 +222,9 @@ const Browse = () => {
   useEffect(() => {
     let filtered: ListingPayload[] = [];
     listings?.filter((listing) => {
-      const isWithinSqftBounds =
-        listing.address.parcel.sqft >= acreValues[0] &&
-        (acreValues[1] === 20 || listing.address.parcel.sqft <= acreValues[1]);
+      const isWithinAcreBounds =
+        listing.address.parcel.acres >= acreValues[0] &&
+        (acreValues[1] === 20 || listing.address.parcel.acres <= acreValues[1]);
 
       const matchesFilter =
         appliedFilters.length === 0 ||
@@ -232,7 +232,7 @@ const Browse = () => {
           listing.address.parcel.zone.id.includes(filter)
         );
 
-      if (isWithinSqftBounds && matchesFilter)
+      if (isWithinAcreBounds && matchesFilter)
         filtered = [...filtered, listing];
     });
 

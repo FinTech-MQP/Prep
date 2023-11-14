@@ -447,7 +447,7 @@ const Inspect = ({ close }: InspectProps) => {
                           {" | "}
                           {user.currListing.address.parcelId.toString()}
                           {" | "}
-                          {user.currListing.address.parcel.sqft.toLocaleString()}
+                          {user.currListing.address.parcel.acres.toLocaleString()}
                           {" acres"}
                         </Typography>
                         <Box sx={styles.labelContainer}>
