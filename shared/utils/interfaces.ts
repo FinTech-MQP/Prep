@@ -13,15 +13,17 @@ export interface FilterType {
 export type ProgramCriteria = {
   amiRange: [number, number];
   adaRange: [number, number];
+  unhoused: boolean;
+  firstTimeHomebuyers?: boolean;
   mixedIncome: boolean;
-  affordabilityTerm: number;
-  priorityAmi?: number;
-  unhoused?: boolean;
-  marketRate?: boolean;
+  affordabilityTerm: [number, number];
+  constructionStartDate?: Date;
+  dateOfOccupancyRequired?: Date;
 };
 
 export type Program = {
   name: string;
+  level?: string;
   criteria: ProgramCriteria;
   description: string;
   link?: string;
