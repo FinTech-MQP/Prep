@@ -16,7 +16,7 @@ const assistant = await openai.beta.assistants.retrieve(
 );
 
 export default class OpenAI_API {
-  public static async generateDesc(data: ListingPayload) {
+  public static async analyze(data: ListingPayload) {
     const openai = new OpenAI({
       apiKey: OPENAI_API_KEY,
       dangerouslyAllowBrowser: true,
