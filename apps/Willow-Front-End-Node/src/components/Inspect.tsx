@@ -22,6 +22,7 @@ import { Page } from "./Page";
 import InfoIcon from "@mui/icons-material/Info";
 import OpenAI_API from "../services/APIConsumer";
 import Permitting from "./Permitting";
+import ChatBox from "./ChatBox";
 
 const styles = {
   inspectPseudo: {
@@ -116,14 +117,6 @@ const styles = {
     height: "100%",
     padding: "10px 0 0 0",
     boxSizing: "border-box",
-  },
-  emailError: {
-    color: "red",
-    margin: "0 0 6px 0",
-  },
-  emailBox: {
-    display: "flex",
-    flexDirection: "row",
   },
   buttonContainer: {
     width: "100%",
@@ -341,6 +334,7 @@ const Inspect = ({ close }: InspectProps) => {
   };
 
   useEffect(() => {
+    /*
     setIsLoading(true);
     console.log("api call");
     if (user.currListing)
@@ -359,7 +353,7 @@ const Inspect = ({ close }: InspectProps) => {
         }
 
         setIsLoading(false);
-      });
+      });*/
   }, [user.currListing]);
 
   return (
@@ -915,7 +909,9 @@ const Inspect = ({ close }: InspectProps) => {
                         {/* Display all programs with color coding and explanations */}
                       </Container>
                     </Page>
-                    <Page isOpen={activePage === 3} left={false}></Page>
+                    <Page isOpen={activePage === 3} left={false}>
+                      <ChatBox />
+                    </Page>
                   </Box>
                 </Box>
               )}

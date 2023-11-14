@@ -5,7 +5,8 @@ export const WILLOW_COLOR_HOVER = "#1d478f";
 export const SECONDARY_COLOR = "#FFFF";
 export const DARK_GREY_COLOR = "#333333";
 
-export const OPENAI_ASSISTANT_ID = "asst_LkIZXhCrOK5qaG2APJQJMFbM";
+export const OPENAI_ASSISTANT_ID_SUMMARIZER = "asst_LkIZXhCrOK5qaG2APJQJMFbM";
+export const OPENAI_ASSISTANT_ID_PERMITTER = "asst_XHOPVJFngzpWKcY7XOFamIsA";
 
 export const programs: Program[] = [
   {
