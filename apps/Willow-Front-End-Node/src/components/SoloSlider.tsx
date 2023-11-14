@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { SerializedStyles, css } from "@emotion/react";
 import styled from "@emotion/styled";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
 // Define the props types for the slider
 type SoloSliderProps = {

@@ -263,9 +263,15 @@ export default function GitHubLabel({
                       },
                     }}
                   >
-                    {option.name}
+                    <span style={{ fontWeight: 700 }}>{option.name}</span>
                     <br />
-                    <span>{option.description}</span>
+                    <span>
+                      {option.description
+                        ? option.description.charAt(0).toUpperCase() +
+                          option.description.slice(1).toLowerCase()
+                        : ""}
+                      .
+                    </span>
                   </Box>
                   <Box
                     component={CloseIcon}
