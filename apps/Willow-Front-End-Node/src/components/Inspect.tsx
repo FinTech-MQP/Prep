@@ -14,13 +14,12 @@ import { Box, Typography, Divider, Tooltip } from "@mui/material";
 import { WillowButton_Browse } from "../Pages/Browse";
 import ImageGrid from "./ImageGrid";
 import styled from "@emotion/styled";
-import { ProgramCriteria, QuestionsMap } from "@monorepo/utils/interfaces";
+import { ProgramCriteria } from "@monorepo/utils/interfaces";
 import { Range } from "react-range";
 import { TypographyProps } from "@mui/material/Typography";
 import { BookmarkButton } from "./BookmarkButton";
 import { Page } from "./Page";
 import InfoIcon from "@mui/icons-material/Info";
-import OpenAI_API from "../services/APIConsumer";
 import Permitting from "./Permitting";
 import ChatBox from "./ChatBox";
 
@@ -910,7 +909,7 @@ const Inspect = ({ close }: InspectProps) => {
                       </Container>
                     </Page>
                     <Page isOpen={activePage === 3} left={false}>
-                      <ChatBox />
+                      <ChatBox currentPage={activePage === 3} />
                     </Page>
                   </Box>
                 </Box>
