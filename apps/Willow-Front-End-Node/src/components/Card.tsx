@@ -90,7 +90,7 @@ const Card = ({ listing }: CardProps) => {
               {listing.address.parcelId}
             </Typography>
             <Typography sx={styles.label}>
-              {listing.address.parcel.sqft.toLocaleString() + " acres"}
+              {listing.address.parcel.acres.toLocaleString() + " acres"}
             </Typography>
           </Box>
         </Box>
