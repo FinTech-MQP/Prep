@@ -5,6 +5,7 @@ import {
   ReactNode,
   ReactPortal,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { userContext } from "../App";
@@ -13,13 +14,14 @@ import { Box, Typography, Divider, Tooltip } from "@mui/material";
 import { WillowButton_Browse } from "../Pages/Browse";
 import ImageGrid from "./ImageGrid";
 import styled from "@emotion/styled";
-import { ProgramCriteria } from "@monorepo/utils/interfaces";
+import { ProgramCriteria, QuestionsMap } from "@monorepo/utils/interfaces";
 import { Range } from "react-range";
 import { TypographyProps } from "@mui/material/Typography";
 import { BookmarkButton } from "./BookmarkButton";
 import { Page } from "./Page";
-import Pertmitting from "./Permitting";
 import InfoIcon from "@mui/icons-material/Info";
+import OpenAI_API from "../services/APIConsumer";
+import Permitting from "./Permitting";
 
 const styles = {
   inspectPseudo: {
@@ -320,6 +322,7 @@ const evaluateCriteria = (
 
 const Inspect = ({ close }: InspectProps) => {
   const user = useContext(userContext);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [activePage, setActivePage] = useState<number>(1);
   const [amiValues, setAmiValues] = useState<[number, number]>([0, 120]);
   const [adaValues, setAdaValues] = useState<[number, number]>([0, 100]);
@@ -336,6 +339,28 @@ const Inspect = ({ close }: InspectProps) => {
   const handleBookmarkClick = (pageIndex: number) => {
     setActivePage(pageIndex);
   };
+
+  useEffect(() => {
+    setIsLoading(true);
+    console.log("api call");
+    if (user.currListing)
+      OpenAI_API.analyze(user.currListing).then((result: string) => {
+        const jsonString = result.substring(
+          result.indexOf("{"),
+          result.lastIndexOf("}") + 1
+        );
+
+        const parsedData = JSON.parse(jsonString) as QuestionsMap;
+
+        console.log(parsedData);
+
+        if (JSON.stringify(user.currAnalysis) !== JSON.stringify(parsedData)) {
+          user.setCurrAnalysis(parsedData);
+        }
+
+        setIsLoading(false);
+      });
+  }, [user.currListing]);
 
   return (
     <Box sx={styles.inspectPseudo}>
@@ -408,7 +433,7 @@ const Inspect = ({ close }: InspectProps) => {
                   </ProgramContainer>
                 </Page>
                 <Page isOpen={activePage === 3} left={true}>
-                  <Pertmitting />
+                  <Permitting isLoading={isLoading} />
                 </Page>
               </Box>
             </Box>
@@ -629,6 +654,7 @@ const Inspect = ({ close }: InspectProps) => {
                               name="unHoused"
                               value="yes"
                               checked={isUnHoused}
+                              onChange={() => setIsUnHoused(true)}
                             />
                             <span style={{ userSelect: "none" }}>Yes</span>
                           </Typography>
@@ -641,6 +667,7 @@ const Inspect = ({ close }: InspectProps) => {
                               name="unHoused"
                               value="no"
                               checked={!isUnHoused}
+                              onChange={() => setIsUnHoused(false)}
                             />
                             <span style={{ userSelect: "none" }}>No</span>
                           </Typography>
@@ -683,6 +710,7 @@ const Inspect = ({ close }: InspectProps) => {
                               name="firstTime"
                               value="yes"
                               checked={firstTime === "Yes"}
+                              onChange={() => setFirstTime("Yes")}
                             />
                             <span style={{ userSelect: "none" }}>Yes</span>
                           </Typography>
@@ -695,6 +723,7 @@ const Inspect = ({ close }: InspectProps) => {
                               name="firstTime"
                               value="Some"
                               checked={firstTime === "Some"}
+                              onChange={() => setFirstTime("Some")}
                             />
                             <span style={{ userSelect: "none" }}>Some</span>
                           </Typography>
@@ -707,6 +736,7 @@ const Inspect = ({ close }: InspectProps) => {
                               name="firstTime"
                               value="no"
                               checked={firstTime === "No"}
+                              onChange={() => setFirstTime("No")}
                             />
                             <span style={{ userSelect: "none" }}>No</span>
                           </Typography>
@@ -749,6 +779,7 @@ const Inspect = ({ close }: InspectProps) => {
                               name="mixedIncome"
                               value="yes"
                               checked={isMixedIncome}
+                              onChange={() => setIsMixedIncome(true)}
                             />
                             <span style={{ userSelect: "none" }}>Yes</span>
                           </Typography>
@@ -761,6 +792,7 @@ const Inspect = ({ close }: InspectProps) => {
                               name="mixedIncome"
                               value="no"
                               checked={!isMixedIncome}
+                              onChange={() => setIsMixedIncome(false)}
                             />
                             <span style={{ userSelect: "none" }}>No</span>
                           </Typography>
@@ -883,9 +915,7 @@ const Inspect = ({ close }: InspectProps) => {
                         {/* Display all programs with color coding and explanations */}
                       </Container>
                     </Page>
-                    <Page isOpen={activePage === 3} left={false}>
-                      <Pertmitting />
-                    </Page>
+                    <Page isOpen={activePage === 3} left={false}></Page>
                   </Box>
                 </Box>
               )}

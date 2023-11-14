@@ -28,3 +28,12 @@ export type Program = {
   description: string;
   link?: string;
 };
+
+export interface QuestionData {
+  Answer: string;
+  Explanation: string;
+}
+
+export interface QuestionsMap {
+  [question: string]: QuestionData;
+}

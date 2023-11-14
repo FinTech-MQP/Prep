@@ -34,7 +34,15 @@ export default class OpenAI_API {
           data,
           null,
           0
-        )} and here are your questions: ${permittingQuestions}`,
+        )} and here are your questions: ${permittingQuestions}. Ensure to answer EVERY question (do not ommit a single one) and format your response in a JSON with these interfaces: 
+        interface QuestionData {
+          Answer: string;
+          Explanation: string;
+        }
+        
+        interface QuestionsMap {
+          [question: string]: QuestionData;
+        }.`,
       });
 
       const run = await openai.beta.threads.runs.create(thread.id, {

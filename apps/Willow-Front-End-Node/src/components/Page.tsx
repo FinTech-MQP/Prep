@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { WILLOW_COLOR } from "@monorepo/utils";
 
 interface PageProps {
-  children: ReactNode;
+  children?: ReactNode;
   isOpen: boolean;
   left: boolean;
 }

@@ -1,7 +1,7 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
-import OpenAI_API from "../services/APIConsumer";
-import { useContext, useEffect, useState } from "react";
+import { Box, CircularProgress } from "@mui/material";
+import { useContext } from "react";
 import { userContext } from "../App";
+import { RenderedQuestions } from "./RenderedQuestions";
 
 const styles = {
   loadingBox: {
@@ -13,19 +13,12 @@ const styles = {
   },
 };
 
-const Pertmitting = () => {
-  const user = useContext(userContext);
-  const [analysis, setAnalysis] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+interface PermittingProps {
+  isLoading: boolean;
+}
 
-  useEffect(() => {
-    setIsLoading(true);
-    if (user.currListing)
-      OpenAI_API.analyze(user.currListing).then((result: string) => {
-        setAnalysis(result);
-        setIsLoading(false);
-      });
-  }, []);
+const Permitting = ({ isLoading }: PermittingProps) => {
+  const user = useContext(userContext);
 
   return (
     <Box>
@@ -34,10 +27,10 @@ const Pertmitting = () => {
           <CircularProgress />
         </Box>
       ) : (
-        <Typography>{analysis}</Typography>
+        <RenderedQuestions analysis={user.currAnalysis} />
       )}
     </Box>
   );
 };
 
-export default Pertmitting;
+export default Permitting;
