@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   TextField,
   Button,
@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 import { WILLOW_COLOR, WILLOW_COLOR_HOVER } from "@monorepo/utils";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import OpenAI_API from "../services/APIConsumer";
+import { userContext } from "../App";
 
 const styles = {
   mainContainer: {
@@ -72,19 +74,19 @@ interface ChatBoxProps {
   currentPage: boolean;
 }
 
-async function fetchYourAPI(input: string): Promise<string> {
-  // Implement API call here
-  // Example: return fetch('your-api-url', { method: 'POST', body: JSON.stringify({ message: input }) })
-  // .then(response => response.json())
-  // .then(data => data.reply);
-  return input; // Placeholder
-}
-
 const ChatBox = ({ currentPage }: ChatBoxProps) => {
+  const user = useContext(userContext);
   const [input, setInput] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [conversationID, setConverstionID] = useState<string>("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    OpenAI_API.initializeConversation().then((result: string) => {
+      setConverstionID(result);
+    });
+  }, []);
 
   useEffect(() => {
     if (messagesEndRef.current && currentPage)
@@ -96,15 +98,36 @@ const ChatBox = ({ currentPage }: ChatBoxProps) => {
 
   const handleInputChange = (data: string) => setInput(data);
 
+  async function conversationAPI(input: string): Promise<string> {
+    try {
+      if (user.currListing)
+        OpenAI_API.converse(
+          conversationID,
+          user.currAnalysis,
+          user.currListing,
+          input
+        ).then((result: string) => {
+          return result;
+        });
+    } catch (e: any) {
+      console.log(e);
+    }
+    return "I'm sorry, I can't answer that right now.";
+  }
+
   const sendMessage = async (messageInput: string) => {
     const userMessage: Message = { sender: "user", content: messageInput };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
-    setIsLoading(true);
 
-    // Replace with your API call
-    const apiResponse = await fetchYourAPI(messageInput);
-    const apiMessage: Message = { sender: "api", content: apiResponse };
-    setMessages((prevMessages) => [...prevMessages, apiMessage]);
+    try {
+      setIsLoading(true);
+      const apiResponse = await conversationAPI(messageInput);
+      const apiMessage: Message = { sender: "api", content: apiResponse };
+      setMessages((prevMessages) => [...prevMessages, apiMessage]);
+    } catch (e: any) {
+      console.log(e);
+    }
+
     setIsLoading(false);
 
     setInput("");

@@ -7,6 +7,7 @@ export const DARK_GREY_COLOR = "#333333";
 
 export const OPENAI_ASSISTANT_ID_SUMMARIZER = "asst_LkIZXhCrOK5qaG2APJQJMFbM";
 export const OPENAI_ASSISTANT_ID_PERMITTER = "asst_XHOPVJFngzpWKcY7XOFamIsA";
+export const OPENAI_ASSISTANT_ID_CHATTER = "asst_7L3FWsem5NHHVl7B7Ki6Gk4z";
 
 export const programs: Program[] = [
   {
