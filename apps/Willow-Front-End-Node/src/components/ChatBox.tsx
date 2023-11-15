@@ -9,10 +9,15 @@ import {
   styled,
   CircularProgress,
 } from "@mui/material";
-import { WILLOW_COLOR, WILLOW_COLOR_HOVER } from "@monorepo/utils";
+import {
+  QuestionsMap,
+  WILLOW_COLOR,
+  WILLOW_COLOR_HOVER,
+} from "@monorepo/utils";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import OpenAI_API from "../services/APIConsumer";
 import { userContext } from "../App";
+import { ListingPayload } from "database";
 
 const styles = {
   mainContainer: {
@@ -48,7 +53,26 @@ const styles = {
     alignItems: "center",
     userSelect: "none",
   },
+  downContainer: {
+    height: "fit-content",
+    width: "100%",
+    position: "absolute",
+    bottom: "66px",
+    display: "flex",
+    justifyContent: "center",
+  },
 };
+
+const DownButton = styled(Button)`
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  min-width: 0;
+  opacity: 0.2;
+  &:hover {
+    opacity: 1;
+  }
+`;
 
 const ListContainer = styled(Box)({
   height: "calc(100% - 56px)",
@@ -74,6 +98,20 @@ interface ChatBoxProps {
   currentPage: boolean;
 }
 
+async function conversationAPI(
+  threadID: string,
+  analysis: QuestionsMap,
+  listing: ListingPayload,
+  input: string
+): Promise<string> {
+  try {
+    return await OpenAI_API.converse(threadID, analysis, listing, input);
+  } catch (e: any) {
+    console.log(e);
+    return "an error has occured.";
+  }
+}
+
 const ChatBox = ({ currentPage }: ChatBoxProps) => {
   const user = useContext(userContext);
   const [input, setInput] = useState<string>("");
@@ -82,6 +120,14 @@ const ChatBox = ({ currentPage }: ChatBoxProps) => {
   const [conversationID, setConverstionID] = useState<string>("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const scroll = () => {
+    if (messagesEndRef.current && currentPage)
+      messagesEndRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+  };
+
   useEffect(() => {
     OpenAI_API.initializeConversation().then((result: string) => {
       setConverstionID(result);
@@ -89,48 +135,32 @@ const ChatBox = ({ currentPage }: ChatBoxProps) => {
   }, []);
 
   useEffect(() => {
-    if (messagesEndRef.current && currentPage)
-      messagesEndRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
+    scroll();
   }, [messages]);
 
   const handleInputChange = (data: string) => setInput(data);
-
-  async function conversationAPI(input: string): Promise<string> {
-    try {
-      if (user.currListing)
-        OpenAI_API.converse(
-          conversationID,
-          user.currAnalysis,
-          user.currListing,
-          input
-        ).then((result: string) => {
-          return result;
-        });
-    } catch (e: any) {
-      console.log(e);
-    }
-    return "I'm sorry, I can't answer that right now.";
-  }
 
   const sendMessage = async (messageInput: string) => {
     const userMessage: Message = { sender: "user", content: messageInput };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
 
-    try {
-      setIsLoading(true);
-      const apiResponse = await conversationAPI(messageInput);
-      const apiMessage: Message = { sender: "api", content: apiResponse };
-      setMessages((prevMessages) => [...prevMessages, apiMessage]);
-    } catch (e: any) {
-      console.log(e);
-    }
+    if (user.currListing)
+      try {
+        setIsLoading(true);
+        setInput("");
+        const apiResponse = await conversationAPI(
+          conversationID,
+          user.currAnalysis,
+          user.currListing,
+          messageInput
+        );
+        const apiMessage: Message = { sender: "api", content: apiResponse };
+        setMessages((prevMessages) => [...prevMessages, apiMessage]);
+      } catch (e: any) {
+        console.log(e);
+      }
 
     setIsLoading(false);
-
-    setInput("");
   };
 
   const WillowButton_Chat = styled(Button)(({ disabled }) => ({
@@ -166,13 +196,18 @@ const ChatBox = ({ currentPage }: ChatBoxProps) => {
           <Box sx={styles.scroller} ref={messagesEndRef} />
         </List>
       </ListContainer>
+      <Box sx={styles.downContainer}>
+        <DownButton
+          sx={{ height: "40px", width: "40px" }}
+          variant="contained"
+          color="primary"
+          onClick={scroll}
+        >
+          <ArrowDownwardIcon fontSize="small" />
+        </DownButton>
+      </Box>
 
       <Box sx={styles.messageBox}>
-        <Button variant="contained" color="primary">
-          <ArrowDownwardIcon fontSize="large" />
-          Downward
-        </Button>
-
         <TextField
           variant="outlined"
           placeholder="Chat with Willow [AI]"
