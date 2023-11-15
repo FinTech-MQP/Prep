@@ -4,9 +4,13 @@ import { userContext } from "../App";
 import { RenderedQuestions } from "./RenderedQuestions";
 
 const styles = {
+  mainContainer: {
+    width: "100%",
+    height: "100%",
+  },
   loadingBox: {
     width: "100%",
-    height: "calc(100% - 200px)",
+    height: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -21,7 +25,7 @@ const Permitting = ({ isLoading }: PermittingProps) => {
   const user = useContext(userContext);
 
   return (
-    <Box>
+    <Box sx={styles.mainContainer}>
       {isLoading ? (
         <Box sx={styles.loadingBox}>
           <CircularProgress />

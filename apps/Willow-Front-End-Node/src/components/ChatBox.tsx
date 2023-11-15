@@ -47,7 +47,7 @@ const styles = {
   },
   loadingBox: {
     width: "100%",
-    height: "calc(100% - 200px)",
+    height: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -64,6 +64,7 @@ const styles = {
 };
 
 const DownButton = styled(Button)`
+  background-color: ${WILLOW_COLOR};
   border-radius: 50%;
   height: 20px;
   width: 20px;
@@ -184,23 +185,26 @@ const ChatBox = ({ currentPage }: ChatBoxProps) => {
   return (
     <Box sx={styles.mainContainer}>
       <ListContainer>
-        <List sx={styles.list}>
-          {messages.map((message, index) => (
-            <ListItem key={index}>
-              <ListItemText
-                primary={message.sender === "user" ? "You" : "Willow [AI]"}
-                secondary={message.content}
-              />
-            </ListItem>
-          ))}
-          <Box sx={styles.scroller} ref={messagesEndRef} />
-        </List>
+        {messages.length === 0 ? (
+          <>hi</>
+        ) : (
+          <List sx={styles.list}>
+            {messages.map((message, index) => (
+              <ListItem key={index}>
+                <ListItemText
+                  primary={message.sender === "user" ? "You" : "Willow [AI]"}
+                  secondary={message.content}
+                />
+              </ListItem>
+            ))}
+            <Box sx={styles.scroller} ref={messagesEndRef} />
+          </List>
+        )}
       </ListContainer>
       <Box sx={styles.downContainer}>
         <DownButton
           sx={{ height: "40px", width: "40px" }}
           variant="contained"
-          color="primary"
           onClick={scroll}
         >
           <ArrowDownwardIcon fontSize="small" />
@@ -226,7 +230,7 @@ const ChatBox = ({ currentPage }: ChatBoxProps) => {
           onClick={() => {
             sendMessage(input);
           }}
-          disabled={isLoading}
+          disabled={isLoading || input.length === 0}
         >
           {isLoading ? (
             <Box sx={styles.loadingBox}>
