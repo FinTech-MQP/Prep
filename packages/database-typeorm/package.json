@@ -1,0 +1,31 @@
+{
+  "name": "database-typeorm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint ./src --fix",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf dist"
+  },
+  "keywords": [],
+  "author": "",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "pg": "^8.11.3",
+    "typeorm": "^0.3.17"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "tsconfig": "^7.0.0",
+    "tsup": "^5.12.9",
+    "tsx": "^3.7.1",
+    "typescript": "^5.2.2"
+  }
+}

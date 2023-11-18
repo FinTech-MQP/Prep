@@ -1,4 +1,5 @@
 import { prisma } from "database";
+import { datasource, TestUser } from "database-typeorm";
 import {
   AddressDataSource,
   AddressAPIDataSource,
@@ -17,6 +18,19 @@ import {
   AssessmentDataSource,
   AssessmentHTMLDataSource,
 } from "./data-api/assessment/assessment";
+
+datasource
+  .initialize()
+  .then(() => {
+    console.log("Data Source has been initialized!");
+  })
+  .catch((err) => {
+    console.error("Error during Data Source initialization:", err);
+  });
+
+datasource.getRepository(TestUser).find().then((result) => {
+  console.log(result);
+})
 
 const app = express();
 
