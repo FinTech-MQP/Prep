@@ -3,6 +3,12 @@ import {
   VisionCardHTMLDataSource,
 } from "../vision-property-card/property-card";
 
+import {
+  queryFeatures,
+  IQueryFeaturesOptions,
+  IQueryFeaturesResponse,
+} from "@esri/arcgis-rest-feature-service";
+
 import type { Parcel } from "database/generated/prisma-client";
 
 const SQFT_PER_ACRE = 43560;

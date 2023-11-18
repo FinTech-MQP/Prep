@@ -35,15 +35,16 @@ model Zone {
 }
 
 model Parcel {
-  id          String       @id
+  id          String                              @id
   sqft        Int
   acres       Float
   addresses   Address[]
-  zone        Zone         @relation(fields: [zoneId], references: [id])
+  zone        Zone                                @relation(fields: [zoneId], references: [id])
   zoneId      String
-  landUse     LandUse      @relation(fields: [landUseId], references: [id])
+  landUse     LandUse                             @relation(fields: [landUseId], references: [id])
   landUseId   String
   assessments Assessment[]
+  polygon     Unsupported("\"public\".geometry")?
 }
 
 model Address {
