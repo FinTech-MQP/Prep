@@ -19,7 +19,7 @@ import {
 } from "./data-api/assessment/assessment";
 import OpenAI from "openai";
 import { OPENAI_API_KEY } from "@monorepo/utils/API_KEY";
-import { OPENAI_ASSISTANT_ID } from "@monorepo/utils/constants";
+//import { OPENAI_ASSISTANT_ID } from "@monorepo/utils/constants";
 
 const app = express();
 
@@ -35,7 +35,7 @@ TODO: All data collection logic should be
 ------------------------------------------
 
 */
-
+/*
 const generateDesc = async (data: any) => {
   const openai = new OpenAI({
     apiKey: OPENAI_API_KEY,
@@ -78,7 +78,7 @@ const generateDesc = async (data: any) => {
   } catch (error) {
     console.error("Error querying OpenAI:", error);
   }
-};
+};*/
 
 app.get(`/api/listing/:id`, async (req, res) => {
   let { id }: { id?: string } = req.params;

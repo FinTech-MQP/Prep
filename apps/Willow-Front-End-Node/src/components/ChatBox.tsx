@@ -8,6 +8,7 @@ import {
   Box,
   styled,
   CircularProgress,
+  Typography,
 } from "@mui/material";
 import {
   QuestionsMap,
@@ -60,6 +61,21 @@ const styles = {
     bottom: "66px",
     display: "flex",
     justifyContent: "center",
+  },
+  emptyMessages: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+  placeholder: {
+    fontSize: "24px",
+    fontWeight: 700,
+    textAlign: "center",
+    lineHeight: "1",
+    letterSpacing: "-1px",
   },
 };
 
@@ -186,7 +202,14 @@ const ChatBox = ({ currentPage }: ChatBoxProps) => {
     <Box sx={styles.mainContainer}>
       <ListContainer>
         {messages.length === 0 ? (
-          <>hi</>
+          <Box sx={styles.emptyMessages}>
+            <Typography sx={styles.placeholder}>
+              Hi, I'm Willow, your AI assistant for all things permitting in
+              Worcester, Massachusetts.
+            </Typography>
+            <br />
+            <Typography sx={styles.placeholder}>How can I help?</Typography>
+          </Box>
         ) : (
           <List sx={styles.list}>
             {messages.map((message, index) => (
