@@ -44,7 +44,7 @@ model Parcel {
   landUse     LandUse                             @relation(fields: [landUseId], references: [id])
   landUseId   String
   assessments Assessment[]
-  polygon     Unsupported("\"public\".geometry")?
+  polygon     Unsupported("\"public\".geometry")
 }
 
 model Address {

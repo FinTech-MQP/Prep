@@ -11,7 +11,11 @@ const DEFAULT_ADDRESSES_TO_LIST = ["24", "1282"];
         // create/update address in db
         await fetch(`http://localhost:2999/gis/address/${addressId}`, {
           method: "POST",
-        });
+        })
+          .then((res) => res.text())
+          .then((str) => {
+            console.log(`Result of adding address ID ${addressId} to database: ${str}`)
+          });
         // create/update listing for
         await fetch("http://localhost:2999/api/listing", {
           method: "POST",
@@ -21,7 +25,11 @@ const DEFAULT_ADDRESSES_TO_LIST = ["24", "1282"];
           body: JSON.stringify({
             addressId: addressId,
           }),
-        });
+        })
+          .then((res) => res.text())
+          .then((str) => {
+            console.log(`Result of adding listing for address ID ${addressId} to database: ${str}`)
+          });
       })
     );
   } catch (error) {

@@ -1,3 +1,4 @@
+import express, { request, response } from "express";
 import { prisma } from "database";
 import {
   AddressDataSource,
@@ -7,7 +8,6 @@ import {
   ParcelDataSource,
   ParcelHTMLDataSource,
 } from "./data-api/parcel/parcel";
-import express, { response } from "express";
 import { ZoneAPIDataSource, ZoneDataSource } from "./data-api/zone/zone";
 import {
   LandUseDataSource,
@@ -17,6 +17,10 @@ import {
   AssessmentDataSource,
   AssessmentHTMLDataSource,
 } from "./data-api/assessment/assessment";
+import {
+  ParcelPolygonAPIDataSource,
+  ParcelPolygonDataSource,
+} from "./data-api/parcel/parcelPolygon";
 
 const app = express();
 
@@ -78,9 +82,12 @@ app.get(`/api/listing`, async (req, res) => {
 });
 
 app.post(`/api/listing`, async (req, res) => {
-  let addressId = req.body.addressId as string | undefined;
+  let addressId = req.body.addressId as string | number | undefined;
   if (addressId === undefined)
     return res.json({ error: "No address ID provided for the listing." });
+  if (typeof addressId === "number") {
+    return res.json({ error: "Address ID was a number, expected a string" });
+  }
 
   let parcelDataSource: ParcelDataSource = new ParcelHTMLDataSource();
 
@@ -173,6 +180,8 @@ app.post(`/gis/address/:id`, async (req, res) => {
 
   let addressDataSource: AddressDataSource = new AddressAPIDataSource();
   let parcelDataSource: ParcelDataSource = new ParcelHTMLDataSource();
+  let parcelPolygonDataSource: ParcelPolygonDataSource =
+    new ParcelPolygonAPIDataSource();
   let zoneDataSource: ZoneDataSource = new ZoneAPIDataSource();
   let landUseDataSource: LandUseDataSource = new LandUseAPIDataSource();
   let assessmentDataSource: AssessmentDataSource =
@@ -186,6 +195,13 @@ app.post(`/gis/address/:id`, async (req, res) => {
   let parcel = await parcelDataSource.fetchParcel(address.parcelId);
   if (parcel === undefined) {
     return res.json({ error: `Parcel ${address.parcelId} not found` });
+  }
+
+  let parcelPolygon = await parcelPolygonDataSource.fetchParcelPolygon(
+    address.parcelId
+  );
+  if(parcelPolygon === undefined) {
+    return res.json({ error: `Parcel polygon for parcel ${address.parcelId} not found` });
   }
 
   let zone = await zoneDataSource.fetchZone(parcel.zoneId);
@@ -232,17 +248,12 @@ app.post(`/gis/address/:id`, async (req, res) => {
       },
     });
 
-    await prisma.parcel.upsert({
-      where: {
-        id: parcel.id,
-      },
-      update: {
-        ...parcel,
-      },
-      create: {
-        ...parcel,
-      },
-    });
+    let parcelPolygonStr = JSON.stringify(parcelPolygon.geometry);
+
+    await prisma.$executeRaw`INSERT INTO "public"."Parcel" (id, sqft, "zoneId", "landUseId", acres, polygon) 
+    VALUES(${parcel.id}, ${parcel.sqft}, ${parcel.zoneId}, ${parcel.landUseId}, ${parcel.acres}, ST_GeomFromGeoJSON(${parcelPolygonStr}))
+    ON CONFLICT(id) DO UPDATE 
+    SET sqft=${parcel.sqft}, "zoneId"=${parcel.zoneId}, "landUseId"=${parcel.landUseId}, acres=${parcel.acres}, polygon=ST_GeomFromGeoJSON(${parcelPolygonStr})`;
 
     assessments.forEach(async (assessment) => {
       await prisma.assessment.upsert({

@@ -943,14 +943,6 @@ export namespace Prisma {
             args: Prisma.ParcelFindManyArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$ParcelPayload>[]
           }
-          create: {
-            args: Prisma.ParcelCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ParcelPayload>
-          }
-          createMany: {
-            args: Prisma.ParcelCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
           delete: {
             args: Prisma.ParcelDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$ParcelPayload>
@@ -966,10 +958,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.ParcelUpdateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
-          }
-          upsert: {
-            args: Prisma.ParcelUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$ParcelPayload>
           }
           aggregate: {
             args: Prisma.ParcelAggregateArgs<ExtArgs>,
@@ -4498,38 +4486,6 @@ export namespace Prisma {
     ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findMany'>>
 
     /**
-     * Create a Parcel.
-     * @param {ParcelCreateArgs} args - Arguments to create a Parcel.
-     * @example
-     * // Create one Parcel
-     * const Parcel = await prisma.parcel.create({
-     *   data: {
-     *     // ... data to create a Parcel
-     *   }
-     * })
-     * 
-    **/
-    create<T extends ParcelCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, ParcelCreateArgs<ExtArgs>>
-    ): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
-
-    /**
-     * Create many Parcels.
-     *     @param {ParcelCreateManyArgs} args - Arguments to create many Parcels.
-     *     @example
-     *     // Create many Parcels
-     *     const parcel = await prisma.parcel.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends ParcelCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, ParcelCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
      * Delete a Parcel.
      * @param {ParcelDeleteArgs} args - Arguments to delete one Parcel.
      * @example
@@ -4600,27 +4556,6 @@ export namespace Prisma {
     updateMany<T extends ParcelUpdateManyArgs<ExtArgs>>(
       args: SelectSubset<T, ParcelUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Parcel.
-     * @param {ParcelUpsertArgs} args - Arguments to update or create a Parcel.
-     * @example
-     * // Update or create a Parcel
-     * const parcel = await prisma.parcel.upsert({
-     *   create: {
-     *     // ... data to create a Parcel
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Parcel we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends ParcelUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, ParcelUpsertArgs<ExtArgs>>
-    ): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of Parcels.
@@ -4989,37 +4924,6 @@ export namespace Prisma {
 
 
   /**
-   * Parcel create
-   */
-  export type ParcelCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Parcel
-     */
-    select?: ParcelSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: ParcelInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Parcel.
-     */
-    data: XOR<ParcelCreateInput, ParcelUncheckedCreateInput>
-  }
-
-
-  /**
-   * Parcel createMany
-   */
-  export type ParcelCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Parcels.
-     */
-    data: ParcelCreateManyInput | ParcelCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-
-  /**
    * Parcel update
    */
   export type ParcelUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5054,33 +4958,6 @@ export namespace Prisma {
      * Filter which Parcels to update
      */
     where?: ParcelWhereInput
-  }
-
-
-  /**
-   * Parcel upsert
-   */
-  export type ParcelUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Parcel
-     */
-    select?: ParcelSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: ParcelInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Parcel to update in case it exists.
-     */
-    where: ParcelWhereUniqueInput
-    /**
-     * In case the Parcel found by the `where` argument doesn't exist, create a new Parcel with this data.
-     */
-    create: XOR<ParcelCreateInput, ParcelUncheckedCreateInput>
-    /**
-     * In case the Parcel was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<ParcelUpdateInput, ParcelUncheckedUpdateInput>
   }
 
 
@@ -7754,26 +7631,6 @@ export namespace Prisma {
     zoneDesc?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ParcelCreateInput = {
-    id: string
-    sqft: number
-    acres: number
-    addresses?: AddressCreateNestedManyWithoutParcelInput
-    zone: ZoneCreateNestedOneWithoutParcelsInput
-    landUse: LandUseCreateNestedOneWithoutParcelsInput
-    assessments?: AssessmentCreateNestedManyWithoutParcelInput
-  }
-
-  export type ParcelUncheckedCreateInput = {
-    id: string
-    sqft: number
-    acres: number
-    zoneId: string
-    landUseId: string
-    addresses?: AddressUncheckedCreateNestedManyWithoutParcelInput
-    assessments?: AssessmentUncheckedCreateNestedManyWithoutParcelInput
-  }
-
   export type ParcelUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
@@ -7792,14 +7649,6 @@ export namespace Prisma {
     landUseId?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
-  }
-
-  export type ParcelCreateManyInput = {
-    id: string
-    sqft: number
-    acres: number
-    zoneId: string
-    landUseId: string
   }
 
   export type ParcelUpdateManyMutationInput = {
@@ -8380,8 +8229,6 @@ export namespace Prisma {
   }
 
   export type ParcelCreateNestedOneWithoutAssessmentsInput = {
-    create?: XOR<ParcelCreateWithoutAssessmentsInput, ParcelUncheckedCreateWithoutAssessmentsInput>
-    connectOrCreate?: ParcelCreateOrConnectWithoutAssessmentsInput
     connect?: ParcelWhereUniqueInput
   }
 
@@ -8394,9 +8241,6 @@ export namespace Prisma {
   }
 
   export type ParcelUpdateOneRequiredWithoutAssessmentsNestedInput = {
-    create?: XOR<ParcelCreateWithoutAssessmentsInput, ParcelUncheckedCreateWithoutAssessmentsInput>
-    connectOrCreate?: ParcelCreateOrConnectWithoutAssessmentsInput
-    upsert?: ParcelUpsertWithoutAssessmentsInput
     connect?: ParcelWhereUniqueInput
     update?: XOR<XOR<ParcelUpdateToOneWithWhereWithoutAssessmentsInput, ParcelUpdateWithoutAssessmentsInput>, ParcelUncheckedUpdateWithoutAssessmentsInput>
   }
@@ -8406,24 +8250,14 @@ export namespace Prisma {
   }
 
   export type ParcelCreateNestedManyWithoutLandUseInput = {
-    create?: XOR<ParcelCreateWithoutLandUseInput, ParcelUncheckedCreateWithoutLandUseInput> | ParcelCreateWithoutLandUseInput[] | ParcelUncheckedCreateWithoutLandUseInput[]
-    connectOrCreate?: ParcelCreateOrConnectWithoutLandUseInput | ParcelCreateOrConnectWithoutLandUseInput[]
-    createMany?: ParcelCreateManyLandUseInputEnvelope
     connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
   }
 
   export type ParcelUncheckedCreateNestedManyWithoutLandUseInput = {
-    create?: XOR<ParcelCreateWithoutLandUseInput, ParcelUncheckedCreateWithoutLandUseInput> | ParcelCreateWithoutLandUseInput[] | ParcelUncheckedCreateWithoutLandUseInput[]
-    connectOrCreate?: ParcelCreateOrConnectWithoutLandUseInput | ParcelCreateOrConnectWithoutLandUseInput[]
-    createMany?: ParcelCreateManyLandUseInputEnvelope
     connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
   }
 
   export type ParcelUpdateManyWithoutLandUseNestedInput = {
-    create?: XOR<ParcelCreateWithoutLandUseInput, ParcelUncheckedCreateWithoutLandUseInput> | ParcelCreateWithoutLandUseInput[] | ParcelUncheckedCreateWithoutLandUseInput[]
-    connectOrCreate?: ParcelCreateOrConnectWithoutLandUseInput | ParcelCreateOrConnectWithoutLandUseInput[]
-    upsert?: ParcelUpsertWithWhereUniqueWithoutLandUseInput | ParcelUpsertWithWhereUniqueWithoutLandUseInput[]
-    createMany?: ParcelCreateManyLandUseInputEnvelope
     set?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
     disconnect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
     delete?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
@@ -8434,10 +8268,6 @@ export namespace Prisma {
   }
 
   export type ParcelUncheckedUpdateManyWithoutLandUseNestedInput = {
-    create?: XOR<ParcelCreateWithoutLandUseInput, ParcelUncheckedCreateWithoutLandUseInput> | ParcelCreateWithoutLandUseInput[] | ParcelUncheckedCreateWithoutLandUseInput[]
-    connectOrCreate?: ParcelCreateOrConnectWithoutLandUseInput | ParcelCreateOrConnectWithoutLandUseInput[]
-    upsert?: ParcelUpsertWithWhereUniqueWithoutLandUseInput | ParcelUpsertWithWhereUniqueWithoutLandUseInput[]
-    createMany?: ParcelCreateManyLandUseInputEnvelope
     set?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
     disconnect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
     delete?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
@@ -8448,24 +8278,14 @@ export namespace Prisma {
   }
 
   export type ParcelCreateNestedManyWithoutZoneInput = {
-    create?: XOR<ParcelCreateWithoutZoneInput, ParcelUncheckedCreateWithoutZoneInput> | ParcelCreateWithoutZoneInput[] | ParcelUncheckedCreateWithoutZoneInput[]
-    connectOrCreate?: ParcelCreateOrConnectWithoutZoneInput | ParcelCreateOrConnectWithoutZoneInput[]
-    createMany?: ParcelCreateManyZoneInputEnvelope
     connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
   }
 
   export type ParcelUncheckedCreateNestedManyWithoutZoneInput = {
-    create?: XOR<ParcelCreateWithoutZoneInput, ParcelUncheckedCreateWithoutZoneInput> | ParcelCreateWithoutZoneInput[] | ParcelUncheckedCreateWithoutZoneInput[]
-    connectOrCreate?: ParcelCreateOrConnectWithoutZoneInput | ParcelCreateOrConnectWithoutZoneInput[]
-    createMany?: ParcelCreateManyZoneInputEnvelope
     connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
   }
 
   export type ParcelUpdateManyWithoutZoneNestedInput = {
-    create?: XOR<ParcelCreateWithoutZoneInput, ParcelUncheckedCreateWithoutZoneInput> | ParcelCreateWithoutZoneInput[] | ParcelUncheckedCreateWithoutZoneInput[]
-    connectOrCreate?: ParcelCreateOrConnectWithoutZoneInput | ParcelCreateOrConnectWithoutZoneInput[]
-    upsert?: ParcelUpsertWithWhereUniqueWithoutZoneInput | ParcelUpsertWithWhereUniqueWithoutZoneInput[]
-    createMany?: ParcelCreateManyZoneInputEnvelope
     set?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
     disconnect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
     delete?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
@@ -8476,10 +8296,6 @@ export namespace Prisma {
   }
 
   export type ParcelUncheckedUpdateManyWithoutZoneNestedInput = {
-    create?: XOR<ParcelCreateWithoutZoneInput, ParcelUncheckedCreateWithoutZoneInput> | ParcelCreateWithoutZoneInput[] | ParcelUncheckedCreateWithoutZoneInput[]
-    connectOrCreate?: ParcelCreateOrConnectWithoutZoneInput | ParcelCreateOrConnectWithoutZoneInput[]
-    upsert?: ParcelUpsertWithWhereUniqueWithoutZoneInput | ParcelUpsertWithWhereUniqueWithoutZoneInput[]
-    createMany?: ParcelCreateManyZoneInputEnvelope
     set?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
     disconnect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
     delete?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
@@ -8487,46 +8303,6 @@ export namespace Prisma {
     update?: ParcelUpdateWithWhereUniqueWithoutZoneInput | ParcelUpdateWithWhereUniqueWithoutZoneInput[]
     updateMany?: ParcelUpdateManyWithWhereWithoutZoneInput | ParcelUpdateManyWithWhereWithoutZoneInput[]
     deleteMany?: ParcelScalarWhereInput | ParcelScalarWhereInput[]
-  }
-
-  export type AddressCreateNestedManyWithoutParcelInput = {
-    create?: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput> | AddressCreateWithoutParcelInput[] | AddressUncheckedCreateWithoutParcelInput[]
-    connectOrCreate?: AddressCreateOrConnectWithoutParcelInput | AddressCreateOrConnectWithoutParcelInput[]
-    createMany?: AddressCreateManyParcelInputEnvelope
-    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
-  }
-
-  export type ZoneCreateNestedOneWithoutParcelsInput = {
-    create?: XOR<ZoneCreateWithoutParcelsInput, ZoneUncheckedCreateWithoutParcelsInput>
-    connectOrCreate?: ZoneCreateOrConnectWithoutParcelsInput
-    connect?: ZoneWhereUniqueInput
-  }
-
-  export type LandUseCreateNestedOneWithoutParcelsInput = {
-    create?: XOR<LandUseCreateWithoutParcelsInput, LandUseUncheckedCreateWithoutParcelsInput>
-    connectOrCreate?: LandUseCreateOrConnectWithoutParcelsInput
-    connect?: LandUseWhereUniqueInput
-  }
-
-  export type AssessmentCreateNestedManyWithoutParcelInput = {
-    create?: XOR<AssessmentCreateWithoutParcelInput, AssessmentUncheckedCreateWithoutParcelInput> | AssessmentCreateWithoutParcelInput[] | AssessmentUncheckedCreateWithoutParcelInput[]
-    connectOrCreate?: AssessmentCreateOrConnectWithoutParcelInput | AssessmentCreateOrConnectWithoutParcelInput[]
-    createMany?: AssessmentCreateManyParcelInputEnvelope
-    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
-  }
-
-  export type AddressUncheckedCreateNestedManyWithoutParcelInput = {
-    create?: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput> | AddressCreateWithoutParcelInput[] | AddressUncheckedCreateWithoutParcelInput[]
-    connectOrCreate?: AddressCreateOrConnectWithoutParcelInput | AddressCreateOrConnectWithoutParcelInput[]
-    createMany?: AddressCreateManyParcelInputEnvelope
-    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
-  }
-
-  export type AssessmentUncheckedCreateNestedManyWithoutParcelInput = {
-    create?: XOR<AssessmentCreateWithoutParcelInput, AssessmentUncheckedCreateWithoutParcelInput> | AssessmentCreateWithoutParcelInput[] | AssessmentUncheckedCreateWithoutParcelInput[]
-    connectOrCreate?: AssessmentCreateOrConnectWithoutParcelInput | AssessmentCreateOrConnectWithoutParcelInput[]
-    createMany?: AssessmentCreateManyParcelInputEnvelope
-    connect?: AssessmentWhereUniqueInput | AssessmentWhereUniqueInput[]
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -8610,8 +8386,6 @@ export namespace Prisma {
   }
 
   export type ParcelCreateNestedOneWithoutAddressesInput = {
-    create?: XOR<ParcelCreateWithoutAddressesInput, ParcelUncheckedCreateWithoutAddressesInput>
-    connectOrCreate?: ParcelCreateOrConnectWithoutAddressesInput
     connect?: ParcelWhereUniqueInput
   }
 
@@ -8640,9 +8414,6 @@ export namespace Prisma {
   }
 
   export type ParcelUpdateOneRequiredWithoutAddressesNestedInput = {
-    create?: XOR<ParcelCreateWithoutAddressesInput, ParcelUncheckedCreateWithoutAddressesInput>
-    connectOrCreate?: ParcelCreateOrConnectWithoutAddressesInput
-    upsert?: ParcelUpsertWithoutAddressesInput
     connect?: ParcelWhereUniqueInput
     update?: XOR<XOR<ParcelUpdateToOneWithWhereWithoutAddressesInput, ParcelUpdateWithoutAddressesInput>, ParcelUncheckedUpdateWithoutAddressesInput>
   }
@@ -8882,35 +8653,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type ParcelCreateWithoutAssessmentsInput = {
-    id: string
-    sqft: number
-    acres: number
-    addresses?: AddressCreateNestedManyWithoutParcelInput
-    zone: ZoneCreateNestedOneWithoutParcelsInput
-    landUse: LandUseCreateNestedOneWithoutParcelsInput
-  }
-
-  export type ParcelUncheckedCreateWithoutAssessmentsInput = {
-    id: string
-    sqft: number
-    acres: number
-    zoneId: string
-    landUseId: string
-    addresses?: AddressUncheckedCreateNestedManyWithoutParcelInput
-  }
-
-  export type ParcelCreateOrConnectWithoutAssessmentsInput = {
-    where: ParcelWhereUniqueInput
-    create: XOR<ParcelCreateWithoutAssessmentsInput, ParcelUncheckedCreateWithoutAssessmentsInput>
-  }
-
-  export type ParcelUpsertWithoutAssessmentsInput = {
-    update: XOR<ParcelUpdateWithoutAssessmentsInput, ParcelUncheckedUpdateWithoutAssessmentsInput>
-    create: XOR<ParcelCreateWithoutAssessmentsInput, ParcelUncheckedCreateWithoutAssessmentsInput>
-    where?: ParcelWhereInput
-  }
-
   export type ParcelUpdateToOneWithWhereWithoutAssessmentsInput = {
     where?: ParcelWhereInput
     data: XOR<ParcelUpdateWithoutAssessmentsInput, ParcelUncheckedUpdateWithoutAssessmentsInput>
@@ -8934,40 +8676,6 @@ export namespace Prisma {
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
   }
 
-  export type ParcelCreateWithoutLandUseInput = {
-    id: string
-    sqft: number
-    acres: number
-    addresses?: AddressCreateNestedManyWithoutParcelInput
-    zone: ZoneCreateNestedOneWithoutParcelsInput
-    assessments?: AssessmentCreateNestedManyWithoutParcelInput
-  }
-
-  export type ParcelUncheckedCreateWithoutLandUseInput = {
-    id: string
-    sqft: number
-    acres: number
-    zoneId: string
-    addresses?: AddressUncheckedCreateNestedManyWithoutParcelInput
-    assessments?: AssessmentUncheckedCreateNestedManyWithoutParcelInput
-  }
-
-  export type ParcelCreateOrConnectWithoutLandUseInput = {
-    where: ParcelWhereUniqueInput
-    create: XOR<ParcelCreateWithoutLandUseInput, ParcelUncheckedCreateWithoutLandUseInput>
-  }
-
-  export type ParcelCreateManyLandUseInputEnvelope = {
-    data: ParcelCreateManyLandUseInput | ParcelCreateManyLandUseInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ParcelUpsertWithWhereUniqueWithoutLandUseInput = {
-    where: ParcelWhereUniqueInput
-    update: XOR<ParcelUpdateWithoutLandUseInput, ParcelUncheckedUpdateWithoutLandUseInput>
-    create: XOR<ParcelCreateWithoutLandUseInput, ParcelUncheckedCreateWithoutLandUseInput>
-  }
-
   export type ParcelUpdateWithWhereUniqueWithoutLandUseInput = {
     where: ParcelWhereUniqueInput
     data: XOR<ParcelUpdateWithoutLandUseInput, ParcelUncheckedUpdateWithoutLandUseInput>
@@ -8987,40 +8695,6 @@ export namespace Prisma {
     acres?: FloatFilter<"Parcel"> | number
     zoneId?: StringFilter<"Parcel"> | string
     landUseId?: StringFilter<"Parcel"> | string
-  }
-
-  export type ParcelCreateWithoutZoneInput = {
-    id: string
-    sqft: number
-    acres: number
-    addresses?: AddressCreateNestedManyWithoutParcelInput
-    landUse: LandUseCreateNestedOneWithoutParcelsInput
-    assessments?: AssessmentCreateNestedManyWithoutParcelInput
-  }
-
-  export type ParcelUncheckedCreateWithoutZoneInput = {
-    id: string
-    sqft: number
-    acres: number
-    landUseId: string
-    addresses?: AddressUncheckedCreateNestedManyWithoutParcelInput
-    assessments?: AssessmentUncheckedCreateNestedManyWithoutParcelInput
-  }
-
-  export type ParcelCreateOrConnectWithoutZoneInput = {
-    where: ParcelWhereUniqueInput
-    create: XOR<ParcelCreateWithoutZoneInput, ParcelUncheckedCreateWithoutZoneInput>
-  }
-
-  export type ParcelCreateManyZoneInputEnvelope = {
-    data: ParcelCreateManyZoneInput | ParcelCreateManyZoneInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ParcelUpsertWithWhereUniqueWithoutZoneInput = {
-    where: ParcelWhereUniqueInput
-    update: XOR<ParcelUpdateWithoutZoneInput, ParcelUncheckedUpdateWithoutZoneInput>
-    create: XOR<ParcelCreateWithoutZoneInput, ParcelUncheckedCreateWithoutZoneInput>
   }
 
   export type ParcelUpdateWithWhereUniqueWithoutZoneInput = {
@@ -9058,69 +8732,15 @@ export namespace Prisma {
     create: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput>
   }
 
-  export type AddressCreateManyParcelInputEnvelope = {
-    data: AddressCreateManyParcelInput | AddressCreateManyParcelInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ZoneCreateWithoutParcelsInput = {
-    id: string
-    zoneDesc: string
-  }
-
-  export type ZoneUncheckedCreateWithoutParcelsInput = {
-    id: string
-    zoneDesc: string
-  }
-
-  export type ZoneCreateOrConnectWithoutParcelsInput = {
-    where: ZoneWhereUniqueInput
-    create: XOR<ZoneCreateWithoutParcelsInput, ZoneUncheckedCreateWithoutParcelsInput>
-  }
-
-  export type LandUseCreateWithoutParcelsInput = {
-    id: string
-    landUseDesc: string
-  }
-
-  export type LandUseUncheckedCreateWithoutParcelsInput = {
-    id: string
-    landUseDesc: string
-  }
-
-  export type LandUseCreateOrConnectWithoutParcelsInput = {
-    where: LandUseWhereUniqueInput
-    create: XOR<LandUseCreateWithoutParcelsInput, LandUseUncheckedCreateWithoutParcelsInput>
-  }
-
-  export type AssessmentCreateWithoutParcelInput = {
-    year: number
-    improvements: number
-    land: number
-    total: number
-  }
-
-  export type AssessmentUncheckedCreateWithoutParcelInput = {
-    year: number
-    improvements: number
-    land: number
-    total: number
-  }
-
-  export type AssessmentCreateOrConnectWithoutParcelInput = {
-    where: AssessmentWhereUniqueInput
-    create: XOR<AssessmentCreateWithoutParcelInput, AssessmentUncheckedCreateWithoutParcelInput>
-  }
-
-  export type AssessmentCreateManyParcelInputEnvelope = {
-    data: AssessmentCreateManyParcelInput | AssessmentCreateManyParcelInput[]
-    skipDuplicates?: boolean
-  }
-
   export type AddressUpsertWithWhereUniqueWithoutParcelInput = {
     where: AddressWhereUniqueInput
     update: XOR<AddressUpdateWithoutParcelInput, AddressUncheckedUpdateWithoutParcelInput>
     create: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput>
+  }
+
+  export type AddressCreateManyParcelInputEnvelope = {
+    data: AddressCreateManyParcelInput | AddressCreateManyParcelInput[]
+    skipDuplicates?: boolean
   }
 
   export type AddressUpdateWithWhereUniqueWithoutParcelInput = {
@@ -9146,6 +8766,21 @@ export namespace Prisma {
     parcelId?: StringFilter<"Address"> | string
   }
 
+  export type ZoneCreateWithoutParcelsInput = {
+    id: string
+    zoneDesc: string
+  }
+
+  export type ZoneUncheckedCreateWithoutParcelsInput = {
+    id: string
+    zoneDesc: string
+  }
+
+  export type ZoneCreateOrConnectWithoutParcelsInput = {
+    where: ZoneWhereUniqueInput
+    create: XOR<ZoneCreateWithoutParcelsInput, ZoneUncheckedCreateWithoutParcelsInput>
+  }
+
   export type ZoneUpsertWithoutParcelsInput = {
     update: XOR<ZoneUpdateWithoutParcelsInput, ZoneUncheckedUpdateWithoutParcelsInput>
     create: XOR<ZoneCreateWithoutParcelsInput, ZoneUncheckedCreateWithoutParcelsInput>
@@ -9165,6 +8800,21 @@ export namespace Prisma {
   export type ZoneUncheckedUpdateWithoutParcelsInput = {
     id?: StringFieldUpdateOperationsInput | string
     zoneDesc?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LandUseCreateWithoutParcelsInput = {
+    id: string
+    landUseDesc: string
+  }
+
+  export type LandUseUncheckedCreateWithoutParcelsInput = {
+    id: string
+    landUseDesc: string
+  }
+
+  export type LandUseCreateOrConnectWithoutParcelsInput = {
+    where: LandUseWhereUniqueInput
+    create: XOR<LandUseCreateWithoutParcelsInput, LandUseUncheckedCreateWithoutParcelsInput>
   }
 
   export type LandUseUpsertWithoutParcelsInput = {
@@ -9188,10 +8838,34 @@ export namespace Prisma {
     landUseDesc?: StringFieldUpdateOperationsInput | string
   }
 
+  export type AssessmentCreateWithoutParcelInput = {
+    year: number
+    improvements: number
+    land: number
+    total: number
+  }
+
+  export type AssessmentUncheckedCreateWithoutParcelInput = {
+    year: number
+    improvements: number
+    land: number
+    total: number
+  }
+
+  export type AssessmentCreateOrConnectWithoutParcelInput = {
+    where: AssessmentWhereUniqueInput
+    create: XOR<AssessmentCreateWithoutParcelInput, AssessmentUncheckedCreateWithoutParcelInput>
+  }
+
   export type AssessmentUpsertWithWhereUniqueWithoutParcelInput = {
     where: AssessmentWhereUniqueInput
     update: XOR<AssessmentUpdateWithoutParcelInput, AssessmentUncheckedUpdateWithoutParcelInput>
     create: XOR<AssessmentCreateWithoutParcelInput, AssessmentUncheckedCreateWithoutParcelInput>
+  }
+
+  export type AssessmentCreateManyParcelInputEnvelope = {
+    data: AssessmentCreateManyParcelInput | AssessmentCreateManyParcelInput[]
+    skipDuplicates?: boolean
   }
 
   export type AssessmentUpdateWithWhereUniqueWithoutParcelInput = {
@@ -9213,29 +8887,6 @@ export namespace Prisma {
     improvements?: IntFilter<"Assessment"> | number
     land?: IntFilter<"Assessment"> | number
     total?: IntFilter<"Assessment"> | number
-  }
-
-  export type ParcelCreateWithoutAddressesInput = {
-    id: string
-    sqft: number
-    acres: number
-    zone: ZoneCreateNestedOneWithoutParcelsInput
-    landUse: LandUseCreateNestedOneWithoutParcelsInput
-    assessments?: AssessmentCreateNestedManyWithoutParcelInput
-  }
-
-  export type ParcelUncheckedCreateWithoutAddressesInput = {
-    id: string
-    sqft: number
-    acres: number
-    zoneId: string
-    landUseId: string
-    assessments?: AssessmentUncheckedCreateNestedManyWithoutParcelInput
-  }
-
-  export type ParcelCreateOrConnectWithoutAddressesInput = {
-    where: ParcelWhereUniqueInput
-    create: XOR<ParcelCreateWithoutAddressesInput, ParcelUncheckedCreateWithoutAddressesInput>
   }
 
   export type ListingCreateWithoutAddressInput = {
@@ -9261,12 +8912,6 @@ export namespace Prisma {
   export type ListingCreateOrConnectWithoutAddressInput = {
     where: ListingWhereUniqueInput
     create: XOR<ListingCreateWithoutAddressInput, ListingUncheckedCreateWithoutAddressInput>
-  }
-
-  export type ParcelUpsertWithoutAddressesInput = {
-    update: XOR<ParcelUpdateWithoutAddressesInput, ParcelUncheckedUpdateWithoutAddressesInput>
-    create: XOR<ParcelCreateWithoutAddressesInput, ParcelUncheckedCreateWithoutAddressesInput>
-    where?: ParcelWhereInput
   }
 
   export type ParcelUpdateToOneWithWhereWithoutAddressesInput = {
@@ -9379,13 +9024,6 @@ export namespace Prisma {
     parcelId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ParcelCreateManyLandUseInput = {
-    id: string
-    sqft: number
-    acres: number
-    zoneId: string
-  }
-
   export type ParcelUpdateWithoutLandUseInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
@@ -9409,13 +9047,6 @@ export namespace Prisma {
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ParcelCreateManyZoneInput = {
-    id: string
-    sqft: number
-    acres: number
-    landUseId: string
   }
 
   export type ParcelUpdateWithoutZoneInput = {
@@ -9443,22 +9074,6 @@ export namespace Prisma {
     landUseId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type AddressCreateManyParcelInput = {
-    id: string
-    num?: number | null
-    street?: string | null
-    st_suffix?: string | null
-    city?: string | null
-    zip?: string | null
-  }
-
-  export type AssessmentCreateManyParcelInput = {
-    year: number
-    improvements: number
-    land: number
-    total: number
-  }
-
   export type AddressUpdateWithoutParcelInput = {
     id?: StringFieldUpdateOperationsInput | string
     num?: NullableIntFieldUpdateOperationsInput | number | null
@@ -9477,6 +9092,15 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     zip?: NullableStringFieldUpdateOperationsInput | string | null
     listing?: ListingUncheckedUpdateOneWithoutAddressNestedInput
+  }
+
+  export type AddressCreateManyParcelInput = {
+    id: string
+    num?: number | null
+    street?: string | null
+    st_suffix?: string | null
+    city?: string | null
+    zip?: string | null
   }
 
   export type AddressUncheckedUpdateManyWithoutParcelInput = {
@@ -9500,6 +9124,13 @@ export namespace Prisma {
     improvements?: IntFieldUpdateOperationsInput | number
     land?: IntFieldUpdateOperationsInput | number
     total?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AssessmentCreateManyParcelInput = {
+    year: number
+    improvements: number
+    land: number
+    total: number
   }
 
   export type AssessmentUncheckedUpdateManyWithoutParcelInput = {
