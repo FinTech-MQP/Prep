@@ -178,6 +178,17 @@ const ProgramInfo = styled.div<ProgramTypographyProps>`
   box-sizing: border-box;
   height: 120px;
   transition: background-color 0.3s ease;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${WILLOW_COLOR};
+    border-radius: 20px;
+    border: none;
+  }
 `;
 
 interface ProgramTypographyProps extends TypographyProps {

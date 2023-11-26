@@ -77,6 +77,13 @@ const styles = {
     lineHeight: "1",
     letterSpacing: "-1px",
   },
+  default: {
+    display: "grid",
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gridGap: "10px",
+    width: "80%",
+    margin: "40px 0 100px 0",
+  },
 };
 
 const DownButton = styled(Button)`
@@ -209,6 +216,50 @@ const ChatBox = ({ currentPage }: ChatBoxProps) => {
             </Typography>
             <br />
             <Typography sx={styles.placeholder}>How can I help?</Typography>
+            <Box sx={styles.default}>
+              <Button
+                variant="contained"
+                style={{ width: "100%", height: "120px" }}
+                onClick={() => {
+                  sendMessage("Tell me about the listing.");
+                }}
+              >
+                Tell me about the listing
+              </Button>
+              <Button
+                variant="contained"
+                style={{ width: "100%", height: "120px" }}
+                onClick={() => {
+                  sendMessage(
+                    "Give me a summary on prior assessments and land use."
+                  );
+                }}
+              >
+                Give me a summary on prior assessments and land use
+              </Button>
+              <Button
+                variant="contained"
+                style={{ width: "100%", height: "120px" }}
+                onClick={() => {
+                  sendMessage(
+                    "What is the potential for value appreciation or ROI?"
+                  );
+                }}
+              >
+                What is the potential for value appreciation or ROI?
+              </Button>
+              <Button
+                variant="contained"
+                style={{ width: "100%", height: "120px" }}
+                onClick={() => {
+                  sendMessage(
+                    "What are the risks and challenges associated with development?"
+                  );
+                }}
+              >
+                What are the risks and challenges associated with development?
+              </Button>
+            </Box>
           </Box>
         ) : (
           <List sx={styles.list}>
