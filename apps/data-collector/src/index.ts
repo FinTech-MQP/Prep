@@ -21,6 +21,7 @@ import {
   ParcelPolygonAPIDataSource,
   ParcelPolygonDataSource,
 } from "./data-api/parcel/parcelPolygon";
+import { updateAllParcels } from "./scheduled";
 
 const app = express();
 
@@ -36,6 +37,11 @@ TODO: All data collection logic should be
 ------------------------------------------
 
 */
+
+app.get(`/api/listing/update`, async (req, res) => {
+  updateAllParcels();
+  return res.json({ msg: "Called function." });
+});
 
 app.get(`/api/listing/:id`, async (req, res) => {
   let { id }: { id?: string } = req.params;
@@ -200,8 +206,10 @@ app.post(`/gis/address/:id`, async (req, res) => {
   let parcelPolygon = await parcelPolygonDataSource.fetchParcelPolygon(
     address.parcelId
   );
-  if(parcelPolygon === undefined) {
-    return res.json({ error: `Parcel polygon for parcel ${address.parcelId} not found` });
+  if (parcelPolygon === undefined) {
+    return res.json({
+      error: `Parcel polygon for parcel ${address.parcelId} not found`,
+    });
   }
 
   let zone = await zoneDataSource.fetchZone(parcel.zoneId);
