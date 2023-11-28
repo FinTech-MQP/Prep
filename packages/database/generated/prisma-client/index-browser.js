@@ -154,9 +154,25 @@ exports.Prisma.ListingScalarFieldEnum = {
   addressId: 'addressId'
 };
 
+exports.Prisma.AnalysisScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  question: 'question',
+  answer: 'answer',
+  explanation: 'explanation',
+  data: 'data',
+  parcelId: 'parcelId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -169,6 +185,12 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
 
 exports.Prisma.ModelName = {
   Assessment: 'Assessment',
@@ -176,7 +198,8 @@ exports.Prisma.ModelName = {
   Zone: 'Zone',
   Parcel: 'Parcel',
   Address: 'Address',
-  Listing: 'Listing'
+  Listing: 'Listing',
+  Analysis: 'Analysis'
 };
 
 /**
