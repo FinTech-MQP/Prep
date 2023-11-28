@@ -5,6 +5,7 @@ import {
   ReactNode,
   ReactPortal,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { userContext } from "../App";
@@ -15,12 +16,12 @@ import ImageGrid from "./ImageGrid";
 import styled from "@emotion/styled";
 import { ProgramCriteria } from "@monorepo/utils/interfaces";
 import { Range } from "react-range";
-import SoloSlider from "./SoloSlider";
 import { TypographyProps } from "@mui/material/Typography";
 import { BookmarkButton } from "./BookmarkButton";
 import { Page } from "./Page";
-import Pertmitting from "./Permitting";
 import InfoIcon from "@mui/icons-material/Info";
+import Permitting from "./Permitting";
+import ChatBox from "./ChatBox";
 
 const styles = {
   inspectPseudo: {
@@ -116,14 +117,6 @@ const styles = {
     padding: "10px 0 0 0",
     boxSizing: "border-box",
   },
-  emailError: {
-    color: "red",
-    margin: "0 0 6px 0",
-  },
-  emailBox: {
-    display: "flex",
-    flexDirection: "row",
-  },
   buttonContainer: {
     width: "100%",
     display: "flex",
@@ -185,6 +178,17 @@ const ProgramInfo = styled.div<ProgramTypographyProps>`
   box-sizing: border-box;
   height: 120px;
   transition: background-color 0.3s ease;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${WILLOW_COLOR};
+    border-radius: 20px;
+    border: none;
+  }
 `;
 
 interface ProgramTypographyProps extends TypographyProps {
@@ -199,20 +203,23 @@ const ProgramTypography = styled(Typography)<ProgramTypographyProps>`
 const evaluateCriteria = (
   programCriteria: ProgramCriteria,
   userCriteria: {
-    amiRange: any;
-    adaRange: any;
-    mixedIncome: any;
-    affordabilityTerm: any;
-    unhoused?: any;
-    marketRate?: any;
+    amiRange: [number, number];
+    adaRange: [number, number];
+    mixedIncome: boolean;
+    affordabilityTerm: [number, number];
+    unhoused?: boolean;
+    firstTimeHomebuyers?: string;
+    constructionStartDate?: string;
+    dateOfOccupancyRequired?: string;
   }
 ) => {
-  const explanations = [];
+  const explanations: string[] = [];
 
-  // Check each criterion and add to explanations if there's a mismatch
+  // Check AMI range
   if (
-    userCriteria.amiRange[0] < programCriteria.amiRange[0] ||
-    userCriteria.amiRange[1] > programCriteria.amiRange[1]
+    !(programCriteria.amiRange[0] === 0 && programCriteria.amiRange[1] === 0) &&
+    (userCriteria.amiRange[0] < programCriteria.amiRange[0] ||
+      userCriteria.amiRange[1] > programCriteria.amiRange[1])
   ) {
     explanations.push(
       `AMI range (${userCriteria.amiRange.join(
@@ -222,9 +229,12 @@ const evaluateCriteria = (
       )}%)`
     );
   }
+
+  // Check ADA range
   if (
-    userCriteria.adaRange[0] < programCriteria.adaRange[0] ||
-    userCriteria.adaRange[1] > programCriteria.adaRange[1]
+    !(programCriteria.adaRange[0] === 0 && programCriteria.adaRange[1] === 0) &&
+    (userCriteria.adaRange[0] < programCriteria.adaRange[0] ||
+      userCriteria.adaRange[1] > programCriteria.adaRange[1])
   ) {
     explanations.push(
       `ADA range (${userCriteria.adaRange.join(
@@ -234,42 +244,79 @@ const evaluateCriteria = (
       )}%)`
     );
   }
+
+  // Check mixed income requirement
   if (programCriteria.mixedIncome && !userCriteria.mixedIncome) {
     explanations.push(
       "Program requires mixed income and the property is not mixed income"
     );
   }
-  if (userCriteria.affordabilityTerm < programCriteria.affordabilityTerm) {
-    explanations.push(
-      `Affordability term (${userCriteria.affordabilityTerm} years) is less than required (${programCriteria.affordabilityTerm} years minimum)`
-    );
-  }
+
+  console.log();
+
+  // Check affordability term
   if (
-    programCriteria.priorityAmi &&
-    userCriteria.amiRange[1] > programCriteria.priorityAmi
+    !(
+      programCriteria.affordabilityTerm[0] === 0 &&
+      programCriteria.affordabilityTerm[1] === 0
+    ) &&
+    (userCriteria.affordabilityTerm[0] < programCriteria.affordabilityTerm[0] ||
+      userCriteria.affordabilityTerm[1] > programCriteria.affordabilityTerm[1])
   ) {
     explanations.push(
-      `Priority is given to those with AMI under ${programCriteria.priorityAmi}%, your upper range is ${userCriteria.amiRange[1]}%`
+      `Affordability term range (${userCriteria.affordabilityTerm.join(
+        "-"
+      )}%) is outside the program criteria (${programCriteria.affordabilityTerm.join(
+        "-"
+      )}%)`
     );
   }
+
+  // Check unhoused requirement
   if (
     programCriteria.unhoused !== undefined &&
     programCriteria.unhoused !== userCriteria.unhoused
   ) {
     explanations.push(
-      "Program is specific to unhoused individuals, which does not match your criteria"
+      `Program ${
+        programCriteria.unhoused ? "is" : "is not"
+      } specific to unhoused individuals, which does not match your criteria.`
     );
   }
+
+  // Check first-time homebuyer requirement
   if (
-    programCriteria.marketRate !== undefined &&
-    userCriteria.marketRate !== programCriteria.marketRate
+    programCriteria.firstTimeHomebuyers &&
+    !userCriteria.firstTimeHomebuyers
   ) {
     explanations.push(
-      `Program is for ${
-        programCriteria.marketRate ? "market rate" : "non-market rate"
-      } developments which does not match your criteria`
+      "Program is specifically for first-time homebuyers, which does not match your criteria."
     );
   }
+
+  if (
+    programCriteria.constructionStartDate &&
+    userCriteria.constructionStartDate &&
+    new Date(userCriteria.constructionStartDate) <
+      new Date(programCriteria.constructionStartDate)
+  ) {
+    explanations.push(
+      `Construction start date (${userCriteria.constructionStartDate}) is earlier than the program requirement (${programCriteria.constructionStartDate})`
+    );
+  }
+
+  // Check for date of occupancy
+  if (
+    programCriteria.dateOfOccupancyRequired &&
+    userCriteria.dateOfOccupancyRequired &&
+    new Date(userCriteria.dateOfOccupancyRequired) <
+      new Date(programCriteria.dateOfOccupancyRequired)
+  ) {
+    explanations.push(
+      `Date of occupancy (${userCriteria.dateOfOccupancyRequired}) is earlier than the program requirement (${programCriteria.dateOfOccupancyRequired})`
+    );
+  }
+
   return {
     match: explanations.length === 0,
     explanation: explanations.join(". ") || "Applicable",
@@ -278,11 +325,16 @@ const evaluateCriteria = (
 
 const Inspect = ({ close }: InspectProps) => {
   const user = useContext(userContext);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [activePage, setActivePage] = useState<number>(1);
   const [amiValues, setAmiValues] = useState<[number, number]>([0, 120]);
   const [adaValues, setAdaValues] = useState<[number, number]>([0, 100]);
   const [isMixedIncome, setIsMixedIncome] = useState<boolean>(false);
-  const [affordabilityTerm, setAffordabilityTerm] = useState<number>(0);
+  const [affordabilityTermValues, setAffordabilityTermValues] = useState<
+    [number, number]
+  >([0, 40]);
+  const [isUnHoused, setIsUnHoused] = useState<boolean>(false);
+  const [firstTime, setFirstTime] = useState<string>("No");
   const [buildingCommencement, setBuildingCommencement] = useState<string>("");
   const [occupancyDate, setOccupancyDate] = useState<string>("");
   const today = new Date().toISOString().split("T")[0];
@@ -290,6 +342,29 @@ const Inspect = ({ close }: InspectProps) => {
   const handleBookmarkClick = (pageIndex: number) => {
     setActivePage(pageIndex);
   };
+
+  useEffect(() => {
+    /*
+    setIsLoading(true);
+    console.log("api call");
+    if (user.currListing)
+      OpenAI_API.analyze(user.currListing).then((result: string) => {
+        const jsonString = result.substring(
+          result.indexOf("{"),
+          result.lastIndexOf("}") + 1
+        );
+
+        const parsedData = JSON.parse(jsonString) as QuestionsMap;
+
+        console.log(parsedData);
+
+        if (JSON.stringify(user.currAnalysis) !== JSON.stringify(parsedData)) {
+          user.setCurrAnalysis(parsedData);
+        }
+
+        setIsLoading(false);
+      });*/
+  }, [user.currListing]);
 
   return (
     <Box sx={styles.inspectPseudo}>
@@ -336,9 +411,12 @@ const Inspect = ({ close }: InspectProps) => {
                         {
                           amiRange: amiValues,
                           adaRange: adaValues,
+                          unhoused: isUnHoused,
+                          firstTimeHomebuyers: firstTime,
                           mixedIncome: isMixedIncome,
-                          affordabilityTerm,
-                          // Add other criteria as necessary
+                          affordabilityTerm: affordabilityTermValues,
+                          constructionStartDate: buildingCommencement,
+                          dateOfOccupancyRequired: occupancyDate,
                         }
                       );
 
@@ -359,7 +437,7 @@ const Inspect = ({ close }: InspectProps) => {
                   </ProgramContainer>
                 </Page>
                 <Page isOpen={activePage === 3} left={true}>
-                  <Pertmitting />
+                  <Permitting isLoading={isLoading} />
                 </Page>
               </Box>
             </Box>
@@ -379,7 +457,9 @@ const Inspect = ({ close }: InspectProps) => {
                           {" | "}
                           {user.currListing.address.parcelId.toString()}
                           {" | "}
-                          {user.currListing.address.parcel.acres.toLocaleString()}
+                          {user.currListing.address.parcel.acres
+                            .toFixed(2)
+                            .toLocaleString()}
                           {" acres"}
                         </Typography>
                         <Box sx={styles.labelContainer}>
@@ -424,16 +504,19 @@ const Inspect = ({ close }: InspectProps) => {
                           }}
                         >
                           <Tooltip
-                            title="More information"
+                            title="AMI, or Area Median Income, represents the median income in a specific area. When developers build affordable housing to a percentage of AMI, they set rents or sale prices to accommodate individuals or families earning a certain percentage of the local median income, making housing more accessible."
                             placement="left"
                             arrow
                             enterDelay={500}
                             leaveDelay={200}
-                            sx={{ marginRight: "4px" }}
+                            sx={{
+                              marginRight: "4px",
+                            }}
                           >
                             <InfoIcon />
                           </Tooltip>
-                          AMI Range: {amiValues[0]}% - {amiValues[1]}%
+                          Area Median Income (AMI): {amiValues[0]}% -{" "}
+                          {amiValues[1]}%
                         </Typography>
                         <RangeContainer>
                           <Range
@@ -487,7 +570,7 @@ const Inspect = ({ close }: InspectProps) => {
                           }}
                         >
                           <Tooltip
-                            title="More information"
+                            title="ADA stands for the Americans with Disabilities Act. When developers build a percentage of units as ADA-compliant, those units are designed to meet accessibility standards outlined in the ADA, ensuring they accommodate individuals with disabilities promoting inclusivity and equal access to housing."
                             placement="left"
                             arrow
                             enterDelay={500}
@@ -496,7 +579,8 @@ const Inspect = ({ close }: InspectProps) => {
                           >
                             <InfoIcon />
                           </Tooltip>
-                          ADA Range: {adaValues[0]}% - {adaValues[1]}%
+                          Americans with Disability Act (ADA): {adaValues[0]}% -{" "}
+                          {adaValues[1]}%
                         </Typography>
                         <RangeContainer>
                           <Range
@@ -540,7 +624,6 @@ const Inspect = ({ close }: InspectProps) => {
                             )}
                           />
                         </RangeContainer>
-                        {/* Mixed Income Radio Buttons */}
                         <fieldset>
                           <legend
                             style={{
@@ -565,10 +648,138 @@ const Inspect = ({ close }: InspectProps) => {
                               >
                                 <InfoIcon />
                               </Tooltip>
+                              Is the property intended for unhoused residents?
+                            </Typography>
+                          </legend>
+                          <Typography
+                            sx={{ cursor: "pointer" }}
+                            onClick={() => setIsUnHoused(true)}
+                          >
+                            <input
+                              type="radio"
+                              name="unHoused"
+                              value="yes"
+                              checked={isUnHoused}
+                              onChange={() => setIsUnHoused(true)}
+                            />
+                            <span style={{ userSelect: "none" }}>Yes</span>
+                          </Typography>
+                          <Typography
+                            sx={{ cursor: "pointer" }}
+                            onClick={() => setIsUnHoused(false)}
+                          >
+                            <input
+                              type="radio"
+                              name="unHoused"
+                              value="no"
+                              checked={!isUnHoused}
+                              onChange={() => setIsUnHoused(false)}
+                            />
+                            <span style={{ userSelect: "none" }}>No</span>
+                          </Typography>
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                          <legend
+                            style={{
+                              fontFamily:
+                                '"Roboto", "Helvetica", "Arial", sans-serif',
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                width: "fit-content",
+                              }}
+                            >
+                              <Tooltip
+                                title="More information"
+                                placement="left"
+                                arrow
+                                enterDelay={500}
+                                leaveDelay={200}
+                                sx={{ marginRight: "4px" }}
+                              >
+                                <InfoIcon />
+                              </Tooltip>
+                              Is the property targeted towards first-time
+                              homebuyers?
+                            </Typography>
+                          </legend>
+                          <Typography
+                            sx={{ cursor: "pointer" }}
+                            onClick={() => setFirstTime("Yes")}
+                          >
+                            <input
+                              type="radio"
+                              name="firstTime"
+                              value="yes"
+                              checked={firstTime === "Yes"}
+                              onChange={() => setFirstTime("Yes")}
+                            />
+                            <span style={{ userSelect: "none" }}>Yes</span>
+                          </Typography>
+                          <Typography
+                            sx={{ cursor: "pointer" }}
+                            onClick={() => setFirstTime("Some")}
+                          >
+                            <input
+                              type="radio"
+                              name="firstTime"
+                              value="Some"
+                              checked={firstTime === "Some"}
+                              onChange={() => setFirstTime("Some")}
+                            />
+                            <span style={{ userSelect: "none" }}>Some</span>
+                          </Typography>
+                          <Typography
+                            sx={{ cursor: "pointer" }}
+                            onClick={() => setFirstTime("No")}
+                          >
+                            <input
+                              type="radio"
+                              name="firstTime"
+                              value="no"
+                              checked={firstTime === "No"}
+                              onChange={() => setFirstTime("No")}
+                            />
+                            <span style={{ userSelect: "none" }}>No</span>
+                          </Typography>
+                        </fieldset>
+                        <br />
+                        {/* Mixed Income Radio Buttons */}
+                        <fieldset>
+                          <legend
+                            style={{
+                              fontFamily:
+                                '"Roboto", "Helvetica", "Arial", sans-serif',
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                width: "fit-content",
+                              }}
+                            >
+                              <Tooltip
+                                title="Mixed-income housing integrates residences for various income levels within the same community, fostering socio-economic diversity. This approach aims to create inclusive neighborhoods by offering affordable units alongside market-rate housing, promoting economic integration, and reducing concentrations of poverty."
+                                placement="left"
+                                arrow
+                                enterDelay={500}
+                                leaveDelay={200}
+                                sx={{ marginRight: "4px" }}
+                              >
+                                <InfoIcon />
+                              </Tooltip>
                               Is your property mixed income?
                             </Typography>
                           </legend>
-                          <Typography>
+                          <Typography
+                            sx={{ cursor: "pointer" }}
+                            onClick={() => setIsMixedIncome(true)}
+                          >
                             <input
                               type="radio"
                               name="mixedIncome"
@@ -576,9 +787,12 @@ const Inspect = ({ close }: InspectProps) => {
                               checked={isMixedIncome}
                               onChange={() => setIsMixedIncome(true)}
                             />
-                            Yes
+                            <span style={{ userSelect: "none" }}>Yes</span>
                           </Typography>
-                          <Typography>
+                          <Typography
+                            sx={{ cursor: "pointer" }}
+                            onClick={() => setIsMixedIncome(false)}
+                          >
                             <input
                               type="radio"
                               name="mixedIncome"
@@ -586,7 +800,7 @@ const Inspect = ({ close }: InspectProps) => {
                               checked={!isMixedIncome}
                               onChange={() => setIsMixedIncome(false)}
                             />
-                            No
+                            <span style={{ userSelect: "none" }}>No</span>
                           </Typography>
                         </fieldset>
                         <br />
@@ -594,7 +808,7 @@ const Inspect = ({ close }: InspectProps) => {
 
                         <Typography sx={styles.tooltipContainer}>
                           <Tooltip
-                            title="More information"
+                            title={`"Term of Affordability" in affordable housing development denotes the duration during which housing units remain priced below market rates. Developers may commit to keeping these units affordable for a specified period, ensuring long-term affordability for low to moderate-income residents before potential reevaluation or market adjustments.`}
                             placement="left"
                             arrow
                             enterDelay={500}
@@ -603,18 +817,55 @@ const Inspect = ({ close }: InspectProps) => {
                           >
                             <InfoIcon />
                           </Tooltip>
-                          Term of Affordability: {affordabilityTerm} Years
+                          Term of Affordability:{" "}
+                          {affordabilityTermValues[0] +
+                            " - " +
+                            affordabilityTermValues[1]}{" "}
+                          Years
                         </Typography>
-                        <SoloSlider
-                          min={0}
-                          max={100}
-                          step={1}
-                          initialValue={0}
-                          onChange={(value: any) =>
-                            setAffordabilityTerm(Number(value))
-                          }
-                          fillColor={WILLOW_COLOR}
-                        />
+                        <RangeContainer>
+                          <Range
+                            step={1}
+                            min={0}
+                            max={40}
+                            values={affordabilityTermValues}
+                            onChange={(values: number[]) =>
+                              setAffordabilityTermValues([values[0], values[1]])
+                            }
+                            renderTrack={({ props, children }) => {
+                              const percentageLeft =
+                                (affordabilityTermValues[0] / 40) * 100;
+                              const percentageRight =
+                                (affordabilityTermValues[1] / 40) * 100;
+                              return (
+                                <Track
+                                  {...props}
+                                  style={{
+                                    ...props.style,
+                                    height: "6px",
+                                    background: `linear-gradient(to right, #ccc ${percentageLeft}%, ${WILLOW_COLOR} ${percentageLeft}%, ${WILLOW_COLOR} ${percentageRight}%, #ccc ${percentageRight}%)`,
+                                    width: "100%",
+                                  }}
+                                >
+                                  {children}
+                                </Track>
+                              );
+                            }}
+                            renderThumb={({ props }) => (
+                              <Thumb
+                                {...props}
+                                style={{
+                                  ...props.style,
+                                  height: "12px",
+                                  width: "12px",
+                                  borderRadius: "50%",
+                                  border: "2px solid black",
+                                  backgroundColor: "white",
+                                }}
+                              />
+                            )}
+                          />
+                        </RangeContainer>
 
                         <br />
                         {/* Building Commencement Date Picker */}
@@ -671,7 +922,7 @@ const Inspect = ({ close }: InspectProps) => {
                       </Container>
                     </Page>
                     <Page isOpen={activePage === 3} left={false}>
-                      <Pertmitting />
+                      <ChatBox currentPage={activePage === 3} />
                     </Page>
                   </Box>
                 </Box>

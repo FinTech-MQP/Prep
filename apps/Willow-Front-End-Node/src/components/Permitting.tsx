@@ -1,39 +1,40 @@
-import styled from "@emotion/styled";
-import { WILLOW_COLOR, WILLOW_COLOR_HOVER } from "@monorepo/utils";
-import { Box, Button } from "@mui/material";
-import OpenAI_API from "../services/APIConsumer";
+import { Box, CircularProgress } from "@mui/material";
 import { useContext } from "react";
 import { userContext } from "../App";
+import { RenderedQuestions } from "./RenderedQuestions";
 
-const WillowButton = styled(Button)({
-  borderRadius: 0,
-  backgroundColor: WILLOW_COLOR,
-  color: "white",
-  whiteSpace: "nowrap",
-  width: "fit-content",
-  padding: "0 25px 0 25px",
-  "&:hover": {
-    backgroundColor: WILLOW_COLOR_HOVER,
-    borderColor: WILLOW_COLOR,
+const styles = {
+  mainContainer: {
+    width: "100%",
+    height: "100%",
   },
-  "& .MuiTouchRipple-root": {
-    color: "white",
+  loadingBox: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
-});
+};
 
-const Pertmitting = () => {
+interface PermittingProps {
+  isLoading: boolean;
+}
+
+const Permitting = ({ isLoading }: PermittingProps) => {
   const user = useContext(userContext);
-  const apiCall = () => {
-    if (user.currListing) {
-      //OpenAI_API.testAPI(user.currListing);
-    }
-  };
 
   return (
-    <Box>
-      <WillowButton onClick={apiCall}>Analyze</WillowButton>
+    <Box sx={styles.mainContainer}>
+      {isLoading ? (
+        <Box sx={styles.loadingBox}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <RenderedQuestions analysis={user.currAnalysis} />
+      )}
     </Box>
   );
 };
 
-export default Pertmitting;
+export default Permitting;
