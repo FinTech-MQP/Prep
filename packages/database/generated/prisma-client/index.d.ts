@@ -7260,7 +7260,7 @@ export namespace Prisma {
     answer: string
     explanation: string
     data: JsonValue | null
-    parcelId: string | null
+    parcelId: string
     _count: AnalysisCountAggregateOutputType | null
     _min: AnalysisMinAggregateOutputType | null
     _max: AnalysisMaxAggregateOutputType | null
@@ -7289,7 +7289,7 @@ export namespace Prisma {
     explanation?: boolean
     data?: boolean
     parcelId?: boolean
-    parcel?: boolean | Analysis$parcelArgs<ExtArgs>
+    parcel?: boolean | ParcelDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["analysis"]>
 
   export type AnalysisSelectScalar = {
@@ -7304,14 +7304,14 @@ export namespace Prisma {
   }
 
   export type AnalysisInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    parcel?: boolean | Analysis$parcelArgs<ExtArgs>
+    parcel?: boolean | ParcelDefaultArgs<ExtArgs>
   }
 
 
   export type $AnalysisPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Analysis"
     objects: {
-      parcel: Prisma.$ParcelPayload<ExtArgs> | null
+      parcel: Prisma.$ParcelPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7321,7 +7321,7 @@ export namespace Prisma {
       answer: string
       explanation: string
       data: Prisma.JsonValue | null
-      parcelId: string | null
+      parcelId: string
     }, ExtArgs["result"]["analysis"]>
     composites: {}
   }
@@ -7687,7 +7687,7 @@ export namespace Prisma {
   export interface Prisma__AnalysisClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    parcel<T extends Analysis$parcelArgs<ExtArgs> = {}>(args?: Subset<T, Analysis$parcelArgs<ExtArgs>>): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+    parcel<T extends ParcelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ParcelDefaultArgs<ExtArgs>>): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8033,22 +8033,6 @@ export namespace Prisma {
      * Filter which Analyses to delete
      */
     where?: AnalysisWhereInput
-  }
-
-
-  /**
-   * Analysis.parcel
-   */
-  export type Analysis$parcelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Parcel
-     */
-    select?: ParcelSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: ParcelInclude<ExtArgs> | null
-    where?: ParcelWhereInput
   }
 
 
@@ -8631,8 +8615,8 @@ export namespace Prisma {
     answer?: StringFilter<"Analysis"> | string
     explanation?: StringFilter<"Analysis"> | string
     data?: JsonNullableFilter<"Analysis">
-    parcelId?: StringNullableFilter<"Analysis"> | string | null
-    parcel?: XOR<ParcelNullableRelationFilter, ParcelWhereInput> | null
+    parcelId?: StringFilter<"Analysis"> | string
+    parcel?: XOR<ParcelRelationFilter, ParcelWhereInput>
   }
 
   export type AnalysisOrderByWithRelationInput = {
@@ -8643,7 +8627,7 @@ export namespace Prisma {
     answer?: SortOrder
     explanation?: SortOrder
     data?: SortOrderInput | SortOrder
-    parcelId?: SortOrderInput | SortOrder
+    parcelId?: SortOrder
     parcel?: ParcelOrderByWithRelationInput
   }
 
@@ -8658,8 +8642,8 @@ export namespace Prisma {
     answer?: StringFilter<"Analysis"> | string
     explanation?: StringFilter<"Analysis"> | string
     data?: JsonNullableFilter<"Analysis">
-    parcelId?: StringNullableFilter<"Analysis"> | string | null
-    parcel?: XOR<ParcelNullableRelationFilter, ParcelWhereInput> | null
+    parcelId?: StringFilter<"Analysis"> | string
+    parcel?: XOR<ParcelRelationFilter, ParcelWhereInput>
   }, "id">
 
   export type AnalysisOrderByWithAggregationInput = {
@@ -8670,7 +8654,7 @@ export namespace Prisma {
     answer?: SortOrder
     explanation?: SortOrder
     data?: SortOrderInput | SortOrder
-    parcelId?: SortOrderInput | SortOrder
+    parcelId?: SortOrder
     _count?: AnalysisCountOrderByAggregateInput
     _max?: AnalysisMaxOrderByAggregateInput
     _min?: AnalysisMinOrderByAggregateInput
@@ -8687,7 +8671,7 @@ export namespace Prisma {
     answer?: StringWithAggregatesFilter<"Analysis"> | string
     explanation?: StringWithAggregatesFilter<"Analysis"> | string
     data?: JsonNullableWithAggregatesFilter<"Analysis">
-    parcelId?: StringNullableWithAggregatesFilter<"Analysis"> | string | null
+    parcelId?: StringWithAggregatesFilter<"Analysis"> | string
   }
 
   export type AssessmentCreateInput = {
@@ -9016,7 +9000,7 @@ export namespace Prisma {
     answer: string
     explanation: string
     data?: NullableJsonNullValueInput | InputJsonValue
-    parcel?: ParcelCreateNestedOneWithoutAnalysesInput
+    parcel: ParcelCreateNestedOneWithoutAnalysesInput
   }
 
   export type AnalysisUncheckedCreateInput = {
@@ -9027,7 +9011,7 @@ export namespace Prisma {
     answer: string
     explanation: string
     data?: NullableJsonNullValueInput | InputJsonValue
-    parcelId?: string | null
+    parcelId: string
   }
 
   export type AnalysisUpdateInput = {
@@ -9038,7 +9022,7 @@ export namespace Prisma {
     answer?: StringFieldUpdateOperationsInput | string
     explanation?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
-    parcel?: ParcelUpdateOneWithoutAnalysesNestedInput
+    parcel?: ParcelUpdateOneRequiredWithoutAnalysesNestedInput
   }
 
   export type AnalysisUncheckedUpdateInput = {
@@ -9049,7 +9033,7 @@ export namespace Prisma {
     answer?: StringFieldUpdateOperationsInput | string
     explanation?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
-    parcelId?: NullableStringFieldUpdateOperationsInput | string | null
+    parcelId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AnalysisCreateManyInput = {
@@ -9060,7 +9044,7 @@ export namespace Prisma {
     answer: string
     explanation: string
     data?: NullableJsonNullValueInput | InputJsonValue
-    parcelId?: string | null
+    parcelId: string
   }
 
   export type AnalysisUpdateManyMutationInput = {
@@ -9081,7 +9065,7 @@ export namespace Prisma {
     answer?: StringFieldUpdateOperationsInput | string
     explanation?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
-    parcelId?: NullableStringFieldUpdateOperationsInput | string | null
+    parcelId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -9530,11 +9514,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type ParcelNullableRelationFilter = {
-    is?: ParcelWhereInput | null
-    isNot?: ParcelWhereInput | null
-  }
-
   export type AnalysisCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
@@ -9869,9 +9848,7 @@ export namespace Prisma {
     connect?: ParcelWhereUniqueInput
   }
 
-  export type ParcelUpdateOneWithoutAnalysesNestedInput = {
-    disconnect?: ParcelWhereInput | boolean
-    delete?: ParcelWhereInput | boolean
+  export type ParcelUpdateOneRequiredWithoutAnalysesNestedInput = {
     connect?: ParcelWhereUniqueInput
     update?: XOR<XOR<ParcelUpdateToOneWithWhereWithoutAnalysesInput, ParcelUpdateWithoutAnalysesInput>, ParcelUncheckedUpdateWithoutAnalysesInput>
   }
@@ -10372,7 +10349,7 @@ export namespace Prisma {
     answer?: StringFilter<"Analysis"> | string
     explanation?: StringFilter<"Analysis"> | string
     data?: JsonNullableFilter<"Analysis">
-    parcelId?: StringNullableFilter<"Analysis"> | string | null
+    parcelId?: StringFilter<"Analysis"> | string
   }
 
   export type ListingCreateWithoutAddressInput = {

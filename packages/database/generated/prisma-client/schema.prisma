@@ -80,6 +80,6 @@ model Analysis {
   answer      String
   explanation String
   data        Json?
-  parcel      Parcel?   @relation(fields: [parcelId], references: [id])
-  parcelId    String?
+  parcel      Parcel   @relation(fields: [parcelId], references: [id])
+  parcelId    String
 }
