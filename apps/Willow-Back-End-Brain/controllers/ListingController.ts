@@ -18,6 +18,7 @@ const getListings = async () => {
             },
           },
         },
+        analyses: true,
       },
     });
   } catch (e: any) {

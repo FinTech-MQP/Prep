@@ -111,6 +111,9 @@ importers:
       '@esri/arcgis-rest-feature-service':
         specifier: ^4.0.5
         version: 4.0.5(@esri/arcgis-rest-portal@4.4.0)(@esri/arcgis-rest-request@4.2.0)
+      '@monorepo/utils':
+        specifier: workspace:*
+        version: link:../../shared/utils
       axios:
         specifier: ^1.6.0
         version: 1.6.1

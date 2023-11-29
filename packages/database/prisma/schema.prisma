@@ -45,7 +45,6 @@ model Parcel {
   landUseId   String
   assessments Assessment[]
   polygon     Unsupported("\"public\".geometry")
-  analyses    Analysis[]
 }
 
 model Address {
@@ -61,15 +60,16 @@ model Address {
 }
 
 model Listing {
-  id        String    @id @default(cuid())
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
+  id        String     @id @default(cuid())
+  createdAt DateTime?  @default(now())
+  updatedAt DateTime?  @updatedAt
   name      String
   desc      String
   images    String[]
   labels    String[]
-  address   Address   @relation(fields: [addressId], references: [id])
-  addressId String    @unique
+  address   Address    @relation(fields: [addressId], references: [id])
+  addressId String     @unique
+  analyses  Analysis[]
 }
 
 model Analysis {
@@ -80,6 +80,6 @@ model Analysis {
   answer      String
   explanation String
   data        Json?
-  parcel      Parcel   @relation(fields: [parcelId], references: [id])
-  parcelId    String
+  listing     Listing   @relation(fields: [listingId], references: [id])
+  listingId   String
 }

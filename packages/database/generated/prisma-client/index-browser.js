@@ -162,7 +162,7 @@ exports.Prisma.AnalysisScalarFieldEnum = {
   answer: 'answer',
   explanation: 'explanation',
   data: 'data',
-  parcelId: 'parcelId'
+  listingId: 'listingId'
 };
 
 exports.Prisma.SortOrder = {

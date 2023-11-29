@@ -1406,13 +1406,11 @@ export namespace Prisma {
   export type ParcelCountOutputType = {
     addresses: number
     assessments: number
-    analyses: number
   }
 
   export type ParcelCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     addresses?: boolean | ParcelCountOutputTypeCountAddressesArgs
     assessments?: boolean | ParcelCountOutputTypeCountAssessmentsArgs
-    analyses?: boolean | ParcelCountOutputTypeCountAnalysesArgs
   }
 
   // Custom InputTypes
@@ -1444,10 +1442,36 @@ export namespace Prisma {
   }
 
 
+
   /**
-   * ParcelCountOutputType without action
+   * Count Type ListingCountOutputType
    */
-  export type ParcelCountOutputTypeCountAnalysesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+
+  export type ListingCountOutputType = {
+    analyses: number
+  }
+
+  export type ListingCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    analyses?: boolean | ListingCountOutputTypeCountAnalysesArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * ListingCountOutputType without action
+   */
+  export type ListingCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ListingCountOutputType
+     */
+    select?: ListingCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * ListingCountOutputType without action
+   */
+  export type ListingCountOutputTypeCountAnalysesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AnalysisWhereInput
   }
 
@@ -4443,7 +4467,6 @@ export namespace Prisma {
     zone?: boolean | ZoneDefaultArgs<ExtArgs>
     landUse?: boolean | LandUseDefaultArgs<ExtArgs>
     assessments?: boolean | Parcel$assessmentsArgs<ExtArgs>
-    analyses?: boolean | Parcel$analysesArgs<ExtArgs>
     _count?: boolean | ParcelCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["parcel"]>
 
@@ -4460,7 +4483,6 @@ export namespace Prisma {
     zone?: boolean | ZoneDefaultArgs<ExtArgs>
     landUse?: boolean | LandUseDefaultArgs<ExtArgs>
     assessments?: boolean | Parcel$assessmentsArgs<ExtArgs>
-    analyses?: boolean | Parcel$analysesArgs<ExtArgs>
     _count?: boolean | ParcelCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -4472,7 +4494,6 @@ export namespace Prisma {
       zone: Prisma.$ZonePayload<ExtArgs>
       landUse: Prisma.$LandUsePayload<ExtArgs>
       assessments: Prisma.$AssessmentPayload<ExtArgs>[]
-      analyses: Prisma.$AnalysisPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4800,8 +4821,6 @@ export namespace Prisma {
 
     assessments<T extends Parcel$assessmentsArgs<ExtArgs> = {}>(args?: Subset<T, Parcel$assessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    analyses<T extends Parcel$analysesArgs<ExtArgs> = {}>(args?: Subset<T, Parcel$analysesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnalysisPayload<ExtArgs>, T, 'findMany'> | Null>;
-
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5127,27 +5146,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AssessmentScalarFieldEnum | AssessmentScalarFieldEnum[]
-  }
-
-
-  /**
-   * Parcel.analyses
-   */
-  export type Parcel$analysesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Analysis
-     */
-    select?: AnalysisSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AnalysisInclude<ExtArgs> | null
-    where?: AnalysisWhereInput
-    orderBy?: AnalysisOrderByWithRelationInput | AnalysisOrderByWithRelationInput[]
-    cursor?: AnalysisWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AnalysisScalarFieldEnum | AnalysisScalarFieldEnum[]
   }
 
 
@@ -6343,6 +6341,8 @@ export namespace Prisma {
     labels?: boolean
     addressId?: boolean
     address?: boolean | AddressDefaultArgs<ExtArgs>
+    analyses?: boolean | Listing$analysesArgs<ExtArgs>
+    _count?: boolean | ListingCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["listing"]>
 
   export type ListingSelectScalar = {
@@ -6358,6 +6358,8 @@ export namespace Prisma {
 
   export type ListingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     address?: boolean | AddressDefaultArgs<ExtArgs>
+    analyses?: boolean | Listing$analysesArgs<ExtArgs>
+    _count?: boolean | ListingCountOutputTypeDefaultArgs<ExtArgs>
   }
 
 
@@ -6365,6 +6367,7 @@ export namespace Prisma {
     name: "Listing"
     objects: {
       address: Prisma.$AddressPayload<ExtArgs>
+      analyses: Prisma.$AnalysisPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6742,6 +6745,8 @@ export namespace Prisma {
 
     address<T extends AddressDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AddressDefaultArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
+    analyses<T extends Listing$analysesArgs<ExtArgs> = {}>(args?: Subset<T, Listing$analysesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnalysisPayload<ExtArgs>, T, 'findMany'> | Null>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7090,6 +7095,27 @@ export namespace Prisma {
 
 
   /**
+   * Listing.analyses
+   */
+  export type Listing$analysesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Analysis
+     */
+    select?: AnalysisSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AnalysisInclude<ExtArgs> | null
+    where?: AnalysisWhereInput
+    orderBy?: AnalysisOrderByWithRelationInput | AnalysisOrderByWithRelationInput[]
+    cursor?: AnalysisWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AnalysisScalarFieldEnum | AnalysisScalarFieldEnum[]
+  }
+
+
+  /**
    * Listing without action
    */
   export type ListingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7122,7 +7148,7 @@ export namespace Prisma {
     question: string | null
     answer: string | null
     explanation: string | null
-    parcelId: string | null
+    listingId: string | null
   }
 
   export type AnalysisMaxAggregateOutputType = {
@@ -7132,7 +7158,7 @@ export namespace Prisma {
     question: string | null
     answer: string | null
     explanation: string | null
-    parcelId: string | null
+    listingId: string | null
   }
 
   export type AnalysisCountAggregateOutputType = {
@@ -7143,7 +7169,7 @@ export namespace Prisma {
     answer: number
     explanation: number
     data: number
-    parcelId: number
+    listingId: number
     _all: number
   }
 
@@ -7155,7 +7181,7 @@ export namespace Prisma {
     question?: true
     answer?: true
     explanation?: true
-    parcelId?: true
+    listingId?: true
   }
 
   export type AnalysisMaxAggregateInputType = {
@@ -7165,7 +7191,7 @@ export namespace Prisma {
     question?: true
     answer?: true
     explanation?: true
-    parcelId?: true
+    listingId?: true
   }
 
   export type AnalysisCountAggregateInputType = {
@@ -7176,7 +7202,7 @@ export namespace Prisma {
     answer?: true
     explanation?: true
     data?: true
-    parcelId?: true
+    listingId?: true
     _all?: true
   }
 
@@ -7260,7 +7286,7 @@ export namespace Prisma {
     answer: string
     explanation: string
     data: JsonValue | null
-    parcelId: string
+    listingId: string
     _count: AnalysisCountAggregateOutputType | null
     _min: AnalysisMinAggregateOutputType | null
     _max: AnalysisMaxAggregateOutputType | null
@@ -7288,8 +7314,8 @@ export namespace Prisma {
     answer?: boolean
     explanation?: boolean
     data?: boolean
-    parcelId?: boolean
-    parcel?: boolean | ParcelDefaultArgs<ExtArgs>
+    listingId?: boolean
+    listing?: boolean | ListingDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["analysis"]>
 
   export type AnalysisSelectScalar = {
@@ -7300,18 +7326,18 @@ export namespace Prisma {
     answer?: boolean
     explanation?: boolean
     data?: boolean
-    parcelId?: boolean
+    listingId?: boolean
   }
 
   export type AnalysisInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    parcel?: boolean | ParcelDefaultArgs<ExtArgs>
+    listing?: boolean | ListingDefaultArgs<ExtArgs>
   }
 
 
   export type $AnalysisPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Analysis"
     objects: {
-      parcel: Prisma.$ParcelPayload<ExtArgs>
+      listing: Prisma.$ListingPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7321,7 +7347,7 @@ export namespace Prisma {
       answer: string
       explanation: string
       data: Prisma.JsonValue | null
-      parcelId: string
+      listingId: string
     }, ExtArgs["result"]["analysis"]>
     composites: {}
   }
@@ -7687,7 +7713,7 @@ export namespace Prisma {
   export interface Prisma__AnalysisClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    parcel<T extends ParcelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ParcelDefaultArgs<ExtArgs>>): Prisma__ParcelClient<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    listing<T extends ListingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ListingDefaultArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7724,7 +7750,7 @@ export namespace Prisma {
     readonly answer: FieldRef<"Analysis", 'String'>
     readonly explanation: FieldRef<"Analysis", 'String'>
     readonly data: FieldRef<"Analysis", 'Json'>
-    readonly parcelId: FieldRef<"Analysis", 'String'>
+    readonly listingId: FieldRef<"Analysis", 'String'>
   }
     
 
@@ -8139,7 +8165,7 @@ export namespace Prisma {
     answer: 'answer',
     explanation: 'explanation',
     data: 'data',
-    parcelId: 'parcelId'
+    listingId: 'listingId'
   };
 
   export type AnalysisScalarFieldEnum = (typeof AnalysisScalarFieldEnum)[keyof typeof AnalysisScalarFieldEnum]
@@ -8408,7 +8434,6 @@ export namespace Prisma {
     zone?: XOR<ZoneRelationFilter, ZoneWhereInput>
     landUse?: XOR<LandUseRelationFilter, LandUseWhereInput>
     assessments?: AssessmentListRelationFilter
-    analyses?: AnalysisListRelationFilter
   }
 
   export type ParcelOrderByWithRelationInput = {
@@ -8421,7 +8446,6 @@ export namespace Prisma {
     zone?: ZoneOrderByWithRelationInput
     landUse?: LandUseOrderByWithRelationInput
     assessments?: AssessmentOrderByRelationAggregateInput
-    analyses?: AnalysisOrderByRelationAggregateInput
   }
 
   export type ParcelWhereUniqueInput = Prisma.AtLeast<{
@@ -8437,7 +8461,6 @@ export namespace Prisma {
     zone?: XOR<ZoneRelationFilter, ZoneWhereInput>
     landUse?: XOR<LandUseRelationFilter, LandUseWhereInput>
     assessments?: AssessmentListRelationFilter
-    analyses?: AnalysisListRelationFilter
   }, "id">
 
   export type ParcelOrderByWithAggregationInput = {
@@ -8547,6 +8570,7 @@ export namespace Prisma {
     labels?: StringNullableListFilter<"Listing">
     addressId?: StringFilter<"Listing"> | string
     address?: XOR<AddressRelationFilter, AddressWhereInput>
+    analyses?: AnalysisListRelationFilter
   }
 
   export type ListingOrderByWithRelationInput = {
@@ -8559,6 +8583,7 @@ export namespace Prisma {
     labels?: SortOrder
     addressId?: SortOrder
     address?: AddressOrderByWithRelationInput
+    analyses?: AnalysisOrderByRelationAggregateInput
   }
 
   export type ListingWhereUniqueInput = Prisma.AtLeast<{
@@ -8574,6 +8599,7 @@ export namespace Prisma {
     images?: StringNullableListFilter<"Listing">
     labels?: StringNullableListFilter<"Listing">
     address?: XOR<AddressRelationFilter, AddressWhereInput>
+    analyses?: AnalysisListRelationFilter
   }, "id" | "addressId">
 
   export type ListingOrderByWithAggregationInput = {
@@ -8615,8 +8641,8 @@ export namespace Prisma {
     answer?: StringFilter<"Analysis"> | string
     explanation?: StringFilter<"Analysis"> | string
     data?: JsonNullableFilter<"Analysis">
-    parcelId?: StringFilter<"Analysis"> | string
-    parcel?: XOR<ParcelRelationFilter, ParcelWhereInput>
+    listingId?: StringFilter<"Analysis"> | string
+    listing?: XOR<ListingRelationFilter, ListingWhereInput>
   }
 
   export type AnalysisOrderByWithRelationInput = {
@@ -8627,8 +8653,8 @@ export namespace Prisma {
     answer?: SortOrder
     explanation?: SortOrder
     data?: SortOrderInput | SortOrder
-    parcelId?: SortOrder
-    parcel?: ParcelOrderByWithRelationInput
+    listingId?: SortOrder
+    listing?: ListingOrderByWithRelationInput
   }
 
   export type AnalysisWhereUniqueInput = Prisma.AtLeast<{
@@ -8642,8 +8668,8 @@ export namespace Prisma {
     answer?: StringFilter<"Analysis"> | string
     explanation?: StringFilter<"Analysis"> | string
     data?: JsonNullableFilter<"Analysis">
-    parcelId?: StringFilter<"Analysis"> | string
-    parcel?: XOR<ParcelRelationFilter, ParcelWhereInput>
+    listingId?: StringFilter<"Analysis"> | string
+    listing?: XOR<ListingRelationFilter, ListingWhereInput>
   }, "id">
 
   export type AnalysisOrderByWithAggregationInput = {
@@ -8654,7 +8680,7 @@ export namespace Prisma {
     answer?: SortOrder
     explanation?: SortOrder
     data?: SortOrderInput | SortOrder
-    parcelId?: SortOrder
+    listingId?: SortOrder
     _count?: AnalysisCountOrderByAggregateInput
     _max?: AnalysisMaxOrderByAggregateInput
     _min?: AnalysisMinOrderByAggregateInput
@@ -8671,7 +8697,7 @@ export namespace Prisma {
     answer?: StringWithAggregatesFilter<"Analysis"> | string
     explanation?: StringWithAggregatesFilter<"Analysis"> | string
     data?: JsonNullableWithAggregatesFilter<"Analysis">
-    parcelId?: StringWithAggregatesFilter<"Analysis"> | string
+    listingId?: StringWithAggregatesFilter<"Analysis"> | string
   }
 
   export type AssessmentCreateInput = {
@@ -8815,7 +8841,6 @@ export namespace Prisma {
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
-    analyses?: AnalysisUpdateManyWithoutParcelNestedInput
   }
 
   export type ParcelUncheckedUpdateInput = {
@@ -8826,7 +8851,6 @@ export namespace Prisma {
     landUseId?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
-    analyses?: AnalysisUncheckedUpdateManyWithoutParcelNestedInput
   }
 
   export type ParcelUpdateManyMutationInput = {
@@ -8925,6 +8949,7 @@ export namespace Prisma {
     images?: ListingCreateimagesInput | string[]
     labels?: ListingCreatelabelsInput | string[]
     address: AddressCreateNestedOneWithoutListingInput
+    analyses?: AnalysisCreateNestedManyWithoutListingInput
   }
 
   export type ListingUncheckedCreateInput = {
@@ -8936,6 +8961,7 @@ export namespace Prisma {
     images?: ListingCreateimagesInput | string[]
     labels?: ListingCreatelabelsInput | string[]
     addressId: string
+    analyses?: AnalysisUncheckedCreateNestedManyWithoutListingInput
   }
 
   export type ListingUpdateInput = {
@@ -8947,6 +8973,7 @@ export namespace Prisma {
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
     address?: AddressUpdateOneRequiredWithoutListingNestedInput
+    analyses?: AnalysisUpdateManyWithoutListingNestedInput
   }
 
   export type ListingUncheckedUpdateInput = {
@@ -8958,6 +8985,7 @@ export namespace Prisma {
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
     addressId?: StringFieldUpdateOperationsInput | string
+    analyses?: AnalysisUncheckedUpdateManyWithoutListingNestedInput
   }
 
   export type ListingCreateManyInput = {
@@ -9000,7 +9028,7 @@ export namespace Prisma {
     answer: string
     explanation: string
     data?: NullableJsonNullValueInput | InputJsonValue
-    parcel: ParcelCreateNestedOneWithoutAnalysesInput
+    listing: ListingCreateNestedOneWithoutAnalysesInput
   }
 
   export type AnalysisUncheckedCreateInput = {
@@ -9011,7 +9039,7 @@ export namespace Prisma {
     answer: string
     explanation: string
     data?: NullableJsonNullValueInput | InputJsonValue
-    parcelId: string
+    listingId: string
   }
 
   export type AnalysisUpdateInput = {
@@ -9022,7 +9050,7 @@ export namespace Prisma {
     answer?: StringFieldUpdateOperationsInput | string
     explanation?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
-    parcel?: ParcelUpdateOneRequiredWithoutAnalysesNestedInput
+    listing?: ListingUpdateOneRequiredWithoutAnalysesNestedInput
   }
 
   export type AnalysisUncheckedUpdateInput = {
@@ -9033,7 +9061,7 @@ export namespace Prisma {
     answer?: StringFieldUpdateOperationsInput | string
     explanation?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
-    parcelId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AnalysisCreateManyInput = {
@@ -9044,7 +9072,7 @@ export namespace Prisma {
     answer: string
     explanation: string
     data?: NullableJsonNullValueInput | InputJsonValue
-    parcelId: string
+    listingId: string
   }
 
   export type AnalysisUpdateManyMutationInput = {
@@ -9065,7 +9093,7 @@ export namespace Prisma {
     answer?: StringFieldUpdateOperationsInput | string
     explanation?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
-    parcelId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -9249,21 +9277,11 @@ export namespace Prisma {
     none?: AssessmentWhereInput
   }
 
-  export type AnalysisListRelationFilter = {
-    every?: AnalysisWhereInput
-    some?: AnalysisWhereInput
-    none?: AnalysisWhereInput
-  }
-
   export type AddressOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type AssessmentOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type AnalysisOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9449,6 +9467,16 @@ export namespace Prisma {
     isNot?: AddressWhereInput
   }
 
+  export type AnalysisListRelationFilter = {
+    every?: AnalysisWhereInput
+    some?: AnalysisWhereInput
+    none?: AnalysisWhereInput
+  }
+
+  export type AnalysisOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ListingCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
@@ -9514,6 +9542,11 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type ListingRelationFilter = {
+    is?: ListingWhereInput
+    isNot?: ListingWhereInput
+  }
+
   export type AnalysisCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
@@ -9522,7 +9555,7 @@ export namespace Prisma {
     answer?: SortOrder
     explanation?: SortOrder
     data?: SortOrder
-    parcelId?: SortOrder
+    listingId?: SortOrder
   }
 
   export type AnalysisMaxOrderByAggregateInput = {
@@ -9532,7 +9565,7 @@ export namespace Prisma {
     question?: SortOrder
     answer?: SortOrder
     explanation?: SortOrder
-    parcelId?: SortOrder
+    listingId?: SortOrder
   }
 
   export type AnalysisMinOrderByAggregateInput = {
@@ -9542,7 +9575,7 @@ export namespace Prisma {
     question?: SortOrder
     answer?: SortOrder
     explanation?: SortOrder
-    parcelId?: SortOrder
+    listingId?: SortOrder
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -9699,20 +9732,6 @@ export namespace Prisma {
     deleteMany?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
   }
 
-  export type AnalysisUpdateManyWithoutParcelNestedInput = {
-    create?: XOR<AnalysisCreateWithoutParcelInput, AnalysisUncheckedCreateWithoutParcelInput> | AnalysisCreateWithoutParcelInput[] | AnalysisUncheckedCreateWithoutParcelInput[]
-    connectOrCreate?: AnalysisCreateOrConnectWithoutParcelInput | AnalysisCreateOrConnectWithoutParcelInput[]
-    upsert?: AnalysisUpsertWithWhereUniqueWithoutParcelInput | AnalysisUpsertWithWhereUniqueWithoutParcelInput[]
-    createMany?: AnalysisCreateManyParcelInputEnvelope
-    set?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
-    disconnect?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
-    delete?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
-    connect?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
-    update?: AnalysisUpdateWithWhereUniqueWithoutParcelInput | AnalysisUpdateWithWhereUniqueWithoutParcelInput[]
-    updateMany?: AnalysisUpdateManyWithWhereWithoutParcelInput | AnalysisUpdateManyWithWhereWithoutParcelInput[]
-    deleteMany?: AnalysisScalarWhereInput | AnalysisScalarWhereInput[]
-  }
-
   export type AddressUncheckedUpdateManyWithoutParcelNestedInput = {
     create?: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput> | AddressCreateWithoutParcelInput[] | AddressUncheckedCreateWithoutParcelInput[]
     connectOrCreate?: AddressCreateOrConnectWithoutParcelInput | AddressCreateOrConnectWithoutParcelInput[]
@@ -9739,20 +9758,6 @@ export namespace Prisma {
     update?: AssessmentUpdateWithWhereUniqueWithoutParcelInput | AssessmentUpdateWithWhereUniqueWithoutParcelInput[]
     updateMany?: AssessmentUpdateManyWithWhereWithoutParcelInput | AssessmentUpdateManyWithWhereWithoutParcelInput[]
     deleteMany?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
-  }
-
-  export type AnalysisUncheckedUpdateManyWithoutParcelNestedInput = {
-    create?: XOR<AnalysisCreateWithoutParcelInput, AnalysisUncheckedCreateWithoutParcelInput> | AnalysisCreateWithoutParcelInput[] | AnalysisUncheckedCreateWithoutParcelInput[]
-    connectOrCreate?: AnalysisCreateOrConnectWithoutParcelInput | AnalysisCreateOrConnectWithoutParcelInput[]
-    upsert?: AnalysisUpsertWithWhereUniqueWithoutParcelInput | AnalysisUpsertWithWhereUniqueWithoutParcelInput[]
-    createMany?: AnalysisCreateManyParcelInputEnvelope
-    set?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
-    disconnect?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
-    delete?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
-    connect?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
-    update?: AnalysisUpdateWithWhereUniqueWithoutParcelInput | AnalysisUpdateWithWhereUniqueWithoutParcelInput[]
-    updateMany?: AnalysisUpdateManyWithWhereWithoutParcelInput | AnalysisUpdateManyWithWhereWithoutParcelInput[]
-    deleteMany?: AnalysisScalarWhereInput | AnalysisScalarWhereInput[]
   }
 
   export type ParcelCreateNestedOneWithoutAddressesInput = {
@@ -9822,6 +9827,20 @@ export namespace Prisma {
     connect?: AddressWhereUniqueInput
   }
 
+  export type AnalysisCreateNestedManyWithoutListingInput = {
+    create?: XOR<AnalysisCreateWithoutListingInput, AnalysisUncheckedCreateWithoutListingInput> | AnalysisCreateWithoutListingInput[] | AnalysisUncheckedCreateWithoutListingInput[]
+    connectOrCreate?: AnalysisCreateOrConnectWithoutListingInput | AnalysisCreateOrConnectWithoutListingInput[]
+    createMany?: AnalysisCreateManyListingInputEnvelope
+    connect?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
+  }
+
+  export type AnalysisUncheckedCreateNestedManyWithoutListingInput = {
+    create?: XOR<AnalysisCreateWithoutListingInput, AnalysisUncheckedCreateWithoutListingInput> | AnalysisCreateWithoutListingInput[] | AnalysisUncheckedCreateWithoutListingInput[]
+    connectOrCreate?: AnalysisCreateOrConnectWithoutListingInput | AnalysisCreateOrConnectWithoutListingInput[]
+    createMany?: AnalysisCreateManyListingInputEnvelope
+    connect?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
+  }
+
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
   }
@@ -9844,13 +9863,46 @@ export namespace Prisma {
     update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutListingInput, AddressUpdateWithoutListingInput>, AddressUncheckedUpdateWithoutListingInput>
   }
 
-  export type ParcelCreateNestedOneWithoutAnalysesInput = {
-    connect?: ParcelWhereUniqueInput
+  export type AnalysisUpdateManyWithoutListingNestedInput = {
+    create?: XOR<AnalysisCreateWithoutListingInput, AnalysisUncheckedCreateWithoutListingInput> | AnalysisCreateWithoutListingInput[] | AnalysisUncheckedCreateWithoutListingInput[]
+    connectOrCreate?: AnalysisCreateOrConnectWithoutListingInput | AnalysisCreateOrConnectWithoutListingInput[]
+    upsert?: AnalysisUpsertWithWhereUniqueWithoutListingInput | AnalysisUpsertWithWhereUniqueWithoutListingInput[]
+    createMany?: AnalysisCreateManyListingInputEnvelope
+    set?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
+    disconnect?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
+    delete?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
+    connect?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
+    update?: AnalysisUpdateWithWhereUniqueWithoutListingInput | AnalysisUpdateWithWhereUniqueWithoutListingInput[]
+    updateMany?: AnalysisUpdateManyWithWhereWithoutListingInput | AnalysisUpdateManyWithWhereWithoutListingInput[]
+    deleteMany?: AnalysisScalarWhereInput | AnalysisScalarWhereInput[]
   }
 
-  export type ParcelUpdateOneRequiredWithoutAnalysesNestedInput = {
-    connect?: ParcelWhereUniqueInput
-    update?: XOR<XOR<ParcelUpdateToOneWithWhereWithoutAnalysesInput, ParcelUpdateWithoutAnalysesInput>, ParcelUncheckedUpdateWithoutAnalysesInput>
+  export type AnalysisUncheckedUpdateManyWithoutListingNestedInput = {
+    create?: XOR<AnalysisCreateWithoutListingInput, AnalysisUncheckedCreateWithoutListingInput> | AnalysisCreateWithoutListingInput[] | AnalysisUncheckedCreateWithoutListingInput[]
+    connectOrCreate?: AnalysisCreateOrConnectWithoutListingInput | AnalysisCreateOrConnectWithoutListingInput[]
+    upsert?: AnalysisUpsertWithWhereUniqueWithoutListingInput | AnalysisUpsertWithWhereUniqueWithoutListingInput[]
+    createMany?: AnalysisCreateManyListingInputEnvelope
+    set?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
+    disconnect?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
+    delete?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
+    connect?: AnalysisWhereUniqueInput | AnalysisWhereUniqueInput[]
+    update?: AnalysisUpdateWithWhereUniqueWithoutListingInput | AnalysisUpdateWithWhereUniqueWithoutListingInput[]
+    updateMany?: AnalysisUpdateManyWithWhereWithoutListingInput | AnalysisUpdateManyWithWhereWithoutListingInput[]
+    deleteMany?: AnalysisScalarWhereInput | AnalysisScalarWhereInput[]
+  }
+
+  export type ListingCreateNestedOneWithoutAnalysesInput = {
+    create?: XOR<ListingCreateWithoutAnalysesInput, ListingUncheckedCreateWithoutAnalysesInput>
+    connectOrCreate?: ListingCreateOrConnectWithoutAnalysesInput
+    connect?: ListingWhereUniqueInput
+  }
+
+  export type ListingUpdateOneRequiredWithoutAnalysesNestedInput = {
+    create?: XOR<ListingCreateWithoutAnalysesInput, ListingUncheckedCreateWithoutAnalysesInput>
+    connectOrCreate?: ListingCreateOrConnectWithoutAnalysesInput
+    upsert?: ListingUpsertWithoutAnalysesInput
+    connect?: ListingWhereUniqueInput
+    update?: XOR<XOR<ListingUpdateToOneWithWhereWithoutAnalysesInput, ListingUpdateWithoutAnalysesInput>, ListingUncheckedUpdateWithoutAnalysesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10066,7 +10118,6 @@ export namespace Prisma {
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
-    analyses?: AnalysisUpdateManyWithoutParcelNestedInput
   }
 
   export type ParcelUncheckedUpdateWithoutAssessmentsInput = {
@@ -10076,7 +10127,6 @@ export namespace Prisma {
     zoneId?: StringFieldUpdateOperationsInput | string
     landUseId?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
-    analyses?: AnalysisUncheckedUpdateManyWithoutParcelNestedInput
   }
 
   export type ParcelUpdateWithWhereUniqueWithoutLandUseInput = {
@@ -10292,66 +10342,6 @@ export namespace Prisma {
     total?: IntFilter<"Assessment"> | number
   }
 
-  export type AnalysisCreateWithoutParcelInput = {
-    id?: string
-    createdAt?: Date | string | null
-    updatedAt?: Date | string | null
-    question: string
-    answer: string
-    explanation: string
-    data?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type AnalysisUncheckedCreateWithoutParcelInput = {
-    id?: string
-    createdAt?: Date | string | null
-    updatedAt?: Date | string | null
-    question: string
-    answer: string
-    explanation: string
-    data?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type AnalysisCreateOrConnectWithoutParcelInput = {
-    where: AnalysisWhereUniqueInput
-    create: XOR<AnalysisCreateWithoutParcelInput, AnalysisUncheckedCreateWithoutParcelInput>
-  }
-
-  export type AnalysisUpsertWithWhereUniqueWithoutParcelInput = {
-    where: AnalysisWhereUniqueInput
-    update: XOR<AnalysisUpdateWithoutParcelInput, AnalysisUncheckedUpdateWithoutParcelInput>
-    create: XOR<AnalysisCreateWithoutParcelInput, AnalysisUncheckedCreateWithoutParcelInput>
-  }
-
-  export type AnalysisCreateManyParcelInputEnvelope = {
-    data: AnalysisCreateManyParcelInput | AnalysisCreateManyParcelInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AnalysisUpdateWithWhereUniqueWithoutParcelInput = {
-    where: AnalysisWhereUniqueInput
-    data: XOR<AnalysisUpdateWithoutParcelInput, AnalysisUncheckedUpdateWithoutParcelInput>
-  }
-
-  export type AnalysisUpdateManyWithWhereWithoutParcelInput = {
-    where: AnalysisScalarWhereInput
-    data: XOR<AnalysisUpdateManyMutationInput, AnalysisUncheckedUpdateManyWithoutParcelInput>
-  }
-
-  export type AnalysisScalarWhereInput = {
-    AND?: AnalysisScalarWhereInput | AnalysisScalarWhereInput[]
-    OR?: AnalysisScalarWhereInput[]
-    NOT?: AnalysisScalarWhereInput | AnalysisScalarWhereInput[]
-    id?: StringFilter<"Analysis"> | string
-    createdAt?: DateTimeNullableFilter<"Analysis"> | Date | string | null
-    updatedAt?: DateTimeNullableFilter<"Analysis"> | Date | string | null
-    question?: StringFilter<"Analysis"> | string
-    answer?: StringFilter<"Analysis"> | string
-    explanation?: StringFilter<"Analysis"> | string
-    data?: JsonNullableFilter<"Analysis">
-    parcelId?: StringFilter<"Analysis"> | string
-  }
-
   export type ListingCreateWithoutAddressInput = {
     id?: string
     createdAt?: Date | string | null
@@ -10360,6 +10350,7 @@ export namespace Prisma {
     desc: string
     images?: ListingCreateimagesInput | string[]
     labels?: ListingCreatelabelsInput | string[]
+    analyses?: AnalysisCreateNestedManyWithoutListingInput
   }
 
   export type ListingUncheckedCreateWithoutAddressInput = {
@@ -10370,6 +10361,7 @@ export namespace Prisma {
     desc: string
     images?: ListingCreateimagesInput | string[]
     labels?: ListingCreatelabelsInput | string[]
+    analyses?: AnalysisUncheckedCreateNestedManyWithoutListingInput
   }
 
   export type ListingCreateOrConnectWithoutAddressInput = {
@@ -10389,7 +10381,6 @@ export namespace Prisma {
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
-    analyses?: AnalysisUpdateManyWithoutParcelNestedInput
   }
 
   export type ParcelUncheckedUpdateWithoutAddressesInput = {
@@ -10399,7 +10390,6 @@ export namespace Prisma {
     zoneId?: StringFieldUpdateOperationsInput | string
     landUseId?: StringFieldUpdateOperationsInput | string
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
-    analyses?: AnalysisUncheckedUpdateManyWithoutParcelNestedInput
   }
 
   export type ListingUpsertWithoutAddressInput = {
@@ -10421,6 +10411,7 @@ export namespace Prisma {
     desc?: StringFieldUpdateOperationsInput | string
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
+    analyses?: AnalysisUpdateManyWithoutListingNestedInput
   }
 
   export type ListingUncheckedUpdateWithoutAddressInput = {
@@ -10431,6 +10422,7 @@ export namespace Prisma {
     desc?: StringFieldUpdateOperationsInput | string
     images?: ListingUpdateimagesInput | string[]
     labels?: ListingUpdatelabelsInput | string[]
+    analyses?: AnalysisUncheckedUpdateManyWithoutListingNestedInput
   }
 
   export type AddressCreateWithoutListingInput = {
@@ -10456,6 +10448,36 @@ export namespace Prisma {
   export type AddressCreateOrConnectWithoutListingInput = {
     where: AddressWhereUniqueInput
     create: XOR<AddressCreateWithoutListingInput, AddressUncheckedCreateWithoutListingInput>
+  }
+
+  export type AnalysisCreateWithoutListingInput = {
+    id?: string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    question: string
+    answer: string
+    explanation: string
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AnalysisUncheckedCreateWithoutListingInput = {
+    id?: string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    question: string
+    answer: string
+    explanation: string
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AnalysisCreateOrConnectWithoutListingInput = {
+    where: AnalysisWhereUniqueInput
+    create: XOR<AnalysisCreateWithoutListingInput, AnalysisUncheckedCreateWithoutListingInput>
+  }
+
+  export type AnalysisCreateManyListingInputEnvelope = {
+    data: AnalysisCreateManyListingInput | AnalysisCreateManyListingInput[]
+    skipDuplicates?: boolean
   }
 
   export type AddressUpsertWithoutListingInput = {
@@ -10489,29 +10511,94 @@ export namespace Prisma {
     parcelId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ParcelUpdateToOneWithWhereWithoutAnalysesInput = {
-    where?: ParcelWhereInput
-    data: XOR<ParcelUpdateWithoutAnalysesInput, ParcelUncheckedUpdateWithoutAnalysesInput>
+  export type AnalysisUpsertWithWhereUniqueWithoutListingInput = {
+    where: AnalysisWhereUniqueInput
+    update: XOR<AnalysisUpdateWithoutListingInput, AnalysisUncheckedUpdateWithoutListingInput>
+    create: XOR<AnalysisCreateWithoutListingInput, AnalysisUncheckedCreateWithoutListingInput>
   }
 
-  export type ParcelUpdateWithoutAnalysesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    sqft?: IntFieldUpdateOperationsInput | number
-    acres?: FloatFieldUpdateOperationsInput | number
-    addresses?: AddressUpdateManyWithoutParcelNestedInput
-    zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
-    landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
-    assessments?: AssessmentUpdateManyWithoutParcelNestedInput
+  export type AnalysisUpdateWithWhereUniqueWithoutListingInput = {
+    where: AnalysisWhereUniqueInput
+    data: XOR<AnalysisUpdateWithoutListingInput, AnalysisUncheckedUpdateWithoutListingInput>
   }
 
-  export type ParcelUncheckedUpdateWithoutAnalysesInput = {
+  export type AnalysisUpdateManyWithWhereWithoutListingInput = {
+    where: AnalysisScalarWhereInput
+    data: XOR<AnalysisUpdateManyMutationInput, AnalysisUncheckedUpdateManyWithoutListingInput>
+  }
+
+  export type AnalysisScalarWhereInput = {
+    AND?: AnalysisScalarWhereInput | AnalysisScalarWhereInput[]
+    OR?: AnalysisScalarWhereInput[]
+    NOT?: AnalysisScalarWhereInput | AnalysisScalarWhereInput[]
+    id?: StringFilter<"Analysis"> | string
+    createdAt?: DateTimeNullableFilter<"Analysis"> | Date | string | null
+    updatedAt?: DateTimeNullableFilter<"Analysis"> | Date | string | null
+    question?: StringFilter<"Analysis"> | string
+    answer?: StringFilter<"Analysis"> | string
+    explanation?: StringFilter<"Analysis"> | string
+    data?: JsonNullableFilter<"Analysis">
+    listingId?: StringFilter<"Analysis"> | string
+  }
+
+  export type ListingCreateWithoutAnalysesInput = {
+    id?: string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    name: string
+    desc: string
+    images?: ListingCreateimagesInput | string[]
+    labels?: ListingCreatelabelsInput | string[]
+    address: AddressCreateNestedOneWithoutListingInput
+  }
+
+  export type ListingUncheckedCreateWithoutAnalysesInput = {
+    id?: string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    name: string
+    desc: string
+    images?: ListingCreateimagesInput | string[]
+    labels?: ListingCreatelabelsInput | string[]
+    addressId: string
+  }
+
+  export type ListingCreateOrConnectWithoutAnalysesInput = {
+    where: ListingWhereUniqueInput
+    create: XOR<ListingCreateWithoutAnalysesInput, ListingUncheckedCreateWithoutAnalysesInput>
+  }
+
+  export type ListingUpsertWithoutAnalysesInput = {
+    update: XOR<ListingUpdateWithoutAnalysesInput, ListingUncheckedUpdateWithoutAnalysesInput>
+    create: XOR<ListingCreateWithoutAnalysesInput, ListingUncheckedCreateWithoutAnalysesInput>
+    where?: ListingWhereInput
+  }
+
+  export type ListingUpdateToOneWithWhereWithoutAnalysesInput = {
+    where?: ListingWhereInput
+    data: XOR<ListingUpdateWithoutAnalysesInput, ListingUncheckedUpdateWithoutAnalysesInput>
+  }
+
+  export type ListingUpdateWithoutAnalysesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    sqft?: IntFieldUpdateOperationsInput | number
-    acres?: FloatFieldUpdateOperationsInput | number
-    zoneId?: StringFieldUpdateOperationsInput | string
-    landUseId?: StringFieldUpdateOperationsInput | string
-    addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
-    assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
+    images?: ListingUpdateimagesInput | string[]
+    labels?: ListingUpdatelabelsInput | string[]
+    address?: AddressUpdateOneRequiredWithoutListingNestedInput
+  }
+
+  export type ListingUncheckedUpdateWithoutAnalysesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    desc?: StringFieldUpdateOperationsInput | string
+    images?: ListingUpdateimagesInput | string[]
+    labels?: ListingUpdatelabelsInput | string[]
+    addressId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ParcelUpdateWithoutLandUseInput = {
@@ -10521,7 +10608,6 @@ export namespace Prisma {
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
-    analyses?: AnalysisUpdateManyWithoutParcelNestedInput
   }
 
   export type ParcelUncheckedUpdateWithoutLandUseInput = {
@@ -10531,7 +10617,6 @@ export namespace Prisma {
     zoneId?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
-    analyses?: AnalysisUncheckedUpdateManyWithoutParcelNestedInput
   }
 
   export type ParcelUncheckedUpdateManyWithoutLandUseInput = {
@@ -10548,7 +10633,6 @@ export namespace Prisma {
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
-    analyses?: AnalysisUpdateManyWithoutParcelNestedInput
   }
 
   export type ParcelUncheckedUpdateWithoutZoneInput = {
@@ -10558,7 +10642,6 @@ export namespace Prisma {
     landUseId?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
-    analyses?: AnalysisUncheckedUpdateManyWithoutParcelNestedInput
   }
 
   export type ParcelUncheckedUpdateManyWithoutZoneInput = {
@@ -10634,27 +10717,7 @@ export namespace Prisma {
     total?: IntFieldUpdateOperationsInput | number
   }
 
-  export type AnalysisUpdateWithoutParcelInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    explanation?: StringFieldUpdateOperationsInput | string
-    data?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type AnalysisUncheckedUpdateWithoutParcelInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    explanation?: StringFieldUpdateOperationsInput | string
-    data?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type AnalysisCreateManyParcelInput = {
+  export type AnalysisCreateManyListingInput = {
     id?: string
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
@@ -10664,7 +10727,27 @@ export namespace Prisma {
     data?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type AnalysisUncheckedUpdateManyWithoutParcelInput = {
+  export type AnalysisUpdateWithoutListingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    explanation?: StringFieldUpdateOperationsInput | string
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AnalysisUncheckedUpdateWithoutListingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    explanation?: StringFieldUpdateOperationsInput | string
+    data?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AnalysisUncheckedUpdateManyWithoutListingInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10691,6 +10774,10 @@ export namespace Prisma {
      * @deprecated Use ParcelCountOutputTypeDefaultArgs instead
      */
     export type ParcelCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ParcelCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ListingCountOutputTypeDefaultArgs instead
+     */
+    export type ListingCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ListingCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use AssessmentDefaultArgs instead
      */

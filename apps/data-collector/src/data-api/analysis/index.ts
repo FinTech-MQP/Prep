@@ -11,7 +11,7 @@ const analysisBasicData = Prisma.validator<Prisma.AnalysisDefaultArgs>()({
     question: true,
     answer: true,
     explanation: true,
-    parcelId: true,
+    listingId: true,
   },
 });
 
@@ -100,8 +100,8 @@ export class AnalysisAPIDataSource implements AnalysisDataSource {
         question: q,
         answer: qdata.Answer,
         explanation: qdata.Explanation,
-        parcelId: listing.address.parcelId
-      })
+        listingId: listing.id,
+      });
     }
 
     return analyses;

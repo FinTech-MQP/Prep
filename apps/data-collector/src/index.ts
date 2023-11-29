@@ -25,10 +25,33 @@ import {
   ParcelPolygonDataSource,
 } from "./data-api/parcel/parcelPolygon";
 import { updateAllParcels } from "./scheduled";
+import { AnalysisAPIDataSource, AnalysisDataSource } from "./data-api/analysis";
 
 const app = express();
 
 app.use(express.json());
+
+async function findListing(listingId: string): Promise<ListingPayload | null> {
+  return await prisma.listing.findFirst({
+    where: {
+      id: listingId,
+    },
+    include: {
+      address: {
+        include: {
+          parcel: {
+            include: {
+              assessments: true,
+              landUse: true,
+              zone: true,
+            },
+          },
+        },
+      },
+      analyses: true,
+    },
+  });
+}
 
 /*
 
@@ -40,50 +63,6 @@ TODO: All data collection logic should be
 ------------------------------------------
 
 */
-/*
-const generateDesc = async (data: any) => {
-  const openai = new OpenAI({
-    apiKey: OPENAI_API_KEY,
-    dangerouslyAllowBrowser: true,
-  });
-
-  const assistant = await openai.beta.assistants.retrieve(OPENAI_ASSISTANT_ID);
-
-  try {
-    const thread = await openai.beta.threads.create();
-
-    const message = await openai.beta.threads.messages.create(thread.id, {
-      role: "user",
-      content: `Here is your data : ${JSON.stringify(
-        data,
-        null,
-        0
-      )}, please summarize it.`,
-    });
-
-    const run = await openai.beta.threads.runs.create(thread.id, {
-      assistant_id: assistant.id,
-    });
-
-    let runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
-
-    while (runStatus.status !== "completed") {
-      console.log("not done yet");
-      await new Promise((resolve) => setTimeout(resolve, 100));
-      runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
-    }
-
-    const messages = await openai.beta.threads.messages.list(thread.id);
-
-    return messages.data
-      .filter(
-        (message) => message.run_id === run.id && message.role === "assistant"
-      )
-      .pop()?.content[0].text.value; //ignore this ts error
-  } catch (error) {
-    console.error("Error querying OpenAI:", error);
-  }
-};*/
 
 app.get(`/api/listing/update`, async (req, res) => {
   updateAllParcels();
@@ -92,26 +71,7 @@ app.get(`/api/listing/update`, async (req, res) => {
 
 app.get(`/api/listing/:id`, async (req, res) => {
   let { id }: { id?: string } = req.params;
-  res.json(
-    await prisma.listing.findFirst({
-      where: {
-        id: id,
-      },
-      include: {
-        address: {
-          include: {
-            parcel: {
-              include: {
-                assessments: true,
-                landUse: true,
-                zone: true,
-              },
-            },
-          },
-        },
-      },
-    })
-  );
+  res.json(await findListing(id));
 });
 
 app.get(`/api/listing`, async (req, res) => {
@@ -129,6 +89,7 @@ app.get(`/api/listing`, async (req, res) => {
             },
           },
         },
+        analyses: true,
       },
     })
   );
@@ -177,8 +138,35 @@ app.post(`/api/listing`, async (req, res) => {
           ...data,
         },
       })
-      .then(() => {
-        console.log(`Created listing for addressId:${addressId}`);
+      .then(async (result) => {
+        console.log(`Created listing for addressId:${addressId} ... generating analysis`);
+        // once the listing is created, create the analysis on the listing
+        let analysisDataSource: AnalysisDataSource =
+          new AnalysisAPIDataSource();
+
+        let createdListing = await findListing(result.id);
+        if (createdListing === null) {
+          // listing was not created
+          return;
+        }
+
+        let analyses =
+          await analysisDataSource.generateAnalysis(createdListing);
+        console.log(analyses);
+        if (analyses === undefined) return;
+
+        // clear old analysis
+
+        await prisma.analysis.deleteMany({
+          where: {
+            listingId: createdListing.id,
+          },
+        });
+
+        // enter new analysis
+
+        await prisma.analysis.createMany({data: analyses});
+
         return res.json({
           message: "Successfully added/updated that address to our listings.",
         });

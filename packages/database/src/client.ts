@@ -17,10 +17,10 @@ export type ListingPayload = Prisma.ListingGetPayload<{
             zone: true;
             assessments: true;
             landUse: true;
-            analyses: true;
           };
         };
       };
     };
+    analyses: true;
   };
 }>;
