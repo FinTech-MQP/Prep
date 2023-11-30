@@ -31,11 +31,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.5.2
- * Query Engine version: aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a
+ * Query Engine version: e95e739751f42d8ca026f6b910f5a2dc5adeaeee
  */
 Prisma.prismaVersion = {
   client: "5.5.2",
-  engine: "aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a"
+  engine: "e95e739751f42d8ca026f6b910f5a2dc5adeaeee"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -191,7 +191,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\outra\\Documents\\Github\\FinTech-MQP\\Willow-Development\\packages\\database\\generated\\prisma-client",
+      "value": "C:\\Users\\buiph\\Documents\\GitHub\\Willow-Development\\packages\\database\\generated\\prisma-client",
       "fromEnvVar": null
     },
     "config": {
@@ -213,7 +213,7 @@ const config = {
   },
   "relativePath": "../../prisma",
   "clientVersion": "5.5.2",
-  "engineVersion": "aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a",
+  "engineVersion": "e95e739751f42d8ca026f6b910f5a2dc5adeaeee",
   "datasourceNames": [
     "db"
   ],
