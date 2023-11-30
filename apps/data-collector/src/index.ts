@@ -139,7 +139,9 @@ app.post(`/api/listing`, async (req, res) => {
         },
       })
       .then(async (result) => {
-        console.log(`Created listing for addressId:${addressId} ... generating analysis`);
+        console.log(
+          `Created listing for addressId:${addressId} ... generating analysis`
+        );
         // once the listing is created, create the analysis on the listing
         let analysisDataSource: AnalysisDataSource =
           new AnalysisAPIDataSource();
@@ -150,6 +152,24 @@ app.post(`/api/listing`, async (req, res) => {
           return;
         }
 
+        // generate description
+        let generatedDescription =
+          await analysisDataSource.generateDescription(createdListing);
+
+        if (generatedDescription === undefined)
+          generatedDescription = createdListing.desc;
+
+        // update new description
+        await prisma.listing.update({
+          where: {
+            id: createdListing.id,
+          },
+          data: {
+            desc: generatedDescription,
+          },
+        });
+
+        // generate analysis
         let analyses =
           await analysisDataSource.generateAnalysis(createdListing);
         console.log(analyses);
@@ -165,7 +185,7 @@ app.post(`/api/listing`, async (req, res) => {
 
         // enter new analysis
 
-        await prisma.analysis.createMany({data: analyses});
+        await prisma.analysis.createMany({ data: analyses });
 
         return res.json({
           message: "Successfully added/updated that address to our listings.",
