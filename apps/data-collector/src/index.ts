@@ -26,6 +26,10 @@ import {
 } from "./data-api/parcel/parcelPolygon";
 import { updateAllParcels } from "./scheduled";
 import { AnalysisAPIDataSource, AnalysisDataSource } from "./data-api/analysis";
+import {
+  FloodZoneAPIDataSource,
+  FloodZoneDataSource,
+} from "./data-api/floodZone/floodZone";
 
 const app = express();
 
@@ -142,50 +146,50 @@ app.post(`/api/listing`, async (req, res) => {
         console.log(
           `Created listing for addressId:${addressId} ... generating analysis`
         );
-        // once the listing is created, create the analysis on the listing
-        let analysisDataSource: AnalysisDataSource =
-          new AnalysisAPIDataSource();
+        // // once the listing is created, create the analysis on the listing
+        // let analysisDataSource: AnalysisDataSource =
+        //   new AnalysisAPIDataSource();
 
-        let createdListing = await findListing(result.id);
-        if (createdListing === null) {
-          // listing was not created
-          return;
-        }
+        // let createdListing = await findListing(result.id);
+        // if (createdListing === null) {
+        //   // listing was not created
+        //   return;
+        // }
 
-        // generate description
-        let generatedDescription =
-          await analysisDataSource.generateDescription(createdListing);
+        // // generate description
+        // let generatedDescription =
+        //   await analysisDataSource.generateDescription(createdListing);
 
-        if (generatedDescription === undefined)
-          generatedDescription = createdListing.desc;
+        // if (generatedDescription === undefined)
+        //   generatedDescription = createdListing.desc;
 
-        // update new description
-        await prisma.listing.update({
-          where: {
-            id: createdListing.id,
-          },
-          data: {
-            desc: generatedDescription,
-          },
-        });
+        // // update new description
+        // await prisma.listing.update({
+        //   where: {
+        //     id: createdListing.id,
+        //   },
+        //   data: {
+        //     desc: generatedDescription,
+        //   },
+        // });
 
-        // generate analysis
-        let analyses =
-          await analysisDataSource.generateAnalysis(createdListing);
-        console.log(analyses);
-        if (analyses === undefined) return;
+        // // generate analysis
+        // let analyses =
+        //   await analysisDataSource.generateAnalysis(createdListing);
+        // console.log(analyses);
+        // if (analyses === undefined) return;
 
-        // clear old analysis
+        // // clear old analysis
 
-        await prisma.analysis.deleteMany({
-          where: {
-            listingId: createdListing.id,
-          },
-        });
+        // await prisma.analysis.deleteMany({
+        //   where: {
+        //     listingId: createdListing.id,
+        //   },
+        // });
 
-        // enter new analysis
+        // // enter new analysis
 
-        await prisma.analysis.createMany({ data: analyses });
+        // await prisma.analysis.createMany({ data: analyses });
 
         return res.json({
           message: "Successfully added/updated that address to our listings.",
@@ -221,7 +225,13 @@ app.get(`/gis/zone/:id`, async (req, res) => {
 app.get(`/gis/parcel/:id`, async (req, res) => {
   const { id }: { id?: string } = req.params;
   const parcelDataSource: ParcelDataSource = new ParcelHTMLDataSource();
-  res.json(await parcelDataSource.fetchParcel(id));
+  let parcelPolygonSource: ParcelPolygonDataSource =
+    new ParcelPolygonAPIDataSource();
+  let polygon = await parcelPolygonSource.fetchParcelPolygon(id);
+  if (polygon === undefined) {
+    return undefined;
+  }
+  res.json(await parcelDataSource.fetchParcel(id, undefined, polygon));
 });
 
 app.get(`/gis/address/:id`, async (req, res) => {
@@ -241,7 +251,8 @@ app.post(`/gis/address/:id`, async (req, res) => {
 
   let addressDataSource: AddressDataSource = new AddressAPIDataSource();
   let parcelDataSource: ParcelDataSource = new ParcelHTMLDataSource();
-  let parcelPolygonDataSource: ParcelPolygonDataSource =
+  let floodZoneDataSource: FloodZoneDataSource = new FloodZoneAPIDataSource();
+  let parcelPolygonSource: ParcelPolygonDataSource =
     new ParcelPolygonAPIDataSource();
   let zoneDataSource: ZoneDataSource = new ZoneAPIDataSource();
   let landUseDataSource: LandUseDataSource = new LandUseAPIDataSource();
@@ -253,18 +264,23 @@ app.post(`/gis/address/:id`, async (req, res) => {
     return res.json({ error: `Address ID ${id} not found` });
   }
 
-  let parcel = await parcelDataSource.fetchParcel(address.parcelId);
-  if (parcel === undefined) {
-    return res.json({ error: `Parcel ${address.parcelId} not found` });
-  }
-
-  let parcelPolygon = await parcelPolygonDataSource.fetchParcelPolygon(
+  let parcelPolygon = await parcelPolygonSource.fetchParcelPolygon(
     address.parcelId
   );
   if (parcelPolygon === undefined) {
     return res.json({
       error: `Parcel polygon for parcel ${address.parcelId} not found`,
     });
+  }
+  let floodZone = await floodZoneDataSource.getFloodZone(parcelPolygon);
+
+  let parcel = await parcelDataSource.fetchParcel(
+    address.parcelId,
+    floodZone,
+    parcelPolygon
+  );
+  if (parcel === undefined) {
+    return res.json({ error: `Parcel ${address.parcelId} not found` });
   }
 
   let zone = await zoneDataSource.fetchZone(parcel.zoneId);
@@ -311,12 +327,22 @@ app.post(`/gis/address/:id`, async (req, res) => {
       },
     });
 
-    let parcelPolygonStr = JSON.stringify(parcelPolygon.geometry);
+    if (floodZone !== undefined) {
+      let floodZonePolygonStr = floodZone.polygonJSON;
 
-    await prisma.$executeRaw`INSERT INTO "public"."Parcel" (id, sqft, "zoneId", "landUseId", acres, polygon) 
-    VALUES(${parcel.id}, ${parcel.sqft}, ${parcel.zoneId}, ${parcel.landUseId}, ${parcel.acres}, ST_GeomFromGeoJSON(${parcelPolygonStr}))
+      await prisma.$executeRaw`INSERT INTO "public"."FloodZone" 
+      (id, "zoneName", floodway, "specialFloodHazardArea", polygon, "polygonJSON") 
+      VALUES (${floodZone.id}, ${floodZone.zoneName}, ${floodZone.floodway}, ${floodZone.specialFloodHazardArea}, ST_GeomFromGeoJSON(${floodZonePolygonStr}), ${floodZonePolygonStr})
+      ON CONFLICT(id) DO UPDATE
+      SET id=${floodZone.id}, "zoneName"=${floodZone.zoneName}, floodway=${floodZone.floodway}, "specialFloodHazardArea"=${floodZone.specialFloodHazardArea}, polygon=ST_GeomFromGeoJSON(${floodZonePolygonStr}), "polygonJSON"=${floodZonePolygonStr}`;
+    }
+
+    let parcelPolygonStr = parcel.polygonJSON;
+
+    await prisma.$executeRaw`INSERT INTO "public"."Parcel" (id, sqft, "zoneId", "landUseId", acres, polygon, "polygonJSON", "femaFloodZoneId") 
+    VALUES(${parcel.id}, ${parcel.sqft}, ${parcel.zoneId}, ${parcel.landUseId}, ${parcel.acres}, ST_GeomFromGeoJSON(${parcelPolygonStr}), ${parcelPolygonStr}, ${floodZone?.id})
     ON CONFLICT(id) DO UPDATE 
-    SET sqft=${parcel.sqft}, "zoneId"=${parcel.zoneId}, "landUseId"=${parcel.landUseId}, acres=${parcel.acres}, polygon=ST_GeomFromGeoJSON(${parcelPolygonStr})`;
+    SET sqft=${parcel.sqft}, "zoneId"=${parcel.zoneId}, "landUseId"=${parcel.landUseId}, acres=${parcel.acres}, polygon=ST_GeomFromGeoJSON(${parcelPolygonStr}), "polygonJSON"=${parcelPolygonStr}, "femaFloodZoneId"=${floodZone?.id}`;
 
     assessments.forEach(async (assessment) => {
       await prisma.assessment.upsert({

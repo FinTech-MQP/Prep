@@ -9,7 +9,9 @@ import {
   IQueryFeaturesResponse,
 } from "@esri/arcgis-rest-feature-service";
 
-import type { Parcel } from "database/generated/prisma-client";
+import type { FloodZone, Parcel } from "database/generated/prisma-client";
+import { ParcelPolygonAPIDataSource, ParcelPolygonDataSource } from "./parcelPolygon";
+import { Feature } from "geojson";
 
 const SQFT_PER_ACRE = 43560;
 
@@ -20,22 +22,23 @@ function correctZoneAbbreviation(zoneId: string): string {
 }
 
 export interface ParcelDataSource {
-  fetchParcel(parcelId: string): Promise<Parcel | undefined>;
+  fetchParcel(parcelId: string, floodZone: FloodZone | undefined, parcelPolygon: Feature): Promise<Parcel | undefined>;
   fetchImages(parcelId: string): Promise<string[]>;
 }
 
 export class ParcelHTMLDataSource implements ParcelDataSource {
   cardSource: VisionCardDataSource = new VisionCardHTMLDataSource();
+  parcelPolygonSource: ParcelPolygonDataSource = new ParcelPolygonAPIDataSource();
 
-  async fetchParcel(parcelId: string): Promise<Parcel | undefined> {
+  async fetchParcel(parcelId: string, floodZone: FloodZone | undefined, parcelPolygon: Feature): Promise<Parcel | undefined> {
     // get data from card
-    return await this.cardSource.fetchPage(parcelId).then(($) => {
+    return await this.cardSource.fetchPage(parcelId).then(async ($) => {
       // if no page was found, return undefined
       if ($ === undefined) {
         return undefined;
       }
 
-      let sqft = +$("#MainContent_lblLndSf").text();
+      let sqft = +$("#MainContent_lblLndSf").text();;
 
       return {
         id: parcelId,
@@ -43,6 +46,8 @@ export class ParcelHTMLDataSource implements ParcelDataSource {
         acres: sqft / SQFT_PER_ACRE,
         zoneId: correctZoneAbbreviation($("#MainContent_lblZone").text()),
         landUseId: $("#MainContent_lblUseCode").text(),
+        polygonJSON: JSON.stringify(parcelPolygon.geometry),
+        femaFloodZoneId: floodZone?.id || null,
       };
     });
   }

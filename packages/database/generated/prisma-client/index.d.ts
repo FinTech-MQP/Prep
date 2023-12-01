@@ -34,6 +34,11 @@ export type Zone = $Result.DefaultSelection<Prisma.$ZonePayload>
  */
 export type Parcel = $Result.DefaultSelection<Prisma.$ParcelPayload>
 /**
+ * Model FloodZone
+ * 
+ */
+export type FloodZone = $Result.DefaultSelection<Prisma.$FloodZonePayload>
+/**
  * Model Address
  * 
  */
@@ -210,6 +215,16 @@ export class PrismaClient<
     * ```
     */
   get parcel(): Prisma.ParcelDelegate<ExtArgs>;
+
+  /**
+   * `prisma.floodZone`: Exposes CRUD operations for the **FloodZone** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FloodZones
+    * const floodZones = await prisma.floodZone.findMany()
+    * ```
+    */
+  get floodZone(): Prisma.FloodZoneDelegate<ExtArgs>;
 
   /**
    * `prisma.address`: Exposes CRUD operations for the **Address** model.
@@ -714,6 +729,7 @@ export namespace Prisma {
     LandUse: 'LandUse',
     Zone: 'Zone',
     Parcel: 'Parcel',
+    FloodZone: 'FloodZone',
     Address: 'Address',
     Listing: 'Listing',
     Analysis: 'Analysis'
@@ -733,7 +749,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'assessment' | 'landUse' | 'zone' | 'parcel' | 'address' | 'listing' | 'analysis'
+      modelProps: 'assessment' | 'landUse' | 'zone' | 'parcel' | 'floodZone' | 'address' | 'listing' | 'analysis'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -986,6 +1002,60 @@ export namespace Prisma {
           count: {
             args: Prisma.ParcelCountArgs<ExtArgs>,
             result: $Utils.Optional<ParcelCountAggregateOutputType> | number
+          }
+        }
+      }
+      FloodZone: {
+        payload: Prisma.$FloodZonePayload<ExtArgs>
+        fields: Prisma.FloodZoneFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FloodZoneFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FloodZonePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FloodZoneFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FloodZonePayload>
+          }
+          findFirst: {
+            args: Prisma.FloodZoneFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FloodZonePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FloodZoneFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FloodZonePayload>
+          }
+          findMany: {
+            args: Prisma.FloodZoneFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FloodZonePayload>[]
+          }
+          delete: {
+            args: Prisma.FloodZoneDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FloodZonePayload>
+          }
+          update: {
+            args: Prisma.FloodZoneUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FloodZonePayload>
+          }
+          deleteMany: {
+            args: Prisma.FloodZoneDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FloodZoneUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          aggregate: {
+            args: Prisma.FloodZoneAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateFloodZone>
+          }
+          groupBy: {
+            args: Prisma.FloodZoneGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<FloodZoneGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FloodZoneCountArgs<ExtArgs>,
+            result: $Utils.Optional<FloodZoneCountAggregateOutputType> | number
           }
         }
       }
@@ -1439,6 +1509,40 @@ export namespace Prisma {
    */
   export type ParcelCountOutputTypeCountAssessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AssessmentWhereInput
+  }
+
+
+
+  /**
+   * Count Type FloodZoneCountOutputType
+   */
+
+  export type FloodZoneCountOutputType = {
+    parcels: number
+  }
+
+  export type FloodZoneCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parcels?: boolean | FloodZoneCountOutputTypeCountParcelsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * FloodZoneCountOutputType without action
+   */
+  export type FloodZoneCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FloodZoneCountOutputType
+     */
+    select?: FloodZoneCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * FloodZoneCountOutputType without action
+   */
+  export type FloodZoneCountOutputTypeCountParcelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ParcelWhereInput
   }
 
 
@@ -4276,11 +4380,13 @@ export namespace Prisma {
   export type ParcelAvgAggregateOutputType = {
     sqft: number | null
     acres: number | null
+    femaFloodZoneId: number | null
   }
 
   export type ParcelSumAggregateOutputType = {
     sqft: number | null
     acres: number | null
+    femaFloodZoneId: number | null
   }
 
   export type ParcelMinAggregateOutputType = {
@@ -4289,6 +4395,8 @@ export namespace Prisma {
     acres: number | null
     zoneId: string | null
     landUseId: string | null
+    polygonJSON: string | null
+    femaFloodZoneId: number | null
   }
 
   export type ParcelMaxAggregateOutputType = {
@@ -4297,6 +4405,8 @@ export namespace Prisma {
     acres: number | null
     zoneId: string | null
     landUseId: string | null
+    polygonJSON: string | null
+    femaFloodZoneId: number | null
   }
 
   export type ParcelCountAggregateOutputType = {
@@ -4305,6 +4415,8 @@ export namespace Prisma {
     acres: number
     zoneId: number
     landUseId: number
+    polygonJSON: number
+    femaFloodZoneId: number
     _all: number
   }
 
@@ -4312,11 +4424,13 @@ export namespace Prisma {
   export type ParcelAvgAggregateInputType = {
     sqft?: true
     acres?: true
+    femaFloodZoneId?: true
   }
 
   export type ParcelSumAggregateInputType = {
     sqft?: true
     acres?: true
+    femaFloodZoneId?: true
   }
 
   export type ParcelMinAggregateInputType = {
@@ -4325,6 +4439,8 @@ export namespace Prisma {
     acres?: true
     zoneId?: true
     landUseId?: true
+    polygonJSON?: true
+    femaFloodZoneId?: true
   }
 
   export type ParcelMaxAggregateInputType = {
@@ -4333,6 +4449,8 @@ export namespace Prisma {
     acres?: true
     zoneId?: true
     landUseId?: true
+    polygonJSON?: true
+    femaFloodZoneId?: true
   }
 
   export type ParcelCountAggregateInputType = {
@@ -4341,6 +4459,8 @@ export namespace Prisma {
     acres?: true
     zoneId?: true
     landUseId?: true
+    polygonJSON?: true
+    femaFloodZoneId?: true
     _all?: true
   }
 
@@ -4436,6 +4556,8 @@ export namespace Prisma {
     acres: number
     zoneId: string
     landUseId: string
+    polygonJSON: string
+    femaFloodZoneId: number | null
     _count: ParcelCountAggregateOutputType | null
     _avg: ParcelAvgAggregateOutputType | null
     _sum: ParcelSumAggregateOutputType | null
@@ -4463,10 +4585,13 @@ export namespace Prisma {
     acres?: boolean
     zoneId?: boolean
     landUseId?: boolean
+    polygonJSON?: boolean
+    femaFloodZoneId?: boolean
     addresses?: boolean | Parcel$addressesArgs<ExtArgs>
     zone?: boolean | ZoneDefaultArgs<ExtArgs>
     landUse?: boolean | LandUseDefaultArgs<ExtArgs>
     assessments?: boolean | Parcel$assessmentsArgs<ExtArgs>
+    femaFloodZone?: boolean | Parcel$femaFloodZoneArgs<ExtArgs>
     _count?: boolean | ParcelCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["parcel"]>
 
@@ -4476,6 +4601,8 @@ export namespace Prisma {
     acres?: boolean
     zoneId?: boolean
     landUseId?: boolean
+    polygonJSON?: boolean
+    femaFloodZoneId?: boolean
   }
 
   export type ParcelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4483,6 +4610,7 @@ export namespace Prisma {
     zone?: boolean | ZoneDefaultArgs<ExtArgs>
     landUse?: boolean | LandUseDefaultArgs<ExtArgs>
     assessments?: boolean | Parcel$assessmentsArgs<ExtArgs>
+    femaFloodZone?: boolean | Parcel$femaFloodZoneArgs<ExtArgs>
     _count?: boolean | ParcelCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -4494,6 +4622,7 @@ export namespace Prisma {
       zone: Prisma.$ZonePayload<ExtArgs>
       landUse: Prisma.$LandUsePayload<ExtArgs>
       assessments: Prisma.$AssessmentPayload<ExtArgs>[]
+      femaFloodZone: Prisma.$FloodZonePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4501,6 +4630,8 @@ export namespace Prisma {
       acres: number
       zoneId: string
       landUseId: string
+      polygonJSON: string
+      femaFloodZoneId: number | null
     }, ExtArgs["result"]["parcel"]>
     composites: {}
   }
@@ -4821,6 +4952,8 @@ export namespace Prisma {
 
     assessments<T extends Parcel$assessmentsArgs<ExtArgs> = {}>(args?: Subset<T, Parcel$assessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentPayload<ExtArgs>, T, 'findMany'> | Null>;
 
+    femaFloodZone<T extends Parcel$femaFloodZoneArgs<ExtArgs> = {}>(args?: Subset<T, Parcel$femaFloodZoneArgs<ExtArgs>>): Prisma__FloodZoneClient<$Result.GetResult<Prisma.$FloodZonePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4854,6 +4987,8 @@ export namespace Prisma {
     readonly acres: FieldRef<"Parcel", 'Float'>
     readonly zoneId: FieldRef<"Parcel", 'String'>
     readonly landUseId: FieldRef<"Parcel", 'String'>
+    readonly polygonJSON: FieldRef<"Parcel", 'String'>
+    readonly femaFloodZoneId: FieldRef<"Parcel", 'Int'>
   }
     
 
@@ -5150,6 +5285,22 @@ export namespace Prisma {
 
 
   /**
+   * Parcel.femaFloodZone
+   */
+  export type Parcel$femaFloodZoneArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FloodZone
+     */
+    select?: FloodZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FloodZoneInclude<ExtArgs> | null
+    where?: FloodZoneWhereInput
+  }
+
+
+  /**
    * Parcel without action
    */
   export type ParcelDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5161,6 +5312,870 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: ParcelInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model FloodZone
+   */
+
+  export type AggregateFloodZone = {
+    _count: FloodZoneCountAggregateOutputType | null
+    _avg: FloodZoneAvgAggregateOutputType | null
+    _sum: FloodZoneSumAggregateOutputType | null
+    _min: FloodZoneMinAggregateOutputType | null
+    _max: FloodZoneMaxAggregateOutputType | null
+  }
+
+  export type FloodZoneAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type FloodZoneSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type FloodZoneMinAggregateOutputType = {
+    id: number | null
+    zoneName: string | null
+    floodway: string | null
+    specialFloodHazardArea: boolean | null
+    polygonJSON: string | null
+  }
+
+  export type FloodZoneMaxAggregateOutputType = {
+    id: number | null
+    zoneName: string | null
+    floodway: string | null
+    specialFloodHazardArea: boolean | null
+    polygonJSON: string | null
+  }
+
+  export type FloodZoneCountAggregateOutputType = {
+    id: number
+    zoneName: number
+    floodway: number
+    specialFloodHazardArea: number
+    polygonJSON: number
+    _all: number
+  }
+
+
+  export type FloodZoneAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type FloodZoneSumAggregateInputType = {
+    id?: true
+  }
+
+  export type FloodZoneMinAggregateInputType = {
+    id?: true
+    zoneName?: true
+    floodway?: true
+    specialFloodHazardArea?: true
+    polygonJSON?: true
+  }
+
+  export type FloodZoneMaxAggregateInputType = {
+    id?: true
+    zoneName?: true
+    floodway?: true
+    specialFloodHazardArea?: true
+    polygonJSON?: true
+  }
+
+  export type FloodZoneCountAggregateInputType = {
+    id?: true
+    zoneName?: true
+    floodway?: true
+    specialFloodHazardArea?: true
+    polygonJSON?: true
+    _all?: true
+  }
+
+  export type FloodZoneAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FloodZone to aggregate.
+     */
+    where?: FloodZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FloodZones to fetch.
+     */
+    orderBy?: FloodZoneOrderByWithRelationInput | FloodZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FloodZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FloodZones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FloodZones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FloodZones
+    **/
+    _count?: true | FloodZoneCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FloodZoneAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FloodZoneSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FloodZoneMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FloodZoneMaxAggregateInputType
+  }
+
+  export type GetFloodZoneAggregateType<T extends FloodZoneAggregateArgs> = {
+        [P in keyof T & keyof AggregateFloodZone]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFloodZone[P]>
+      : GetScalarType<T[P], AggregateFloodZone[P]>
+  }
+
+
+
+
+  export type FloodZoneGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FloodZoneWhereInput
+    orderBy?: FloodZoneOrderByWithAggregationInput | FloodZoneOrderByWithAggregationInput[]
+    by: FloodZoneScalarFieldEnum[] | FloodZoneScalarFieldEnum
+    having?: FloodZoneScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FloodZoneCountAggregateInputType | true
+    _avg?: FloodZoneAvgAggregateInputType
+    _sum?: FloodZoneSumAggregateInputType
+    _min?: FloodZoneMinAggregateInputType
+    _max?: FloodZoneMaxAggregateInputType
+  }
+
+  export type FloodZoneGroupByOutputType = {
+    id: number
+    zoneName: string
+    floodway: string
+    specialFloodHazardArea: boolean
+    polygonJSON: string
+    _count: FloodZoneCountAggregateOutputType | null
+    _avg: FloodZoneAvgAggregateOutputType | null
+    _sum: FloodZoneSumAggregateOutputType | null
+    _min: FloodZoneMinAggregateOutputType | null
+    _max: FloodZoneMaxAggregateOutputType | null
+  }
+
+  type GetFloodZoneGroupByPayload<T extends FloodZoneGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FloodZoneGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FloodZoneGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FloodZoneGroupByOutputType[P]>
+            : GetScalarType<T[P], FloodZoneGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FloodZoneSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    zoneName?: boolean
+    floodway?: boolean
+    specialFloodHazardArea?: boolean
+    polygonJSON?: boolean
+    parcels?: boolean | FloodZone$parcelsArgs<ExtArgs>
+    _count?: boolean | FloodZoneCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["floodZone"]>
+
+  export type FloodZoneSelectScalar = {
+    id?: boolean
+    zoneName?: boolean
+    floodway?: boolean
+    specialFloodHazardArea?: boolean
+    polygonJSON?: boolean
+  }
+
+  export type FloodZoneInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parcels?: boolean | FloodZone$parcelsArgs<ExtArgs>
+    _count?: boolean | FloodZoneCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $FloodZonePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FloodZone"
+    objects: {
+      parcels: Prisma.$ParcelPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      zoneName: string
+      floodway: string
+      specialFloodHazardArea: boolean
+      polygonJSON: string
+    }, ExtArgs["result"]["floodZone"]>
+    composites: {}
+  }
+
+
+  type FloodZoneGetPayload<S extends boolean | null | undefined | FloodZoneDefaultArgs> = $Result.GetResult<Prisma.$FloodZonePayload, S>
+
+  type FloodZoneCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FloodZoneFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: FloodZoneCountAggregateInputType | true
+    }
+
+  export interface FloodZoneDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FloodZone'], meta: { name: 'FloodZone' } }
+    /**
+     * Find zero or one FloodZone that matches the filter.
+     * @param {FloodZoneFindUniqueArgs} args - Arguments to find a FloodZone
+     * @example
+     * // Get one FloodZone
+     * const floodZone = await prisma.floodZone.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends FloodZoneFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, FloodZoneFindUniqueArgs<ExtArgs>>
+    ): Prisma__FloodZoneClient<$Result.GetResult<Prisma.$FloodZonePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one FloodZone that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {FloodZoneFindUniqueOrThrowArgs} args - Arguments to find a FloodZone
+     * @example
+     * // Get one FloodZone
+     * const floodZone = await prisma.floodZone.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends FloodZoneFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, FloodZoneFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__FloodZoneClient<$Result.GetResult<Prisma.$FloodZonePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first FloodZone that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FloodZoneFindFirstArgs} args - Arguments to find a FloodZone
+     * @example
+     * // Get one FloodZone
+     * const floodZone = await prisma.floodZone.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends FloodZoneFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, FloodZoneFindFirstArgs<ExtArgs>>
+    ): Prisma__FloodZoneClient<$Result.GetResult<Prisma.$FloodZonePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first FloodZone that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FloodZoneFindFirstOrThrowArgs} args - Arguments to find a FloodZone
+     * @example
+     * // Get one FloodZone
+     * const floodZone = await prisma.floodZone.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends FloodZoneFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, FloodZoneFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__FloodZoneClient<$Result.GetResult<Prisma.$FloodZonePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more FloodZones that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FloodZoneFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FloodZones
+     * const floodZones = await prisma.floodZone.findMany()
+     * 
+     * // Get first 10 FloodZones
+     * const floodZones = await prisma.floodZone.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const floodZoneWithIdOnly = await prisma.floodZone.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends FloodZoneFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FloodZoneFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FloodZonePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Delete a FloodZone.
+     * @param {FloodZoneDeleteArgs} args - Arguments to delete one FloodZone.
+     * @example
+     * // Delete one FloodZone
+     * const FloodZone = await prisma.floodZone.delete({
+     *   where: {
+     *     // ... filter to delete one FloodZone
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends FloodZoneDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, FloodZoneDeleteArgs<ExtArgs>>
+    ): Prisma__FloodZoneClient<$Result.GetResult<Prisma.$FloodZonePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one FloodZone.
+     * @param {FloodZoneUpdateArgs} args - Arguments to update one FloodZone.
+     * @example
+     * // Update one FloodZone
+     * const floodZone = await prisma.floodZone.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends FloodZoneUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, FloodZoneUpdateArgs<ExtArgs>>
+    ): Prisma__FloodZoneClient<$Result.GetResult<Prisma.$FloodZonePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more FloodZones.
+     * @param {FloodZoneDeleteManyArgs} args - Arguments to filter FloodZones to delete.
+     * @example
+     * // Delete a few FloodZones
+     * const { count } = await prisma.floodZone.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends FloodZoneDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FloodZoneDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FloodZones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FloodZoneUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FloodZones
+     * const floodZone = await prisma.floodZone.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends FloodZoneUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, FloodZoneUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Count the number of FloodZones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FloodZoneCountArgs} args - Arguments to filter FloodZones to count.
+     * @example
+     * // Count the number of FloodZones
+     * const count = await prisma.floodZone.count({
+     *   where: {
+     *     // ... the filter for the FloodZones we want to count
+     *   }
+     * })
+    **/
+    count<T extends FloodZoneCountArgs>(
+      args?: Subset<T, FloodZoneCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FloodZoneCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FloodZone.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FloodZoneAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FloodZoneAggregateArgs>(args: Subset<T, FloodZoneAggregateArgs>): Prisma.PrismaPromise<GetFloodZoneAggregateType<T>>
+
+    /**
+     * Group by FloodZone.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FloodZoneGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FloodZoneGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FloodZoneGroupByArgs['orderBy'] }
+        : { orderBy?: FloodZoneGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FloodZoneGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFloodZoneGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FloodZone model
+   */
+  readonly fields: FloodZoneFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FloodZone.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FloodZoneClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    parcels<T extends FloodZone$parcelsArgs<ExtArgs> = {}>(args?: Subset<T, FloodZone$parcelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ParcelPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the FloodZone model
+   */ 
+  interface FloodZoneFieldRefs {
+    readonly id: FieldRef<"FloodZone", 'Int'>
+    readonly zoneName: FieldRef<"FloodZone", 'String'>
+    readonly floodway: FieldRef<"FloodZone", 'String'>
+    readonly specialFloodHazardArea: FieldRef<"FloodZone", 'Boolean'>
+    readonly polygonJSON: FieldRef<"FloodZone", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * FloodZone findUnique
+   */
+  export type FloodZoneFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FloodZone
+     */
+    select?: FloodZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FloodZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which FloodZone to fetch.
+     */
+    where: FloodZoneWhereUniqueInput
+  }
+
+
+  /**
+   * FloodZone findUniqueOrThrow
+   */
+  export type FloodZoneFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FloodZone
+     */
+    select?: FloodZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FloodZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which FloodZone to fetch.
+     */
+    where: FloodZoneWhereUniqueInput
+  }
+
+
+  /**
+   * FloodZone findFirst
+   */
+  export type FloodZoneFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FloodZone
+     */
+    select?: FloodZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FloodZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which FloodZone to fetch.
+     */
+    where?: FloodZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FloodZones to fetch.
+     */
+    orderBy?: FloodZoneOrderByWithRelationInput | FloodZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FloodZones.
+     */
+    cursor?: FloodZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FloodZones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FloodZones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FloodZones.
+     */
+    distinct?: FloodZoneScalarFieldEnum | FloodZoneScalarFieldEnum[]
+  }
+
+
+  /**
+   * FloodZone findFirstOrThrow
+   */
+  export type FloodZoneFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FloodZone
+     */
+    select?: FloodZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FloodZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which FloodZone to fetch.
+     */
+    where?: FloodZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FloodZones to fetch.
+     */
+    orderBy?: FloodZoneOrderByWithRelationInput | FloodZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FloodZones.
+     */
+    cursor?: FloodZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FloodZones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FloodZones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FloodZones.
+     */
+    distinct?: FloodZoneScalarFieldEnum | FloodZoneScalarFieldEnum[]
+  }
+
+
+  /**
+   * FloodZone findMany
+   */
+  export type FloodZoneFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FloodZone
+     */
+    select?: FloodZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FloodZoneInclude<ExtArgs> | null
+    /**
+     * Filter, which FloodZones to fetch.
+     */
+    where?: FloodZoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FloodZones to fetch.
+     */
+    orderBy?: FloodZoneOrderByWithRelationInput | FloodZoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FloodZones.
+     */
+    cursor?: FloodZoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FloodZones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FloodZones.
+     */
+    skip?: number
+    distinct?: FloodZoneScalarFieldEnum | FloodZoneScalarFieldEnum[]
+  }
+
+
+  /**
+   * FloodZone update
+   */
+  export type FloodZoneUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FloodZone
+     */
+    select?: FloodZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FloodZoneInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FloodZone.
+     */
+    data: XOR<FloodZoneUpdateInput, FloodZoneUncheckedUpdateInput>
+    /**
+     * Choose, which FloodZone to update.
+     */
+    where: FloodZoneWhereUniqueInput
+  }
+
+
+  /**
+   * FloodZone updateMany
+   */
+  export type FloodZoneUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FloodZones.
+     */
+    data: XOR<FloodZoneUpdateManyMutationInput, FloodZoneUncheckedUpdateManyInput>
+    /**
+     * Filter which FloodZones to update
+     */
+    where?: FloodZoneWhereInput
+  }
+
+
+  /**
+   * FloodZone delete
+   */
+  export type FloodZoneDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FloodZone
+     */
+    select?: FloodZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FloodZoneInclude<ExtArgs> | null
+    /**
+     * Filter which FloodZone to delete.
+     */
+    where: FloodZoneWhereUniqueInput
+  }
+
+
+  /**
+   * FloodZone deleteMany
+   */
+  export type FloodZoneDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FloodZones to delete
+     */
+    where?: FloodZoneWhereInput
+  }
+
+
+  /**
+   * FloodZone.parcels
+   */
+  export type FloodZone$parcelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Parcel
+     */
+    select?: ParcelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ParcelInclude<ExtArgs> | null
+    where?: ParcelWhereInput
+    orderBy?: ParcelOrderByWithRelationInput | ParcelOrderByWithRelationInput[]
+    cursor?: ParcelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ParcelScalarFieldEnum | ParcelScalarFieldEnum[]
+  }
+
+
+  /**
+   * FloodZone without action
+   */
+  export type FloodZoneDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FloodZone
+     */
+    select?: FloodZoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FloodZoneInclude<ExtArgs> | null
   }
 
 
@@ -8124,10 +9139,23 @@ export namespace Prisma {
     sqft: 'sqft',
     acres: 'acres',
     zoneId: 'zoneId',
-    landUseId: 'landUseId'
+    landUseId: 'landUseId',
+    polygonJSON: 'polygonJSON',
+    femaFloodZoneId: 'femaFloodZoneId'
   };
 
   export type ParcelScalarFieldEnum = (typeof ParcelScalarFieldEnum)[keyof typeof ParcelScalarFieldEnum]
+
+
+  export const FloodZoneScalarFieldEnum: {
+    id: 'id',
+    zoneName: 'zoneName',
+    floodway: 'floodway',
+    specialFloodHazardArea: 'specialFloodHazardArea',
+    polygonJSON: 'polygonJSON'
+  };
+
+  export type FloodZoneScalarFieldEnum = (typeof FloodZoneScalarFieldEnum)[keyof typeof FloodZoneScalarFieldEnum]
 
 
   export const AddressScalarFieldEnum: {
@@ -8256,6 +9284,13 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -8430,10 +9465,13 @@ export namespace Prisma {
     acres?: FloatFilter<"Parcel"> | number
     zoneId?: StringFilter<"Parcel"> | string
     landUseId?: StringFilter<"Parcel"> | string
+    polygonJSON?: StringFilter<"Parcel"> | string
+    femaFloodZoneId?: IntNullableFilter<"Parcel"> | number | null
     addresses?: AddressListRelationFilter
     zone?: XOR<ZoneRelationFilter, ZoneWhereInput>
     landUse?: XOR<LandUseRelationFilter, LandUseWhereInput>
     assessments?: AssessmentListRelationFilter
+    femaFloodZone?: XOR<FloodZoneNullableRelationFilter, FloodZoneWhereInput> | null
   }
 
   export type ParcelOrderByWithRelationInput = {
@@ -8442,10 +9480,13 @@ export namespace Prisma {
     acres?: SortOrder
     zoneId?: SortOrder
     landUseId?: SortOrder
+    polygonJSON?: SortOrder
+    femaFloodZoneId?: SortOrderInput | SortOrder
     addresses?: AddressOrderByRelationAggregateInput
     zone?: ZoneOrderByWithRelationInput
     landUse?: LandUseOrderByWithRelationInput
     assessments?: AssessmentOrderByRelationAggregateInput
+    femaFloodZone?: FloodZoneOrderByWithRelationInput
   }
 
   export type ParcelWhereUniqueInput = Prisma.AtLeast<{
@@ -8457,10 +9498,13 @@ export namespace Prisma {
     acres?: FloatFilter<"Parcel"> | number
     zoneId?: StringFilter<"Parcel"> | string
     landUseId?: StringFilter<"Parcel"> | string
+    polygonJSON?: StringFilter<"Parcel"> | string
+    femaFloodZoneId?: IntNullableFilter<"Parcel"> | number | null
     addresses?: AddressListRelationFilter
     zone?: XOR<ZoneRelationFilter, ZoneWhereInput>
     landUse?: XOR<LandUseRelationFilter, LandUseWhereInput>
     assessments?: AssessmentListRelationFilter
+    femaFloodZone?: XOR<FloodZoneNullableRelationFilter, FloodZoneWhereInput> | null
   }, "id">
 
   export type ParcelOrderByWithAggregationInput = {
@@ -8469,6 +9513,8 @@ export namespace Prisma {
     acres?: SortOrder
     zoneId?: SortOrder
     landUseId?: SortOrder
+    polygonJSON?: SortOrder
+    femaFloodZoneId?: SortOrderInput | SortOrder
     _count?: ParcelCountOrderByAggregateInput
     _avg?: ParcelAvgOrderByAggregateInput
     _max?: ParcelMaxOrderByAggregateInput
@@ -8485,6 +9531,65 @@ export namespace Prisma {
     acres?: FloatWithAggregatesFilter<"Parcel"> | number
     zoneId?: StringWithAggregatesFilter<"Parcel"> | string
     landUseId?: StringWithAggregatesFilter<"Parcel"> | string
+    polygonJSON?: StringWithAggregatesFilter<"Parcel"> | string
+    femaFloodZoneId?: IntNullableWithAggregatesFilter<"Parcel"> | number | null
+  }
+
+  export type FloodZoneWhereInput = {
+    AND?: FloodZoneWhereInput | FloodZoneWhereInput[]
+    OR?: FloodZoneWhereInput[]
+    NOT?: FloodZoneWhereInput | FloodZoneWhereInput[]
+    id?: IntFilter<"FloodZone"> | number
+    zoneName?: StringFilter<"FloodZone"> | string
+    floodway?: StringFilter<"FloodZone"> | string
+    specialFloodHazardArea?: BoolFilter<"FloodZone"> | boolean
+    polygonJSON?: StringFilter<"FloodZone"> | string
+    parcels?: ParcelListRelationFilter
+  }
+
+  export type FloodZoneOrderByWithRelationInput = {
+    id?: SortOrder
+    zoneName?: SortOrder
+    floodway?: SortOrder
+    specialFloodHazardArea?: SortOrder
+    polygonJSON?: SortOrder
+    parcels?: ParcelOrderByRelationAggregateInput
+  }
+
+  export type FloodZoneWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: FloodZoneWhereInput | FloodZoneWhereInput[]
+    OR?: FloodZoneWhereInput[]
+    NOT?: FloodZoneWhereInput | FloodZoneWhereInput[]
+    zoneName?: StringFilter<"FloodZone"> | string
+    floodway?: StringFilter<"FloodZone"> | string
+    specialFloodHazardArea?: BoolFilter<"FloodZone"> | boolean
+    polygonJSON?: StringFilter<"FloodZone"> | string
+    parcels?: ParcelListRelationFilter
+  }, "id">
+
+  export type FloodZoneOrderByWithAggregationInput = {
+    id?: SortOrder
+    zoneName?: SortOrder
+    floodway?: SortOrder
+    specialFloodHazardArea?: SortOrder
+    polygonJSON?: SortOrder
+    _count?: FloodZoneCountOrderByAggregateInput
+    _avg?: FloodZoneAvgOrderByAggregateInput
+    _max?: FloodZoneMaxOrderByAggregateInput
+    _min?: FloodZoneMinOrderByAggregateInput
+    _sum?: FloodZoneSumOrderByAggregateInput
+  }
+
+  export type FloodZoneScalarWhereWithAggregatesInput = {
+    AND?: FloodZoneScalarWhereWithAggregatesInput | FloodZoneScalarWhereWithAggregatesInput[]
+    OR?: FloodZoneScalarWhereWithAggregatesInput[]
+    NOT?: FloodZoneScalarWhereWithAggregatesInput | FloodZoneScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"FloodZone"> | number
+    zoneName?: StringWithAggregatesFilter<"FloodZone"> | string
+    floodway?: StringWithAggregatesFilter<"FloodZone"> | string
+    specialFloodHazardArea?: BoolWithAggregatesFilter<"FloodZone"> | boolean
+    polygonJSON?: StringWithAggregatesFilter<"FloodZone"> | string
   }
 
   export type AddressWhereInput = {
@@ -8837,10 +9942,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
+    polygonJSON?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
+    femaFloodZone?: FloodZoneUpdateOneWithoutParcelsNestedInput
   }
 
   export type ParcelUncheckedUpdateInput = {
@@ -8849,6 +9956,8 @@ export namespace Prisma {
     acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
     landUseId?: StringFieldUpdateOperationsInput | string
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+    femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
   }
@@ -8857,6 +9966,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
+    polygonJSON?: StringFieldUpdateOperationsInput | string
   }
 
   export type ParcelUncheckedUpdateManyInput = {
@@ -8865,6 +9975,42 @@ export namespace Prisma {
     acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
     landUseId?: StringFieldUpdateOperationsInput | string
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+    femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type FloodZoneUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    zoneName?: StringFieldUpdateOperationsInput | string
+    floodway?: StringFieldUpdateOperationsInput | string
+    specialFloodHazardArea?: BoolFieldUpdateOperationsInput | boolean
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+    parcels?: ParcelUpdateManyWithoutFemaFloodZoneNestedInput
+  }
+
+  export type FloodZoneUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    zoneName?: StringFieldUpdateOperationsInput | string
+    floodway?: StringFieldUpdateOperationsInput | string
+    specialFloodHazardArea?: BoolFieldUpdateOperationsInput | boolean
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+    parcels?: ParcelUncheckedUpdateManyWithoutFemaFloodZoneNestedInput
+  }
+
+  export type FloodZoneUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    zoneName?: StringFieldUpdateOperationsInput | string
+    floodway?: StringFieldUpdateOperationsInput | string
+    specialFloodHazardArea?: BoolFieldUpdateOperationsInput | boolean
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type FloodZoneUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    zoneName?: StringFieldUpdateOperationsInput | string
+    floodway?: StringFieldUpdateOperationsInput | string
+    specialFloodHazardArea?: BoolFieldUpdateOperationsInput | boolean
+    polygonJSON?: StringFieldUpdateOperationsInput | string
   }
 
   export type AddressCreateInput = {
@@ -9255,6 +10401,17 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type AddressListRelationFilter = {
     every?: AddressWhereInput
     some?: AddressWhereInput
@@ -9277,6 +10434,16 @@ export namespace Prisma {
     none?: AssessmentWhereInput
   }
 
+  export type FloodZoneNullableRelationFilter = {
+    is?: FloodZoneWhereInput | null
+    isNot?: FloodZoneWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type AddressOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -9291,11 +10458,14 @@ export namespace Prisma {
     acres?: SortOrder
     zoneId?: SortOrder
     landUseId?: SortOrder
+    polygonJSON?: SortOrder
+    femaFloodZoneId?: SortOrder
   }
 
   export type ParcelAvgOrderByAggregateInput = {
     sqft?: SortOrder
     acres?: SortOrder
+    femaFloodZoneId?: SortOrder
   }
 
   export type ParcelMaxOrderByAggregateInput = {
@@ -9304,6 +10474,8 @@ export namespace Prisma {
     acres?: SortOrder
     zoneId?: SortOrder
     landUseId?: SortOrder
+    polygonJSON?: SortOrder
+    femaFloodZoneId?: SortOrder
   }
 
   export type ParcelMinOrderByAggregateInput = {
@@ -9312,11 +10484,14 @@ export namespace Prisma {
     acres?: SortOrder
     zoneId?: SortOrder
     landUseId?: SortOrder
+    polygonJSON?: SortOrder
+    femaFloodZoneId?: SortOrder
   }
 
   export type ParcelSumOrderByAggregateInput = {
     sqft?: SortOrder
     acres?: SortOrder
+    femaFloodZoneId?: SortOrder
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -9335,7 +10510,7 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -9343,7 +10518,57 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type FloodZoneCountOrderByAggregateInput = {
+    id?: SortOrder
+    zoneName?: SortOrder
+    floodway?: SortOrder
+    specialFloodHazardArea?: SortOrder
+    polygonJSON?: SortOrder
+  }
+
+  export type FloodZoneAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type FloodZoneMaxOrderByAggregateInput = {
+    id?: SortOrder
+    zoneName?: SortOrder
+    floodway?: SortOrder
+    specialFloodHazardArea?: SortOrder
+    polygonJSON?: SortOrder
+  }
+
+  export type FloodZoneMinOrderByAggregateInput = {
+    id?: SortOrder
+    zoneName?: SortOrder
+    floodway?: SortOrder
+    specialFloodHazardArea?: SortOrder
+    polygonJSON?: SortOrder
+  }
+
+  export type FloodZoneSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -9364,11 +10589,6 @@ export namespace Prisma {
   export type ListingNullableRelationFilter = {
     is?: ListingWhereInput | null
     isNot?: ListingWhereInput | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type AddressCountOrderByAggregateInput = {
@@ -9407,22 +10627,6 @@ export namespace Prisma {
 
   export type AddressSumOrderByAggregateInput = {
     num?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -9732,6 +10936,21 @@ export namespace Prisma {
     deleteMany?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
   }
 
+  export type FloodZoneUpdateOneWithoutParcelsNestedInput = {
+    disconnect?: FloodZoneWhereInput | boolean
+    delete?: FloodZoneWhereInput | boolean
+    connect?: FloodZoneWhereUniqueInput
+    update?: XOR<XOR<FloodZoneUpdateToOneWithWhereWithoutParcelsInput, FloodZoneUpdateWithoutParcelsInput>, FloodZoneUncheckedUpdateWithoutParcelsInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type AddressUncheckedUpdateManyWithoutParcelNestedInput = {
     create?: XOR<AddressCreateWithoutParcelInput, AddressUncheckedCreateWithoutParcelInput> | AddressCreateWithoutParcelInput[] | AddressUncheckedCreateWithoutParcelInput[]
     connectOrCreate?: AddressCreateOrConnectWithoutParcelInput | AddressCreateOrConnectWithoutParcelInput[]
@@ -9760,6 +10979,30 @@ export namespace Prisma {
     deleteMany?: AssessmentScalarWhereInput | AssessmentScalarWhereInput[]
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type ParcelUpdateManyWithoutFemaFloodZoneNestedInput = {
+    set?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    disconnect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    delete?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    update?: ParcelUpdateWithWhereUniqueWithoutFemaFloodZoneInput | ParcelUpdateWithWhereUniqueWithoutFemaFloodZoneInput[]
+    updateMany?: ParcelUpdateManyWithWhereWithoutFemaFloodZoneInput | ParcelUpdateManyWithWhereWithoutFemaFloodZoneInput[]
+    deleteMany?: ParcelScalarWhereInput | ParcelScalarWhereInput[]
+  }
+
+  export type ParcelUncheckedUpdateManyWithoutFemaFloodZoneNestedInput = {
+    set?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    disconnect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    delete?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    connect?: ParcelWhereUniqueInput | ParcelWhereUniqueInput[]
+    update?: ParcelUpdateWithWhereUniqueWithoutFemaFloodZoneInput | ParcelUpdateWithWhereUniqueWithoutFemaFloodZoneInput[]
+    updateMany?: ParcelUpdateManyWithWhereWithoutFemaFloodZoneInput | ParcelUpdateManyWithWhereWithoutFemaFloodZoneInput[]
+    deleteMany?: ParcelScalarWhereInput | ParcelScalarWhereInput[]
+  }
+
   export type ParcelCreateNestedOneWithoutAddressesInput = {
     connect?: ParcelWhereUniqueInput
   }
@@ -9774,14 +11017,6 @@ export namespace Prisma {
     create?: XOR<ListingCreateWithoutAddressInput, ListingUncheckedCreateWithoutAddressInput>
     connectOrCreate?: ListingCreateOrConnectWithoutAddressInput
     connect?: ListingWhereUniqueInput
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -9974,6 +11209,17 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -9988,31 +11234,6 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -10040,6 +11261,33 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -10115,9 +11363,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
+    polygonJSON?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
+    femaFloodZone?: FloodZoneUpdateOneWithoutParcelsNestedInput
   }
 
   export type ParcelUncheckedUpdateWithoutAssessmentsInput = {
@@ -10126,6 +11376,8 @@ export namespace Prisma {
     acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
     landUseId?: StringFieldUpdateOperationsInput | string
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+    femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
   }
 
@@ -10148,6 +11400,8 @@ export namespace Prisma {
     acres?: FloatFilter<"Parcel"> | number
     zoneId?: StringFilter<"Parcel"> | string
     landUseId?: StringFilter<"Parcel"> | string
+    polygonJSON?: StringFilter<"Parcel"> | string
+    femaFloodZoneId?: IntNullableFilter<"Parcel"> | number | null
   }
 
   export type ParcelUpdateWithWhereUniqueWithoutZoneInput = {
@@ -10342,6 +11596,37 @@ export namespace Prisma {
     total?: IntFilter<"Assessment"> | number
   }
 
+  export type FloodZoneUpdateToOneWithWhereWithoutParcelsInput = {
+    where?: FloodZoneWhereInput
+    data: XOR<FloodZoneUpdateWithoutParcelsInput, FloodZoneUncheckedUpdateWithoutParcelsInput>
+  }
+
+  export type FloodZoneUpdateWithoutParcelsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    zoneName?: StringFieldUpdateOperationsInput | string
+    floodway?: StringFieldUpdateOperationsInput | string
+    specialFloodHazardArea?: BoolFieldUpdateOperationsInput | boolean
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type FloodZoneUncheckedUpdateWithoutParcelsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    zoneName?: StringFieldUpdateOperationsInput | string
+    floodway?: StringFieldUpdateOperationsInput | string
+    specialFloodHazardArea?: BoolFieldUpdateOperationsInput | boolean
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ParcelUpdateWithWhereUniqueWithoutFemaFloodZoneInput = {
+    where: ParcelWhereUniqueInput
+    data: XOR<ParcelUpdateWithoutFemaFloodZoneInput, ParcelUncheckedUpdateWithoutFemaFloodZoneInput>
+  }
+
+  export type ParcelUpdateManyWithWhereWithoutFemaFloodZoneInput = {
+    where: ParcelScalarWhereInput
+    data: XOR<ParcelUpdateManyMutationInput, ParcelUncheckedUpdateManyWithoutFemaFloodZoneInput>
+  }
+
   export type ListingCreateWithoutAddressInput = {
     id?: string
     createdAt?: Date | string | null
@@ -10378,9 +11663,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
+    polygonJSON?: StringFieldUpdateOperationsInput | string
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
+    femaFloodZone?: FloodZoneUpdateOneWithoutParcelsNestedInput
   }
 
   export type ParcelUncheckedUpdateWithoutAddressesInput = {
@@ -10389,6 +11676,8 @@ export namespace Prisma {
     acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
     landUseId?: StringFieldUpdateOperationsInput | string
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+    femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
   }
 
@@ -10605,9 +11894,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
+    polygonJSON?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
+    femaFloodZone?: FloodZoneUpdateOneWithoutParcelsNestedInput
   }
 
   export type ParcelUncheckedUpdateWithoutLandUseInput = {
@@ -10615,6 +11906,8 @@ export namespace Prisma {
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+    femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
   }
@@ -10624,15 +11917,19 @@ export namespace Prisma {
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
     zoneId?: StringFieldUpdateOperationsInput | string
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+    femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ParcelUpdateWithoutZoneInput = {
     id?: StringFieldUpdateOperationsInput | string
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
+    polygonJSON?: StringFieldUpdateOperationsInput | string
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
+    femaFloodZone?: FloodZoneUpdateOneWithoutParcelsNestedInput
   }
 
   export type ParcelUncheckedUpdateWithoutZoneInput = {
@@ -10640,6 +11937,8 @@ export namespace Prisma {
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
     landUseId?: StringFieldUpdateOperationsInput | string
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+    femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
   }
@@ -10649,6 +11948,8 @@ export namespace Prisma {
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
     landUseId?: StringFieldUpdateOperationsInput | string
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+    femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type AddressUpdateWithoutParcelInput = {
@@ -10717,6 +12018,37 @@ export namespace Prisma {
     total?: IntFieldUpdateOperationsInput | number
   }
 
+  export type ParcelUpdateWithoutFemaFloodZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUpdateManyWithoutParcelNestedInput
+    zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
+    landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
+    assessments?: AssessmentUpdateManyWithoutParcelNestedInput
+  }
+
+  export type ParcelUncheckedUpdateWithoutFemaFloodZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
+    zoneId?: StringFieldUpdateOperationsInput | string
+    landUseId?: StringFieldUpdateOperationsInput | string
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
+    assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
+  }
+
+  export type ParcelUncheckedUpdateManyWithoutFemaFloodZoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sqft?: IntFieldUpdateOperationsInput | number
+    acres?: FloatFieldUpdateOperationsInput | number
+    zoneId?: StringFieldUpdateOperationsInput | string
+    landUseId?: StringFieldUpdateOperationsInput | string
+    polygonJSON?: StringFieldUpdateOperationsInput | string
+  }
+
   export type AnalysisCreateManyListingInput = {
     id?: string
     createdAt?: Date | string | null
@@ -10775,6 +12107,10 @@ export namespace Prisma {
      */
     export type ParcelCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ParcelCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use FloodZoneCountOutputTypeDefaultArgs instead
+     */
+    export type FloodZoneCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FloodZoneCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use ListingCountOutputTypeDefaultArgs instead
      */
     export type ListingCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ListingCountOutputTypeDefaultArgs<ExtArgs>
@@ -10794,6 +12130,10 @@ export namespace Prisma {
      * @deprecated Use ParcelDefaultArgs instead
      */
     export type ParcelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ParcelDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FloodZoneDefaultArgs instead
+     */
+    export type FloodZoneArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FloodZoneDefaultArgs<ExtArgs>
     /**
      * @deprecated Use AddressDefaultArgs instead
      */

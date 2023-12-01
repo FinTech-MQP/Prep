@@ -130,7 +130,17 @@ exports.Prisma.ParcelScalarFieldEnum = {
   sqft: 'sqft',
   acres: 'acres',
   zoneId: 'zoneId',
-  landUseId: 'landUseId'
+  landUseId: 'landUseId',
+  polygonJSON: 'polygonJSON',
+  femaFloodZoneId: 'femaFloodZoneId'
+};
+
+exports.Prisma.FloodZoneScalarFieldEnum = {
+  id: 'id',
+  zoneName: 'zoneName',
+  floodway: 'floodway',
+  specialFloodHazardArea: 'specialFloodHazardArea',
+  polygonJSON: 'polygonJSON'
 };
 
 exports.Prisma.AddressScalarFieldEnum = {
@@ -197,6 +207,7 @@ exports.Prisma.ModelName = {
   LandUse: 'LandUse',
   Zone: 'Zone',
   Parcel: 'Parcel',
+  FloodZone: 'FloodZone',
   Address: 'Address',
   Listing: 'Listing',
   Analysis: 'Analysis'

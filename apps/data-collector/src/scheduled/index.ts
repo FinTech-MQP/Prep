@@ -14,7 +14,7 @@ export async function updateAllParcels() {
 
   try {
     // Query zoning polygons for ZONE='RG-5' using POST request
-    const zoningQuery = `where=ZONE='RG-5'&returnGeometry=true&outFields=*&f=json`;
+    const zoningQuery = `where=ZONE='RG-5'&returnGeometry=true&outFields=*&outSR=4326&f=json`;
 
     const zoningResponse = await fetch(zoningUrl, {
       method: "POST",
@@ -37,8 +37,7 @@ export async function updateAllParcels() {
     );
 
     // Query parcel polygons within RG-5 zones using POST request
-    const rg5ParcelsQuery = `geometryType=esriGeometryPolygon&spatialRel=esriSpatialRelIntersects&geometry=${JSON.stringify(
-      { geometries: rg5Zones }
+    const rg5ParcelsQuery = `geometryType=esriGeometryPolygon&spatialRel=esriSpatialRelIntersects&geometry=${JSON.stringify(rg5Zones
     )}&returnGeometry=true&outFields=*&f=json`;
 
     const rg5ParcelsResponse = await fetch(parcelUrl, {
