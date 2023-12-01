@@ -23,6 +23,11 @@ import InfoIcon from "@mui/icons-material/Info";
 import Permitting from "./Permitting";
 import ChatBox from "./ChatBox";
 
+import { MapContainer, Marker, Popup, TileLayer, GeoJSON } from "react-leaflet";
+import 'leaflet/dist/leaflet.css'; 
+
+const position = [51.505, -0.09];
+
 const styles = {
   inspectPseudo: {
     width: "100%",
@@ -486,6 +491,21 @@ const Inspect = ({ close }: InspectProps) => {
                               )
                             )}
                         </Box>
+                        <Divider sx={styles.divider} />
+                        <MapContainer
+                          center={[JSON.parse(user.currListing.address.parcel.polygonJSON)['coordinates'][0][0][1], JSON.parse(user.currListing.address.parcel.polygonJSON)['coordinates'][0][0][0]]}
+                          zoom={16}
+                          scrollWheelZoom={false}
+                          style={{ height: "40vh", width: "100wh" }}
+                        >
+                          <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                          />
+                          <GeoJSON data={JSON.parse(user.currListing.address.parcel.polygonJSON)}>
+
+                          </GeoJSON>
+                        </MapContainer>
                         <Divider sx={styles.divider} />
                         <Typography sx={styles.desc}>
                           {user.currListing.desc}
