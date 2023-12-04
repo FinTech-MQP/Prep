@@ -24,7 +24,8 @@ import Permitting from "./Permitting";
 import ChatBox from "./ChatBox";
 
 import { MapContainer, Marker, Popup, TileLayer, GeoJSON } from "react-leaflet";
-import 'leaflet/dist/leaflet.css'; 
+import "leaflet/dist/leaflet.css";
+import DownloadJsonButton from "./DownloadButton";
 
 const position = [51.505, -0.09];
 
@@ -429,6 +430,7 @@ const Inspect = ({ close }: InspectProps) => {
                     <Page isOpen={activePage === 1} left={false}>
                       <Box>
                         <Typography sx={styles.title}>
+                          <DownloadJsonButton />
                           {user.currListing.name
                             .toLowerCase()
                             .replace(/\b(\w)/g, (s) => s.toUpperCase())}
@@ -442,6 +444,10 @@ const Inspect = ({ close }: InspectProps) => {
                             .toFixed(2)
                             .toLocaleString()}
                           {" acres"}
+                          {" | "}
+                          {"Flood Zone: " +
+                            user.currListing.address.parcel.femaFloodZone
+                              ?.zoneName}
                         </Typography>
                         <Box sx={styles.labelContainer}>
                           {user.currListing.labels &&
@@ -469,7 +475,14 @@ const Inspect = ({ close }: InspectProps) => {
                         </Box>
                         <Divider sx={styles.divider} />
                         <MapContainer
-                          center={[JSON.parse(user.currListing.address.parcel.polygonJSON)['coordinates'][0][0][1], JSON.parse(user.currListing.address.parcel.polygonJSON)['coordinates'][0][0][0]]}
+                          center={[
+                            JSON.parse(
+                              user.currListing.address.parcel.polygonJSON
+                            )["coordinates"][0][0][1],
+                            JSON.parse(
+                              user.currListing.address.parcel.polygonJSON
+                            )["coordinates"][0][0][0],
+                          ]}
                           zoom={16}
                           scrollWheelZoom={false}
                           style={{ height: "40vh", width: "100wh" }}
@@ -478,9 +491,11 @@ const Inspect = ({ close }: InspectProps) => {
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                           />
-                          <GeoJSON data={JSON.parse(user.currListing.address.parcel.polygonJSON)}>
-
-                          </GeoJSON>
+                          <GeoJSON
+                            data={JSON.parse(
+                              user.currListing.address.parcel.polygonJSON
+                            )}
+                          ></GeoJSON>
                         </MapContainer>
                         <Divider sx={styles.divider} />
                         <Typography sx={styles.desc}>

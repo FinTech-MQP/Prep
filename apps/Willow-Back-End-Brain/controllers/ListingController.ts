@@ -14,6 +14,7 @@ const getListings = async () => {
                 assessments: true,
                 landUse: true,
                 zone: true,
+                femaFloodZone: true,
               },
             },
           },

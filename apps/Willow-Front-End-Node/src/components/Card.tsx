@@ -93,6 +93,9 @@ const Card = ({ listing }: CardProps) => {
               {listing.address.parcel.acres.toFixed(2).toLocaleString() +
                 " acres"}
             </Typography>
+            <Typography sx={styles.label}>
+              {"Flood Zone: " + listing.address.parcel.femaFloodZone?.zoneName}
+            </Typography>
           </Box>
         </Box>
         <Typography sx={styles.title}>
