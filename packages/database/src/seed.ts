@@ -2,7 +2,7 @@ import { prisma } from ".";
 import fetch from "node-fetch";
 
 // list of address IDs
-const DEFAULT_ADDRESSES_TO_LIST = ["24", "1282"];
+const DEFAULT_ADDRESSES_TO_LIST = ["24", "1282", "564"];
 
 (async () => {
   try {

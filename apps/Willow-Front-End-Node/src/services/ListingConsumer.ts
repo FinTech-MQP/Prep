@@ -10,7 +10,7 @@ export default class ListingConsumer {
         return undefined;
       }
       const listings: ListingPayload[] = await response.json();
-      //console.log(listings);
+      console.log(listings);
       return listings;
     } catch (error) {
       console.error("Failed to fetch listings:", error);

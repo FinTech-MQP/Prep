@@ -330,7 +330,6 @@ const evaluateCriteria = (
 
 const Inspect = ({ close }: InspectProps) => {
   const user = useContext(userContext);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [activePage, setActivePage] = useState<number>(1);
   const [amiValues, setAmiValues] = useState<[number, number]>([0, 120]);
   const [adaValues, setAdaValues] = useState<[number, number]>([0, 100]);
@@ -347,29 +346,6 @@ const Inspect = ({ close }: InspectProps) => {
   const handleBookmarkClick = (pageIndex: number) => {
     setActivePage(pageIndex);
   };
-
-  useEffect(() => {
-    /*
-    setIsLoading(true);
-    console.log("api call");
-    if (user.currListing)
-      OpenAI_API.analyze(user.currListing).then((result: string) => {
-        const jsonString = result.substring(
-          result.indexOf("{"),
-          result.lastIndexOf("}") + 1
-        );
-
-        const parsedData = JSON.parse(jsonString) as QuestionsMap;
-
-        console.log(parsedData);
-
-        if (JSON.stringify(user.currAnalysis) !== JSON.stringify(parsedData)) {
-          user.setCurrAnalysis(parsedData);
-        }
-
-        setIsLoading(false);
-      });*/
-  }, [user.currListing]);
 
   return (
     <Box sx={styles.inspectPseudo}>
@@ -442,7 +418,7 @@ const Inspect = ({ close }: InspectProps) => {
                   </ProgramContainer>
                 </Page>
                 <Page isOpen={activePage === 3} left={true}>
-                  <Permitting isLoading={isLoading} />
+                  <Permitting />
                 </Page>
               </Box>
             </Box>

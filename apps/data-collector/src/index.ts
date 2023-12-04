@@ -146,50 +146,55 @@ app.post(`/api/listing`, async (req, res) => {
         console.log(
           `Created listing for addressId:${addressId} ... generating analysis`
         );
-        // // once the listing is created, create the analysis on the listing
-        // let analysisDataSource: AnalysisDataSource =
-        //   new AnalysisAPIDataSource();
+        // once the listing is created, create the analysis on the listing
+        let analysisDataSource: AnalysisDataSource =
+          new AnalysisAPIDataSource();
 
-        // let createdListing = await findListing(result.id);
-        // if (createdListing === null) {
-        //   // listing was not created
-        //   return;
-        // }
+        let createdListing = await findListing(result.id);
+        if (createdListing === null) {
+          // listing was not created
+          return;
+        }
 
-        // // generate description
-        // let generatedDescription =
-        //   await analysisDataSource.generateDescription(createdListing);
+        if(createdListing.address.parcel.femaFloodZone?.polygonJSON) {
+          // this polygon can get very large, and should not be put in the OpenAI API
+          createdListing.address.parcel.femaFloodZone.polygonJSON = ""
+        }
 
-        // if (generatedDescription === undefined)
-        //   generatedDescription = createdListing.desc;
+        // generate description
+        let generatedDescription =
+          await analysisDataSource.generateDescription(createdListing);
 
-        // // update new description
-        // await prisma.listing.update({
-        //   where: {
-        //     id: createdListing.id,
-        //   },
-        //   data: {
-        //     desc: generatedDescription,
-        //   },
-        // });
+        if (generatedDescription === undefined)
+          generatedDescription = createdListing.desc;
 
-        // // generate analysis
-        // let analyses =
-        //   await analysisDataSource.generateAnalysis(createdListing);
-        // console.log(analyses);
-        // if (analyses === undefined) return;
+        // update new description
+        await prisma.listing.update({
+          where: {
+            id: createdListing.id,
+          },
+          data: {
+            desc: generatedDescription,
+          },
+        });
 
-        // // clear old analysis
+        // generate analysis
+        let analyses =
+          await analysisDataSource.generateAnalysis(createdListing);
+        console.log(analyses);
+        if (analyses === undefined) return;
 
-        // await prisma.analysis.deleteMany({
-        //   where: {
-        //     listingId: createdListing.id,
-        //   },
-        // });
+        // clear old analysis
 
-        // // enter new analysis
+        await prisma.analysis.deleteMany({
+          where: {
+            listingId: createdListing.id,
+          },
+        });
 
-        // await prisma.analysis.createMany({ data: analyses });
+        // enter new analysis
+
+        await prisma.analysis.createMany({ data: analyses });
 
         return res.json({
           message: "Successfully added/updated that address to our listings.",
