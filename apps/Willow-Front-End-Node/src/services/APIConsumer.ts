@@ -24,6 +24,10 @@ const assistant_chatbox = await openai.beta.assistants.retrieve(
 export default class OpenAI_API {
   public static async analyze(data: ListingPayload) {
     try {
+      if(data.address.parcel.femaFloodZone?.polygonJSON) {
+        // this data should not be analyzed
+        data.address.parcel.femaFloodZone.polygonJSON = ""
+      }
       const thread = await openai.beta.threads.create();
 
       const message = await openai.beta.threads.messages.create(thread.id, {
@@ -86,6 +90,10 @@ export default class OpenAI_API {
     input: string
   ) {
     try {
+      if(data.address.parcel.femaFloodZone?.polygonJSON) {
+        // this data should not be analyzed
+        data.address.parcel.femaFloodZone.polygonJSON = ""
+      }
       await openai.beta.threads.messages.create(threadID, {
         role: "user",
         content: `Here is data relating to a specific listing: ${JSON.stringify(
