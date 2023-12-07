@@ -9,6 +9,7 @@ import {
   OPENAI_ASSISTANT_ID_SUMMARIZER,
 } from "@monorepo/utils/constants";
 import { QuestionsMap, QuestionData } from "@monorepo/utils/interfaces";
+import { cleanForAI } from "@monorepo/utils/functions";
 
 const analysisBasicData = Prisma.validator<Prisma.AnalysisDefaultArgs>()({
   select: {
@@ -32,12 +33,13 @@ async function analyzeListing(data: ListingPayload) {
   );
 
   try {
+    const cleanedData = cleanForAI(data);
     const thread = await openai.beta.threads.create();
 
     const message = await openai.beta.threads.messages.create(thread.id, {
       role: "user",
       content: `Here is your data : ${JSON.stringify(
-        data,
+        cleanedData,
         null,
         0
       )} and here are your questions: ${permittingQuestions}. Ensure to answer EVERY question (do not ommit a single one) and format your response in a JSON with these interfaces: 
@@ -89,12 +91,13 @@ async function summarizeListing(data: ListingPayload) {
   );
 
   try {
+    const cleanedData = cleanForAI(data);
     const thread = await openai.beta.threads.create();
 
     const message = await openai.beta.threads.messages.create(thread.id, {
       role: "user",
       content: `Here is your data : ${JSON.stringify(
-        data,
+        cleanedData,
         null,
         0
       )}, please summarize it.`,

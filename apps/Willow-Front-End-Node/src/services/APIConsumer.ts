@@ -6,6 +6,7 @@ import {
   permittingQuestions,
 } from "@monorepo/utils/constants";
 import { ListingPayload } from "database";
+import { cleanForAI } from "@monorepo/utils/functions";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -24,16 +25,13 @@ const assistant_chatbox = await openai.beta.assistants.retrieve(
 export default class OpenAI_API {
   public static async analyze(data: ListingPayload) {
     try {
-      if(data.address.parcel.femaFloodZone?.polygonJSON) {
-        // this data should not be analyzed
-        data.address.parcel.femaFloodZone.polygonJSON = ""
-      }
+      const cleanData = cleanForAI(data);
       const thread = await openai.beta.threads.create();
 
       const message = await openai.beta.threads.messages.create(thread.id, {
         role: "user",
         content: `Here is your data: ${JSON.stringify(
-          data,
+          cleanData,
           null,
           0
         )} and here are your questions: ${permittingQuestions}. Ensure to answer EVERY question (do not ommit a single one) and format your response in a JSON with these interfaces: 
@@ -90,14 +88,11 @@ export default class OpenAI_API {
     input: string
   ) {
     try {
-      if(data.address.parcel.femaFloodZone?.polygonJSON) {
-        // this data should not be analyzed
-        data.address.parcel.femaFloodZone.polygonJSON = ""
-      }
+      const cleanData = cleanForAI(data);
       await openai.beta.threads.messages.create(threadID, {
         role: "user",
         content: `Here is data relating to a specific listing: ${JSON.stringify(
-          data,
+          cleanData,
           null,
           0
         )} and here is an analysis of the data in the realm of permitting: ${JSON.stringify(
