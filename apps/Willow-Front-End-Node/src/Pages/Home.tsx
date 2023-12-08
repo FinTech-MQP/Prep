@@ -5,12 +5,22 @@ import {
   DARK_GREY_COLOR,
   SECONDARY_COLOR,
   WILLOW_COLOR,
+  worcesterOutline,
 } from "@monorepo/utils";
 import { ListingPayload } from "database";
 import SearchBar from "../components/SearchBar";
 import ListingConsumer from "../services/ListingConsumer";
 
-import { MapContainer, Marker, Popup, TileLayer, GeoJSON, Polygon, Tooltip } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  GeoJSON,
+  Polygon,
+  Tooltip,
+  Polyline,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { userContext } from "../App";
 import { useNavigate } from "react-router-dom";
@@ -166,12 +176,16 @@ const Home = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <Polyline
+          pathOptions={{ color: "black", opacity: "0.5" }}
+          positions={worcesterOutline}
+        ></Polyline>
         {listings?.map((listing) => {
           return (
             <GeoJSON
               data={JSON.parse(listing.address.parcel.polygonJSON)}
               eventHandlers={{
-                click: () => handleSearchAction(listing)
+                click: () => handleSearchAction(listing),
               }}
               key={listing.id}
             >
@@ -179,11 +193,6 @@ const Home = () => {
             </GeoJSON>
           );
         })}
-        <Marker position={[42.2626, 71.8023]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
       </MapContainer>
       <Box sx={styles.about}>
         <Box sx={styles.descHolder}>
