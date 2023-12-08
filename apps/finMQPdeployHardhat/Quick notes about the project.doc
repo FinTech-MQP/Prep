@@ -1,0 +1,100 @@
+General Approach
+1. Define On-Chain Data Structure:
+
+Define the essential data that needs to be stored on-chain in your smart contract. This may include permit-related information, assessment details, and any critical data that requires transparency and validation on the blockchain.
+
+2. Use Unique Identifiers:
+
+Assign unique identifiers (e.g., permit IDs or assessment IDs) to each on-chain record. These unique identifiers will serve as keys to link on-chain and off-chain data.
+
+3. Store Hashes:
+
+Instead of storing the entire off-chain data on the blockchain, we store cryptographic hashes of the off-chain data. These hashes can be used to verify the integrity of the off-chain data.
+
+4. Off-Chain Database (PostgreSQL):
+
+The Off-chain PostgreSQL database stores non-essential or large datasets off-chain. This database should include tables for storing detailed information related to permits, assessments, land use, zones, parcels, addresses, and any other relevant data.
+
+5.Link On-Chain and Off-Chain Data:
+
+In your PostgreSQL database, we created tables that include the unique identifiers (e.g., permit IDs) and the corresponding off-chain data. Use the same unique identifiers assigned in your smart contract.
+
+6.Store Hashes in PostgreSQL:
+
+The corresponding cryptographic hashes is stored inAlongside the off-chain data in PostgreSQL. You can use PostgreSQL's bytea data type to store the hash values.
+
+7.Verify Data on the Blockchain:
+
+When users or applications need to verify the integrity of data, they can retrieve the on-chain data from the smart contract and the corresponding unique identifier.
+Retrieve the off-chain data from the PostgreSQL database using the same unique identifier.
+Calculate the hash of the retrieved off-chain data and compare it to the on-chain hash.
+If the hashes match, it confirms the data's integrity.
+Security and Access Control:
+
+We can implement appropriate access control mechanisms in the PostgreSQL database to restrict who can read and modify the off-chain data.
+We can also ensure that only authorized entities can interact with the smart contract to update on-chain data.
+
+8. Using Events/Logs for Auditing:
+
+Emit events in your smart contract whenever critical transactions or data updates occur. These events can be used for auditing purposes.
+
+9.Backup and Data Recovery:
+
+Implement a backup and data recovery strategy for your PostgreSQL database to ensure data availability and resilience.
+
+The steps will help us maintain the security and integrity of critical data on the blockchain while efficiently storing and managing non-essential or large datasets off-chain in a PostgreSQL database. The use of unique identifiers and cryptographic hashes ensures that data can be reliably linked and verified between the blockchain and the database.
+
+
+
+Key Points:
+Web3 and Contract Initialization: This is handled in the useEffect hook to ensure that Web3 and the contract are initialized when the component mounts.
+
+Fetching Data from Server: Another useEffect hook is used to fetch data from your server. This data is then stored in the dataFromServer state.
+
+Role-Based Components: Components like AssignRole, CreatePermit, ApprovePermit, etc., are included and will interact with your smart contract. Ensure that each of these components is properly implemented to interact with the corresponding smart contract functions.
+
+Error Handling: Basic error handling is included for both the initialization and data fetching processes.
+
+Displaying Server Data: The data fetched from the server is displayed in a simple format. You might want to format this data or use it in other components as needed.
+
+Contract Interaction: The interactWithContract function is a placeholder for any direct interactions you might want to implement. Replace someFunction with actual contract function calls as needed.
+
+Styling and Layout: The styling and layout can be further enhanced to match your application's theme and user experience requirements.
+
+
+Installations used
+Root folder (finMQPdeployment) frontend implementations
+install --save-dev hardhat
+npm i -g hardhat-shorthand
+npm install --save-dev "hardhat@^2.14.0" "@nomicfoundation/hardhat-network-helpers@^1.0.0" "@nomicfoundation/hardhat-verify@^2.0.0" "chai@^4.2.0" "hardhat-gas-reporter@^1.0.8" "solidity-coverage@^0.8.0" "@nomicfoundation/hardhat-toolbox@^4.0.0" "@nomicfoundation/hardhat-chai-matchers@^2.0.0" "@nomicfoundation/hardhat-ethers@^3.0.0" "ethers@^6.4.0" "@typechain/hardhat@^9.0.0" "typechain@^8.3.0" "@typechain/ethers-v6@^0.5.0"
+npm install @openzeppelin/contracts
+
+
+npx hardhat run scripts/02_deploy_contract_finMQP.js --network Goerli
+
+npm install web3
+npm i web3 --save
+
+npm install dotenv  or npm install -g dotenv
+npm install --no-audit --save --save-exact --loglevel error react react-dom react-scripts@0.9.x
+
+npx create-react-app frontend
+npm install cors
+npm install @material-ui/core
+
+npm start
+Starts the development server.
+
+npm run build
+Bundles the app into static files for production.
+
+npm test
+Starts the test runner.
+
+//npm run eject
+//Removes this tool and copies build dependencies, configuration files
+//and scripts into the app directory. If you do this, you can’t go back!
+
+
+\backend>npm start
+\backend>npm install -g nodemon

@@ -1,0 +1,7 @@
+fetch('http://localhost:3001/api/data')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error fetching data:', error));
+
+
+  //I have included a more updated version of this code snippet in the App.js file so the file is not being used.

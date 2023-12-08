@@ -1,0 +1,5 @@
+{
+    "contractAddress": "0xEb79764E5Aa2acf179Ad9bE11AD032E009DA0c7C"
+}
+
+//We could import this file into App.js instead of using the smart contract address directly 

@@ -1,0 +1,36 @@
+.App-header {
+  background-color: #282c34;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.create-permit-form, .other-forms {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.create-permit-form input, .other-forms input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.create-permit-form button, .other-forms button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+.create-permit-form button:hover, .other-forms button:hover {
+  background-color: #45a049;
+}
