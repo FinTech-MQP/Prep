@@ -65,7 +65,7 @@ function App() {
         init();
 
         // Fetch data from the server
-        fetch('http://localhost:3001/api/data')
+        fetch('http://localhost:4001/api/data')
           .then(response => {
               if (!response.ok) {
                   throw new Error('Network response was not ok');
