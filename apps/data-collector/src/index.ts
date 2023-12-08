@@ -156,9 +156,9 @@ app.post(`/api/listing`, async (req, res) => {
           return;
         }
 
-        if(createdListing.address.parcel.femaFloodZone?.polygonJSON) {
+        if (createdListing.address.parcel.femaFloodZone?.polygonJSON) {
           // this polygon can get very large, and should not be put in the OpenAI API
-          createdListing.address.parcel.femaFloodZone.polygonJSON = ""
+          createdListing.address.parcel.femaFloodZone.polygonJSON = "";
         }
 
         // generate description
@@ -195,6 +195,17 @@ app.post(`/api/listing`, async (req, res) => {
         // enter new analysis
 
         await prisma.analysis.createMany({ data: analyses });
+
+        // pass new listing to blockchain backend
+
+        await fetch("http://localhost:4001/api/listing", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({ listing: createdListing, analyses: analyses }),
+        });
 
         return res.json({
           message: "Successfully added/updated that address to our listings.",

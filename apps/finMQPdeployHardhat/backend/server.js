@@ -1,7 +1,8 @@
-const express = require('express');
-const cors = require('cors');
-const { Pool } = require('pg');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+const { prisma } = require("database");
+const { Pool } = require("pg");
+require("dotenv").config();
 
 const app = express();
 app.use(express.json());
@@ -13,20 +14,40 @@ const pool = new Pool({
   // ssl: { rejectUnauthorized: false }
 });
 
-app.get('/api/data', async (req, res) => {
+app.get("/api/listing", async (req, res) => {
+  return res.json(await prisma.listing.findMany());
+});
+
+app.post("/api/listing", async (req, res) => {
+  // handle new data
+  // data in format:
+  /*
+  {
+    listing: createdListing, 
+    analyses: analyses 
+  }
+  */
+
+  console.log(req.json);
+  return res.json({ msg: "Not implemented" });
+});
+
+app.get("/api/data", async (req, res) => {
   try {
-    const result = await pool.query('SELECT permitid, verificationhash FROM PERMITS');
+    const result = await pool.query(
+      "SELECT permitid, verificationhash FROM PERMITS"
+    );
     res.json(result.rows);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: "Server error" });
   }
 });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Server error' });
+  console.error(err.stack);
+  res.status(500).json({ error: "Server error" });
 });
 
 const PORT = process.env.PORT || 4001;
