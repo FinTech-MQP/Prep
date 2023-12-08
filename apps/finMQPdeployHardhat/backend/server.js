@@ -8,8 +8,11 @@ const app = express();
 app.use(express.json());
 app.use(cors()); // Enabling CORS for all routes
 
+// ensure proper connection URL
+//console.log(process.env.BLOCKCHAIN_DATABASE_URL);
+
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.BLOCKCHAIN_DATABASE_URL,
   // If using SSL, uncomment the line below
   // ssl: { rejectUnauthorized: false }
 });
