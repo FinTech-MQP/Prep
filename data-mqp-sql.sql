@@ -38,5 +38,5 @@ VALUES
 SELECT * FROM permits;
 SELECT * FROM assessments;
 
-DROP Table assessments;
-DROP Table permits;
+-- DROP Table assessments;
+-- DROP Table permits;
