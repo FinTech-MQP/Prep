@@ -18,6 +18,7 @@ const pool = new Pool({
 });
 
 app.get("/api/listing", async (req, res) => {
+  // use prisma to get all listings from the database directly
   return res.json(await prisma.listing.findMany());
 });
 
