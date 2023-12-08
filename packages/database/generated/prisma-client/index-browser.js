@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.5.2
- * Query Engine version: e95e739751f42d8ca026f6b910f5a2dc5adeaeee
+ * Query Engine version: aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a
  */
 Prisma.prismaVersion = {
   client: "5.5.2",
-  engine: "e95e739751f42d8ca026f6b910f5a2dc5adeaeee"
+  engine: "aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -132,7 +132,8 @@ exports.Prisma.ParcelScalarFieldEnum = {
   zoneId: 'zoneId',
   landUseId: 'landUseId',
   polygonJSON: 'polygonJSON',
-  femaFloodZoneId: 'femaFloodZoneId'
+  femaFloodZoneId: 'femaFloodZoneId',
+  townsWithin300ft: 'townsWithin300ft'
 };
 
 exports.Prisma.FloodZoneScalarFieldEnum = {

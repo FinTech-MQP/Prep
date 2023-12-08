@@ -10,8 +10,12 @@ import {
 } from "@esri/arcgis-rest-feature-service";
 
 import type { FloodZone, Parcel } from "database/generated/prisma-client";
-import { ParcelPolygonAPIDataSource, ParcelPolygonDataSource } from "./parcelPolygon";
+import {
+  ParcelPolygonAPIDataSource,
+  ParcelPolygonDataSource,
+} from "./parcelPolygon";
 import { Feature } from "geojson";
+import { geojsonToArcGIS } from "@terraformer/arcgis";
 
 const SQFT_PER_ACRE = 43560;
 
@@ -22,15 +26,24 @@ function correctZoneAbbreviation(zoneId: string): string {
 }
 
 export interface ParcelDataSource {
-  fetchParcel(parcelId: string, floodZone: FloodZone | undefined, parcelPolygon: Feature): Promise<Parcel | undefined>;
+  fetchParcel(
+    parcelId: string,
+    floodZone: FloodZone | undefined,
+    parcelPolygon: Feature
+  ): Promise<Parcel | undefined>;
   fetchImages(parcelId: string): Promise<string[]>;
 }
 
 export class ParcelHTMLDataSource implements ParcelDataSource {
   cardSource: VisionCardDataSource = new VisionCardHTMLDataSource();
-  parcelPolygonSource: ParcelPolygonDataSource = new ParcelPolygonAPIDataSource();
+  parcelPolygonSource: ParcelPolygonDataSource =
+    new ParcelPolygonAPIDataSource();
 
-  async fetchParcel(parcelId: string, floodZone: FloodZone | undefined, parcelPolygon: Feature): Promise<Parcel | undefined> {
+  async fetchParcel(
+    parcelId: string,
+    floodZone: FloodZone | undefined,
+    parcelPolygon: Feature
+  ): Promise<Parcel | undefined> {
     // get data from card
     return await this.cardSource.fetchPage(parcelId).then(async ($) => {
       // if no page was found, return undefined
@@ -38,7 +51,29 @@ export class ParcelHTMLDataSource implements ParcelDataSource {
         return undefined;
       }
 
-      let sqft = +$("#MainContent_lblLndSf").text();;
+      let sqft = +$("#MainContent_lblLndSf").text();
+
+      let options: IQueryFeaturesOptions = {
+        url: "https://services1.arcgis.com/j8dqo2DJE7mVUBU1/arcgis/rest/services/Administrative_Boundaries_and_Elections/FeatureServer/0",
+        httpMethod: "POST",
+        where: "TOWN <> 'WORCESTER'",
+        geometry: geojsonToArcGIS(parcelPolygon.geometry),
+        inSR: "4326",
+        outSR: "4326",
+        outFields: "*",
+        geometryType: "esriGeometryPolygon",
+        spatialRel: "esriSpatialRelIntersects",
+        distance: 300,
+        units: "esriSRUnit_Foot",
+        f: "json",
+      };
+
+      const townsWithin300ft = await queryFeatures(options).then((result) => {
+        if (!("features" in result)) return [];
+        return result.features.map((feature) => {
+          return feature.attributes.TOWN as string;
+        });
+      });
 
       return {
         id: parcelId,
@@ -48,6 +83,7 @@ export class ParcelHTMLDataSource implements ParcelDataSource {
         landUseId: $("#MainContent_lblUseCode").text(),
         polygonJSON: JSON.stringify(parcelPolygon.geometry),
         femaFloodZoneId: floodZone?.id || null,
+        townsWithin300ft: townsWithin300ft,
       };
     });
   }

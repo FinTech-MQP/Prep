@@ -344,10 +344,10 @@ app.post(`/gis/address/:id`, async (req, res) => {
 
     let parcelPolygonStr = parcel.polygonJSON;
 
-    await prisma.$executeRaw`INSERT INTO "public"."Parcel" (id, sqft, "zoneId", "landUseId", acres, polygon, "polygonJSON", "femaFloodZoneId") 
-    VALUES(${parcel.id}, ${parcel.sqft}, ${parcel.zoneId}, ${parcel.landUseId}, ${parcel.acres}, ST_GeomFromGeoJSON(${parcelPolygonStr}), ${parcelPolygonStr}, ${floodZone?.id})
+    await prisma.$executeRaw`INSERT INTO "public"."Parcel" (id, sqft, "zoneId", "landUseId", acres, polygon, "polygonJSON", "femaFloodZoneId", "townsWithin300ft") 
+    VALUES(${parcel.id}, ${parcel.sqft}, ${parcel.zoneId}, ${parcel.landUseId}, ${parcel.acres}, ST_GeomFromGeoJSON(${parcelPolygonStr}), ${parcelPolygonStr}, ${floodZone?.id}, ${parcel.townsWithin300ft})
     ON CONFLICT(id) DO UPDATE 
-    SET sqft=${parcel.sqft}, "zoneId"=${parcel.zoneId}, "landUseId"=${parcel.landUseId}, acres=${parcel.acres}, polygon=ST_GeomFromGeoJSON(${parcelPolygonStr}), "polygonJSON"=${parcelPolygonStr}, "femaFloodZoneId"=${floodZone?.id}`;
+    SET sqft=${parcel.sqft}, "zoneId"=${parcel.zoneId}, "landUseId"=${parcel.landUseId}, acres=${parcel.acres}, polygon=ST_GeomFromGeoJSON(${parcelPolygonStr}), "polygonJSON"=${parcelPolygonStr}, "femaFloodZoneId"=${floodZone?.id}, "townsWithin300ft"=${parcel.townsWithin300ft}`;
 
     assessments.forEach(async (assessment) => {
       await prisma.assessment.upsert({

@@ -313,7 +313,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.5.2
-   * Query Engine version: e95e739751f42d8ca026f6b910f5a2dc5adeaeee
+   * Query Engine version: aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a
    */
   export type PrismaVersion = {
     client: string
@@ -4417,6 +4417,7 @@ export namespace Prisma {
     landUseId: number
     polygonJSON: number
     femaFloodZoneId: number
+    townsWithin300ft: number
     _all: number
   }
 
@@ -4461,6 +4462,7 @@ export namespace Prisma {
     landUseId?: true
     polygonJSON?: true
     femaFloodZoneId?: true
+    townsWithin300ft?: true
     _all?: true
   }
 
@@ -4558,6 +4560,7 @@ export namespace Prisma {
     landUseId: string
     polygonJSON: string
     femaFloodZoneId: number | null
+    townsWithin300ft: string[]
     _count: ParcelCountAggregateOutputType | null
     _avg: ParcelAvgAggregateOutputType | null
     _sum: ParcelSumAggregateOutputType | null
@@ -4587,6 +4590,7 @@ export namespace Prisma {
     landUseId?: boolean
     polygonJSON?: boolean
     femaFloodZoneId?: boolean
+    townsWithin300ft?: boolean
     addresses?: boolean | Parcel$addressesArgs<ExtArgs>
     zone?: boolean | ZoneDefaultArgs<ExtArgs>
     landUse?: boolean | LandUseDefaultArgs<ExtArgs>
@@ -4603,6 +4607,7 @@ export namespace Prisma {
     landUseId?: boolean
     polygonJSON?: boolean
     femaFloodZoneId?: boolean
+    townsWithin300ft?: boolean
   }
 
   export type ParcelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4632,6 +4637,7 @@ export namespace Prisma {
       landUseId: string
       polygonJSON: string
       femaFloodZoneId: number | null
+      townsWithin300ft: string[]
     }, ExtArgs["result"]["parcel"]>
     composites: {}
   }
@@ -4989,6 +4995,7 @@ export namespace Prisma {
     readonly landUseId: FieldRef<"Parcel", 'String'>
     readonly polygonJSON: FieldRef<"Parcel", 'String'>
     readonly femaFloodZoneId: FieldRef<"Parcel", 'Int'>
+    readonly townsWithin300ft: FieldRef<"Parcel", 'String[]'>
   }
     
 
@@ -9141,7 +9148,8 @@ export namespace Prisma {
     zoneId: 'zoneId',
     landUseId: 'landUseId',
     polygonJSON: 'polygonJSON',
-    femaFloodZoneId: 'femaFloodZoneId'
+    femaFloodZoneId: 'femaFloodZoneId',
+    townsWithin300ft: 'townsWithin300ft'
   };
 
   export type ParcelScalarFieldEnum = (typeof ParcelScalarFieldEnum)[keyof typeof ParcelScalarFieldEnum]
@@ -9467,6 +9475,7 @@ export namespace Prisma {
     landUseId?: StringFilter<"Parcel"> | string
     polygonJSON?: StringFilter<"Parcel"> | string
     femaFloodZoneId?: IntNullableFilter<"Parcel"> | number | null
+    townsWithin300ft?: StringNullableListFilter<"Parcel">
     addresses?: AddressListRelationFilter
     zone?: XOR<ZoneRelationFilter, ZoneWhereInput>
     landUse?: XOR<LandUseRelationFilter, LandUseWhereInput>
@@ -9482,6 +9491,7 @@ export namespace Prisma {
     landUseId?: SortOrder
     polygonJSON?: SortOrder
     femaFloodZoneId?: SortOrderInput | SortOrder
+    townsWithin300ft?: SortOrder
     addresses?: AddressOrderByRelationAggregateInput
     zone?: ZoneOrderByWithRelationInput
     landUse?: LandUseOrderByWithRelationInput
@@ -9500,6 +9510,7 @@ export namespace Prisma {
     landUseId?: StringFilter<"Parcel"> | string
     polygonJSON?: StringFilter<"Parcel"> | string
     femaFloodZoneId?: IntNullableFilter<"Parcel"> | number | null
+    townsWithin300ft?: StringNullableListFilter<"Parcel">
     addresses?: AddressListRelationFilter
     zone?: XOR<ZoneRelationFilter, ZoneWhereInput>
     landUse?: XOR<LandUseRelationFilter, LandUseWhereInput>
@@ -9515,6 +9526,7 @@ export namespace Prisma {
     landUseId?: SortOrder
     polygonJSON?: SortOrder
     femaFloodZoneId?: SortOrderInput | SortOrder
+    townsWithin300ft?: SortOrder
     _count?: ParcelCountOrderByAggregateInput
     _avg?: ParcelAvgOrderByAggregateInput
     _max?: ParcelMaxOrderByAggregateInput
@@ -9533,6 +9545,7 @@ export namespace Prisma {
     landUseId?: StringWithAggregatesFilter<"Parcel"> | string
     polygonJSON?: StringWithAggregatesFilter<"Parcel"> | string
     femaFloodZoneId?: IntNullableWithAggregatesFilter<"Parcel"> | number | null
+    townsWithin300ft?: StringNullableListFilter<"Parcel">
   }
 
   export type FloodZoneWhereInput = {
@@ -9943,6 +9956,7 @@ export namespace Prisma {
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
     polygonJSON?: StringFieldUpdateOperationsInput | string
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
@@ -9958,6 +9972,7 @@ export namespace Prisma {
     landUseId?: StringFieldUpdateOperationsInput | string
     polygonJSON?: StringFieldUpdateOperationsInput | string
     femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
   }
@@ -9967,6 +9982,7 @@ export namespace Prisma {
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
     polygonJSON?: StringFieldUpdateOperationsInput | string
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
   }
 
   export type ParcelUncheckedUpdateManyInput = {
@@ -9977,6 +9993,7 @@ export namespace Prisma {
     landUseId?: StringFieldUpdateOperationsInput | string
     polygonJSON?: StringFieldUpdateOperationsInput | string
     femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
   }
 
   export type FloodZoneUpdateInput = {
@@ -10412,6 +10429,14 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type AddressListRelationFilter = {
     every?: AddressWhereInput
     some?: AddressWhereInput
@@ -10460,6 +10485,7 @@ export namespace Prisma {
     landUseId?: SortOrder
     polygonJSON?: SortOrder
     femaFloodZoneId?: SortOrder
+    townsWithin300ft?: SortOrder
   }
 
   export type ParcelAvgOrderByAggregateInput = {
@@ -10656,14 +10682,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
   }
 
   export type AddressRelationFilter = {
@@ -10890,6 +10908,11 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type ParcelUpdatetownsWithin300ftInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type AddressUpdateManyWithoutParcelNestedInput = {
@@ -11364,6 +11387,7 @@ export namespace Prisma {
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
     polygonJSON?: StringFieldUpdateOperationsInput | string
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
@@ -11378,6 +11402,7 @@ export namespace Prisma {
     landUseId?: StringFieldUpdateOperationsInput | string
     polygonJSON?: StringFieldUpdateOperationsInput | string
     femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
   }
 
@@ -11402,6 +11427,7 @@ export namespace Prisma {
     landUseId?: StringFilter<"Parcel"> | string
     polygonJSON?: StringFilter<"Parcel"> | string
     femaFloodZoneId?: IntNullableFilter<"Parcel"> | number | null
+    townsWithin300ft?: StringNullableListFilter<"Parcel">
   }
 
   export type ParcelUpdateWithWhereUniqueWithoutZoneInput = {
@@ -11664,6 +11690,7 @@ export namespace Prisma {
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
     polygonJSON?: StringFieldUpdateOperationsInput | string
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
@@ -11678,6 +11705,7 @@ export namespace Prisma {
     landUseId?: StringFieldUpdateOperationsInput | string
     polygonJSON?: StringFieldUpdateOperationsInput | string
     femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
   }
 
@@ -11895,6 +11923,7 @@ export namespace Prisma {
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
     polygonJSON?: StringFieldUpdateOperationsInput | string
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
@@ -11908,6 +11937,7 @@ export namespace Prisma {
     zoneId?: StringFieldUpdateOperationsInput | string
     polygonJSON?: StringFieldUpdateOperationsInput | string
     femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
   }
@@ -11919,6 +11949,7 @@ export namespace Prisma {
     zoneId?: StringFieldUpdateOperationsInput | string
     polygonJSON?: StringFieldUpdateOperationsInput | string
     femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
   }
 
   export type ParcelUpdateWithoutZoneInput = {
@@ -11926,6 +11957,7 @@ export namespace Prisma {
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
     polygonJSON?: StringFieldUpdateOperationsInput | string
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
     assessments?: AssessmentUpdateManyWithoutParcelNestedInput
@@ -11939,6 +11971,7 @@ export namespace Prisma {
     landUseId?: StringFieldUpdateOperationsInput | string
     polygonJSON?: StringFieldUpdateOperationsInput | string
     femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
   }
@@ -11950,6 +11983,7 @@ export namespace Prisma {
     landUseId?: StringFieldUpdateOperationsInput | string
     polygonJSON?: StringFieldUpdateOperationsInput | string
     femaFloodZoneId?: NullableIntFieldUpdateOperationsInput | number | null
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
   }
 
   export type AddressUpdateWithoutParcelInput = {
@@ -12023,6 +12057,7 @@ export namespace Prisma {
     sqft?: IntFieldUpdateOperationsInput | number
     acres?: FloatFieldUpdateOperationsInput | number
     polygonJSON?: StringFieldUpdateOperationsInput | string
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
     addresses?: AddressUpdateManyWithoutParcelNestedInput
     zone?: ZoneUpdateOneRequiredWithoutParcelsNestedInput
     landUse?: LandUseUpdateOneRequiredWithoutParcelsNestedInput
@@ -12036,6 +12071,7 @@ export namespace Prisma {
     zoneId?: StringFieldUpdateOperationsInput | string
     landUseId?: StringFieldUpdateOperationsInput | string
     polygonJSON?: StringFieldUpdateOperationsInput | string
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
     addresses?: AddressUncheckedUpdateManyWithoutParcelNestedInput
     assessments?: AssessmentUncheckedUpdateManyWithoutParcelNestedInput
   }
@@ -12047,6 +12083,7 @@ export namespace Prisma {
     zoneId?: StringFieldUpdateOperationsInput | string
     landUseId?: StringFieldUpdateOperationsInput | string
     polygonJSON?: StringFieldUpdateOperationsInput | string
+    townsWithin300ft?: ParcelUpdatetownsWithin300ftInput | string[]
   }
 
   export type AnalysisCreateManyListingInput = {
