@@ -89,6 +89,7 @@ app.get(`/api/listing`, async (req, res) => {
                 assessments: true,
                 landUse: true,
                 zone: true,
+                femaFloodZone: true,
               },
             },
           },

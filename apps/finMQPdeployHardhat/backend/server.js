@@ -19,7 +19,25 @@ const pool = new Pool({
 
 app.get("/api/listing", async (req, res) => {
   // use prisma to get all listings from the database directly
-  return res.json(await prisma.listing.findMany());
+  return res.json(
+    await prisma.listing.findMany({
+      include: {
+        address: {
+          include: {
+            parcel: {
+              include: {
+                assessments: true,
+                landUse: true,
+                zone: true,
+                femaFloodZone: true,
+              },
+            },
+          },
+        },
+        analyses: true,
+      },
+    })
+  );
 });
 
 app.post("/api/listing", async (req, res) => {
