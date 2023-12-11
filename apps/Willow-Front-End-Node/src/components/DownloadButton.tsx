@@ -7,7 +7,7 @@ const DownloadJsonButton = () => {
   const user = useContext(userContext);
 
   const jsonData = {
-    example: user.currListing,
+    ...user.currListing,
     timestamp: new Date().toISOString(),
   };
 
