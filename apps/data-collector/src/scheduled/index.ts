@@ -1,10 +1,8 @@
 import {
   IQueryFeaturesOptions,
   queryFeatures,
-  IQueryFeaturesResponse,
+  IFeature,
 } from "@esri/arcgis-rest-feature-service";
-
-import fetch from "cross-fetch";
 
 export async function updateAllParcels() {
   const zoningUrl =
@@ -12,58 +10,55 @@ export async function updateAllParcels() {
   const parcelUrl =
     "https://gis.worcesterma.gov/worcags/rest/services/OpenData/Property/MapServer/1/query";
 
+  const zoningOptions: IQueryFeaturesOptions = {
+    url: zoningUrl,
+    httpMethod: "POST",
+    where: `ZONE='RG-5'`,
+    outSR: "4326",
+    returnGeometry: true,
+    outFields: "*",
+  };
+
   try {
     // Query zoning polygons for ZONE='RG-5' using POST request
-    const zoningQuery = `where=ZONE='RG-5'&returnGeometry=true&outFields=*&outSR=4326&f=json`;
-
-    const zoningResponse = await fetch(zoningUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams(zoningQuery),
+    const rg5Zones = await queryFeatures(zoningOptions).then((result) => {
+      if ("features" in result) {
+        return result.features;
+      } else {
+        return [];
+      }
     });
 
-    if (!zoningResponse.ok) {
-      throw new Error(
-        `Failed to fetch zoning data. Status: ${zoningResponse.status}`
-      );
-    }
+    console.log(`RG-5 Zones Found: ${rg5Zones.length}`);
 
-    const zoningData = (await zoningResponse.json()) as any;
-    console.log(JSON.stringify(zoningData));
-    const rg5Zones = zoningData.features.map(
-      (feature: any) => feature.geometry
+    // For each RG-5 zone, find parcels within it
+    const rg5Parcels: IFeature[] = [];
+
+    await Promise.all(
+      rg5Zones.map(async (zoningFeature) => {
+        await queryFeatures({
+          url: parcelUrl,
+          httpMethod: "POST",
+          where: "1=1",
+          inSR: "4326",
+          geometry: zoningFeature.geometry,
+          geometryType: "esriGeometryPolygon",
+          spatialRel: "esriSpatialRelContains",
+          returnGeometry: true,
+          outSR: "4326",
+          outFields: "*",
+        }).then((result) => {
+          if ("features" in result) {
+            result.features.forEach((parcelFeature) => {
+              rg5Parcels.push(parcelFeature);
+            });
+          }
+        });
+      })
     );
 
-    // Query parcel polygons within RG-5 zones using POST request
-    const rg5ParcelsQuery = `geometryType=esriGeometryPolygon&spatialRel=esriSpatialRelIntersects&geometry=${JSON.stringify(rg5Zones
-    )}&returnGeometry=true&outFields=*&f=json`;
-
-    const rg5ParcelsResponse = await fetch(parcelUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams(rg5ParcelsQuery),
-    });
-
-    if (!rg5ParcelsResponse.ok) {
-      throw new Error(
-        `Failed to fetch parcel data within RG-5 zones. Status: ${rg5ParcelsResponse.status}`
-      );
-    }
-
-    const rg5ParcelsData = (await rg5ParcelsResponse.json()) as any;
-
-    console.log(JSON.stringify(rg5ParcelsData));
-
-    const rg5Parcels = rg5ParcelsData.features.map(
-      (feature: any) => feature.geometry
-    );
-
-    // Handle rg5Parcels data here...
-    console.log("Parcels within RG-5 zones:", rg5Parcels);
+    // For each parcel, output its result
+    console.log(`Parcels found: ${rg5Parcels.length}`);
   } catch (error) {
     console.error("Error:", error);
   }
