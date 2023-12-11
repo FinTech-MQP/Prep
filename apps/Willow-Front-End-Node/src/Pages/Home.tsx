@@ -1,14 +1,29 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 import Background from "../assets/images/Home Background.jpg";
 import { Box, Typography } from "@mui/material";
 import {
   DARK_GREY_COLOR,
   SECONDARY_COLOR,
   WILLOW_COLOR,
+  worcesterOutline,
 } from "@monorepo/utils";
 import { ListingPayload } from "database";
 import SearchBar from "../components/SearchBar";
 import ListingConsumer from "../services/ListingConsumer";
+
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  GeoJSON,
+  Polygon,
+  Tooltip,
+  Polyline,
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import { userContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   mainContainer: {
@@ -19,7 +34,7 @@ const styles = {
   },
   background: {
     width: "100%",
-    height: "60vh",
+    height: "40vh",
     backgroundImage: `linear-gradient(to top, rgba(255, 255, 255, 1), transparent),   url(\'${Background}\')`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
@@ -127,6 +142,16 @@ const cards = [
 
 const Home = () => {
   const [listings, setListings] = useState<ListingPayload[]>();
+  const navigate = useNavigate();
+  const user = useContext(userContext);
+
+  const handleSearchAction = (value: any) => {
+    if (value && (typeof value === "string" ? value.trim() !== "" : true)) {
+      user.setCurrListing(value as ListingPayload);
+      user.setInsecting(true);
+      navigate("/browse");
+    }
+  };
 
   useEffect(() => {
     ListingConsumer.getListings().then(
@@ -141,6 +166,34 @@ const Home = () => {
       <Box sx={styles.background}>
         <SearchBar listings={listings} />
       </Box>
+      <MapContainer
+        center={[42.2626, -71.8023]}
+        zoom={12}
+        scrollWheelZoom={true}
+        style={{ height: "50vh", width: "100wh", flex: "1" }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Polyline
+          pathOptions={{ color: "black", opacity: "0.5" }}
+          positions={worcesterOutline}
+        ></Polyline>
+        {listings?.map((listing) => {
+          return (
+            <GeoJSON
+              data={JSON.parse(listing.address.parcel.polygonJSON)}
+              eventHandlers={{
+                click: () => handleSearchAction(listing),
+              }}
+              key={listing.id}
+            >
+              <Tooltip>{listing.name}</Tooltip>
+            </GeoJSON>
+          );
+        })}
+      </MapContainer>
       <Box sx={styles.about}>
         <Box sx={styles.descHolder}>
           <Typography sx={styles.title}>
