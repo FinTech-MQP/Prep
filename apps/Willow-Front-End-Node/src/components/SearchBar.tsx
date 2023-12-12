@@ -65,7 +65,7 @@ const SearchBar = ({ listings }: SearchBarProps) => {
       renderInput={(params) => (
         <SearchField
           {...params}
-          label="Search"
+          label="Search Listings"
           InputProps={{
             ...params.InputProps,
           }}

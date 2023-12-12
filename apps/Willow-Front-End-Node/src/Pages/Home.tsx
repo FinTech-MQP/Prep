@@ -34,7 +34,7 @@ const styles = {
   },
   background: {
     width: "100%",
-    height: "40vh",
+    height: "calc(40vh + 200px)",
     backgroundImage: `linear-gradient(to top, rgba(255, 255, 255, 1), transparent),   url(\'${Background}\')`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
@@ -166,34 +166,47 @@ const Home = () => {
       <Box sx={styles.background}>
         <SearchBar listings={listings} />
       </Box>
-      <MapContainer
-        center={[42.2626, -71.8023]}
-        zoom={12}
-        scrollWheelZoom={true}
-        style={{ height: "50vh", width: "100wh", flex: "1" }}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+          backgroundImage: `radial-gradient(circle at center, ${WILLOW_COLOR} 0.1rem, transparent 0), radial-gradient(circle at center, ${WILLOW_COLOR} 0.1rem, transparent 0)`,
+          backgroundSize: "4rem 4rem",
+          backgroundPosition: "0 0, 2rem 2rem",
+          backgroundRepeat: "round",
+        }}
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Polyline
-          pathOptions={{ color: "black", opacity: "0.5" }}
-          positions={worcesterOutline}
-        ></Polyline>
-        {listings?.map((listing) => {
-          return (
-            <GeoJSON
-              data={JSON.parse(listing.address.parcel.polygonJSON)}
-              eventHandlers={{
-                click: () => handleSearchAction(listing),
-              }}
-              key={listing.id}
-            >
-              <Tooltip>{listing.name}</Tooltip>
-            </GeoJSON>
-          );
-        })}
-      </MapContainer>
+        <MapContainer
+          center={[42.2626, -71.8023]}
+          zoom={12}
+          scrollWheelZoom={true}
+          style={{ height: "75vh", width: "80%" }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Polyline
+            pathOptions={{ color: "black", opacity: "0.5" }}
+            positions={worcesterOutline}
+          ></Polyline>
+          {listings?.map((listing) => {
+            return (
+              <GeoJSON
+                data={JSON.parse(listing.address.parcel.polygonJSON)}
+                eventHandlers={{
+                  click: () => handleSearchAction(listing),
+                }}
+                key={listing.id}
+              >
+                <Tooltip>{listing.name}</Tooltip>
+              </GeoJSON>
+            );
+          })}
+        </MapContainer>
+      </Box>
+
       <Box sx={styles.about}>
         <Box sx={styles.descHolder}>
           <Typography sx={styles.title}>

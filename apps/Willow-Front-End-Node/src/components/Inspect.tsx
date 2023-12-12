@@ -272,9 +272,9 @@ const evaluateCriteria = (
     explanations.push(
       `Affordability term range (${userCriteria.affordabilityTerm.join(
         "-"
-      )}%) is outside the program criteria (${programCriteria.affordabilityTerm.join(
+      )} years) is outside the program criteria (${programCriteria.affordabilityTerm.join(
         "-"
-      )}%)`
+      )} years)`
     );
   }
 
